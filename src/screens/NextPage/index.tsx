@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { ExempleTitle } from '@components/ExempleTitle';
-import { Container } from './styles';
-import { Button } from 'react-native';
+import { ButtonText, Container, StyledButton } from './styles';
 
 export function NextPage() {
 	const navigation = useNavigation();
@@ -13,10 +12,9 @@ export function NextPage() {
 	return (
 		<Container>
 			<ExempleTitle type={1} />
-			<Button
-				title='Voltar'
-				onPress={handleNextPage}
-			/>
+			<StyledButton onPress={handleNextPage}>
+				<ButtonText>Voltar</ButtonText>
+			</StyledButton>
 		</Container>
 	);
 }

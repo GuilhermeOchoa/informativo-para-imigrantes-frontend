@@ -9,7 +9,7 @@ export default function App() {
 	return (
 		<ThemeProvider theme={theme}>
 			<StatusBar
-				barStyle="light-content" //cor branca das notificacoes
+				barStyle="dark-content" //cor dos icones de notificacoes
 				backgroundColor="transparent"
 				translucent={true} //indica que a nossa aplicacao comeca da margem do dispositivo, "por cima" da notificacao
 			/>

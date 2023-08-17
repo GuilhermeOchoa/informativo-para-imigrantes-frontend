@@ -7,7 +7,7 @@ type Props = {
 export function ExempleTitle({ type }: Props) {
 	return (
 		<Title>
-			{type === 1 ? "Voltar" : "Ola"}
+			{type === 1 ? "Fim" : "Ola"}
 		</Title>
 	);
 }
