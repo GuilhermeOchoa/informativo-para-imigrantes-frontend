@@ -1,30 +1,30 @@
 # Estrutura do Projeto <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="Logo do React Native" width="30" height="30">
 
-A estrutura È organizada da seguinte forma:
+A estrutura √© organizada da seguinte forma:
 
-- ?? `src/`
-  - ?? `@types/`              - Tipos TypeScript customizados
-  - ?? `assets/`              - Recursos como imagens e Ìcones
-  - ?? `components/`          - Componentes reutiliz·veis
-    - ?? `ExempleButton/`       - Exemplo de componente
-      - ?? `index.tsx`  - ImplementaÁ„o do codigo do componente
-      - ?? `styles.ts`  - ImplementaÁ„o da estilizaÁ„o do componente
-  - ?? `contexts/`            - Contextos para gerenciamento de estado (autenticaÁ„o)
-  - ?? `dtos/`                - Estrutura dos dados que s„o trocados entre o front-end e o back-end
-  - ?? `hooks/`               - Hooks personalizados
-  - ?? `routes/`              - ConfiguraÁ„o de rotas da aplicaÁ„o
-  - ?? `screens/`             - Telas do aplicativo
-    - ?? `Home/`              - Exemplo de tela
-      - ?? `index.tsx`
-      - ?? `index.ts`
-  - ?? `services/`            - Chamadas aos endpoints do back-end
-  - ?? `storage/`             - Gerenciamento de armazenamento local
-  - ?? `theme/`               - Padrıes de cores e estilos de fonte
-  - ?? `utils/`               - FunÁıes utilit·rias
+- :file_folder: `src/`
+  - :file_folder: `@types/`              - Tipos TypeScript customizados
+  - :file_folder: `assets/`              - Recursos como imagens e √≠cones
+  - :file_folder: `components/`          - Componentes reutiliz√°veis
+    - :file_folder: `ExempleButton/`       - Exemplo de componente
+      - :file_folder: `index.tsx`  - Implementa√ß√£o do codigo do componente
+      - :file_folder: `styles.ts`  - Implementa√ß√£o da estiliza√ß√£o do componente
+  - :file_folder: `contexts/`            - Contextos para gerenciamento de estado (autentica√ß√£o)
+  - :file_folder: `dtos/`                - Estrutura dos dados que s√£o trocados entre o front-end e o back-end
+  - :file_folder: `hooks/`               - Hooks personalizados
+  - :file_folder: `routes/`              - Configura√ß√£o de rotas da aplica√ß√£o
+  - :file_folder: `screens/`             - Telas do aplicativo
+    - :file_folder: `Home/`              - Exemplo de tela
+      - :file_folder: `index.tsx`
+      - :file_folder: `index.ts`
+  - :file_folder: `services/`            - Chamadas aos endpoints do back-end
+  - :file_folder: `storage/`             - Gerenciamento de armazenamento local
+  - :file_folder: `theme/`               - Padr√µes de cores e estilos de fonte
+  - :file_folder: `utils/`               - Fun√ß√µes utilit√°rias
 
 
-# Dependencias instaladas
-Certifique-se de instalar todas as dependÍncias necess·rias:
+# Dependencias instaladas 
+Certifique-se de instalar todas as depend√™ncias necess√°rias:
 
 	npm install
 	npm install --save-dev babel-plugin-module-resolver
@@ -37,13 +37,13 @@ Certifique-se de instalar todas as dependÍncias necess·rias:
 	npm install @react-navigation/native
 	npm install @react-navigation/stack
 
-### Sujest„o
-	instalar a extens„o vscode-styled-components
+### Sujest√£o
+	instalar a extens√£o vscode-styled-components
 
 
-# Iniciando a AplicaÁ„o
+# Iniciando a Aplica√ß√£o
 	1. Abra o emulador a partir do Android Studio.
 
-	2. No terminal da aplicaÁ„o React Native, localizado na pasta raiz, execute o comando "npm start".
+	2. No terminal da aplica√ß√£o React Native, localizado na pasta raiz, execute o comando "npm start".
 
-	3. Se todos os passos forem concluÌdos sem erros, vocÍ ver· os botıes de configuraÁ„o do emulador no terminal. Pressione a tecla "A" no prÛprio terminal para carregar a aplicaÁ„o no Android Studio.
+	3. Se todos os passos forem conclu√≠dos sem erros, voc√™ ver√° os bot√µes de configura√ß√£o do emulador no terminal. Pressione a tecla "A" no pr√≥prio terminal para carregar a aplica√ß√£o no Android Studio.
