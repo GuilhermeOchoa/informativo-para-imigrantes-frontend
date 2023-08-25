@@ -6,39 +6,42 @@ A estrutura é organizada da seguinte forma:
   - :file_folder: `@types/`              - Tipos TypeScript customizados
   - :file_folder: `assets/`              - Recursos como imagens e ícones
   - :file_folder: `components/`          - Componentes reutilizáveis
-    - :file_folder: `ExempleButton/`       - Exemplo de componente
-      - :file_folder: `index.tsx`  - Implementação do codigo do componente
-      - :file_folder: `styles.ts`  - Implementação da estilização do componente
+      - :file_folder: `Button.tsx`  - Implementação do codigo do componente
+      - :file_folder: `Input.tsx`  - Implementação do codigo do componente
   - :file_folder: `contexts/`            - Contextos para gerenciamento de estado (autenticação)
   - :file_folder: `dtos/`                - Estrutura dos dados que são trocados entre o front-end e o back-end
   - :file_folder: `hooks/`               - Hooks personalizados
   - :file_folder: `routes/`              - Configuração de rotas da aplicação
   - :file_folder: `screens/`             - Telas do aplicativo
-    - :file_folder: `Home/`              - Exemplo de tela
-      - :file_folder: `index.tsx`
-      - :file_folder: `index.ts`
+      - :file_folder: `Home.tsx`
   - :file_folder: `services/`            - Chamadas aos endpoints do back-end
   - :file_folder: `storage/`             - Gerenciamento de armazenamento local
   - :file_folder: `theme/`               - Padrões de cores e estilos de fonte
   - :file_folder: `utils/`               - Funções utilitárias
 
-
-# Dependencias instaladas 
+# Dependencias instaladas
 Certifique-se de instalar todas as dependências necessárias:
 
 	npm install
+
+## Babel
 	npm install --save-dev babel-plugin-module-resolver
 
-## Styled Component
-	npm install styled-components
-	npm install --save-dev @types/styled-components @types/styled-components-react-native
+## Fontes
+	npx expo install expo-font @expo-google-fonts/roboto
+
+## Native Base
+	npm install native-base
+	expo install react-native-svg@12.1.1
+	expo install react-native-safe-area-context@3.3.2
 
 ## Stack Navigator
 	npm install @react-navigation/native
-	npm install @react-navigation/stack
+	npx expo install react-native-screens react-native-safe-area-context
+	npm install @react-navigation/native-stack
 
-### Sujestão
-	instalar a extensão vscode-styled-components
+## Navegacao por botomTabs
+	npm install @react-navigation/bottom-tabs
 
 
 # Iniciando a Aplicação
