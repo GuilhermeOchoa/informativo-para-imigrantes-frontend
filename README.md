@@ -19,29 +19,16 @@ A estrutura é organizada da seguinte forma:
   - :file_folder: `theme/`               - Padrões de cores e estilos de fonte
   - :file_folder: `utils/`               - Funções utilitárias
 
-# Dependencias instaladas
-Certifique-se de instalar todas as dependências necessárias:
 
-	npm install
+# Instalando dependencias
+Todas as dependencias estão dentro do arquivo install-all.sh
+Executar os seguintes comandos:
 
-## Babel
-	npm install --save-dev babel-plugin-module-resolver
+# Arquivo executável:
+	chmod +x install-all.sh
 
-## Fontes
-	npx expo install expo-font @expo-google-fonts/roboto
-
-## Native Base
-	npm install native-base
-	expo install react-native-svg@12.1.1
-	expo install react-native-safe-area-context@3.3.2
-
-## Stack Navigator
-	npm install @react-navigation/native
-	npx expo install react-native-screens react-native-safe-area-context
-	npm install @react-navigation/native-stack
-
-## Navegacao por botomTabs
-	npm install @react-navigation/bottom-tabs
+# Executar arquivo:
+	./install-all.sh
 
 
 # Iniciando a Aplicação
