@@ -1,21 +1,31 @@
-import { createStackNavigator } from "@react-navigation/stack";
+//Rotas ja autenticadas, rotas privadas.
+import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack'
 
-import { HomeExemple } from "@screens/HomeExemple";
-import { NextPage } from "@screens/NextPage";
+import { useTheme } from 'native-base';
 
-const { Navigator, Screen } = createStackNavigator();
+import { Home } from '@screens/Home';
+import { SecondPage } from '@screens/SecondPage';
+
+type AppRoutes = {
+	home: undefined;
+	secondPage: undefined;
+}
+
+export type AppNavigatorRoutesProps = NativeStackNavigationProp<AppRoutes>;
+
+const { Navigator, Screen } = createNativeStackNavigator<AppRoutes>();
 
 export function AppRoutes() {
 	return (
 		<Navigator screenOptions={{ headerShown: false }}>
 			<Screen
-				name="home"
-				component={HomeExemple}
+				name='home'
+				component={Home}
 			/>
 
 			<Screen
-				name="next"
-				component={NextPage}
+				name='secondPage'
+				component={SecondPage}
 			/>
 		</Navigator>
 	)

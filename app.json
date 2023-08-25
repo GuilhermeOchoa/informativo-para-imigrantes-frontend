@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "imigrantes-refugiados-front",
-    "slug": "imigrantes-refugiados-front",
+    "name": "informativo-para-imigrantes-frontend",
+    "slug": "informativo-para-imigrantes-frontend",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

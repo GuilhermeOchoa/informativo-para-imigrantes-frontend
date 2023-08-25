@@ -1,19 +1,25 @@
 import { StatusBar } from 'react-native';
-import { ThemeProvider } from 'styled-components';
+import { NativeBaseProvider } from 'native-base'
+import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
 
-import theme from './src/theme';
-import { Routes } from './src/routes';
+import { Loading } from '@components/Loading';
+
+import { THEME } from './src/theme';
+import { Routes } from '@routes/index';
 
 export default function App() {
+	const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
 
 	return (
-		<ThemeProvider theme={theme}>
+
+		<NativeBaseProvider theme={THEME}>
 			<StatusBar
-				barStyle="dark-content" //cor dos icones de notificacoes
+				barStyle="light-content"
 				backgroundColor="transparent"
-				translucent={true} //indica que a nossa aplicacao comeca da margem do dispositivo, "por cima" da notificacao
+				translucent
 			/>
-			<Routes />
-		</ThemeProvider>
+
+			{fontsLoaded ? <Routes /> : <Loading />}
+		</NativeBaseProvider>
 	);
 }

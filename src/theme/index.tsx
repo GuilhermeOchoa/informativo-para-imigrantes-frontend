@@ -1,0 +1,34 @@
+import { extendTheme } from 'native-base';
+
+export const THEME = extendTheme({
+	colors: {
+		pink: {
+			500: '#FFE2D1',
+		},
+		lightGreen: {
+			500: '#E1F0C4',
+		},
+		green: {
+			700: '#6BAB90',
+			500: '#55917F',
+		},
+		purple: {
+			500: '#5E4C5A',
+		},
+	},
+	fonts: {
+		heading: 'Roboto_700Bold',
+		body: 'Roboto_400Regular',
+	},
+	fontSizes: {
+		xs: 12,
+		sm: 14,
+		md: 16,
+		lg: 18,
+		xl: 20,
+	},
+	sizes: {
+		14: 56,
+		33: 148
+	}
+})
