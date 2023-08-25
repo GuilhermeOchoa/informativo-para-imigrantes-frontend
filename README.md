@@ -1,39 +1,39 @@
 # Estrutura do Projeto <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="Logo do React Native" width="30" height="30">
 
-A estrutura È organizada da seguinte forma:
+A estrutura √© organizada da seguinte forma:
 
 - :file_folder: `src/`
   - :file_folder: `@types/`              - Tipos TypeScript customizados
-  - :file_folder: `assets/`              - Recursos como imagens e Ìcones
-  - :file_folder: `components/`          - Componentes reutiliz·veis
-      - :file_folder: `Button.tsx`  - ImplementaÁ„o do codigo do componente
-      - :file_folder: `Input.tsx`  - ImplementaÁ„o do codigo do componente
-  - :file_folder: `contexts/`            - Contextos para gerenciamento de estado (autenticaÁ„o)
-  - :file_folder: `dtos/`                - Estrutura dos dados que s„o trocados entre o front-end e o back-end
+  - :file_folder: `assets/`              - Recursos como imagens e √≠cones
+  - :file_folder: `components/`          - Componentes reutiliz√°veis
+      - :file_folder: `Button.tsx`  - Implementa√ß√£o do codigo do componente
+      - :file_folder: `Input.tsx`  - Implementa√ß√£o do codigo do componente
+  - :file_folder: `contexts/`            - Contextos para gerenciamento de estado (autentica√ß√£o)
+  - :file_folder: `dtos/`                - Estrutura dos dados que s√£o trocados entre o front-end e o back-end
   - :file_folder: `hooks/`               - Hooks personalizados
-  - :file_folder: `routes/`              - ConfiguraÁ„o de rotas da aplicaÁ„o
+  - :file_folder: `routes/`              - Configura√ß√£o de rotas da aplica√ß√£o
   - :file_folder: `screens/`             - Telas do aplicativo
       - :file_folder: `Home.tsx`
   - :file_folder: `services/`            - Chamadas aos endpoints do back-end
   - :file_folder: `storage/`             - Gerenciamento de armazenamento local
-  - :file_folder: `theme/`               - Padrıes de cores e estilos de fonte
-  - :file_folder: `utils/`               - FunÁıes utilit·rias
+  - :file_folder: `theme/`               - Padr√µes de cores e estilos de fonte
+  - :file_folder: `utils/`               - Fun√ß√µes utilit√°rias
 
 
 # Instalando dependencias
-Todas as dependencias est„o dentro do arquivo install-all.sh
+Todas as dependencias est√£o dentro do arquivo install-all.sh
 Executar os seguintes comandos:
 
-# Arquivo execut·vel:
+# Tornar o arquivo execut√°vel:
 	chmod +x install-all.sh
 
 # Executar arquivo:
 	./install-all.sh
 
 
-# Iniciando a AplicaÁ„o
+# Iniciando a Aplica√ß√£o
 	1. Abra o emulador a partir do Android Studio.
 
-	2. No terminal da aplicaÁ„o React Native, localizado na pasta raiz, execute o comando "npm start".
+	2. No terminal da aplica√ß√£o React Native, localizado na pasta raiz, execute o comando "npm start".
 
-	3. Se todos os passos forem concluÌdos sem erros, vocÍ ver· os botıes de configuraÁ„o do emulador no terminal. Pressione a tecla "A" no prÛprio terminal para carregar a aplicaÁ„o no Android Studio.
+	3. Se todos os passos forem conclu√≠dos sem erros, voc√™ ver√° os bot√µes de configura√ß√£o do emulador no terminal. Pressione a tecla "A" no pr√≥prio terminal para carregar a aplica√ß√£o no Android Studio.
