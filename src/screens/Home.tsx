@@ -22,7 +22,7 @@ export function Home() {
 			</Center>
 				<Button
 					title="Ver Detalhes"
-					onPress={() => navigation.navigate('articleDetail')}
+					onPress={() => navigation.navigate('infoDetail')}
 				/>
 
 		</VStack>

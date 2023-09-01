@@ -3,8 +3,9 @@ import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/Ionicons'; 
 
-export function ArticleDetail() {
+export function InfoDetail() {
 	const navigation = useNavigation();
 
 	function handleGoBack() {
@@ -15,7 +16,9 @@ export function ArticleDetail() {
 		<VStack style={styles.container}>
 			<SafeAreaView >
 				<View style={styles.header}>
-					<Text style={styles.text}>Voltar</Text>
+					<Text style={styles.text}>
+						<Icon name="arrow-back" size={30} color="#000" />
+					</Text>
 					
 				</View>
 				<View style={styles.titleWrapper}>
