@@ -1,11 +1,16 @@
+import { processFontFamily } from "expo-font";
 import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 
-export const CardComponent = () => {
+interface CardProps {
+  description: string;
+}
+
+export const CardComponent: React.FC<CardProps>  = ({ description }) => {
   return (
     <View style={styles.CardContainer}>
       <Text style = {styles.TextStyle}>
-        Artigo
+        {description}
       </Text>
     </View>
   )
@@ -16,9 +21,9 @@ const styles = StyleSheet.create({
   CardContainer: {
     width: deviceWidth - 25,
     backgroundColor: '#E1F0C4',
-    height: 200,
+    height: 134,
     borderRadius: 20,
-
+    marginTop:30,
     shadowRadius: 5,
     shadowColor: '#000',
     shadowOffset: {
@@ -30,8 +35,9 @@ const styles = StyleSheet.create({
   },
   TextStyle: {
     fontSize: 20,
-    fontWeight: '800',
-    paddingTop: 30,
-    paddingStart: 30
+    fontWeight: '500',
+    paddingTop: 15,
+    paddingStart: 15
+
   }
 })
