@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { VStack, Center } from 'native-base'
+import { VStack, Center, View, Text } from 'native-base'
 
 import { Button } from '@components/Button';
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
@@ -19,7 +19,12 @@ export function Home() {
 					title="Proxima pagina"
 					onPress={handleNewAccount}
 				/>
+			  
 			</Center>
+				<Button
+					title="Ver Detalhes"
+					onPress={navigation.navigate('articleDetail')}
+				/>
 
 		</VStack>
 	);

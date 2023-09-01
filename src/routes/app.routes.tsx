@@ -5,6 +5,7 @@ import { useTheme } from 'native-base';
 
 import { Home } from '@screens/Home';
 import { SecondPage } from '@screens/SecondPage';
+import { ArticleDetail } from '@screens/ArticleDetail';
 
 type AppRoutes = {
 	home: undefined;
@@ -26,6 +27,11 @@ export function AppRoutes() {
 			<Screen
 				name='secondPage'
 				component={SecondPage}
+			/>
+
+			<Screen 
+				name='articleDetail' 
+				component={ArticleDetail} 
 			/>
 		</Navigator>
 	)
