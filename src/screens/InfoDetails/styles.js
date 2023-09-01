@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     maxWidth: '100%',
 
   },
-  article:{
+  info:{
     backgroundColor: 'rgba(225, 240, 196, 0.40)',
     width: '300',
     marginTop: 10,
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
   },
-  articleContent: {
+  infoContent: {
     fontSize: 18,
   },
   text: {

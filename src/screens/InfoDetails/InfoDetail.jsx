@@ -25,8 +25,8 @@ export function InfoDetail() {
 					<Text style={styles.title}>Titulo Artigo</Text>
 					
 				</View>
-				<ScrollView style={styles.scroll} contentContainerStyle={styles.article}>
-					<Text style={styles.articleContent}>
+				<ScrollView style={styles.scroll} contentContainerStyle={styles.info}>
+					<Text style={styles.infoContent}>
 						Lorem ipsum dolor sit amet consectetur adipisicing elit. 
 						Harum adipisci ipsam voluptatibus natus temporibus cum, 
 						alias eligendi similique sunt assumenda non possimus explicabo quos nisi 
