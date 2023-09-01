@@ -13,7 +13,6 @@ export function Home() {
 
 	return (
 		<VStack flex={1} px={10} pb={16}>
-
 			<Center flex={1}>
 				<Button
 					title="Proxima pagina"
@@ -23,7 +22,7 @@ export function Home() {
 			</Center>
 				<Button
 					title="Ver Detalhes"
-					onPress={navigation.navigate('articleDetail')}
+					onPress={() => navigation.navigate('articleDetail')}
 				/>
 
 		</VStack>

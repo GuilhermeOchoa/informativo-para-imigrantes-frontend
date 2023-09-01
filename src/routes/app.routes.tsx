@@ -5,11 +5,12 @@ import { useTheme } from 'native-base';
 
 import { Home } from '@screens/Home';
 import { SecondPage } from '@screens/SecondPage';
-import { ArticleDetail } from '@screens/ArticleDetail';
+import { ArticleDetail } from '@screens/ArticleDetails/ArticleDetail';
 
 type AppRoutes = {
 	home: undefined;
 	secondPage: undefined;
+	articleDetail: undefined;
 }
 
 export type AppNavigatorRoutesProps = NativeStackNavigationProp<AppRoutes>;
