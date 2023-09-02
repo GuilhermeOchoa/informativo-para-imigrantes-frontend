@@ -1,5 +1,4 @@
-import { VStack, ScrollView, View, Text } from 'native-base'
-import { AppNavigatorRoutesProps } from '@routes/app.routes';
+import { VStack, ScrollView, View, Text, Button } from 'native-base'
 import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -17,12 +16,14 @@ export function InfoDetail() {
 			<SafeAreaView >
 				<View style={styles.header}>
 					<Text style={styles.text}>
-						<Icon name="arrow-back" size={30} color="#000" />
+						<Button style={styles.goBackButton} onPress={handleGoBack}>
+							<Icon name="arrow-back" size={30} color="#000" />
+						</Button>
 					</Text>
 					
 				</View>
 				<View style={styles.titleWrapper}>
-					<Text style={styles.title}>Titulo Artigo</Text>
+					<Text style={styles.title}>Titulo do Informativo</Text>
 					
 				</View>
 				<ScrollView style={styles.scroll} contentContainerStyle={styles.info}>

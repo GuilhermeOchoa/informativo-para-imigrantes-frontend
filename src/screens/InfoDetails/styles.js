@@ -12,6 +12,9 @@ const styles = StyleSheet.create({
     maxWidth: '100%',
 
   },
+  goBackButton:{
+    backgroundColor: 'transparent',
+  },  
   info:{
     backgroundColor: 'rgba(225, 240, 196, 0.40)',
     width: '300',
@@ -19,14 +22,11 @@ const styles = StyleSheet.create({
     marginRight: 24,
     marginLeft: 24,
     padding: 12,
-    borderRadius: 7,
-    borderWidth: 1,            
-    borderColor: '#D4D4D4',  
-    borderStyle: 'solid', 
+    borderRadius: 15,
     justifyContent:'center'
   },
   header:{
-    padding: 12,
+    padding: 8,
     justifyContent:'center',
   },
   scroll: {
@@ -39,9 +39,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
+    fontFamily: 'Georgia',
+
   },
   infoContent: {
     fontSize: 18,
+    fontFamily: 'Georgia',
+    padding: 14,
   },
   text: {
     fontSize: 18,
