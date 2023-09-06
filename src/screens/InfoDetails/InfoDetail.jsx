@@ -36,47 +36,19 @@ export function InfoDetail() {
 						alias eligendi similique sunt assumenda non possimus explicabo quos nisi 
 						dignissimos deleniti sit ea iure?!
 						Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-						Harum adipisci ipsam voluptatibus natus temporibus cum, 
-						alias eligendi similique sunt assumenda non possimus explicabo quos nisi 
-						dignissimos deleniti sit ea iure?! Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-						Harum adipisci ipsam voluptatibus natus temporibus cum, 
-						alias eligendi similique sunt assumenda non possimus explicabo quos nisi 
+						alias eligendi similique sunt assumenda non possimus explicabo quos nisi
 						dignissimos deleniti sit ea iure?!
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-						Harum adipisci ipsam voluptatibus natus temporibus cum, 
-						alias eligendi similique sunt assumenda non possimus explicabo quos nisi 
-						dignissimos deleniti sit ea iure?! Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-						Harum adipisci ipsam voluptatibus natus temporibus cum, 
-						alias eligendi similique sunt assumenda non possimus explicabo quos nisi 
+						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						alias eligendi similique sunt assumenda non possimus explicabo quos nisi
 						dignissimos deleniti sit ea iure?!
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-						Harum adipisci ipsam voluptatibus natus temporibus cum, 
-						alias eligendi similique sunt assumenda non possimus explicabo quos nisi 
-						dignissimos deleniti sit ea iure?! Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-						Harum adipisci ipsam voluptatibus natus temporibus cum, 
-						alias eligendi similique sunt assumenda non possimus explicabo quos nisi 
 						dignissimos deleniti sit ea iure?!
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-						Harum adipisci ipsam voluptatibus natus temporibus cum, 
-						alias eligendi similique sunt assumenda non possimus explicabo quos nisi 
-						dignissimos deleniti sit ea iure?! Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-						Harum adipisci ipsam voluptatibus natus temporibus cum, 
-						alias eligendi similique sunt assumenda non possimus explicabo quos nisi 
 						dignissimos deleniti sit ea iure?!
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-						Harum adipisci ipsam voluptatibus natus temporibus cum, 
-						alias eligendi similique sunt assumenda non possimus explicabo quos nisi 
-						dignissimos deleniti sit ea iure?! Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-						Harum adipisci ipsam voluptatibus natus temporibus cum, 
-						alias eligendi similique sunt assumenda non possimus explicabo quos nisi 
 						dignissimos deleniti sit ea iure?!
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-						Harum adipisci ipsam voluptatibus natus temporibus cum, 
-						alias eligendi similique sunt assumenda non possimus explicabo quos nisi 
-						dignissimos deleniti sit ea iure?! Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-						Harum adipisci ipsam voluptatibus natus temporibus cum, 
-						alias eligendi similique sunt assumenda non possimus explicabo quos nisi 
 						dignissimos deleniti sit ea iure?!
+						dignissimos deleniti sit ea iure?!
+						dignissimos deleniti sit ea iure?!
+
+	
 					</Text>
 
 				</ScrollView>

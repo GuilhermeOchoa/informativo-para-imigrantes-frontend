@@ -22,7 +22,10 @@ const styles = StyleSheet.create({
     marginRight: 24,
     marginLeft: 24,
     padding: 12,
-    borderRadius: 15,
+    borderRadius: 7,
+    borderWidth: 1,
+    borderColor: 'rgba(225, 240, 196, 0.40)',
+    borderStyle: 'solid',
     justifyContent:'center'
   },
   header:{
