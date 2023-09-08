@@ -19,6 +19,10 @@ export function Home() {
 					title="Proxima pagina"
 					onPress={handleNewAccount}
 				/>
+				<Button
+					title="Onboarding"
+					onPress={() => navigation.navigate('onboarding01')}
+				/>
 			</Center>
 
 		</VStack>
