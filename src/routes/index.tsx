@@ -13,6 +13,7 @@ export function Routes() {
 		<Box flex={1} bg="white">
 			<NavigationContainer theme={theme}>
 				<AppRoutes />
+				
 			</NavigationContainer>
 		</Box>
 	);
