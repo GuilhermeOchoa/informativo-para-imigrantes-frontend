@@ -7,12 +7,6 @@ type Props = {
   description: String
 }
 
-const deviceWidth = Math.round(Dimensions.get("window").width);
-const cardMarginLeft = 20;
-const cardMarginRight = 20;
-
-const cardWidth = deviceWidth - cardMarginLeft - cardMarginRight;
-
 export function CardComponent({ title, description, ...rest }: Props) {
 
   return (
