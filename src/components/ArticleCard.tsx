@@ -1,43 +1,33 @@
-import { processFontFamily } from "expo-font";
+import { VStack, HStack, Text} from 'native-base'
 import React from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { Dimensions, TouchableOpacity } from "react-native";
 
-interface CardProps {
-  description: string;
+type Props = {
+  title: String;
+  description: String
 }
 
-export const CardComponent: React.FC<CardProps>  = ({ description }) => {
+const deviceWidth = Math.round(Dimensions.get("window").width);
+const cardMarginLeft = 20;
+const cardMarginRight = 20;
+
+const cardWidth = deviceWidth - cardMarginLeft - cardMarginRight;
+
+export function CardComponent({ title, description, ...rest }: Props) {
+
   return (
-    <View style={styles.CardContainer}>
-      <Text style = {styles.TextStyle}>
-        {description}
-      </Text>
-    </View>
+    <TouchableOpacity {...rest}>
+      <HStack bg="lightGreen.500" alignItems="center" p={4} rounded="mb" borderRadius={15} mb={3} margin="3">
+        <VStack flex={1}>
+          <Text mb={2} fontSize={16}>
+            {title}
+          </Text>
+
+          <Text fontSize="sm" color="black" mt={1} numberOfLines={4}>
+            {description}
+          </Text>
+        </VStack>
+      </HStack>
+    </TouchableOpacity>
   )
 }
-
-const deviceWidth = Math.round(Dimensions.get('window').width)
-const styles = StyleSheet.create({
-  CardContainer: {
-    width: deviceWidth - 25,
-    backgroundColor: '#E1F0C4',
-    height: 134,
-    borderRadius: 20,
-    marginTop:30,
-    shadowRadius: 5,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 5,
-      height: 5
-    },
-    shadowOpacity: 0.75,
-    elevation: 9
-  },
-  TextStyle: {
-    fontSize: 20,
-    fontWeight: '500',
-    paddingTop: 15,
-    paddingStart: 15
-
-  }
-})
