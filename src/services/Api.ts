@@ -2,7 +2,7 @@ import { AppError } from "@utils/AppError";
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "https://mocki.io/v1"
+    baseURL: "http://localhost:8080"
 })
 
 api.interceptors.response.use(response => response, error => {
