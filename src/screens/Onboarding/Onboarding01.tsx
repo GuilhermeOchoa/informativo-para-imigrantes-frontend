@@ -3,11 +3,13 @@ import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import { Text, VStack, View, Button, Image } from 'native-base';
 import { SafeAreaView } from 'react-native';
 
+import { useText } from './../../hooks/useText'
+
 import styles from './styles';
 
-
-
 export function Onboarding01() {
+
+
     const navigation = useNavigation<AppNavigatorRoutesProps>();
 
     function onboarding02() {
@@ -15,6 +17,9 @@ export function Onboarding01() {
 
     }
 
+     const textObject = useText('en', 'onboarding_title', 1);
+
+      console.log(textObject)
     return (
         <VStack style={styles.container}>
             <SafeAreaView>
@@ -27,7 +32,7 @@ export function Onboarding01() {
                     </View>
                 </View>
                 <View style={styles.topContainer}>
-                    <Text style={styles.welcomeText}>Bem-vindo(a)</Text>
+                    <Text style={styles.welcomeText}>{textObject?.data.content}</Text>
                 </View>
                 <View style={styles.logoImage}>
                     <Image source={require('./mocks/logo.png')} />
