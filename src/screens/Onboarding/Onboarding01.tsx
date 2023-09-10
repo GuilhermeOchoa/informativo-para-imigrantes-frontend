@@ -17,9 +17,9 @@ export function Onboarding01() {
 
     }
 
-     const textObject = useText('en', 'onboarding_title', 1);
+    const textObject = useText('en', 'onboarding_title', 1);
 
-      console.log(textObject)
+    console.log(textObject)
     return (
         <VStack style={styles.container}>
             <SafeAreaView>
@@ -32,7 +32,7 @@ export function Onboarding01() {
                     </View>
                 </View>
                 <View style={styles.topContainer}>
-                    <Text style={styles.welcomeText}>{textObject?.data.content}</Text>
+                    <Text style={styles.welcomeText}>{textObject?.content}</Text>
                 </View>
                 <View style={styles.logoImage}>
                     <Image source={require('./mocks/logo.png')} />
