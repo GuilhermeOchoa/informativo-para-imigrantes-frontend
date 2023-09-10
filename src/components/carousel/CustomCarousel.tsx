@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Text, View, SafeAreaView, Image, TouchableOpacity } from "react-native";
 import Carousel from "react-native-snap-carousel";
+import styles from "./styles";
 
 interface ItemProps {
   title: string;
@@ -19,56 +20,56 @@ class CustomCarousel extends Component<any, State> {
     activeIndex: 0,
     carouselItems: [
       {
-        title: "Item 1",
-        text: "Text 1",
-        image: require("./images/test.jpg"),
+        title: "Bem-vindo(a)",
+        text: "Antes de começar, vamos apresentar o aplicativo para que você possa aproveitá-lo ao máximo.",
+        image: require("./mocks/logo.png"),
       },
       {
-        title: "Item 2",
-        text: "Text 2",
-        image: require("./images/test2.jpg"),
+        title: "Estamos aqui para ajudar",
+        text: " Aqui você vai encontrar oportunidades educacionais e de crescimento pessoal, para ajudar na sua nova vida.",
+        image: require("./mocks/image02.png"),
       },
       {
-        title: "Item 3",
-        text: "Text 3",
-        image: require("./images/test3.jpg"),
+        title: " Proteção de dados",
+        text: " Jamais guardaremos qualquer tipo de dado seu. Você continuará anônimo, pelo tempo que desejar.",
+        image: require("./mocks/image03.png"),
       },
       {
-        title: "Item 4",
-        text: "Text 4",
-        image: require("./images/test4.jpg"),
+        title: "Tudo pronto!",
+        text: " Toque na tela ou deslize para a esquerda para começar a utilizar o aplicativo.",
+        image: require("./mocks/image04.png"),
       },
     ],
   };
 
   render() {
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#FCFCFC" }}>
-        <View style={{ justifyContent: "center" }}>
+      <SafeAreaView style={styles.container}>
+         <View style={styles.headerContainer}>
+                    <View style={styles.languageText}>
+                        <Text>Português (Brasil)</Text>
+                        <View style={styles.flagIcon}>
+                            <Image source={require('./mocks/brasil.png')} style={styles.squareImage} />
+                        </View>
+                    </View>
+                </View>
+        <View >
           <Carousel
             layout={"default"}
             ref={this.ref}
             data={this.state.carouselItems}
             sliderWidth={400}
             itemWidth={380}
-            renderItem={({ item, index }) => (
-              <View style={{ flexDirection: "column", alignItems: "center" }}>
-                <View
-                  style={{
-                   
-                    
-                    marginTop: 200,
-                   marginLeft:10,
-                   marginRight:10,
-                  
-                    paddingRight:20,
-                    
-                  }}
+            renderItem={({ item, index }) => ( 
+              <View style={styles.headerContainer} >
+                  <Text style={styles.titleText}>{item.title}</Text>
+                <View style={styles.squareContainer}
                 >
-                  <Image source={item.image} style={{ width: 260, height: 260, borderRadius: 20 }} />
+                  <Image source={item.image} style={styles.squareImage} />
                 </View>
-                <View style={{ marginTop: 50, alignItems: "center"}}>
-                  <Text>{item.text}</Text>
+                  
+                <View style={styles.textContainer}>
+                  <Text style={styles.messageText}>{item.text}</Text>
                 </View>
               </View>
             )}
@@ -77,8 +78,8 @@ class CustomCarousel extends Component<any, State> {
           />
         </View>
 
-        {/* Menu Visual - Números */}
-        <View style={{ flexDirection: "row", justifyContent: "center", marginBottom: 20 }}>
+      {/* Menu Visual - Números */}
+      <View style={styles.menuContainer}>
           {this.state.carouselItems.map((_, index) => (
             <TouchableOpacity
               key={index}
@@ -87,17 +88,19 @@ class CustomCarousel extends Component<any, State> {
                 width: 30,
                 height: 30,
                 borderRadius: 15,
-                marginTop:50,
+                marginTop:-30,
                 backgroundColor: index === this.state.activeIndex ? "blue" : "gray",
                 marginHorizontal: 5,
                 justifyContent: "center",
                 alignItems: "center",
               }}
+
             >
               <Text style={{ color: "white" }}>{index + 1}</Text>
             </TouchableOpacity>
           ))}
         </View>
+
       </SafeAreaView>
     );
   }
