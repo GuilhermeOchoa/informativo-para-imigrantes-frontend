@@ -1,26 +1,22 @@
-import React, {useEffect, useState} from 'react'
-import { getText } from '@services/textAPI';
-import { textDTO }  from '@dtos/textDTO'
+import React, { useEffect, useState } from 'react';
+import { getText } from '@services/api';
+import { textDTO } from '@dtos/textDTO';
 
-export const useText = (language: String, screen: String, sequence: Number) => {
-    
-
-
+export const useText = (language: string, screen: string, sequence: number) => {
   const [textData, setTextData] = useState<textDTO | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getText(language, screen, sequence);
-        console.log(data)
-        setTextData(data);
-      } catch (error) {
-        console.log(error, ' error useeffect')
-      }
-    };
+  async function fetchData() {
+    try {
+      const data = await getText(language, screen, sequence);
+      setTextData(data);
+    } catch (error) {
+      console.error('Erro ao buscar o texto:', error);
+    }
+  }
 
+  useEffect(() => {
     fetchData();
-  }, [textData]);
+  }, [language, screen, sequence]);
 
   return textData;
 };
