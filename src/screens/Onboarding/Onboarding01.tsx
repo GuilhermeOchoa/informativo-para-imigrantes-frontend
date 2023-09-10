@@ -2,10 +2,10 @@ import { useNavigation } from "@react-navigation/native";
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import { Text, VStack, View, Button, Image } from 'native-base';
 import { SafeAreaView } from 'react-native';
-
-import { useText } from './../../hooks/useText'
-
+import { useText } from '@hooks/useText'
 import styles from './styles';
+import flag_br from '@assets/flag_br.png';
+import logo from '@assets/logo.png';
 
 export function Onboarding01() {
 
@@ -27,7 +27,11 @@ export function Onboarding01() {
                     <View style={styles.languageText}>
                         <Text>Português (Brasil)</Text>
                         <View style={styles.flagIcon}>
-                            <Image source={require('./mocks/brasil.png')} style={styles.squareImage} />
+                            <Image source={flag_br}  
+                                defaultSource={flag_br}
+                                alt="Portugues (Brasil)"
+                                style={styles.squareImage}
+                            />
                         </View>
                     </View>
                 </View>
@@ -35,7 +39,7 @@ export function Onboarding01() {
                     <Text style={styles.welcomeText}>{textObject?.content}</Text>
                 </View>
                 <View style={styles.logoImage}>
-                    <Image source={require('./mocks/logo.png')} />
+                    <Image source={logo} />
                 </View>
                 <View style={styles.topContainer}>
                     <Text style={styles.appNameText}>Nome do aplicativo</Text>

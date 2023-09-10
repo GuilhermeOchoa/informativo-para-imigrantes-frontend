@@ -2,8 +2,9 @@ import { useNavigation } from "@react-navigation/native";
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import { Text, VStack, View, Button, Image } from 'native-base';
 import { SafeAreaView } from 'react-native';
-
 import styles from "./styles";
+import onboarding02 from '@assets/onboarding02.png';
+
 
 
 
@@ -22,7 +23,7 @@ export function Onboarding02() {
                     Estamos aqui para ajudar
                 </Text>
                 <View style={styles.squareContainer}>
-                    <Image source={require('./mocks/image02.png')} style={styles.squareImage} />
+                    <Image source={onboarding02} style={styles.squareImage} />
                 </View>
                 <View style={styles.textContainer}>
                     <Text style={styles.messageText}>
