@@ -12,9 +12,9 @@ type Props = {
 export function CardArticle({ data, ...rest }: Props) {
 	const navigation = useNavigation<AppNavigatorRoutesProps>();
 
-	function handleNewAccount() {
-		navigation.navigate('secondPage');
-	}
+	function handleViewDetails() {
+		navigation.navigate('infoDetail', { articleData: data });
+	  }
 	return (
 		<TouchableOpacity {...rest}>
 			<HStack bg="lightGreen.500" alignItems="center" p={2} rounded="md" mb={4}>
@@ -28,12 +28,8 @@ export function CardArticle({ data, ...rest }: Props) {
 						{data.content}
 					</Text>
 
-					<Text mt={1} alignSelf="flex-end" color="blue.900">
-						ver mais...
-						<Button
-							title="Ver Detalhes"
-							onPress={() => navigation.navigate('infoDetail')}
-						/>
+					<Text mt={1} alignSelf="flex-end" color="blue.900" onPress={handleViewDetails}>
+						ver mais...				
 					</Text>
 				</VStack>
 

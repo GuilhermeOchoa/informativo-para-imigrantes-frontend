@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons'; 
+import { useRoute } from "@react-navigation/native";
 
 export function InfoDetail() {
 	const navigation = useNavigation();
@@ -10,6 +11,10 @@ export function InfoDetail() {
 	function handleGoBack() {
 		navigation.goBack();
 	}
+
+	const route = useRoute();
+
+	const articleData = route.params?.articleData;
 
 	return (
 		<VStack style={styles.container}>
@@ -23,32 +28,12 @@ export function InfoDetail() {
 					
 				</View>
 				<View style={styles.titleWrapper}>
-					<Text style={styles.title}>Titulo do Informativo</Text>
+					<Text style={styles.title}>{articleData.title}</Text>
 					
 				</View>
 				<ScrollView style={styles.scroll} contentContainerStyle={styles.info}>
 					<Text style={styles.infoContent}>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-						Harum adipisci ipsam voluptatibus natus temporibus cum, 
-						alias eligendi similique sunt assumenda non possimus explicabo quos nisi 
-						dignissimos deleniti sit ea iure?! Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-						Harum adipisci ipsam voluptatibus natus temporibus cum, 
-						alias eligendi similique sunt assumenda non possimus explicabo quos nisi 
-						dignissimos deleniti sit ea iure?!
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-						alias eligendi similique sunt assumenda non possimus explicabo quos nisi
-						dignissimos deleniti sit ea iure?!
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						alias eligendi similique sunt assumenda non possimus explicabo quos nisi
-						dignissimos deleniti sit ea iure?!
-						dignissimos deleniti sit ea iure?!
-						dignissimos deleniti sit ea iure?!
-						dignissimos deleniti sit ea iure?!
-						dignissimos deleniti sit ea iure?!
-						dignissimos deleniti sit ea iure?!
-						dignissimos deleniti sit ea iure?!
-
-	
+						{articleData.content}
 					</Text>
 
 				</ScrollView>

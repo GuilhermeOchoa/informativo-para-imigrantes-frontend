@@ -3,11 +3,12 @@ import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-na
 import { useTheme } from 'native-base';
 import { InfoDetail } from '@screens/InfoDetails/InfoDetail';
 import { Articles } from '@screens/Articles';
+import { ArticleDTO } from '@dtos/ArticleDTO';
 
 type AppRoutes = {
 	home: undefined;
 	secondPage: undefined;
-	infoDetail: undefined;
+	infoDetail: { articleData: ArticleDTO };
 	article: undefined;
 }
 
@@ -26,6 +27,7 @@ export function AppRoutes() {
 			<Screen 
 				name='infoDetail' 
 				component={InfoDetail} 
+
 			/>
 		</Navigator>
 	)
