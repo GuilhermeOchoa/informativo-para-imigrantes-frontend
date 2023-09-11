@@ -14,3 +14,5 @@ npx expo install react-native-screens react-native-safe-area-context
 npm install @react-navigation/native-stack
 # Navegacao por botomTabs
 npm install @react-navigation/bottom-tabs
+# Componente carrossel
+npm install --save @types/react-native-snap-carousel
