@@ -1,5 +1,4 @@
-
-export interface textDTO {
+export interface TextDTO {
     id: Number,
     content: String,
     language: String,

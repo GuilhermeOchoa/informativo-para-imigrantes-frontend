@@ -1,29 +1,24 @@
+import { AppError } from '@utils/AppError';
 import axios from 'axios';
 
-const API_BASE_URL = 'http://10.0.2.2:8080/';
-
 const api = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: 'http://10.0.2.2:8080/',
+  timeout: 6000,
 });
 
-export async function getAllTexts() {
-  try {
-    const response = await api.get('texts');
-    return response.data;
-  } catch (error) {
-    console.error('Erro ao buscar os dados:', error);
-    throw error;
-  }
-}
+api.interceptors.response.use(response => response, error =>{
 
-export async function getText(language: string, screen: string, sequence: number) {
-  const param = `texts/language/${language}/screen/${screen}/sequence/${sequence}`;
-
-  try {
-    const response = await api.get(param);
-    return response.data;
-  } catch (error) {
-    console.error('Erro ao buscar o texto:', error);
-    throw error;
+  if(error.response && error.response.data && error.response.data.message){
+    console.log(error);
+    return Promise.reject(new AppError(error.response.data.message));
+  } else if (error.message) {
+    console.log(error.message);
+    return Promise.reject(new AppError(error.message));
+  } else {
+    console.log(error);
+    return Promise.reject(new AppError("Erro desconhecido."));
   }
-}
+
+});
+
+export { api };
