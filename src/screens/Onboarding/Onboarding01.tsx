@@ -20,9 +20,9 @@ export function Onboarding01() {
         navigation.navigate('onboarding02');
     }
 
-    async function fetchArticles(){
+    async function fetchArticles(language: string, screen: string, sequence: number){
         try{    
-            const response = await getText('en', 'onboarding_title', 1);
+            const response = await getText(language, screen, sequence);
             setText(response.data);
         }catch(error){
             const isAppError = error instanceof AppError;
@@ -35,6 +35,7 @@ export function Onboarding01() {
             });
         }
     }
+
     return (
         <VStack style={styles.container}>
             <SafeAreaView>
