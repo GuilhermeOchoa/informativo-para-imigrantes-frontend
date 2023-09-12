@@ -1,32 +1,101 @@
-//Rotas ja autenticadas, rotas privadas.
-import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { Icon, useTheme } from 'native-base';
+import { Platform } from 'react-native';
+import { BottomTabNavigationProp, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import { useTheme } from 'native-base';
+import { ArticleDTO } from '@dtos/ArticleDTO';
 
-import { Home } from '@screens/Home';
-import { SecondPage } from '@screens/SecondPage';
+import { Contact } from '@screens/Contact';
+import { Articles } from '@screens/Articles';
+import { ArticlesDetals } from '@screens/ArticlesDetails';
+
+import { Entypo } from '@expo/vector-icons'
+import { Feed } from '@screens/Feed';
 
 type AppRoutes = {
-	home: undefined;
-	secondPage: undefined;
+    article: undefined;
+    articleDetails: ArticleDTO;
+    contact: undefined;
+    feed: undefined;
 }
 
-export type AppNavigatorRoutesProps = NativeStackNavigationProp<AppRoutes>;
+export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>;
 
-const { Navigator, Screen } = createNativeStackNavigator<AppRoutes>();
+const { Navigator, Screen } = createBottomTabNavigator<AppRoutes>();
 
 export function AppRoutes() {
-	return (
-		<Navigator screenOptions={{ headerShown: false }}>
-			<Screen
-				name='home'
-				component={Home}
-			/>
+    const { sizes, colors } = useTheme();
 
-			<Screen
-				name='secondPage'
-				component={SecondPage}
-			/>
-		</Navigator>
-	)
+    const iconsSize = sizes[2];
+
+    return (
+        <Navigator screenOptions={{
+            headerShown: false,
+            tabBarShowLabel: false,
+            tabBarActiveTintColor: colors.green[500],
+            tabBarInactiveTintColor: colors.gray[200],
+            tabBarStyle: {
+                backgroundColor: colors.white,
+                borderTopWidth: 1,
+                borderTopColor: colors.green[700],
+                height: Platform.OS === 'android' ? 'auto' : 96,
+                paddingBottom: sizes[8],
+                paddingTop: sizes[6],
+            }
+        }}>
+            <Screen
+                name='article'
+                component={Articles}
+                options={{
+                    tabBarIcon: () => (
+                        <Icon
+                            as={Entypo}
+                            name="text-document-inverted"
+                            color={colors.green[700]}
+                            size={iconsSize}
+                        />
+                    )
+                }}
+            />
+
+            <Screen
+                name='feed'
+                component={Feed}
+                options={{
+                    tabBarIcon: () => (
+                        <Icon
+                            as={Entypo}
+                            name="home"
+                            color={colors.green[700]}
+                            size={iconsSize}
+                        />
+                    )
+                }}
+            />
+
+            <Screen
+                name='articleDetails'
+                component={ArticlesDetals}
+                options={{
+                    tabBarButton: () => null
+                }}
+
+            />
+
+            <Screen
+                name='contact'
+                component={Contact}
+                options={{
+                    tabBarIcon: () => (
+                        <Icon
+                            as={Entypo}
+                            name="help-with-circle"
+                            color={colors.green[700]}
+                            size={iconsSize}
+                            accessibilityViewIsModal={false}
+                        />
+                    )
+                }}
+            />
+        </Navigator>
+    )
 }

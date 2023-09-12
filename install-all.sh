@@ -14,3 +14,12 @@ npx expo install react-native-screens react-native-safe-area-context
 npm install @react-navigation/native-stack
 # Navegacao por botomTabs
 npm install @react-navigation/bottom-tabs
+# Traducao
+npm install i18n
+npm install react-i18next
+# Links externos
+npm install react-native-linking --save
+# Axios
+npm install axios
+# html
+npm install html-entities
