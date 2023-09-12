@@ -10,7 +10,7 @@ import onboardingImg01 from '@assets/onboarding_img01.png';
 import onboardingImg02 from '@assets/onboarding_img02.png';
 import onboardingImg03 from '@assets/onboarding_img03.png';
 
-const { width: screenWidth } = Dimensions.get('window'); // Obtém a largura da tela
+const { width: screenWidth } = Dimensions.get('window');
 
 interface ItemProps {
   title: string;
