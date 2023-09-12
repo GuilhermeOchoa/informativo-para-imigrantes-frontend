@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
         maxHeight: '100%',
         maxWidth: '100%',
         flex: 1,
+ //       backgroundColor: 'blue', //visualizar containers
     },
     squareContainer: {
         width: 370,
@@ -24,6 +25,26 @@ const styles = StyleSheet.create({
     },
     headerContainer: {
         padding: 32,
+        paddingHorizontal: 12,
+ //       backgroundColor: 'red', //visualizar containers
+    },
+    textContainer: {
+        marginTop: 32,
+        height: 140,
+        width: '100%',
+ //       backgroundColor: 'green', //visualizar containers
+    },
+    topContainer: {
+        padding: 0,
+        height: 100,
+        width: '100%',
+        alignSelf: 'center',
+        alignItems: 'center',
+   //     backgroundColor: 'yellow', //visualizar containers
+    },
+    logoImage: {
+        alignItems: 'center',
+    //    backgroundColor: 'purple', //visualizar containers
     },
     button: {
         width: 200,
@@ -41,25 +62,13 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
     messageText: {
-        fontSize: 20,
+        fontSize: 24,
         color: '#000',
         opacity: 0.5,
         lineHeight: 22,
         marginVertical: 8,
         marginHorizontal: 8,
         textAlign: 'center',        
-    },
-    textContainer: {
-        padding: 24,
-        height: 190,
-        width: '100%',
-    },
-    topContainer: {
-        padding: 24,
-        height: 120,
-        width: 350,
-        alignSelf: 'center',
-        alignItems: 'center'
     },
     squareImage: {
         height: '100%',
@@ -68,9 +77,6 @@ const styles = StyleSheet.create({
     flagIcon: {
         width: 22,
         height: 22,
-    },
-    logoImage: {
-        alignItems: 'center'
     },
     languageText: {
         flexDirection: 'row',
@@ -94,15 +100,17 @@ const styles = StyleSheet.create({
         marginTop: 12,
     },
     introText: {
-        fontSize: 22,
+        fontSize: 20,
         color: '#000',
         opacity: 0.6,
         lineHeight: 24,
+        marginHorizontal: 5,
+        textAlign: "center",
     },
     menuContainer:{
         flexDirection: "row",
         justifyContent: "center",
-        marginBottom: 20 
+        marginBottom: 20 ,
     }
 
 });

@@ -30,12 +30,12 @@ class Onboarding extends Component<any, State> {
     carouselItems: [
       {
         title: "Bem-vindo(a)",
-        text: "Antes de começar, vamos apresentar o aplicativo para que você possa aproveitá-lo ao máximo.",
+        text: "Aqui, tentaremos lhe oferecer as melhores e mais facilitadoras ferramentas para lhe auxiliar.",
         image: logo,
       },
       {
         title: "Estamos aqui para ajudar",
-        text: "Aqui você vai encontrar oportunidades educacionais e de crescimento pessoal, para ajudar na sua nova vida.",
+        text: "Aqui você vai encontrar oportunidadês educacionais e de crescimento pessoal, para ajudar na sua nova vida.",
         image: onboardingImg01,
       },
       {
@@ -92,14 +92,15 @@ class Onboarding extends Component<any, State> {
               ) : (
                 <>
                   <View>
-                    <Text style={styles.titleText}>{item.title}</Text>
+                    <View style={styles.topContainer}>
+                      <Text style={styles.titleText}>{item.title}</Text>
+                    </View>
                     <View style={styles.squareContainer}>
                       <Image source={item.image} style={styles.squareImage} />
                     </View>
                     <View style={styles.textContainer}>
                       <Text style={styles.messageText}>
-                        Aqui você vai encontrar oportunidades educacionais e de
-                        crescimento pessoal, para ajudar na sua nova vida.
+                        {item.text}
                       </Text>
                     </View>
                   </View>
