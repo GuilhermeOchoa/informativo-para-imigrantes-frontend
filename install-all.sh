@@ -16,3 +16,6 @@ npm install @react-navigation/native-stack
 npm install @react-navigation/bottom-tabs
 # Componente carrossel
 npm install --save @types/react-native-snap-carousel
+npm install --save react-native-snap-carousel
+# Axios
+npm install axios

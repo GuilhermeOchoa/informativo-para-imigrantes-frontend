@@ -9,6 +9,7 @@ import { Onboarding01 } from '@screens/Onboarding/Onboarding01';
 import { Onboarding02 } from '@screens/Onboarding/Onboarding02';
 import { Onboarding03 } from '@screens/Onboarding/Onboarding03';
 import { Onboarding04 } from '@screens/Onboarding/Onboarding04';
+import  Onboarding  from '@screens/Onboarding';
 
 type AppRoutes = {
 	home: undefined;
@@ -17,6 +18,7 @@ type AppRoutes = {
 	onboarding02: undefined;
 	onboarding03: undefined;
 	onboarding04: undefined;
+	onboarding: undefined;
 }
 
 export type AppNavigatorRoutesProps = NativeStackNavigationProp<AppRoutes>;
@@ -54,6 +56,11 @@ export function AppRoutes() {
 			<Screen 
 				name='onboarding04' 
 				component={Onboarding04} 
+			/>
+
+			<Screen 
+				name='onboarding' 
+				component={Onboarding} 
 			/>
 
 

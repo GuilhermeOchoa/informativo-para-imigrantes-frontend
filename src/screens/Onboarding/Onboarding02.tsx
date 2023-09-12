@@ -3,7 +3,7 @@ import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import { Text, VStack, View, Button, Image } from 'native-base';
 import { SafeAreaView } from 'react-native';
 import styles from "./styles";
-import onboarding02 from '@assets/onboarding02.png';
+import onboardingImg from '@assets/onboarding_img01.png';
 
 
 
@@ -23,7 +23,7 @@ export function Onboarding02() {
                     Estamos aqui para ajudar
                 </Text>
                 <View style={styles.squareContainer}>
-                    <Image source={onboarding02} style={styles.squareImage} />
+                    <Image source={onboardingImg} style={styles.squareImage} />
                 </View>
                 <View style={styles.textContainer}>
                     <Text style={styles.messageText}>

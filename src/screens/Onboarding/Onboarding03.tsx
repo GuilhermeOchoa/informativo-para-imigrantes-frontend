@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import { Text, VStack, Button, View, Image } from 'native-base';
 import { SafeAreaView } from 'react-native';
-import onboarding03 from '@assets/onboarding03.png';
+import onboardingImg from '@assets/onboarding_img02.png';
 import styles from "./styles";
 
 
@@ -21,7 +21,7 @@ export function Onboarding03() {
                     Proteção de dados
                 </Text>
                 <View style={styles.squareContainer}>
-                    <Image source={onboarding03} style={styles.squareImage} />
+                    <Image source={onboardingImg} style={styles.squareImage} />
                 </View>
                 <View style={styles.textContainer}>
                     <Text style={styles.messageText}>
