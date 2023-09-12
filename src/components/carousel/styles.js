@@ -41,12 +41,13 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
     messageText: {
-        fontSize: 23,
+        fontSize: 20,
         color: '#000',
-        opacity: 0.6,
-        lineHeight: 26,
+        opacity: 0.5,
+        lineHeight: 22,
         marginVertical: 8,
-        marginHorizontal: 6,        
+        marginHorizontal: 8,
+        textAlign: 'center',        
     },
     textContainer: {
         padding: 24,

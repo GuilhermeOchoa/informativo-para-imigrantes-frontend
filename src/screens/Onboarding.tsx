@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { Text, View, SafeAreaView, Image, Dimensions } from 'react-native';
-import Carousel from 'react-native-snap-carousel';
-import styles from '@components/carousel/styles';
-import { CarouselMenu } from '@components/CarouselMenu';
+import React, { Component } from "react";
+import { Text, View, SafeAreaView, Image, Dimensions } from "react-native";
+import Carousel from "react-native-snap-carousel";
+import styles from "@components/carousel/styles";
+import { CarouselMenu } from "@components/CarouselMenu";
 
-import flag_br from '@assets/flag_br.png';
-import logo from '@assets/logo.png';
-import onboardingImg01 from '@assets/onboarding_img01.png';
-import onboardingImg02 from '@assets/onboarding_img02.png';
-import onboardingImg03 from '@assets/onboarding_img03.png';
+import flag_br from "@assets/flag_br.png";
+import logo from "@assets/logo.png";
+import onboardingImg01 from "@assets/onboarding_img01.png";
+import onboardingImg02 from "@assets/onboarding_img02.png";
+import onboardingImg03 from "@assets/onboarding_img03.png";
 
-const { width: screenWidth } = Dimensions.get('window');
+const { width: screenWidth } = Dimensions.get("window");
 
 interface ItemProps {
   title: string;
@@ -71,16 +71,45 @@ class Onboarding extends Component<any, State> {
           snapToAlignment={"end"}
           renderItem={({ item, index }) => (
             <View style={styles.headerContainer}>
-              <Text style={styles.titleText}>{item.title}</Text>
-              <View style={styles.squareContainer}>
-                <Image source={item.image} style={styles.squareImage} />
-              </View>
-              <View style={styles.textContainer}>
-                <Text style={styles.messageText}>{item.text}</Text>
-              </View>
+              {index === 0 ? (
+                <View>
+                  <View style={styles.topContainer}>
+                    <Text style={styles.welcomeText}>{item.title}</Text>
+                  </View>
+                  <View style={styles.logoImage}>
+                    <Image source={logo} />
+                  </View>
+                  <View style={styles.topContainer}>
+                    <Text style={styles.appNameText}>Nome do aplicativo</Text>
+                  </View>
+                  <View style={styles.textContainer}>
+                    <Text style={styles.introText}>
+                      Antes de começar, vamos apresentar o aplicativo para que
+                      você possa aproveitá-lo ao máximo.
+                    </Text>
+                  </View>
+                </View>
+              ) : (
+                <>
+                  <View>
+                    <Text style={styles.titleText}>{item.title}</Text>
+                    <View style={styles.squareContainer}>
+                      <Image source={item.image} style={styles.squareImage} />
+                    </View>
+                    <View style={styles.textContainer}>
+                      <Text style={styles.messageText}>
+                        Aqui você vai encontrar oportunidades educacionais e de
+                        crescimento pessoal, para ajudar na sua nova vida.
+                      </Text>
+                    </View>
+                  </View>
+                </>
+              )}
             </View>
           )}
-          onSnapToItem={(index: number) => this.setState({ activeIndex: index })}
+          onSnapToItem={(index: number) =>
+            this.setState({ activeIndex: index })
+          }
           shouldOptimizeUpdates={true}
         />
         <CarouselMenu
