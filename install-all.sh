@@ -21,3 +21,5 @@ npm install react-i18next
 npm install react-native-linking --save
 # Axios
 npm install axios
+# html
+npm install html-entities
