@@ -25,37 +25,38 @@ interface ItemProps {
 }
 
 interface CarouselProps {
-  textList: TextDTO[];
   navigation: NavigationProp<any, any>;
 }
 
-export function CarouselSlides({ textList, navigation }: CarouselProps): JSX.Element {
+export function CarouselSlides({ navigation }: CarouselProps): JSX.Element {
   function handleNavigate() {
 		navigation.navigate('secondPage');
 	}
 
+  const { t, i18n } = useTranslation();
   const ref = React.createRef<any>();
   const [activeIndex, setActiveIndex] = useState(0);
 
+  
   const [carouselItems, setCarouselItems] = useState<ItemProps[]>([
     {
-      title: "Bem-vindo(a)",
-      text: "",
+      title: t("OnboardingTitle01"),
+      text: t("OnboardingText01"),
       image: logo,
     },
     {
-      title: "Estamos aqui para ajudar",
-      text: "",
+      title: t("OnboardingTitle02"),
+      text: t("OnboardingText02"),
       image: onboardingImg01,
     },
     {
-      title: "Exatamente o que você esperava!",
-      text: "",
+      title: t("OnboardingTitle03"),
+      text: t("OnboardingText03"),
       image: onboardingImg02,
     },
     {
-      title: "Tudo pronto!",
-      text: "",
+      title: t("OnboardingTitle04"),
+      text: t("OnboardingText04"),
       image: onboardingImg03,
     },
   ]);
@@ -85,10 +86,10 @@ export function CarouselSlides({ textList, navigation }: CarouselProps): JSX.Ele
                   <Text style={styles.welcomeText}>{item.title}</Text>
                 </View>
                 <View style={styles.logoImage}>
-                  <Image source={logo} alt="" />
+                  <Image source={item.image} alt="" />
                 </View>
                 <View style={styles.appTittleContainer}>
-                  <Text style={styles.appNameText}>ERI</Text>
+                  <Text style={styles.appNameText}>Nome do Aplicativo</Text>
                 </View>
                 <View style={styles.textContainer}>
                   <Text style={styles.introText}>{item.text}</Text>
@@ -116,7 +117,7 @@ export function CarouselSlides({ textList, navigation }: CarouselProps): JSX.Ele
       />
       {isLastSlide ? (
         <Button
-          title='Mais Informações'
+          title={t("MaisInformacoes")}
           style={styles.button}
           onPress={handleNavigate}
         />
@@ -167,14 +168,14 @@ const styles = StyleSheet.create({
     marginTop: 32,
     height: 140,
     width: "100%",
-    //   backgroundColor: 'green', //visualizar containers
+   //    backgroundColor: 'green', //visualizar containers
   },
   topContainer: {
-    height: 100,
+    height: 80,
     width: "100%",
     alignSelf: "center",
     alignItems: "center",
-    //   backgroundColor: 'yellow', //visualizar containers
+  //   backgroundColor: 'yellow', //visualizar containers
   },
   topContainerWelcome: {
     height: 100,
@@ -190,7 +191,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignSelf: "center",
     alignItems: "center",
-    //  backgroundColor: 'yellow', //visualizar containers
+   //   backgroundColor: 'yellow', //visualizar containers
   },
   logoImage: {
     alignItems: "center",
@@ -199,10 +200,8 @@ const styles = StyleSheet.create({
   button: {
     width: 200,
     height: 50,
-    backgroundColor: "#55917F",
-    borderRadius: 30,
     alignSelf: "center",
-    marginBottom: 45,
+    marginBottom: 40,
   },
   titleText: {
     fontSize: 30,
@@ -213,7 +212,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   messageText: {
-    fontSize: 24,
+    fontSize: 22,
     color: "#000",
     opacity: 0.5,
     lineHeight: 22,
@@ -252,6 +251,7 @@ const styles = StyleSheet.create({
   appNameText: {
     fontSize: 22,
     marginTop: 12,
+    fontFamily: 'Roboto_400Regular',
   },
   introText: {
     fontSize: 24,
