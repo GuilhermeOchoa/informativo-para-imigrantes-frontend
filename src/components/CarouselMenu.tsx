@@ -30,6 +30,7 @@ export function CarouselMenu({activeIndex,onMenuItemPress,itemCount}: CarouselMe
 
 const styles = StyleSheet.create({
   menuContainer: {
+    marginBottom:45,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
