@@ -3,8 +3,12 @@ import { SafeAreaView, Dimensions, StyleSheet } from "react-native";
 import { Text, View, Image, useToast } from "native-base";
 import Carousel from "react-native-snap-carousel";
 import { CarouselMenu } from "@components/CarouselMenu";
+import { NavigationProp, RouteProp } from "@react-navigation/native";
 import { Button } from "@components/Button";
 import { TextDTO } from "@dtos/TextDTO";
+import '@utils/i18n/i18n';
+import { useTranslation } from 'react-i18next';
+
 
 import flag_br from "@assets/flag_br.png";
 import logo from "@assets/logo.png";
@@ -20,24 +24,41 @@ interface ItemProps {
   image: any;
 }
 
-interface OnboardingProps {
+interface CarouselProps {
   textList: TextDTO[];
+  navigation: NavigationProp<any, any>;
 }
 
-export function CarouselSlides({ textList }: OnboardingProps): JSX.Element {
+export function CarouselSlides({ textList, navigation }: CarouselProps): JSX.Element {
+  function handleNavigate() {
+		navigation.navigate('secondPage');
+	}
+
   const ref = React.createRef<any>();
   const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(() => {
-    const updatedCarouselItems = textList.map((textDTO, index) => ({
-      title: textDTO.screen,
-      text: textDTO.content,
-      image: index === 1 ? onboardingImg01 : index === 2 ? onboardingImg02 : index === 3 ? onboardingImg03 : null,
-    }));
-    setCarouselItems(updatedCarouselItems);
-  }, [textList]);
-
-  const [carouselItems, setCarouselItems] = useState<ItemProps[]>([]);
+  const [carouselItems, setCarouselItems] = useState<ItemProps[]>([
+    {
+      title: "Bem-vindo(a)",
+      text: "",
+      image: logo,
+    },
+    {
+      title: "Estamos aqui para ajudar",
+      text: "",
+      image: onboardingImg01,
+    },
+    {
+      title: "Exatamente o que você esperava!",
+      text: "",
+      image: onboardingImg02,
+    },
+    {
+      title: "Tudo pronto!",
+      text: "",
+      image: onboardingImg03,
+    },
+  ]);
 
   const isLastSlide = activeIndex === carouselItems.length - 1;
 
@@ -47,12 +68,6 @@ export function CarouselSlides({ textList }: OnboardingProps): JSX.Element {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.languageText}>
-        <Text>Português (Brasil)</Text>
-        <View style={styles.flagIcon}>
-          <Image source={flag_br} style={styles.squareImage} alt="" />
-        </View>
-      </View>
       <Carousel
         layout={"default"}
         ref={ref}
@@ -101,11 +116,9 @@ export function CarouselSlides({ textList }: OnboardingProps): JSX.Element {
       />
       {isLastSlide ? (
         <Button
-          title="Mais Informações"
+          title='Mais Informações'
           style={styles.button}
-          onPress={() => {
-            // Adicione a lógica para a última tela aqui
-          }}
+          onPress={handleNavigate}
         />
       ) : (
         <CarouselMenu
