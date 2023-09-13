@@ -20,10 +20,6 @@ export function Home() {
 					onPress={handleNewAccount}
 				/>
 				<Button
-					title="OnboardingAntiga"
-					onPress={() => navigation.navigate('onboarding01')}
-				/>
-				<Button
 					title="Onboarding"
 					onPress={() => navigation.navigate('onboarding')}
 				/>
