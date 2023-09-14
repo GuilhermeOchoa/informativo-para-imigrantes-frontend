@@ -14,7 +14,6 @@ export function MenuSelectLanguage({ onLanguageChange }: Props) {
     const { t, i18n } = useTranslation();
 
     let language = i18n.language === "pt_BR" ? "Portugues" : "English";
-    console.log(language);
 
     const [selectedLanguage, setSelectedLanguage] = useState(language);
     const [optionSelectedLanguage, setOptionSelectedLanguage] = useState([
@@ -44,7 +43,7 @@ export function MenuSelectLanguage({ onLanguageChange }: Props) {
             trigger={(triggerProps) => {
                 return (
                     <Button
-                        bg="white"
+                        bg="#F8F8F8"
                         w={90}
                         alignSelf="flex-end"
                         borderWidth={0}
