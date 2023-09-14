@@ -22,7 +22,6 @@ export function Onboarding() {
   }
 
   useEffect(() => {
-    console.log(`Língua selecionada agora é: ${selectedLanguage}`);
   }, [selectedLanguage]);
 
   return (
@@ -30,7 +29,6 @@ export function Onboarding() {
       <View style={styles.header}>
         <MenuSelectLanguage onLanguageChange={onLanguageChange} />
       </View>
-      <Text>{selectedLanguage === 'pt_BR' ? 'Português' : 'Inglês'}</Text>
       <CarouselSlides navigation={navigation} />
     </SafeAreaView>
   );

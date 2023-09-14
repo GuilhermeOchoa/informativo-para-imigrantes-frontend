@@ -47,12 +47,17 @@ export function MenuSelectLanguage({ onLanguageChange }: Props) {
                         bg="white"
                         w={90}
                         alignSelf="flex-end"
-                        borderWidth={1}
-                        _pressed={{ bg: "white" }}
+                        borderWidth={0}
+                        _pressed={{ bg: "gray" }}
                         {...triggerProps}
                     >
                         <HStack alignItems="center">
-                            <Text>{selectedLanguage === "Portugues" ? "PT" : "EN"}</Text>
+                            {
+                                selectedLanguage === "Portugues" ?
+                                    <Image key={1} rounded="full" source={BrasilsPng} alt="imagem do idioma" w={10} h={10} />
+                                    :
+                                    <Image key={2} rounded="full" source={EuaPng} alt="imagem do idioma" w={10} h={10} />
+                            }
                         </HStack>
                     </Button>
                 );

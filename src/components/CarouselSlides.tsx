@@ -60,6 +60,30 @@ export function CarouselSlides({ navigation }: CarouselProps): JSX.Element {
       image: onboardingImg03,
     },
   ]);
+  useEffect(() => {
+    setCarouselItems([
+      {
+        title: t("OnboardingTitle01"),
+        text: t("OnboardingText01"),
+        image: logo,
+      },
+      {
+        title: t("OnboardingTitle02"),
+        text: t("OnboardingText02"),
+        image: onboardingImg01,
+      },
+      {
+        title: t("OnboardingTitle03"),
+        text: t("OnboardingText03"),
+        image: onboardingImg02,
+      },
+      {
+        title: t("OnboardingTitle04"),
+        text: t("OnboardingText04"),
+        image: onboardingImg03,
+      },
+    ]);
+  }, [i18n.language]);
 
   const isLastSlide = activeIndex === carouselItems.length - 1;
 
