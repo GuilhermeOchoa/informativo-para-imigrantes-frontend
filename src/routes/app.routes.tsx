@@ -7,6 +7,7 @@ import { ArticleDTO } from '@dtos/ArticleDTO';
 import { Contact } from '@screens/Contact';
 import { Articles } from '@screens/Articles';
 import { ArticlesDetals } from '@screens/ArticlesDetails';
+import  {Onboarding}  from '@screens/Onboarding';
 
 import { Entypo } from '@expo/vector-icons'
 import { Feed } from '@screens/Feed';
@@ -16,6 +17,7 @@ type AppRoutes = {
     articleDetails: ArticleDTO;
     contact: undefined;
     feed: undefined;
+    onboarding: undefined;
 }
 
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>;
@@ -96,6 +98,10 @@ export function AppRoutes() {
                     )
                 }}
             />
+            <Screen 
+				name='onboarding' 
+				component={Onboarding} 
+			/>
         </Navigator>
     )
 }
