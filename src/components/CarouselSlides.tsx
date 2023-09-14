@@ -62,7 +62,7 @@ export function CarouselSlides({ navigation }: CarouselProps): JSX.Element {
   };
 
   function handleNavigate() {
-    navigation.navigate('feed');
+    navigation.navigate('article');
   }
 
   return (

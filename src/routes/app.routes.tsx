@@ -44,6 +44,10 @@ export function AppRoutes() {
                 paddingTop: sizes[6],
             }
         }}>
+            <Screen 
+				name='onboarding' 
+				component={Onboarding} 
+			/>
             <Screen
                 name='article'
                 component={Articles}
@@ -98,10 +102,6 @@ export function AppRoutes() {
                     )
                 }}
             />
-            <Screen 
-				name='onboarding' 
-				component={Onboarding} 
-			/>
         </Navigator>
     )
 }
