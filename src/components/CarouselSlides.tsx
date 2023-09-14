@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { SafeAreaView, StyleSheet, View, Dimensions } from "react-native";
 import { Text, Image } from "native-base";
-import Carousel from "react-native-snap-carousel";
-import { useTranslation } from 'react-i18next';
+import React, { useState, useEffect } from "react";
 
-import { CarouselMenu } from "@components/CarouselMenu";
+import { useTranslation } from 'react-i18next';
+import Carousel from "react-native-snap-carousel";
+import { AppNavigatorRoutesProps } from "@routes/app.routes";
+import { SafeAreaView, StyleSheet, View, Dimensions } from "react-native";
+
 import { Button } from "@components/Button";
+import { CarouselMenu } from "@components/CarouselMenu";
+
 import logo from "@assets/logo.png";
 import onboardingImg01 from "@assets/onboarding_img01.png";
 import onboardingImg02 from "@assets/onboarding_img02.png";
 import onboardingImg03 from "@assets/onboarding_img03.png";
-import { AppNavigatorRoutesProps } from "@routes/app.routes";
 
 import { useAuth } from '@hooks/useAuth';
-import { storageUserSave } from "@storage/storageUser";
 
 const { width: screenWidth } = Dimensions.get("window");
 

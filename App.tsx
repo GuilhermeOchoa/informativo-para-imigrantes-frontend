@@ -6,7 +6,6 @@ import { Loading } from '@components/Loading';
 
 import { THEME } from './src/theme';
 import { Routes } from '@routes/index';
-import { AuthContext } from '@contexts/AuthContext';
 
 import { AuthContextProvider } from '@contexts/AuthContext';
 
@@ -17,7 +16,7 @@ export default function App() {
 
         <NativeBaseProvider theme={THEME}>
             <StatusBar
-                barStyle="light-content"
+                barStyle="dark-content"
                 backgroundColor="transparent"
                 translucent
             />

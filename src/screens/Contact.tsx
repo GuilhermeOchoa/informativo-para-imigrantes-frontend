@@ -7,7 +7,7 @@ import { storageUserRemove } from "@storage/storageUser";
 export function Contact() {
     const { t, i18n } = useTranslation();
 
-    async function deleteStorage() {
+    async function deletStorage() {
         try {
             await storageUserRemove();
         } catch (error) {
@@ -21,7 +21,7 @@ export function Contact() {
 
                 <VStack flex={1}>
                     <Center>
-                        <Text fontFamily="body" fontSize="xl">
+                        <Text fontFamily="body" fontSize="xl" onPress={deletStorage}>
                             {t("Contato")}
                         </Text>
                     </Center>
@@ -30,12 +30,6 @@ export function Contact() {
             </HStack>
 
             <Divider my={4} bgColor="green.500" />
-
-            <HStack>
-                <Button onPress={deleteStorage}>
-                    clique aqui
-                </Button>
-            </HStack>
         </VStack>
     )
 }

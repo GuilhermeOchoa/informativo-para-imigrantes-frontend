@@ -21,9 +21,9 @@ export function ArticlesDetals() {
 
     const navigation = useNavigation();
 
-    function openLink() {
+    async function openLink() {
         try {
-            Linking.openURL("article.externalUrl");
+            await Linking.openURL(article.externalUrl);
         } catch (error) {
             toast.show({
                 title: t("Nao foi possivel abrir o link"),
@@ -83,6 +83,5 @@ export function ArticlesDetals() {
             </ScrollView>
 
         </VStack>
-
     );
 }

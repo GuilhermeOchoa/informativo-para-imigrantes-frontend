@@ -1,3 +1,4 @@
 export type UserDTO = {
-    isValid: boolean
+    isValid: boolean,
+    language: string
 }
