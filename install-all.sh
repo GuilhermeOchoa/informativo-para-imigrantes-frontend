@@ -26,3 +26,5 @@ npm install html-entities
 # Componente carrossel
 npm install --save @types/react-native-snap-carousel
 npm install --save react-native-snap-carousel
+# local storage
+npx expo install @react-native-async-storage/async-storage

@@ -22,6 +22,8 @@ export function Articles() {
 
     const { t, i18n } = useTranslation();
 
+    console.log("chamou " + i18n.language)
+
     async function fetchArticles() {
         try {
             setIsLoading(true);
@@ -48,7 +50,7 @@ export function Articles() {
 
     useEffect(() => {
         fetchArticles();
-    }, [])
+    }, [i18n.language])
 
     return (
         <VStack flex={1} px={6} pb={6} mt={12}>

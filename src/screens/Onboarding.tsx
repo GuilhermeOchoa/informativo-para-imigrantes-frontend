@@ -4,10 +4,11 @@ import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { MenuSelectLanguage } from "@components/MenuSelectLanguage";
 import { CarouselSlides } from "@components/CarouselSlides";
+import { AppNavigatorRoutesProps } from "@routes/app.routes";
 
 export function Onboarding() {
   const { t, i18n } = useTranslation();
-  const navigation = useNavigation();
+  const navigation = useNavigation<AppNavigatorRoutesProps>();
 
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
