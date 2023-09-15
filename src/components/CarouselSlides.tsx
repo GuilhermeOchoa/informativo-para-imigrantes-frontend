@@ -18,17 +18,17 @@ import { useAuth } from '@hooks/useAuth';
 
 const { width: screenWidth } = Dimensions.get("window");
 
-interface ItemProps {
+type ItemProps = {
     title: string;
     text: string;
     image: any;
 }
 
-interface CarouselProps {
+type CarouselProps = {
     navigation: AppNavigatorRoutesProps;
 }
 
-export function CarouselSlides({ navigation }: CarouselProps): JSX.Element {
+export function CarouselSlides() {
     const { t, i18n } = useTranslation();
     const ref = React.createRef<any>();
     const [activeIndex, setActiveIndex] = useState(0);
@@ -121,7 +121,7 @@ export function CarouselSlides({ navigation }: CarouselProps): JSX.Element {
             />
             {isLastSlide ? (
                 <Button
-                    title={t("MaisInformacoes")}
+                    title={t("Acessar")}
                     style={styles.button}
                     onPress={handleNavigate}
                 />
@@ -202,7 +202,6 @@ const styles = StyleSheet.create({
         lineHeight: 30,
         textAlign: "center",
         marginBottom: 20,
-        marginTop: 5,
     },
     messageText: {
         fontSize: 22,

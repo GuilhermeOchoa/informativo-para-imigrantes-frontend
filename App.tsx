@@ -8,9 +8,27 @@ import { THEME } from './src/theme';
 import { Routes } from '@routes/index';
 
 import { AuthContextProvider } from '@contexts/AuthContext';
+import i18n from '@utils/i18n/i18n';
+
+import { storageUserGet } from '@storage/storageUser';
+import { useEffect } from 'react';
 
 export default function App() {
     const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
+
+    async function loadIsValidUser() {
+        try {
+            const user = await storageUserGet();
+
+            i18n.changeLanguage(user.language);
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    useEffect(() => {
+        loadIsValidUser();
+    }, []);
 
     return (
 
