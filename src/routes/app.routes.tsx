@@ -7,7 +7,6 @@ import { ArticleDTO } from '@dtos/ArticleDTO';
 import { Contact } from '@screens/Contact';
 import { Articles } from '@screens/Articles';
 import { ArticlesDetals } from '@screens/ArticlesDetails';
-import  {Onboarding}  from '@screens/Onboarding';
 
 import { Entypo } from '@expo/vector-icons'
 import { Feed } from '@screens/Feed';
@@ -44,10 +43,6 @@ export function AppRoutes() {
                 paddingTop: sizes[6],
             }
         }}>
-            <Screen 
-				name='onboarding' 
-				component={Onboarding} 
-			/>
             <Screen
                 name='article'
                 component={Articles}

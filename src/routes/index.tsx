@@ -1,20 +1,28 @@
 import { useTheme, Box } from 'native-base'
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 
+import { OnboardingRoutes } from './onboarding.routes';
 import { AppRoutes } from './app.routes';
 
+import { useAuth } from '@hooks/useAuth';
+import { Loading } from '@components/Loading';
+
 export function Routes() {
-	const { colors } = useTheme();
+    const { colors } = useTheme();
+    const { user, isLoadingUserStorageData } = useAuth();
 
-	const theme = DefaultTheme;
-	theme.colors.background = colors.white;
+    if (isLoadingUserStorageData) {
+        return <Loading />;
+    }
 
-	return (
-		<Box flex={1} bg="white">
-			<NavigationContainer theme={theme}>
-				<AppRoutes />
-				
-			</NavigationContainer>
-		</Box>
-	);
+    const theme = DefaultTheme;
+    theme.colors.background = colors.white;
+
+    return (
+        <Box flex={1} bg="white">
+            <NavigationContainer theme={theme}>
+                {user.isValid ? <AppRoutes /> : <OnboardingRoutes />}
+            </NavigationContainer>
+        </Box>
+    );
 }

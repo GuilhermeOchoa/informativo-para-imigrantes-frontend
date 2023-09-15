@@ -11,6 +11,7 @@ import { Linking } from 'react-native';
 
 import '@utils/i18n/i18n';
 import { useTranslation } from 'react-i18next';
+import { Button } from '@components/Button';
 
 export function ArticlesDetals() {
     const { t, i18n } = useTranslation();
@@ -21,9 +22,9 @@ export function ArticlesDetals() {
 
     const navigation = useNavigation();
 
-    function openLink() {
+    async function openLink() {
         try {
-            Linking.openURL("article.externalUrl");
+            await Linking.openURL(article.externalUrl);
         } catch (error) {
             toast.show({
                 title: t("Nao foi possivel abrir o link"),
@@ -71,18 +72,15 @@ export function ArticlesDetals() {
                         {decode(article.content)}
                     </Text>
 
-                    <TouchableOpacity onPress={openLink}>
-                        <Text>
-                            <Text>{t("Fonte")}: </Text>
-                            <Text color="blue.900" textAlign="justify">
-                                {article.externalUrl}
-                            </Text>
-                        </Text>
-                    </TouchableOpacity>
+                    <Button
+                        title={t("Saiba mais")}
+                        onPress={openLink}
+                        w={200}
+                        mb={4}
+                    />
                 </VStack>
             </ScrollView>
 
         </VStack>
-
     );
 }

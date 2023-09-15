@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { VStack, Center, FlatList, Heading, HStack, useToast, Divider, Text } from 'native-base';
+import { VStack, Center, FlatList, HStack, useToast, Divider, Text } from 'native-base';
 
 import { AppError } from '@utils/AppError';
 import { ArticleDTO } from '@dtos/ArticleDTO';
@@ -8,7 +8,6 @@ import { CardArticle } from '@components/CardArticle';
 import { useNavigation } from '@react-navigation/native';
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
 
-import { NativeModules } from 'react-native'
 import { Loading } from '@components/Loading';
 
 import '@utils/i18n/i18n';
@@ -48,7 +47,7 @@ export function Articles() {
 
     useEffect(() => {
         fetchArticles();
-    }, [])
+    }, [i18n.language])
 
     return (
         <VStack flex={1} px={6} pb={6} mt={12}>
