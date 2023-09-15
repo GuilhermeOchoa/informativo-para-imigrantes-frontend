@@ -23,8 +23,7 @@ A estrutura é organizada da seguinte forma:
 # Instalando dependencias
 Todas as dependencias estão dentro do arquivo install-all.sh
 Executar os seguintes comandos:
-
-# Tornar o arquivo executável:
+# Arquivo executável:
 	chmod +x install-all.sh
 
 # Executar arquivo:
