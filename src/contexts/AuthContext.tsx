@@ -5,7 +5,6 @@ import '@utils/i18n/i18n';
 import i18n from "@utils/i18n/i18n";
 
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 
 export type AuthContextDataProps = {
     user: UserDTO;

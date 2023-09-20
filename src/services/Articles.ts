@@ -1,6 +1,5 @@
-import { api } from "./api";
+import { api } from "./Api";
 
 export function getArticles(language: string) {
-    console.log(language);
     return api.get("/articles?language=" + language);
 };
