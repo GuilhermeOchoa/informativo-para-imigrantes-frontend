@@ -1,5 +1,21 @@
 {
-    "translation": {
-        "OnboardingTitle01": "frances"
-    }
+	"translation": {
+		"ver mais": "voir plus",
+		"Não foi possível carregar os informativos": "Impossible de charger les informations",
+		"Informativos": "Informations",
+		"Fonte": "Source",
+		"Contato": "Contact",
+		"Programas": "Programmes",
+		"Saiba mais": "En savoir plus",
+		"Não há informativos disponíveis": "Pas d'informations disponibles",
+		"Acessar": "Accéder",
+		"OnboardingTitle01": "Bienvenue",
+		"OnboardingTitle02": "Nous sommes là pour vous aider",
+		"OnboardingTitle03": "Exactement ce que vous attendiez",
+		"OnboardingTitle04": "Tout est prêt !",
+		"OnboardingText01": "Ici, nous essaierons de vous offrir les meilleurs outils les plus facilitants pour vous aider.",
+		"OnboardingText02": "Cette application offre la possibilité d'organiser et de systématiser l'offre éducative par institution, option académique et emplacement.",
+		"OnboardingText03": "Nous apprécions votre vote de confiance. Et n'oubliez pas : en cas de doutes, notre équipe sera disponible via un contact en ligne.",
+		"OnboardingText04": "Maintenant, sur les écrans suivants, un bref tutoriel débutera sur les options au sein de l'application et comment les utiliser."
+	}
 }
