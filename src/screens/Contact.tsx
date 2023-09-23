@@ -5,33 +5,23 @@ import { useTranslation } from 'react-i18next';
 import { storageUserRemove } from "@storage/storageUser";
 
 export function Contact() {
-    const { t, i18n } = useTranslation();
+	const { t, i18n } = useTranslation();
 
-	console.log(i18n.language)
+	return (
+		<VStack flex={1} px={6} pb={6} mt={12}>
+			<HStack alignItems="center" m={2}>
 
-    async function deletStorage() {
-        try {
-            await storageUserRemove();
-        } catch (error) {
-            throw error;
-        }
-    }
+				<VStack flex={1}>
+					<Center>
+						<Text fontFamily="body" fontSize="xl" >
+							{t("Contato")}
+						</Text>
+					</Center>
+				</VStack>
 
-    return (
-        <VStack flex={1} px={6} pb={6} mt={12}>
-            <HStack alignItems="center" m={2}>
+			</HStack>
 
-                <VStack flex={1}>
-                    <Center>
-                        <Text fontFamily="body" fontSize="xl" onPress={deletStorage}>
-                            {t("Contato")}
-                        </Text>
-                    </Center>
-                </VStack>
-
-            </HStack>
-
-            <Divider my={4} bgColor="green.500" />
-        </VStack>
-    )
+			<Divider my={4} bgColor="green.500" />
+		</VStack>
+	)
 }
