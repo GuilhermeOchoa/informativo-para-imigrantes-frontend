@@ -28,3 +28,7 @@ npm install --save @types/react-native-snap-carousel
 npm install --save react-native-snap-carousel
 # local storage
 npx expo install @react-native-async-storage/async-storage
+# React Hook Form
+npm install react-hook-form
+# Schema Validation
+npm install @hookform/resolvers yup
