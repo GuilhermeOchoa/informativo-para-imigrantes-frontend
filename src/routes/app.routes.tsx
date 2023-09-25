@@ -7,6 +7,7 @@ import { ArticleDTO } from '@dtos/ArticleDTO';
 import { Contact } from '@screens/Contact';
 import { Articles } from '@screens/Articles';
 import { ArticlesDetals } from '@screens/ArticlesDetails';
+import { RegisterProgramFormPage } from '@screens/RegisterProgramForm';
 
 import { Entypo } from '@expo/vector-icons'
 import { Feed } from '@screens/Feed';
@@ -17,6 +18,7 @@ type AppRoutes = {
     contact: undefined;
     feed: undefined;
     onboarding: undefined;
+    registerProgramFormPage: undefined;
 }
 
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>;
@@ -43,7 +45,21 @@ export function AppRoutes() {
                 paddingTop: sizes[6],
             }
         }}>
-            <Screen
+        <Screen
+            name='registerProgramFormPage'
+            component={RegisterProgramFormPage}
+            options={{
+                tabBarIcon: () => (
+                    <Icon
+                        as={Entypo}
+                        name="home"
+                        color={colors.green[700]}
+                        size={iconsSize}
+                    />
+                )
+            }}
+        />
+     {/*        <Screen
                 name='article'
                 component={Articles}
                 options={{
@@ -96,7 +112,7 @@ export function AppRoutes() {
                         />
                     )
                 }}
-            />
+            /> */}
         </Navigator>
     )
 }
