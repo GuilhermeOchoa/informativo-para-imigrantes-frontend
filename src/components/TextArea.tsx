@@ -1,16 +1,18 @@
+import React from 'react'
 
 import { TextArea as NativeBaseTextArea, IInputProps, FormControl, Text } from 'native-base'
-import React from 'react'
 
 type Props = IInputProps & {
 	errorMessage?: string | null;
     inputTitle: string;
 }
 
+
 export function TextArea({ inputTitle, errorMessage = null, isInvalid, ...rest }: Props) {
     const invalid = errorMessage !== null || isInvalid;
+
     return (
-    <FormControl mb={8} isInvalid={invalid}>
+    <FormControl mb={6} >
         <Text style={{ fontSize: 15 }} mb={4}>
             {inputTitle}
         </Text>
@@ -19,14 +21,18 @@ export function TextArea({ inputTitle, errorMessage = null, isInvalid, ...rest }
             h={20}
             backgroundColor={'gray.100'}
             maxLength={2000}
-            isInvalid={invalid}
+            _focus={{
+                borderColor: 'green.500',
+                backgroundColor: 'white.800'
+            }}
             {...rest}
-            _focus={{ borderColor: 'green.500' }}
+            isInvalid={invalid}
+            _invalid={{ 
+                borderColor: 'red.500', 
+                backgroundColor: 'white.100'
+            }}
             autoCompleteType={undefined}
         />
-        <FormControl.ErrorMessage>
-            {errorMessage}
-        </FormControl.ErrorMessage>
     </FormControl>
     );
 }

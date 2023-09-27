@@ -10,7 +10,7 @@ type Props = IInputProps & {
 export function Input({ inputTitle, errorMessage = null, isInvalid, ...rest }: Props) {
     const invalid = errorMessage !== null || isInvalid;
     return (
-    <FormControl mb={4} isInvalid={invalid}>
+    <FormControl mb={10} isInvalid={invalid}>
         <Text style={{ fontSize: 15 }}>
             {inputTitle}
         </Text>
@@ -19,9 +19,10 @@ export function Input({ inputTitle, errorMessage = null, isInvalid, ...rest }: P
             h={10}
             isInvalid={invalid}
             {...rest}
-            colorScheme={undefined}
-            _disabled={undefined}
-            onFocus={undefined}
+            _focus={{
+                borderColor: 'green.500',
+                backgroundColor: 'white.800'
+            }}
         >
         </NativeBaseInput>
         

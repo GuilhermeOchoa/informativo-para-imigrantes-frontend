@@ -1,10 +1,28 @@
 import { useForm, Controller } from "react-hook-form"
 import { VStack, HStack, Center, Divider, Text } from "native-base"
+import {yupResolver} from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 import { Button } from "@components/Button"
 import { Input } from "@components/Input"
 import { TextArea } from "@components/TextArea"
 
+type FormDataProps = {
+    nomePrograma: string;
+    descricao: string;
+    dataInicio: Date;
+    dataFim: Date;
+    linkAcesso: string;
+}
+
+// build schema using yup
+const registerProgramSchema = yup.object().shape({
+    nomePrograma: yup.string().required('Nome do programa é obrigatório'),
+    descricao: yup.string().required('Descrição do programa é obrigatória'),
+    dataInicio: yup.string().required('Data de início é obrigatória'),
+    dataFim: yup.string().required('Data fim é obrigatória'),
+    //linkAcesso: yup.string().url().required('Link de acesso é obrigatório'),
+})
 
 export function RegisterProgramForm() {
     const {
@@ -12,13 +30,7 @@ export function RegisterProgramForm() {
         handleSubmit,
         formState: { errors },
     } = useForm({
-        defaultValues: {
-            nomePrograma: "",
-            descricao: "",
-            dataInicio: "",
-            dataFim: "",
-            linkAcesso: "",
-        },
+        resolver: yupResolver(registerProgramSchema),
     })
     const onSubmit = (data: any) => console.log(data)
 
@@ -49,17 +61,16 @@ export function RegisterProgramForm() {
                     control={control}
                     rules={{
                         required: true,
-                        
+
                     }}
-                    render={({ field: { onChange, onBlur, value } }) => (
+                    render={({ field: { onChange, onBlur } }) => (
                         <Input
                             inputTitle="Título:"
                             variant="underlined"
                             placeholder="Nome do programa"
                             onBlur={onBlur}
                             onChangeText={onChange}
-                            value={value}
-                            errorMessage="Título obrigatório"
+                            errorMessage={errors.nomePrograma?.message}
                         />
 
                     )}
@@ -76,10 +87,9 @@ export function RegisterProgramForm() {
                             placeholder="Descrição do programa"
                             onBlur={onBlur}
                             onChangeText={onChange}
-                            value={value} 
-                            inputTitle={"Descrição:"}                            
-                            errorMessage={"Favor informar descrição do programa"}
-                            />
+                            inputTitle={"Descrição:"}
+                            errorMessage={errors.descricao?.message}
+                        />
                     )}
                     name="descricao"
                 />
@@ -89,15 +99,15 @@ export function RegisterProgramForm() {
                         maxLength: 100,
                     }}
 
-                    render={({ field: { onChange, onBlur, value } }) => (
+                    render={({ field: { onChange, onBlur } }) => (
                         <Input
                             inputTitle="Início das inscrições:"
                             variant={"underlined"}
                             placeholder="DD/MM/AAAA"
                             onBlur={onBlur}
                             onChangeText={onChange}
-                            value={value} 
-                            errorMessage={"Favor informar data de início das inscrições"} />
+                            errorMessage={errors.dataInicio?.message}
+                        />
                     )}
                     name="dataInicio"
                 />
@@ -114,8 +124,7 @@ export function RegisterProgramForm() {
                             placeholder="DD/MM/AAAA"
                             onBlur={onBlur}
                             onChangeText={onChange}
-                            value={value} 
-                            errorMessage={"Favor informar data de fim das inscrições"}
+                            errorMessage={errors.dataFim?.message}
                         />
                     )}
                     name="dataFim"
