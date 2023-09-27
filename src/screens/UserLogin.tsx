@@ -11,6 +11,20 @@ const UserLogin = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.label}>Nome:</Text>
+      <Controller
+        control={control}
+        render={({ field }) => (
+          <TextInput
+            style={styles.input}
+            onChangeText={field.onChange}
+            value={field.value}
+            placeholder="Digite seu nome"
+          />
+        )}
+        name="username"
+        defaultValue=""
+      />
       <Text style={styles.label}>Email:</Text>
       <Controller
         control={control}
