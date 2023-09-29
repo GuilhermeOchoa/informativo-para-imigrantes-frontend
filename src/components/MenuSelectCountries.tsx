@@ -4,10 +4,14 @@ import { ScrollView, Select } from "native-base";
 import { countryAcronyms } from '@utils/countriesList/acronym';
 import { useTranslation } from "react-i18next";
 
-export function MenuSelectCountries() {
+export function MenuSelectCountries({ onSelectCountry }: any) {
 	const [t, i18n] = useTranslation();
 	const [namePlaceholder, setNamePlaceholder] = useState("");
 
+	const handleCountryChange = (itemValue: any) => {
+		onSelectCountry(itemValue);
+		setNamePlaceholder(itemValue)
+	  };
 	function selectPlaceholderLanguage() {
 		if (i18n.language === "pt") {
 			setNamePlaceholder("Selecione seu pais");
@@ -16,10 +20,10 @@ export function MenuSelectCountries() {
 			setNamePlaceholder("Select your country");
 			countryAcronyms[0].value = "I don't want to select";
 		} else if (i18n.language === "fr") {
-			setNamePlaceholder("Sélectionnez votre pays");
-			countryAcronyms[0].value = "Je ne veux pas sélectionner";
+			setNamePlaceholder("Sï¿½lectionnez votre pays");
+			countryAcronyms[0].value = "Je ne veux pas sï¿½lectionner";
 		} else if (i18n.language === "es") {
-			setNamePlaceholder("Seleccione su país");
+			setNamePlaceholder("Seleccione su paï¿½s");
 			countryAcronyms[0].value = "No quiero seleccionar";
 		}
 	}
@@ -31,7 +35,7 @@ export function MenuSelectCountries() {
 	return (
 		<Select
 			selectedValue={namePlaceholder}
-			onValueChange={(itemValue) => setNamePlaceholder(itemValue)}
+			onValueChange={handleCountryChange}
 			placeholder={namePlaceholder}
 			variant="unstyled"
 			borderBottomWidth={1}

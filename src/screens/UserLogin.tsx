@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, useWatch, Form } from 'react-hook-form';
+import { MenuSelectCountries } from '@components/MenuSelectCountries';
 
 const UserLogin = () => {
-  const { control, handleSubmit, formState: { errors } } = useForm();
+  const [data, setData] = useState({})
+  const { register, control, handleSubmit, getValues, setValue, formState: { errors } } = useForm();
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    console.log(data)
+    setData(data);
+    return
   };
+  const handleCountrySelection = (selectedCountry: any) => {
+    setValue('country', selectedCountry);
+  };
+  const { username, email, password, confirmPassword, country } = getValues();
 
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Nome:</Text>
       <Controller
+        name='username'
         control={control}
         render={({ field }) => (
           <TextInput
@@ -22,9 +31,8 @@ const UserLogin = () => {
             placeholder="Digite seu nome"
           />
         )}
-        name="username"
-        defaultValue=""
       />
+      
       <Text style={styles.label}>Email:</Text>
       <Controller
         control={control}
@@ -46,8 +54,8 @@ const UserLogin = () => {
         }}
         defaultValue=""
       />
-    {errors.email && <Text style={styles.error}>{errors.email.message ? errors.email.message.toString() : ""}</Text>}
-
+      {errors.email && <Text style={styles.error}>{`${errors.email.message}`}</Text>}
+      
       <Text style={styles.label}>Senha:</Text>
       <Controller
         control={control}
@@ -70,10 +78,45 @@ const UserLogin = () => {
         }}
         defaultValue=""
       />
-        {errors.email && <Text style={styles.error}>{errors.email.message ? errors.email.message.toString() : ""}</Text>}
-
-
+      {errors.password && <Text style={styles.error}>{`${errors.password.message}`}</Text>} 
+      
+      <Text style={styles.label}>Confirmar Senha:</Text>
+      <Controller
+        control={control}
+        render={({ field }) => (
+          <TextInput
+            style={styles.input}
+            onChangeText={field.onChange}
+            value={field.value}
+            placeholder="Confirme sua senha"
+            secureTextEntry
+          />
+        )}
+        name="confirmPassword"
+        rules={{
+          required: 'A confirmação de senha é obrigatória',
+          validate: (value) => value === password || 'As senhas não coincidem',
+        }}
+        defaultValue=""
+      />
+      {errors.confirmPassword && <Text style={styles.error}>{`${errors.confirmPassword.message}`}</Text>}
+      <Controller
+        control={control}
+        render={() => (
+          <MenuSelectCountries
+            onSelectCountry={handleCountrySelection}
+           />  
+        )}
+        name="country"
+        rules={{ required: 'Country is required' }}
+        defaultValue=""
+      />
       <Button title="Enviar" onPress={handleSubmit(onSubmit)} />
+      <Text>{[username, email, password, confirmPassword, country]}</Text>
+      <Text>Data:</Text>
+      <Text>{JSON.stringify(data)}</Text>
+
+
     </View>
   );
 };
