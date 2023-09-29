@@ -65,7 +65,7 @@ export function RegisterProgramForm() {
                     }}
                     render={({ field: { onChange, onBlur } }) => (
                         <Input
-                            inputTitle="Título:"
+                            inputTitle="Título*:"
                             variant="underlined"
                             placeholder="Nome do programa"
                             onBlur={onBlur}
@@ -87,7 +87,7 @@ export function RegisterProgramForm() {
                             placeholder="Descrição do programa"
                             onBlur={onBlur}
                             onChangeText={onChange}
-                            inputTitle={"Descrição:"}
+                            inputTitle={"Descrição*:"}
                             errorMessage={errors.descricao?.message}
                         />
                     )}
@@ -101,7 +101,7 @@ export function RegisterProgramForm() {
 
                     render={({ field: { onChange, onBlur } }) => (
                         <Input
-                            inputTitle="Início das inscrições:"
+                            inputTitle="Início das inscrições*:"
                             variant={"underlined"}
                             placeholder="DD/MM/AAAA"
                             onBlur={onBlur}
@@ -119,7 +119,7 @@ export function RegisterProgramForm() {
 
                     render={({ field: { onChange, onBlur, value } }) => (
                         <Input
-                            inputTitle="Fim das inscrições:"
+                            inputTitle="Fim das inscrições*:"
                             variant={"underlined"}
                             placeholder="DD/MM/AAAA"
                             onBlur={onBlur}
