@@ -4,21 +4,16 @@ import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { MenuSelectLanguage } from "@components/MenuSelectLanguage";
 import { CarouselSlides } from "@components/CarouselSlides";
-import { AppNavigatorRoutesProps } from "@routes/app.routes";
 import { HStack, VStack } from "native-base";
 
 export function Onboarding() {
     const { t, i18n } = useTranslation();
-    const navigation = useNavigation<AppNavigatorRoutesProps>();
 
     const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
     function onLanguageChange(language: string) {
         setSelectedLanguage(language);
     }
-
-    useEffect(() => {
-    }, [selectedLanguage]);
 
     return (
         <VStack flex={1} bg="#F8F8F8">
