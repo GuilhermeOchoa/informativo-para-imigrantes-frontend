@@ -38,7 +38,7 @@ function CustomTabIcon({ name, color, focused, iconsSize }: Props) {
 		<Icon
 			as={Ionicons}
 			name={name}
-			color={focused ? color : 'gray'}
+			color={focused ? color : 'gray[800]'}
 			size={iconsSize}
 		/>
 	);
@@ -56,7 +56,7 @@ export function AppRoutes() {
 		<Navigator screenOptions={{
 			headerShown: false,
 			tabBarActiveTintColor: colors.green[500],
-			tabBarInactiveTintColor: colors.gray[200],
+			tabBarInactiveTintColor: colors.gray[800],
 			tabBarStyle: {
 				backgroundColor: colors.white,
 				borderTopWidth: 1,
