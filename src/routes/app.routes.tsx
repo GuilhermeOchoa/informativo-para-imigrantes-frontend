@@ -11,6 +11,7 @@ import { RegisterProgramForm1 } from '@screens/forms/RegisterProgram/RegisterPro
 
 import { Entypo } from '@expo/vector-icons'
 import { Feed } from '@screens/Feed';
+import RegisterProgram from '@screens/RegisterProgram';
 
 type AppRoutes = {
     article: undefined;
@@ -47,7 +48,7 @@ export function AppRoutes() {
         }}>
         <Screen
             name='registerProgramFormPage'
-            component={RegisterProgramForm1}
+            component={RegisterProgram}
             options={{
                 tabBarIcon: () => (
                     <Icon
