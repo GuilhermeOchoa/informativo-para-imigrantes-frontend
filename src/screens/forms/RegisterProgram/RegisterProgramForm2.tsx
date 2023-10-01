@@ -7,24 +7,15 @@ import { Button } from "@components/Button"
 import { Input } from "@components/Input"
 import { TextArea } from "@components/TextArea"
 
-type FormDataProps = {
-    nomePrograma: string;
-    descricao: string;
-    dataInicio: Date;
-    dataFim: Date;
-    linkAcesso: string;
-}
-
 // build schema using yup
 const registerProgramSchema = yup.object().shape({
     nomePrograma: yup.string().required('Nome do programa é obrigatório'),
     descricao: yup.string().required('Descrição do programa é obrigatória'),
     dataInicio: yup.string().required('Data de início é obrigatória'),
     dataFim: yup.string().required('Data fim é obrigatória'),
-    //linkAcesso: yup.string().url().required('Link de acesso é obrigatório'),
 })
 
-export function RegisterProgramForm() {
+export function RegisterProgramForm2() {
     const {
         control,
         handleSubmit,
@@ -36,7 +27,7 @@ export function RegisterProgramForm() {
 
 
     return (
-
+        
         <VStack flex={1} px={6} pb={2} mt={12}>
             <HStack alignItems="center" m={2}>
 
@@ -130,10 +121,10 @@ export function RegisterProgramForm() {
                     name="dataFim"
                 />
             </VStack>
-
             <Button title="Continuar" onPress={handleSubmit(onSubmit)}>
                 Continuar
             </Button>
+
         </VStack>
 
     )

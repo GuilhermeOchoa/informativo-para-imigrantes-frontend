@@ -7,7 +7,7 @@ import { ArticleDTO } from '@dtos/ArticleDTO';
 import { Contact } from '@screens/Contact';
 import { Articles } from '@screens/Articles';
 import { ArticlesDetals } from '@screens/ArticlesDetails';
-import { RegisterProgramForm } from '@screens/RegisterProgramForm';
+import { RegisterProgramForm1 } from '@screens/forms/RegisterProgram/RegisterProgramForm1';
 
 import { Entypo } from '@expo/vector-icons'
 import { Feed } from '@screens/Feed';
@@ -47,7 +47,7 @@ export function AppRoutes() {
         }}>
         <Screen
             name='registerProgramFormPage'
-            component={RegisterProgramForm}
+            component={RegisterProgramForm1}
             options={{
                 tabBarIcon: () => (
                     <Icon
