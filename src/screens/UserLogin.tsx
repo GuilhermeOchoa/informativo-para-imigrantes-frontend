@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Entypo } from '@expo/vector-icons'; 
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { useForm, Controller, useWatch, Form } from 'react-hook-form';
 import { MenuSelectCountries } from '@components/MenuSelectCountries';
+import { Button, ScrollView } from 'native-base';
 
 const UserLogin = () => {
   const [data, setData] = useState({})
@@ -19,9 +20,9 @@ const UserLogin = () => {
   const { username, email, password, confirmPassword, country } = getValues();
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>Cadastro de usuário</Text>
-      <Text>Informações do usuário</Text>
+      <Text style={styles.subtitle}>Informações do usuário</Text>
       <Text style={styles.label}>Nome*</Text>
       <Controller
         name='username'
@@ -115,16 +116,19 @@ const UserLogin = () => {
         rules={{ required: 'Country is required' }}
         defaultValue=""
       />
-      <View>
-        <Entypo name="heart" size={24} color="#737373" />
-        <View>
-          <Text>Compromisso com sua privacidade</Text>
-          <Text>Seus dados não serão compartilhados com ninguém. Seu cadastro jamais será distribuído para instituições ou órgãos governamentais de qualquer tipo.</Text>
+      <View style={styles.message}>
+        <Entypo style={styles.icon} name="heart" size={24} color="#737373" />
+        <View style={styles.messageText}>
+          <Text style={styles.boldText}>Compromisso com sua privacidade</Text>
+          <Text>
+            <Text style={styles.boldText}>Seus dados não serão compartilhados com ninguém. </Text>
+            Seu cadastro jamais será distribuído para instituições ou órgãos governamentais de qualquer tipo.
+          </Text>
         </View>
       </View>
-      <Button title="Finalizar cadastro" onPress={handleSubmit(onSubmit)} />
+      <Button style={styles.button} onPress={handleSubmit(onSubmit)}>Finalizar cadastro</Button>
       <Text>{[username, email, password, confirmPassword, country]}</Text>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -135,11 +139,17 @@ const styles = StyleSheet.create({
   title:{
     fontSize: 22,
     alignSelf: 'center',
-    marginTop: 20,
+    marginTop: 30,
     paddingBottom: 10,
     borderBottomWidth: 1,
     borderColor: '#55917F',
-    paddingHorizontal: 80,
+    paddingHorizontal: 50,  
+  },
+  subtitle:{
+    fontSize: 18,
+    alignSelf: 'center',
+    paddingBottom: 40,
+    marginTop: 40,
   },
   label: {
     fontSize: 20,
@@ -156,6 +166,38 @@ const styles = StyleSheet.create({
   error: {
     color: 'red',
   },
+  message: {
+    backgroundColor:'#E1F0C4',
+    opacity: 0.6,
+    color: '#404040',
+    marginTop: 60,
+    marginBottom: 30,
+    display: 'flex',
+    flexDirection: 'row',
+    padding: 10,
+    height: 120,
+    wordWrap: 'break-word',
+  },
+  messageText: {
+    display: 'flex',
+    wordWrap: 'break-word',
+    padding: 5,
+  
+  },
+  icon: {
+    padding: 5,
+  },
+  boldText: {
+    fontWeight: 'bold',
+  },
+  button:{
+    backgroundColor: '#6BAB90',
+    width: 150,
+    height: 50,
+    fontSize: 16,
+    alignSelf: 'center',
+    color: '#fff',
+  }
 });
 
 export default UserLogin;
