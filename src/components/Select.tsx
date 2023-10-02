@@ -1,5 +1,5 @@
 import React from "react";
-import { Select as NativeBaseSelect, CheckIcon, Text, Center, FormControl, IInputProps, WarningOutlineIcon, ISelectProps } from "native-base";
+import { Select as NativeBaseSelect, CheckIcon, Text, Center, FormControl, WarningOutlineIcon, ISelectProps } from "native-base";
 
 type Props = ISelectProps & {
   isInvalid?: boolean;
