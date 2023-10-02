@@ -5,22 +5,13 @@ import * as yup from 'yup'
 
 import { Button } from "@components/Button"
 import { Input } from "@components/Input"
-
-type FormDataProps = {
-    local: string;
-    idioma: string;
-    tipo: string;
-    dataInicioPrograma: Date;
-    dataFimPograma: Date;
-    link: string;
-    
-}
+import { Select } from "@components/Select"
+import { ProgramLanguageOptions, ProgramLocalOptions } from "@utils/SelectOptions"
 
 // build schema using yup
 const registerProgramSchema = yup.object().shape({
     local: yup.string().required('Local é obrigatório'),
     idioma: yup.string().required('Idioma é obrigatório'),
-    tipo: yup.string().required('Tipo de programa é obrigatório'),
     dataInicioPrograma: yup.string().required('Data de início é obrigatória'),
     dataFimPrograma: yup.string().required('Data de fim é obrigatória'),
     link: yup.string().required('Link de Acesso é obrigatório'),
@@ -42,7 +33,6 @@ export function RegisterProgramForm2({navigation} : any) {
 
 
     return (
-
         <VStack flex={1} px={6} pb={2} mt={2}>
             <HStack alignItems="center" m={2}>
 
@@ -66,15 +56,16 @@ export function RegisterProgramForm2({navigation} : any) {
                         required: true,
 
                     }}
-                    render={({ field: { onChange, onBlur } }) => (
-                        <Input
+                    render={({ field: { onChange } }) => (
+                        <Select
+                            options={ProgramLocalOptions}
                             inputTitle="Local do programa:"
-                            variant="underlined"
-                            placeholder="Local do programa"
-                            onBlur={onBlur}
-                            onChangeText={onChange}
-                            errorMessage={errors.local?.message}
-                        />
+                            isInvalid={!!errors.local}
+                            placeholder="Selecione o local"
+                            label={"Local do Programa"} 
+                            onValueChange={value => onChange(value)}
+                            errorMessage={errors.local?.message} 
+                            />
 
                     )}
                     name="local"
@@ -85,14 +76,15 @@ export function RegisterProgramForm2({navigation} : any) {
                         required: true,
 
                     }}
-                    render={({ field: { onChange, onBlur } }) => (
-                        <Input
+                    render={({ field: { onChange } }) => (
+                        <Select
+                            options={ProgramLanguageOptions}
+                            isInvalid={!!errors.idioma}
                             inputTitle="Idioma:"
-                            variant="underlined"
                             placeholder="Idioma"
-                            onBlur={onBlur}
-                            onChangeText={onChange}
-                            errorMessage={errors.idioma?.message}
+                            label={"Idioma utilizado:"}                        
+                            onValueChange={value => onChange(value)}
+                            errorMessage={errors.idioma?.message} 
                         />
 
                     )}

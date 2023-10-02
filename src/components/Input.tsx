@@ -3,7 +3,7 @@ import { Input as NativeBaseInput, IInputProps, FormControl, Text } from 'native
 import React from 'react'
 
 type Props = IInputProps & {
-	errorMessage?: string | null;
+	errorMessage?: any | null;
     inputTitle: string;
 }
 
@@ -17,7 +17,6 @@ export function Input({ inputTitle, errorMessage = null, isInvalid, ...rest }: P
         <NativeBaseInput
             w="full" 		//Ocupa a largura toda da tela
             h={10}
-            isInvalid={invalid}
             {...rest}
             _focus={{
                 borderColor: 'green.500',

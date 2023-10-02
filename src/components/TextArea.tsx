@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { TextArea as NativeBaseTextArea, IInputProps, FormControl, Text } from 'native-base'
 
 type Props = IInputProps & {
