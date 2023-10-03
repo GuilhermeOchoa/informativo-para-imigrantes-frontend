@@ -19,9 +19,10 @@ export function SelectRegister() {
 
 	const navigation = useNavigation<AuthNavigatorRoutesProps>();
 
-	const handleTextoClicavelPress = () => {
+	const handleLogin = () => {
 		navigation.navigate('userLogin');
 	};
+
 
 	const openUserDetail = () => {
 		setIsDetailUserVisible(true);
@@ -35,6 +36,10 @@ export function SelectRegister() {
 
 	function handleSendToInformationRoutes() {
 		updateLocalStorageUserNoLogged();
+	}
+
+	function handleRegisterInstitution() {
+		navigation.navigate('institutionRegistration');
 	}
 
 	const TextoClicavel = ({ onPress }: any) => {
@@ -87,33 +92,32 @@ export function SelectRegister() {
 
 			<View style={styles.WrapperButton}>
 				<View style={styles.divButton}>
-					<Button
-						style={styles.button}
-						onPress={() => { Articles }}>
+					<Button style={styles.button}>
+
 						<TouchableOpacity onPress={handleSendToInformationRoutes}>
 							<Text fontFamily="heading" fontSize={23} >
 								procuro informações
 							</Text>
 						</TouchableOpacity>
+
 					</Button>
-					<Button style={styles.imageIcon} onPress={() => openUserDetail()}>
+
+					<Button style={styles.imageIcon} onPress={openUserDetail}>
 						<Image source={info} alt="" />
 					</Button>
 				</View>
 
 				<View style={styles.divButton}>
-					<Button
-						style={styles.button}
-						onPress={() => { }}>
-						<Text
-							fontFamily="heading"
-							fontSize={23}
-							fontWeight="light"
-						>
-							sou instituição de ensino
-						</Text>
+
+					<Button style={styles.button}>
+						<TouchableOpacity onPress={handleRegisterInstitution}>
+							<Text fontFamily="heading" fontSize={23} >
+								sou instituição de ensino
+							</Text>
+						</TouchableOpacity>
 					</Button>
-					<Button style={styles.imageIcon} onPress={() => openInstitutionDetail()}>
+
+					<Button style={styles.imageIcon} onPress={openInstitutionDetail}>
 						<Image source={info} alt="" />
 					</Button>
 
@@ -124,7 +128,7 @@ export function SelectRegister() {
 			<DetailUser />
 
 			<View style={styles.clickableText}>
-				<TextoClicavel onPress={handleTextoClicavelPress} />
+				<TextoClicavel onPress={handleLogin} />
 			</View>
 		</SafeAreaView>
 	)

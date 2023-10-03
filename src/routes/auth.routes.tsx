@@ -1,4 +1,5 @@
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { InstitutionRegistration } from '@screens/InstitutionRegistration';
 
 import { SelectRegister } from '@screens/SelectRegister';
 import UserLogin from '@screens/UserLogin';
@@ -6,6 +7,7 @@ import UserLogin from '@screens/UserLogin';
 type AuthRoutes = {
 	selectRegister: undefined;
 	userLogin: undefined;
+	institutionRegistration: undefined;
 }
 
 export type AuthNavigatorRoutesProps = NativeStackNavigationProp<AuthRoutes>;
@@ -24,6 +26,11 @@ export function AuthRoutes() {
 			<Screen
 				name='userLogin'
 				component={UserLogin}
+			/>
+
+			<Screen
+				name='institutionRegistration'
+				component={InstitutionRegistration}
 			/>
 
 		</Navigator>

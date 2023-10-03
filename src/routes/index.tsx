@@ -27,7 +27,7 @@ export function Routes() {
 						user.justInformation ? (
 							<AppRoutes /> // Nao precisa estar logado para ver as rotas do app
 						) : (
-							<AuthRoutes /> // Precisa estar logado para ver as rotas do app
+							<AuthRoutes /> // Telas que nao precisam de autenticacao
 						)
 					)
 				) : (
