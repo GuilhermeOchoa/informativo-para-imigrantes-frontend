@@ -10,7 +10,6 @@ import { ArticlesDetals } from '@screens/ArticlesDetails';
 
 import { Entypo } from '@expo/vector-icons'
 import { Feed } from '@screens/Feed';
-import UserLogin from '@screens/UserLogin';
 
 type AppRoutes = {
     article: undefined;
@@ -46,7 +45,7 @@ export function AppRoutes() {
         }}>
             <Screen
                 name='article'
-                component={UserLogin}
+                component={Articles}
                 options={{
                     tabBarIcon: () => (
                         <Icon
