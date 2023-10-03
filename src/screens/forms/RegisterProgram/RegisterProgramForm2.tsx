@@ -14,7 +14,7 @@ const registerProgramSchema = yup.object().shape({
     idioma: yup.string().required('Idioma é obrigatório'),
     dataInicioPrograma: yup.string().required('Data de início é obrigatória'),
     dataFimPrograma: yup.string().required('Data de fim é obrigatória'),
-    link: yup.string().required('Link de Acesso é obrigatório'),
+    link: yup.string().url().required('Link de Acesso é obrigatório'),
    
 })
 
@@ -134,7 +134,7 @@ export function RegisterProgramForm2({navigation} : any) {
 
                     render={({ field: { onChange, onBlur, value } }) => (
                         <Input
-                            inputTitle="Link de Acesso*"
+                            inputTitle="Link de Acesso*:"
                             variant={"underlined"}
                             placeholder="Link"
                             onBlur={onBlur}

@@ -1,11 +1,12 @@
 import { useForm, Controller } from "react-hook-form"
 import { VStack, HStack, Center, Divider, Text, ScrollView } from "native-base"
 
-
 import { Button } from "@components/Button"
-import { Input } from "@components/Input"
 import { TextArea } from "@components/TextArea"
+import { TagSelection } from "@components/TagSelection"
 import FileAttachment from "@components/FileAttachment"
+
+import { TagOptions } from "@utils/SelectOptions"
 
 // build schema using yup
 
@@ -38,12 +39,22 @@ export function RegisterProgramForm3() {
             <ScrollView>
 
                 <VStack flex={1} mt={8}>
-                    <Input
-                        placeholder="Clique para inserir as tags"
-                        inputTitle={"Tags:"}
-                        isDisabled={false}
-                        variant={"underlined"}
+                <Controller
+                        control={control}
+                        rules={{
+                            maxLength: 1000,
+                        }}
 
+                        render={({ field: { onChange } }) => (
+                            <TagSelection
+                                placeholder="Selecione as tags do programa"
+                                onValueChange={value => onChange(value)}
+                                inputTitle={"Tags:"} 
+                                label={"tags"} 
+                                options={TagOptions}                            
+                            />
+                        )}
+                        name="tags"
                     />
 
                     <Controller
@@ -52,9 +63,9 @@ export function RegisterProgramForm3() {
                             maxLength: 1000,
                         }}
 
-                        render={({ field: { onChange, onBlur, value } }) => (
+                        render={({ field: { onChange, onBlur } }) => (
                             <TextArea
-                                placeholder="Descrição do programa"
+                                placeholder="Requisitos do candidato, informações adicionais, etc."
                                 onBlur={onBlur}
                                 onChangeText={onChange}
                                 inputTitle={"Informações Adicionais:"}
