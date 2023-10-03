@@ -6,6 +6,7 @@ import { AppRoutes } from './app.routes';
 
 import { useAuth } from '@hooks/useAuth';
 import { Loading } from '@components/Loading';
+import { SelectRegister } from '@screens/SelectRegister';
 
 export function Routes() {
     const { colors } = useTheme();
@@ -21,7 +22,7 @@ export function Routes() {
     return (
         <Box flex={1} bg="white">
             <NavigationContainer theme={theme}>
-                {user.isValid ? <AppRoutes /> : <OnboardingRoutes />}
+                {user.isValid ? <SelectRegister /> : <OnboardingRoutes />}
             </NavigationContainer>
         </Box>
     );

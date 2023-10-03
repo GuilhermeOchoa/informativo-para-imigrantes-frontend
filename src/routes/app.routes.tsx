@@ -10,6 +10,7 @@ import { ArticlesDetals } from '@screens/ArticlesDetails';
 
 import { Entypo } from '@expo/vector-icons'
 import { Feed } from '@screens/Feed';
+import {SelectRegister} from "@screens/SelectRegister";
 
 type AppRoutes = {
     article: undefined;
@@ -17,6 +18,7 @@ type AppRoutes = {
     contact: undefined;
     feed: undefined;
     onboarding: undefined;
+    selectRegister: undefined;
 }
 
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>;
@@ -43,6 +45,22 @@ export function AppRoutes() {
                 paddingTop: sizes[6],
             }
         }}>
+            {/* <Screen
+                name='contact'
+                component={SelectRegister}
+                options={{
+                    tabBarIcon: () => (
+                        <Icon
+                            as={Entypo}
+                            name="help-with-circle"
+                            color={colors.green[700]}
+                            size={iconsSize}
+                            accessibilityViewIsModal={false}
+                        />
+                    )
+                }}
+            /> */}
+
             <Screen
                 name='article'
                 component={Articles}
@@ -82,8 +100,10 @@ export function AppRoutes() {
 
             />
 
+
+
             <Screen
-                name='contact'
+                name='selectRegister'
                 component={Contact}
                 options={{
                     tabBarIcon: () => (
