@@ -44,7 +44,6 @@ function CustomTabIcon({ name, color, focused, iconsSize }: Props) {
 	);
 }
 
-
 export function AppRoutes() {
 	const { sizes, colors } = useTheme();
 

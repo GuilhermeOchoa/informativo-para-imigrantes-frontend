@@ -1,61 +1,33 @@
-import React, { useEffect, useState } from "react";
-import { ScrollView, Select } from "native-base";
+import React, { useState } from "react";
+import { View } from "native-base";
 
 import { countryAcronyms } from '@utils/countriesList/acronym';
-import { useTranslation } from "react-i18next";
+import { Picker } from "@react-native-picker/picker";
 
-export function MenuSelectCountries({ onSelectCountry }: any) {
-	const [t, i18n] = useTranslation();
-	const [namePlaceholder, setNamePlaceholder] = useState("");
+export function MenuSelectCountries() {
+	const [selectedCountry, setSelectedCountry] = useState('');
 
-	const handleCountryChange = (itemValue: any) => {
-		onSelectCountry(itemValue);
-		setNamePlaceholder(itemValue)
-	  };
-	function selectPlaceholderLanguage() {
-		if (i18n.language === "pt") {
-			setNamePlaceholder("Selecione seu pais");
-			countryAcronyms[0].value = "Nao desejo selecionar";
-		} else if (i18n.language === "en") {
-			setNamePlaceholder("Select your country");
-			countryAcronyms[0].value = "I don't want to select";
-		} else if (i18n.language === "fr") {
-			setNamePlaceholder("S�lectionnez votre pays");
-			countryAcronyms[0].value = "Je ne veux pas s�lectionner";
-		} else if (i18n.language === "es") {
-			setNamePlaceholder("Seleccione su pa�s");
-			countryAcronyms[0].value = "No quiero seleccionar";
-		}
-	}
-
-	useEffect(() => {
-		selectPlaceholderLanguage();
-	}, [i18n.language])
+	const onCountryChange = (value: any) => {
+		setSelectedCountry(value);
+	};
 
 	return (
-		<Select
-			selectedValue={namePlaceholder}
-			onValueChange={handleCountryChange}
-			placeholder={namePlaceholder}
-			variant="unstyled"
-			borderBottomWidth={1}
-			borderColor="green.700"
-			_selectedItem={{
-				bg: "green.700",
-			}}
-			fontSize="lg"
-		>
-			{countryAcronyms.map((country) => (
-				<Select.Item
-					key={country.label}
-					label={country.value}
-					value={country.value}
-					alignItems="center"
-					_pressed={{ bg: "green.500" }}
-					borderRadius={5}
-				/>
-			))}
-		</Select>
-
+		<View borderBottomColor="green.500" borderBottomWidth={1}>
+			<Picker
+				selectedValue={selectedCountry}
+				onValueChange={onCountryChange}
+			>
+				<Picker.Item label="Select a country" value="" />
+				{
+					countryAcronyms.map((country) => (
+						<Picker.Item
+							key={country.value}
+							label={country.label + ' - ' + country.value}
+							value={country.value}
+						/>
+					))
+				}
+			</Picker>
+		</View>
 	);
 }
