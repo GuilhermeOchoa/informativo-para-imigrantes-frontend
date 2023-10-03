@@ -2,11 +2,10 @@ import { useTheme, Box } from 'native-base'
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 
 import { OnboardingRoutes } from './onboarding.routes';
-import { AppRoutes } from './app.routes';
 
 import { useAuth } from '@hooks/useAuth';
 import { Loading } from '@components/Loading';
-import { SelectRegister } from '@screens/SelectRegister';
+import { AuthRoutes } from './auth.routes';
 
 export function Routes() {
     const { colors } = useTheme();
@@ -22,7 +21,7 @@ export function Routes() {
     return (
         <Box flex={1} bg="white">
             <NavigationContainer theme={theme}>
-                {user.isValid ? <SelectRegister /> : <OnboardingRoutes />}
+                {user.isValid ? <AuthRoutes /> : <OnboardingRoutes />}
             </NavigationContainer>
         </Box>
     );
