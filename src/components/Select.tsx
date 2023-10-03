@@ -12,10 +12,9 @@ type Props = ISelectProps & {
 
 export function Select({ onValueChange, options, inputTitle, errorMessage = null, isInvalid, ...rest }: Props) {
   const invalid = errorMessage !== null || isInvalid;
-  console.log("invalid", isInvalid);
   return (
     <Center>
-      <FormControl mb={8} paddingRight={6} isInvalid={invalid} >
+      <FormControl mb={8}  isInvalid={invalid} >
         <Text style={{ fontSize: 15 }} mb={2}>
           {inputTitle}
         </Text>
@@ -25,10 +24,14 @@ export function Select({ onValueChange, options, inputTitle, errorMessage = null
           _selectedItem={{
             borderColor: 'green.400',
             backgroundColor: 'green.200',
-            endIcon: <CheckIcon size={5} 
-          />
+            bg: "green.700",
+            endIcon: <CheckIcon size={5} />
           }}
-          
+          _item={{
+            borderColor: 'green.400',
+          }}
+          variant="underlined"
+          fontSize="lg"
         >
           {options.map((option) => (
             <NativeBaseSelect.Item

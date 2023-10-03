@@ -1,12 +1,24 @@
 import React, { useState } from 'react';
-import { Select as NativeBaseSelect, CheckIcon, Text, Center, FormControl, WarningOutlineIcon, ISelectProps, View } from 'native-base';
+import { 
+        Select as NativeBaseSelect, 
+        Text, 
+        Center, 
+        FormControl, 
+        WarningOutlineIcon, 
+        ISelectProps, 
+        View, 
+        HStack, 
+        Badge, 
+        DeleteIcon, 
+        AddIcon 
+    } from 'native-base';
 
 type Props = ISelectProps & {
     isInvalid?: boolean;
     errorMessage?: string | null;
     inputTitle: string;
     label: string;
-    onValueChange: (value: any) => void;
+    onValueChange: (values: { label: string; value: any }[]) => void; 
     options: { label: string; value: any }[];
 };
 
@@ -18,58 +30,83 @@ export function TagSelection({
     isInvalid,
     ...rest
 }: Props) {
-    const invalid = errorMessage !== null || isInvalid;
-    console.log('invalid', isInvalid);
 
-    // Dummy state to store selected values
-    const [selectedValues, setSelectedValues] = useState<any[]>([]); // add type annotation to selectedValues
-
+    const [selectedValues, setSelectedValues] = useState<any[]>([]); 
     const handleValueChange = (itemValue: any) => {
-        const updatedValues = [...selectedValues];
-
-        if (updatedValues.includes(itemValue)) {
-            // Remove the value if already selected
-            const index = updatedValues.indexOf(itemValue);
-            updatedValues.splice(index, 1);
+        console.log(itemValue)
+        
+        const existingIndex = selectedValues.findIndex((obj) => obj.value === itemValue);
+    
+        if (existingIndex !== -1) {
+          const updatedValues = [...selectedValues];
+          updatedValues.splice(existingIndex, 1);
+          setSelectedValues(updatedValues);
         } else {
-            // Add the value if not selected
-            updatedValues.push(itemValue);
+          const selectedOption = options.find((option) => option.value === itemValue);
+          if (selectedOption) {
+            setSelectedValues([...selectedValues, selectedOption]);
+            onValueChange([...selectedValues, selectedOption]);
+          }
         }
+      };
 
-        setSelectedValues(updatedValues);
-        onValueChange(updatedValues);
-    };
-
+      const newItem = (itemValue: any) => selectedValues.find((obj) => obj.value === itemValue);
     return (
-        <Center>
-            <FormControl mb={8} paddingRight={6} isInvalid={invalid}>
-                <Text style={{ fontSize: 15 }} mb={2}>
-                    {inputTitle}
-                </Text>
-                <NativeBaseSelect
-                    {...rest}
-                    variant="underlined"
-                    onValueChange={handleValueChange}
-                    _selectedItem={{
-                        borderColor: 'green.400',
-                        backgroundColor: 'green.200',
-                        endIcon: <CheckIcon size={5} />,
-                    }}
-                >
-                    {options.map((option) => (
-                        <NativeBaseSelect.Item key={option.value} label={option.label} value={option.value} />
-                    ))}
-                </NativeBaseSelect>
-                <View>
-                    {/* Display selected values as tags */}
-                    {selectedValues.map((value) => (
-                        <Text key={value} fontSize="sm" backgroundColor="gray.200" borderRadius="md" p={1} m={1}>
-                            {value}
-                        </Text>
-                    ))}
-                </View>
-                <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>{errorMessage}</FormControl.ErrorMessage>
-            </FormControl>
-        </Center>
+        <>
+            <Center>
+                <FormControl mb={6}>
+                    <Text style={{ fontSize: 15 }} mb={2}>
+                        {inputTitle}
+                    </Text>
+
+                    <View>
+                        <NativeBaseSelect
+                            {...rest}
+                            borderColor={'green.500'}
+                            variant="underlined"
+                            onValueChange={handleValueChange}
+                            _selectedItem={{
+                                borderColor: 'green.400',
+                                backgroundColor: 'green.200',
+                                
+                            }}
+
+                            fontSize={'lg'}
+                            placeholder="Selecione as tags do programa"
+
+                        >
+                            {options.map((option) => (
+                                <NativeBaseSelect.Item
+                                    key={option.value}
+                                    label={option.label}
+                                    value={option.value}
+                                    _pressed={{
+                                        backgroundColor: 'green.600',
+                                        borderRadius: 'lg',
+                                    }}
+                                    endIcon={newItem(option.value) ? <DeleteIcon size="lg" /> : <AddIcon size="lg"/> }
+                                >
+                                    {option.label}
+                                </NativeBaseSelect.Item>
+                            ))}
+                        </NativeBaseSelect>
+                    </View>
+
+                    <FormControl.ErrorMessage 
+                        leftIcon={<WarningOutlineIcon size="xs" />}
+                    >
+                        {errorMessage}
+                    </FormControl.ErrorMessage>
+                </FormControl>
+            </Center>
+            
+          <HStack space={3} flexWrap={"wrap"} mb={8}>
+            {selectedValues.map((tag) => (
+              <Badge variant={"outline"} colorScheme={"success"} mb={2}>
+                {tag.label}
+              </Badge>
+            ))}
+          </HStack>
+        </>
     );
 }

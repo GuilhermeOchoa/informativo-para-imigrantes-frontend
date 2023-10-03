@@ -22,6 +22,7 @@ export function Input({ inputTitle, errorMessage = null, isInvalid, ...rest }: P
                 borderColor: 'green.500',
                 backgroundColor: 'white.800'
             }}
+            fontSize={'lg'}
         >
         </NativeBaseInput>
         

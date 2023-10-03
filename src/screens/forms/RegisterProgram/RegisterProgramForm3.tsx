@@ -42,7 +42,7 @@ export function RegisterProgramForm3() {
                 <Controller
                         control={control}
                         rules={{
-                            maxLength: 1000,
+                            maxLength: 10,
                         }}
 
                         render={({ field: { onChange } }) => (
