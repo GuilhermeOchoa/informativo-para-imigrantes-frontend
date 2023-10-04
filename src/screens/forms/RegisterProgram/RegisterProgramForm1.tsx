@@ -6,14 +6,16 @@ import * as yup from 'yup'
 import { Button } from "@components/Button"
 import { Input } from "@components/Input"
 import { TextArea } from "@components/TextArea"
-import { Platform, ScrollView } from "react-native"
+import { DateInput } from "@components/DateInput"
+import { ScrollView } from "react-native"
+
 
 // build schema using yup
 const registerProgramSchema = yup.object().shape({
     nomePrograma: yup.string().required('Nome do programa é obrigatório'),
     descricao: yup.string().required('Descrição do programa é obrigatória'),
-    dataInicio: yup.string().required('Data de início é obrigatória'),
-    dataFim: yup.string().required('Data fim é obrigatória'),
+    dataInicio: yup.string().required('Insira uma data de início válida, no formato DD/MM/AAAA'),
+    dataFim: yup.string().required('Insira uma data fim válida no formato DD/MM/AAAA'),
 })
 
 export function RegisterProgramForm1({ navigation }: any) {
@@ -95,13 +97,14 @@ export function RegisterProgramForm1({ navigation }: any) {
                         }}
 
                         render={({ field: { onChange, onBlur } }) => (
-                            <Input
-                                inputTitle="Início das inscrições*:"
+                            <DateInput
+                                inputTitle="Fim das inscrições*:"
                                 variant={"underlined"}
                                 placeholder="DD/MM/AAAA"
                                 onBlur={onBlur}
                                 onChangeText={onChange}
-                                errorMessage={errors.dataInicio?.message}
+                                errorMessage={errors.dataFim?.message} 
+                                onChange={onChange}                            
                             />
                         )}
                         name="dataInicio"
@@ -112,14 +115,15 @@ export function RegisterProgramForm1({ navigation }: any) {
                             maxLength: 100,
                         }}
 
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <Input
+                        render={({ field: { onChange, onBlur } }) => (
+                            <DateInput
                                 inputTitle="Fim das inscrições*:"
                                 variant={"underlined"}
                                 placeholder="DD/MM/AAAA"
                                 onBlur={onBlur}
                                 onChangeText={onChange}
-                                errorMessage={errors.dataFim?.message}
+                                errorMessage={errors.dataFim?.message} 
+                                onChange={onChange}                            
                             />
                         )}
                         name="dataFim"
