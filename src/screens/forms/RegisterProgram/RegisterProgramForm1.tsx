@@ -102,7 +102,6 @@ export function RegisterProgramForm1({ navigation }: any) {
                                 variant={"underlined"}
                                 placeholder="DD/MM/AAAA"
                                 onBlur={onBlur}
-                                onChangeText={onChange}
                                 errorMessage={errors.dataFim?.message} 
                                 onChange={onChange}                            
                             />
