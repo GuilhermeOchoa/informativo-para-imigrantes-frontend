@@ -1,21 +1,63 @@
 import React, { useState } from 'react';
 import { Entypo } from '@expo/vector-icons';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
-import { useForm, Controller, useWatch, Form } from 'react-hook-form';
 import { MenuSelectCountries } from '@components/MenuSelectCountries';
-import { Button, ScrollView } from 'native-base';
+import { Button, ScrollView, useToast } from 'native-base';
+import { useTranslation } from 'react-i18next';
+import { getmmigrant, postImmigrant } from '@services/Immigrant';
+import { AppError } from '@utils/AppError';
+import { ImmigrantDTO } from '@dtos/ImmigrantDTO';
+
+import { Input } from '@components/Input';
+
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+
+type FormDataProps = {
+	email: string,
+	name: string,
+	countryOfOrigin?: string,
+	password: string,
+	confirmPassword: string;
+}
+
+const signUpSchema = yup.object({
+	email: yup.string().required('Informe o e-mail.').email('E-mail invalido.'),
+	name: yup.string().required('Informe o nome.'),
+	password: yup.string().required('Informe a senha.').min(6, "A senha deve ter pelo menos 6 digitos"),
+	confirmPassword: yup.string().required('Confirme a senha.').oneOf([yup.ref("password"), ''], 'Senha diferente da anterior'),
+});
 
 const UserLogin = () => {
-	const [data, setData] = useState({})
-	const { register, control, handleSubmit, getValues, setValue, formState: { errors } } = useForm();
+	const toast = useToast();
+	const [t, i18n] = useTranslation();
+	const [isLoading, setIsLoading] = useState(false);
+	const [selectedCountry, setSelectedCountry] = useState('');
 
-	const onSubmit = (data: any) => {
-		console.log(data)
-		setData(data);
-		return
-	};
+	const { control, handleSubmit, formState: { errors } } = useForm<FormDataProps>({
+		resolver: yupResolver(signUpSchema)
+	});
 
-	const { username, email, password, confirmPassword, country } = getValues();
+	async function addImmigrant({ email, name, countryOfOrigin, password }: FormDataProps) {
+		try {
+			setIsLoading(true);
+
+			await postImmigrant({ email, name, countryOfOrigin: selectedCountry, password });
+
+		} catch (error) {
+			const isAppError = error instanceof AppError;
+			const title = isAppError ? error.message : t("Nao foi possivel cadastrar o usuario")
+
+			toast.show({
+				title,
+				placement: "top",
+				bgColor: "red.500"
+			});
+		} finally {
+			setIsLoading(false);
+		}
+	}
 
 	return (
 		<ScrollView style={styles.container}>
@@ -24,97 +66,73 @@ const UserLogin = () => {
 
 			<Text style={styles.subtitle}>Informações do usuário</Text>
 
-			<Text style={styles.label}>Nome*</Text>
 			<Controller
-				name='username'
 				control={control}
-				render={({ field }) => (
-					<TextInput
-						style={styles.input}
-						onChangeText={field.onChange}
-						value={field.value}
+				name='name'
+				render={({ field: { onChange, value } }) => (
+					<Input
 						placeholder="Digite seu nome"
+						onChangeText={onChange}
+						style={styles.input}
+						value={value}
+						errorMessage={errors.name?.message}
 					/>
 				)}
 			/>
 
-			<Text style={styles.label}>Email*</Text>
 			<Controller
 				control={control}
-				render={({ field }) => (
-					<TextInput
-						style={styles.input}
-						onChangeText={field.onChange}
-						value={field.value}
-						placeholder="Digite seu email"
-					/>
-				)}
 				name="email"
-				rules={{
-					required: 'O email é obrigatório',
-					pattern: {
-						value: /\S+@\S+\.\S+/,
-						message: 'Email inválido',
-					},
-				}}
-				defaultValue=""
+				render={({ field: { onChange, value } }) => (
+					<Input
+						placeholder="Digite seu email"
+						onChangeText={onChange}
+						style={styles.input}
+						value={value}
+						errorMessage={errors.name?.message}
+					/>
+				)}
 			/>
-			{errors.email && <Text style={styles.error}>{`${errors.email.message}`}</Text>}
 
-			<Text style={styles.label}>Senha*</Text>
 			<Controller
 				control={control}
-				render={({ field }) => (
-					<TextInput
-						style={styles.input}
-						onChangeText={field.onChange}
-						value={field.value}
+				name="password"
+				render={({ field: { onChange, value } }) => (
+					<Input
 						placeholder="Digite sua senha"
 						secureTextEntry
+						style={styles.input}
+						onChangeText={onChange}
+						value={value}
+						errorMessage={errors.password?.message}
 					/>
 				)}
-				name="password"
-				rules={{
-					required: 'A senha é obrigatória',
-					minLength: {
-						value: 6,
-						message: 'A senha deve ter pelo menos 6 caracteres',
-					},
-				}}
-				defaultValue=""
 			/>
-			{errors.password && <Text style={styles.error}>{`${errors.password.message}`}</Text>}
 
-			<Text style={styles.label}>Confirmar Senha*</Text>
 			<Controller
 				control={control}
-				render={({ field }) => (
-					<TextInput
-						style={styles.input}
-						onChangeText={field.onChange}
-						value={field.value}
+				name="confirmPassword"
+				render={({ field: { onChange, value } }) => (
+					<Input
 						placeholder="Confirme sua senha"
 						secureTextEntry
+						onChangeText={onChange}
+						value={value}
+						style={styles.input}
+						errorMessage={errors.password?.message}
 					/>
 				)}
-				name="confirmPassword"
-				rules={{
-					required: 'A confirmação de senha é obrigatória',
-					validate: (value) => value === password || 'As senhas não coincidem',
-				}}
-				defaultValue=""
 			/>
-			{errors.confirmPassword && <Text style={styles.error}>{`${errors.confirmPassword.message}`}</Text>}
-			<Text style={styles.label}>Origem*</Text>
 
 			<Controller
 				control={control}
+				name="countryOfOrigin"
 				render={() => (
-					<MenuSelectCountries />
+					<MenuSelectCountries
+						selectCountryFunction={setSelectedCountry}
+						selectedCountry={selectedCountry}
+					/>
 				)}
-				name="country"
-				rules={{ required: 'Country is required' }}
-				defaultValue=""
 			/>
 
 			<View style={styles.message}>
@@ -127,8 +145,13 @@ const UserLogin = () => {
 					</Text>
 				</View>
 			</View>
-			<Button style={styles.button} onPress={handleSubmit(onSubmit)}>Finalizar cadastro</Button>
-			<Text>{[username, email, password, confirmPassword, country]}</Text>
+
+			<Button
+				onPress={handleSubmit(addImmigrant)}
+				isLoading={isLoading}
+			>
+				Finalizar cadastro
+			</Button>
 		</ScrollView>
 	);
 };

@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, TouchableOpacity, View } from "react-native";
-import { Image, Text, Button } from "native-base";
+import { Image, Text, Button, useToast } from "native-base";
 import logo from "@assets/logo.png";
 import info from "@assets/infoIcon.png";
-
-import { Articles } from '@screens/Articles';
 
 import { useNavigation } from '@react-navigation/native';
 import { AuthNavigatorRoutesProps } from '@routes/auth.routes';
@@ -19,20 +17,9 @@ export function SelectRegister() {
 
 	const navigation = useNavigation<AuthNavigatorRoutesProps>();
 
-	const handleLogin = () => {
+	function handleLogin() {
 		navigation.navigate('userLogin');
-	};
-
-
-	const openUserDetail = () => {
-		setIsDetailUserVisible(true);
-		setIsDetailInstitutionVisible(false);
-	};
-
-	const openInstitutionDetail = () => {
-		setIsDetailUserVisible(false);
-		setIsDetailInstitutionVisible(true);
-	};
+	}
 
 	function handleSendToInformationRoutes() {
 		updateLocalStorageUserNoLogged();
@@ -42,14 +29,14 @@ export function SelectRegister() {
 		navigation.navigate('institutionRegistration');
 	}
 
-	const TextoClicavel = ({ onPress }: any) => {
-		return (
-			<TouchableOpacity onPress={onPress}>
-				<Text style={{ color: '#5E4C5A' }}>
-					Já tem uma conta? <Text style={styles.link}> Clique aqui </Text>
-				</Text>
-			</TouchableOpacity>
-		);
+	const openUserDetail = () => {
+		setIsDetailUserVisible(true);
+		setIsDetailInstitutionVisible(false);
+	};
+
+	const openInstitutionDetail = () => {
+		setIsDetailUserVisible(false);
+		setIsDetailInstitutionVisible(true);
 	};
 
 	const DetailInstitution = () => {
@@ -94,7 +81,7 @@ export function SelectRegister() {
 				<View style={styles.divButton}>
 					<Button style={styles.button}>
 
-						<TouchableOpacity onPress={handleSendToInformationRoutes}>
+						<TouchableOpacity onPress={handleLogin}>
 							<Text fontFamily="heading" fontSize={23} >
 								procuro informações
 							</Text>
@@ -111,7 +98,7 @@ export function SelectRegister() {
 
 					<Button style={styles.button}>
 						<TouchableOpacity onPress={handleRegisterInstitution}>
-							<Text fontFamily="heading" fontSize={23} >
+							<Text fontFamily="heading" fontSize={23}>
 								sou instituição de ensino
 							</Text>
 						</TouchableOpacity>
@@ -128,7 +115,11 @@ export function SelectRegister() {
 			<DetailUser />
 
 			<View style={styles.clickableText}>
-				<TextoClicavel onPress={handleLogin} />
+				<TouchableOpacity>
+					<Text style={{ color: '#5E4C5A' }}>
+						Já tem uma conta? <Text style={styles.link}> Clique aqui </Text>
+					</Text>
+				</TouchableOpacity>
 			</View>
 		</SafeAreaView>
 	)

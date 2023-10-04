@@ -1,8 +1,7 @@
 import { Button } from "@components/Button";
-import { VStack, Input, Text, HStack, Center, Divider, Select, CheckIcon } from "native-base";
+import { VStack, Input, Select, CheckIcon } from "native-base";
 
 export function InstitutionRegistration() {
-
 
 	return (
 		<VStack flex={1} px={6} pb={6} mt={12}>
