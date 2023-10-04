@@ -1,5 +1,5 @@
 import { Input as NativeBaseInput, IInputProps, FormControl, Text, ISelectProps, DeleteIcon, IconButton } from 'native-base';
-import { parse, isValid, set } from 'date-fns';
+import { parse, isValid } from 'date-fns';
 import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 

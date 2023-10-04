@@ -12,8 +12,9 @@ import { RegisterProgramForm3 } from "./forms/RegisterProgram/RegisterProgramFor
 
 const Stack = createStackNavigator();
 
-export default function App() {
+export default function RegisterProgram() {
     const methods = useForm()
+    //create state for each form page 
 
     return (
         <FormProvider {...methods}>

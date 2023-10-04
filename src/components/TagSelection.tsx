@@ -102,7 +102,7 @@ export function TagSelection({
             
           <HStack space={3} flexWrap={"wrap"} mb={8}>
             {selectedValues.map((tag) => (
-              <Badge variant={"outline"} colorScheme={"success"} mb={2}>
+              <Badge variant={"outline"} colorScheme={"success"} mb={2} key={tag.value}>
                 {tag.label}
               </Badge>
             ))}

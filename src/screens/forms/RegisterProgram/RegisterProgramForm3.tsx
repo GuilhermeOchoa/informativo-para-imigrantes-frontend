@@ -16,9 +16,9 @@ export function RegisterProgramForm3() {
         handleSubmit,
         formState: { errors },
     } = useForm({
-
+        
     })
-    const onSubmit = (data: any) => console.log(data)
+    const onSubmit = (data: any) => console.log("handleSubmit3",data)
 
 
     return (

@@ -26,9 +26,10 @@ export function RegisterProgramForm1({ navigation }: any) {
     } = useForm({
         resolver: yupResolver(registerProgramSchema),
     })
+
     const onSubmit = (data: any) => {
         console.log(data)
-        navigation.navigate('Página 2 de 3', data)
+        navigation.navigate('Página 2 de 3')
     }
 
 
@@ -78,7 +79,6 @@ export function RegisterProgramForm1({ navigation }: any) {
                         rules={{
                             maxLength: 1000,
                         }}
-
                         render={({ field: { onChange, onBlur, value } }) => (
                             <TextArea
                                 placeholder="Descrição do programa"
