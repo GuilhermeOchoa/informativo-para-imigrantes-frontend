@@ -5,11 +5,11 @@ import { InstitutionRegistration02 } from '@screens/form/InstitutionRegistration
 import { InstitutionRegistration03 } from '@screens/form/InstitutionRegistration03';
 
 import { SelectRegister } from '@screens/SelectRegister';
-import UserLogin from '@screens/UserLogin';
+import UserSignIn from '@screens/UserSignIn';
 
 type AuthRoutes = {
 	selectRegister: undefined;
-	userLogin: undefined;
+	userSignIn: undefined;
 	institutionRegistration01: undefined;
 	institutionRegistration02: InstitutionDTO;
 	institutionRegistration03: InstitutionDTO;
@@ -29,8 +29,8 @@ export function AuthRoutes() {
 			/>
 
 			<Screen
-				name='userLogin'
-				component={UserLogin}
+				name='userSignIn'
+				component={UserSignIn}
 			/>
 
 			<Screen

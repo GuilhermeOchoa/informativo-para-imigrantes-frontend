@@ -30,7 +30,7 @@ const signUpSchema = yup.object({
 	confirmPassword: yup.string().required('Confirme a senha.').oneOf([yup.ref("password"), ''], 'Senha diferente da anterior'),
 });
 
-const UserLogin = () => {
+const UserSignIn = () => {
 	const toast = useToast();
 	const [t, i18n] = useTranslation();
 
@@ -198,4 +198,4 @@ const UserLogin = () => {
 	);
 };
 
-export default UserLogin;
+export default UserSignIn;

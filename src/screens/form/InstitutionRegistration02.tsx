@@ -24,15 +24,15 @@ const signUpSchema = yup.object({
 	registrantCpf: yup
 		.string()
 		.required('Informe o CPF.')
-		.matches(/^\d{11}$/, 'O CPF deve conter 11 dígitos numéricos.'),
+		.matches(/^\d{11}$/, 'O CPF deve conter 11 digitos numericos.'),
 	registrantRole: yup.string().required('Informe o cargo.'),
 	email: yup
 		.string()
 		.required('Informe o e-mail.')
-		.email('Informe um e-mail válido.'),
+		.email('Informe um e-mail valido.'),
 	phone: yup
 		.string()
-		.required('Informe o número de telefone.'),
+		.required('Informe o numero de telefone.'),
 });
 
 

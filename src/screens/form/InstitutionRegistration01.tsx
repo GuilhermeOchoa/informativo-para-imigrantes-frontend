@@ -25,12 +25,12 @@ const signUpSchema = yup.object({
 		.required('Informe o CNPJ.')
 		.matches(/^[0-9]+$/, 'O CNPJ deve conter apenas numeros.')
 		.min(14, 'O CNPJ deve conter 14 digitos.'),
-	// selectedType: yup
-	// 	.string()
-	// 	.strict(true)
-	// 	.trim()
-	// 	.required('Selecione um tipo v·lido.')
-	// 	.min(1, 'Selecione um tipo v·lido.'),
+	selectedType: yup
+		.string()
+		.strict(true)
+		.trim()
+		.required('Selecione um tipo v√°lido.')
+		.min(1, 'Selecione um tipo v√°lido.'),
 });
 
 export function InstitutionRegistration01() {

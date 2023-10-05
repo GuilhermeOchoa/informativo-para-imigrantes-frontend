@@ -4,15 +4,11 @@ import '@utils/i18n/i18n';
 import { useTranslation } from 'react-i18next';
 import { TouchableOpacity } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons'
-import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
-import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "@hooks/useAuth";
 
 export function Profile() {
 	const { t, i18n } = useTranslation();
 	const { exit } = useAuth();
-
-	const navigator = useNavigation<AuthNavigatorRoutesProps>();
 
 	function handleGoBack() {
 		exit();
@@ -33,9 +29,9 @@ export function Profile() {
 						/>
 					</TouchableOpacity>
 
-					<Center flex={1}>
+					<Center flex={1} mr={7}>
 						<Text fontFamily="body" fontSize="xl" >
-							{t("Profile")}
+							{t("Perfil")}
 						</Text>
 					</Center>
 				</HStack>

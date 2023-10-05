@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
+import { Image, Text, Button, VStack, HStack, Center, Divider, Icon, useTheme, Box, ScrollView } from "native-base";
 import { SafeAreaView, StyleSheet, TouchableOpacity, View } from "react-native";
-import { Image, Text, Button, useToast } from "native-base";
+
 import logo from "@assets/logo.png";
-import info from "@assets/infoIcon.png";
+import { Ionicons } from "@expo/vector-icons";
 
 import { useNavigation } from '@react-navigation/native';
 import { AuthNavigatorRoutesProps } from '@routes/auth.routes';
 import { useAuth } from '@hooks/useAuth';
 
 export function SelectRegister() {
+	const { sizes, colors } = useTheme();
+
+	const iconsSize = sizes[2];
 
 	const [isDetailUserVisible, setIsDetailUserVisible] = useState(false);
 	const [isDetailInstitutionVisible, setIsDetailInstitutionVisible] = useState(false);
@@ -18,7 +22,7 @@ export function SelectRegister() {
 	const navigation = useNavigation<AuthNavigatorRoutesProps>();
 
 	function handleLogin() {
-		navigation.navigate('userLogin');
+		navigation.navigate('userSignIn');
 	}
 
 	function handleSendToInformationRoutes() {
@@ -42,11 +46,29 @@ export function SelectRegister() {
 	const DetailInstitution = () => {
 		if (isDetailInstitutionVisible) {
 			return (
-				<View style={styles.box}>
-					<Text style={styles.boxText}>
-						Instituição de ensino / ONG
-					</Text>
-				</View>
+				<Box justifyContent="center" alignItems="center" h={140}>
+					<HStack bg="lightGreen.500" rounded="md">
+						<VStack>
+							<Center p={2}>
+								<Icon
+									as={Ionicons}
+									name="information-circle-outline"
+									color={colors.black}
+									size={iconsSize}
+								/>
+							</Center>
+						</VStack>
+
+						<VStack flex={1}>
+							<Text fontFamily="heading" fontSize="md" py={2}>
+								Instituicao de ensino / ONG
+							</Text>
+							<Text fontFamily="body" fontSize="md" py={2}>
+								Praesent velit nunc, luctus tincid Donec nec pharetra magna.
+							</Text>
+						</VStack>
+					</HStack>
+				</Box>
 			);
 		} else {
 			return null;
@@ -56,11 +78,29 @@ export function SelectRegister() {
 	const DetailUser = () => {
 		if (isDetailUserVisible) {
 			return (
-				<View style={styles.box}>
-					<Text style={styles.boxText}>
-						Sou Imigrante em busca de oportunidades
-					</Text>
-				</View>
+				<Box justifyContent="center" alignItems="center" h={140}>
+					<HStack bg="lightGreen.500" rounded="md">
+						<VStack>
+							<Center p={2}>
+								<Icon
+									as={Ionicons}
+									name="information-circle-outline"
+									color={colors.black}
+									size={iconsSize}
+								/>
+							</Center>
+						</VStack>
+
+						<VStack flex={1}>
+							<Text fontFamily="heading" fontSize="md" py={2}>
+								Sou Imigrante em busca de oportunidades
+							</Text>
+							<Text fontFamily="body" fontSize="md" py={2}>
+								Praesent velit nunc, luctus tincid Donec nec pharetra magna.
+							</Text>
+						</VStack>
+					</HStack>
+				</Box>
 			);
 		} else {
 			return null;
@@ -68,156 +108,90 @@ export function SelectRegister() {
 	};
 
 	return (
-		<SafeAreaView style={styles.container}>
-			<View style={styles.welcomeTitleContainer}>
-				<Text style={styles.welcomeText} fontWeight="light">
-					Cadastro de usuário</Text>
-			</View>
-			<View style={styles.logoImage}>
-				<Image source={logo} alt="" />
-			</View>
+		<VStack flex={1} px={6} pb={6} mt={10}>
+			<ScrollView showsVerticalScrollIndicator={false}>
+				<HStack alignItems="center" m={2}>
+					<Center flex={1}>
+						<Text fontFamily="body" fontSize="xl">
+							Informacao
+						</Text>
+					</Center>
+				</HStack>
 
-			<View style={styles.WrapperButton}>
-				<View style={styles.divButton}>
-					<Button style={styles.button}>
+				<Divider my={4} bgColor="green.500" />
 
-						<TouchableOpacity onPress={handleLogin}>
-							<Text fontFamily="heading" fontSize={23} >
-								procuro informações
-							</Text>
+				<HStack alignItems="center" mt={10}>
+					<Center flex={1}>
+						<Image rounded="full" source={logo} alt="Image logo" />
+					</Center>
+				</HStack>
+
+				<VStack mt={10}>
+					<Divider my={4} bgColor="green.500" />
+
+					<HStack>
+						<TouchableOpacity onPress={handleLogin} >
+							<Center>
+								<Text fontSize="lg">Procuro informacoes{'        '}</Text>
+							</Center>
 						</TouchableOpacity>
 
-					</Button>
+						<Center flex={1}>
+							<Divider orientation="vertical" h={10} bgColor="green.500" />
+						</Center>
 
-					<Button style={styles.imageIcon} onPress={openUserDetail}>
-						<Image source={info} alt="" />
-					</Button>
-				</View>
+						<Center w="20%">
+							<Icon
+								as={Ionicons}
+								name="information-circle-outline"
+								color={colors.green[700]}
+								size={iconsSize}
+								onPress={openUserDetail}
+							/>
+						</Center>
+					</HStack>
 
-				<View style={styles.divButton}>
+					<Divider my={4} bgColor="green.500" />
 
-					<Button style={styles.button}>
+					<HStack>
 						<TouchableOpacity onPress={handleRegisterInstitution}>
-							<Text fontFamily="heading" fontSize={23}>
-								sou instituição de ensino
-							</Text>
+							<Center flex={1}>
+								<Text fontSize="lg">Sou instituicao de ensino </Text>
+							</Center>
 						</TouchableOpacity>
-					</Button>
 
-					<Button style={styles.imageIcon} onPress={openInstitutionDetail}>
-						<Image source={info} alt="" />
-					</Button>
+						<Center flex={1}>
+							<Divider orientation="vertical" h={10} bgColor="green.500" />
+						</Center>
 
-				</View>
-			</View>
+						<Center w="20%">
+							<Icon
+								as={Ionicons}
+								name="information-circle-outline"
+								color={colors.green[700]}
+								size={iconsSize}
+								onPress={openInstitutionDetail}
+							/>
+						</Center>
+					</HStack>
 
-			<DetailInstitution />
-			<DetailUser />
+					<Divider my={4} bgColor="green.500" />
 
-			<View style={styles.clickableText}>
-				<TouchableOpacity>
-					<Text style={{ color: '#5E4C5A' }}>
-						Já tem uma conta? <Text style={styles.link}> Clique aqui </Text>
-					</Text>
-				</TouchableOpacity>
-			</View>
-		</SafeAreaView>
+					<DetailUser />
+					<DetailInstitution />
+
+					<TouchableOpacity onPress={handleSendToInformationRoutes}>
+						<Box p={8} justifyContent="center" alignItems="center">
+							<Text fontSize="md">
+								Ja tem uma conta?{" "}
+								<Text underline color={colors.green[700]}>
+									Entre aqui
+								</Text>{" "}
+							</Text>
+						</Box>
+					</TouchableOpacity>
+				</VStack>
+			</ScrollView>
+		</VStack>
 	)
-
 }
-
-
-const styles = StyleSheet.create({
-	container: {
-		backgroundColor: "#f8f8f8",
-		padding: 0,
-		margin: 0,
-		marginTop: 20,
-		height: "100%",
-		width: "100%",
-		maxHeight: "100%",
-		maxWidth: "100%",
-		flex: 1,
-	},
-	welcomeTitleContainer: {
-		height: 100,
-		alignSelf: "center",
-		alignItems: "center",
-		marginTop: 32,
-	},
-	logoImage: {
-		alignItems: "center",
-	},
-	button: {
-		display: "flex",
-		flexDirection: 'row',
-		width: '85%',
-		height: 50,
-		justifyContent: 'center',
-		alignItems: "center",
-		backgroundColor: "#f8f8f8",
-		margin: 0,
-		marginRight: 10,
-		borderRadius: 0,
-		borderRightColor: "#D4D4D4",
-		borderRightWidth: 1,
-	},
-	welcomeText: {
-		fontSize: 30,
-		marginTop: 20,
-		lineHeight: 30,
-	},
-	clickableText: {
-		display: "flex",
-		justifyContent: 'flex-end',
-		flexDirection: 'column',
-		alignItems: 'center',
-		height: 110,
-	},
-	link: {
-		textDecorationLine: 'underline',
-		color: '#55917F'
-	},
-	divButton: {
-		width: '100%',
-		alignItems: 'center',
-		display: "flex",
-		flexDirection: 'row',
-		height: 80,
-		borderBottomWidth: 1,
-		borderColor: "#55917F",
-		paddingBottom: 20,
-		paddingTop: 20
-	},
-	WrapperButton: {
-		width: '95%',
-		borderTopWidth: 1,
-		borderColor: "#55917F",
-		display: "flex",
-		justifyContent: 'center',
-		flexDirection: 'column',
-		alignItems: 'center',
-		alignSelf: "center",
-		marginTop: 50,
-	},
-	imageIcon: {
-		backgroundColor: "#f8f8f8",
-		display: "flex",
-		justifyContent: 'center',
-		width: 45
-	},
-	box: {
-		backgroundColor: '#E1F0C4',
-		padding: 20,
-		borderRadius: 10,
-		width: '80%',
-		alignSelf: 'center',
-		marginTop: 20,
-	},
-	boxText: {
-		fontSize: 16,
-		textAlign: 'center',
-		marginBottom: 10,
-		fontWeight: 'bold',
-	},
-});
