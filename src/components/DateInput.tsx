@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 
 type Props = IInputProps & ISelectProps & {
-    errorMessage?: string | null;
+    errorMessage?: string | null | any;
     inputTitle: string;
     onChange: (value: string) => void;
 };

@@ -13,8 +13,8 @@ import { DateInput } from "@components/DateInput"
 const registerProgramSchema = yup.object().shape({
     local: yup.string().required('Local é obrigatório'),
     idioma: yup.string().required('Idioma é obrigatório'),
-    dataInicioPrograma: yup.string().required('Insira uma data início válida, no formato DD/MM/AAAA'),
-    dataFimPrograma: yup.string().required('Insira uma data fim válida, no formato DD/MM/AAAA'),
+    dataInicioPrograma: yup.string().required('Data de início é obrigatória'),
+    dataFimPrograma: yup.string().required('Data de fim é obrigatória'),
     link: yup.string().url().required('Link de Acesso é obrigatório'),
 
 })
@@ -27,11 +27,11 @@ export function RegisterProgramForm2({ navigation }: any) {
     } = useForm({
         resolver: yupResolver(registerProgramSchema),
     })
-
     const onSubmit = (data: any) => {
-        console.log("handleSubmit2",data)
+        console.log(data)
         navigation.navigate('Página 3 de 3', data)
     }
+
 
     return (
         <VStack flex={1} px={6} pb={2} mt={2}>

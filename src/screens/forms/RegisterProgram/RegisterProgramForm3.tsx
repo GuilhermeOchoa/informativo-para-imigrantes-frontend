@@ -1,4 +1,4 @@
-import { useForm, Controller } from "react-hook-form"
+import { useForm, Controller, useFormContext } from "react-hook-form"
 import { VStack, HStack, Center, Divider, Text, ScrollView } from "native-base"
 
 import { Button } from "@components/Button"
@@ -8,18 +8,42 @@ import FileAttachment from "@components/FileAttachment"
 
 import { TagOptions } from "@utils/SelectOptions"
 
-// build schema using yup
-
 export function RegisterProgramForm3() {
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({
-        
-    })
-    const onSubmit = (data: any) => console.log("handleSubmit3",data)
 
+    const { register, control, handleSubmit, formState  } = useForm();
+
+    const methods = useFormContext();
+
+    const onSubmit = (data: any) => {
+        console.log("handleSubmit3",methods.getValues('dataInicio'))
+        const dataInicio = methods.getValues('dataInicio')
+        const dataFim = methods.getValues('dataFim')
+        const nomePrograma = methods.getValues('nomePrograma')
+        const descricao = methods.getValues('descricao')
+        const local = methods.getValues('local')
+        const idioma = methods.getValues('idioma')
+        const dataInicioPrograma = methods.getValues('dataInicioPrograma')
+        const dataFimPrograma = methods.getValues('dataFimPrograma')
+        const link = methods.getValues('link')
+        const tags = methods.getValues('tags')
+        const informacoesAdicionais = methods.getValues('informacoesAdicionais')
+
+        const dataToSend = {
+            dataInicio,
+            dataFim,
+            nomePrograma,
+            descricao,
+            local,
+            idioma,
+            dataInicioPrograma,
+            dataFimPrograma,
+            link,
+            tags,
+            informacoesAdicionais
+        }
+
+        console.log("dataToSend",dataToSend)
+    }
 
     return (
 
@@ -47,6 +71,7 @@ export function RegisterProgramForm3() {
 
                         render={({ field: { onChange } }) => (
                             <TagSelection
+                                {...register("tags")}
                                 placeholder="Selecione as tags do programa"
                                 onValueChange={value => onChange(value)}
                                 inputTitle={"Tags:"} 
@@ -65,13 +90,14 @@ export function RegisterProgramForm3() {
 
                         render={({ field: { onChange, onBlur } }) => (
                             <TextArea
+                                {...register("informacoesAdicionais")}
                                 placeholder="Requisitos do candidato, informações adicionais, etc."
                                 onBlur={onBlur}
                                 onChangeText={onChange}
                                 inputTitle={"Informações Adicionais:"}
                             />
                         )}
-                        name="descricao"
+                        name="informacoesAdicionais"
                     />
                     <Center>
                         <Text style={{ fontSize: 15 }}>

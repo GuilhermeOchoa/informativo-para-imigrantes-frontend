@@ -1,14 +1,13 @@
 import { TextArea as NativeBaseTextArea, IInputProps, FormControl, Text } from 'native-base'
 
 type Props = IInputProps & {
-	errorMessage?: string | null;
+	errorMessage?: any;
     inputTitle: string;
 }
 
 
 export function TextArea({ inputTitle, errorMessage = null, isInvalid, ...rest }: Props) {
-    const invalid = errorMessage !== null || isInvalid;
-
+    const invalid = isInvalid || errorMessage;
     return (
     <FormControl mb={6} >
         <Text style={{ fontSize: 15 }} mb={4}>
@@ -31,6 +30,9 @@ export function TextArea({ inputTitle, errorMessage = null, isInvalid, ...rest }
             }}
             autoCompleteType={undefined}
         />
+        {isInvalid && ( 
+            <FormControl.ErrorMessage>{errorMessage}</FormControl.ErrorMessage>
+        )}
     </FormControl>
     );
 }
