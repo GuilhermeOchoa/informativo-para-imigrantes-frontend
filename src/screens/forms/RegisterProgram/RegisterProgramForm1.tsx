@@ -1,6 +1,5 @@
-import { useForm, Controller } from "react-hook-form"
+import { useForm, Controller, useFormContext } from "react-hook-form"
 import { VStack, HStack, Center, Divider, Text } from "native-base"
-import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
 import { Button } from "@components/Button"
@@ -9,23 +8,14 @@ import { TextArea } from "@components/TextArea"
 import { DateInput } from "@components/DateInput"
 import { ScrollView } from "react-native"
 
-
-const registerProgramSchema = yup.object().shape({
-    nomePrograma: yup.string().required('Nome do programa é obrigatório'),
-    descricao: yup.string().required('Descrição do programa é obrigatória'),
-    dataInicio: yup.string().required('Insira uma data de início válida, no formato DD/MM/AAAA'),
-    dataFim: yup.string().required('Insira uma data fim válida no formato DD/MM/AAAA'),
-})
-
 export function RegisterProgramForm1({ navigation }: any) {
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({
-        resolver: yupResolver(registerProgramSchema),
-    })
+
+    const { register, handleSubmit, control, formState } = useFormContext();
+
+    const { errors } = formState;
+
     const onSubmit = (data: any) => {
+        console.log(formState.isValid)
         console.log(data)
         navigation.navigate('Página 2 de 3', data)
     }
@@ -61,6 +51,7 @@ export function RegisterProgramForm1({ navigation }: any) {
                         }}
                         render={({ field: { onChange, onBlur } }) => (
                             <Input
+                                {...register("nomePrograma")}
                                 inputTitle="Título*:"
                                 variant="underlined"
                                 placeholder="Nome do programa"
@@ -80,6 +71,7 @@ export function RegisterProgramForm1({ navigation }: any) {
 
                         render={({ field: { onChange, onBlur, value } }) => (
                             <TextArea
+                                {...register("descricao")}
                                 placeholder="Descrição do programa"
                                 onBlur={onBlur}
                                 onChangeText={onChange}
@@ -97,6 +89,7 @@ export function RegisterProgramForm1({ navigation }: any) {
 
                         render={({ field: { onChange, onBlur } }) => (
                             <DateInput
+                                {...register("dataInicio")}
                                 inputTitle="Fim das inscrições*:"
                                 variant={"underlined"}
                                 placeholder="DD/MM/AAAA"
@@ -115,6 +108,7 @@ export function RegisterProgramForm1({ navigation }: any) {
 
                         render={({ field: { onChange, onBlur } }) => (
                             <DateInput
+                                {...register("dataFim")}
                                 inputTitle="Fim das inscrições*:"
                                 variant={"underlined"}
                                 placeholder="DD/MM/AAAA"

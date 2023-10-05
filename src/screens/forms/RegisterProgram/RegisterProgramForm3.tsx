@@ -11,27 +11,32 @@ import FileAttachment from "@components/FileAttachment"
 import { TagOptions } from "@utils/SelectOptions"
 import { postProgramForm } from "@services/Forms"
 
-export function RegisterProgramForm3() {
+export function RegisterProgramForm3({ navigation }: any) {
 
-    const { register, control, handleSubmit, formState  } = useForm();
 
-    const methods = useFormContext();
+    const { register, handleSubmit, control, formState } = useFormContext();
+
+    const { errors } = formState;
 
     const onSubmit = (data: any) => {
-        console.log("handleSubmit3",methods.getValues('dataInicio'))
-        const dataInicio = methods.getValues('dataInicio')
-        const dataFim = methods.getValues('dataFim')
-        const nomePrograma = methods.getValues('nomePrograma')
-        const descricao = methods.getValues('descricao')
-        const local = methods.getValues('local')
-        const idioma = methods.getValues('idioma')
-        const dataInicioPrograma = methods.getValues('dataInicioPrograma')
-        const dataFimPrograma = methods.getValues('dataFimPrograma')
-        const link = methods.getValues('link')
-        const tags = methods.getValues('tags')
-        const informacoesAdicionais = methods.getValues('informacoesAdicionais')
+        console.log(data)
         //todo transform dates from string to Date
         
+        const { dataInicio, 
+                dataFim, 
+                nomePrograma, 
+                descricao, 
+                local, 
+                idioma, 
+                dataInicioPrograma, 
+                dataFimPrograma, 
+                link, 
+                tags, 
+                informacoesAdicionais 
+            } = data
+        
+        const description = descricao;
+
         const dataInicioParsed = parse(dataInicio, 'dd/MM/yyyy', new Date())
         const dataFimParsed = parse(dataFim, 'dd/MM/yyyy', new Date())
         const dataInicioProgramaParsed = parse(dataInicioPrograma, 'dd/MM/yyyy', new Date())
@@ -41,7 +46,7 @@ export function RegisterProgramForm3() {
             dataInicioParsed,
             dataFimParsed,
             nomePrograma,
-            descricao,
+            description,
             local,
             idioma,
             dataInicioProgramaParsed,
@@ -50,7 +55,7 @@ export function RegisterProgramForm3() {
             tags,
             informacoesAdicionais
         }
-
+        console.log("dataToSend", dataToSend)
         return postProgramForm(dataToSend)
     }
 

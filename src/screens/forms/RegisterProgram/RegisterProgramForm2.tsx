@@ -1,4 +1,4 @@
-import { useForm, Controller } from "react-hook-form"
+import { useForm, Controller, useFormContext } from "react-hook-form"
 import { VStack, HStack, Center, Divider, Text, ScrollView } from "native-base"
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -9,28 +9,16 @@ import { Select } from "@components/Select"
 import { ProgramLanguageOptions, ProgramLocalOptions } from "@utils/SelectOptions"
 import { DateInput } from "@components/DateInput"
 
-// build schema using yup
-const registerProgramSchema = yup.object().shape({
-    local: yup.string(),
-    idioma: yup.string(),
-    dataInicioPrograma: yup.string().required('Data de início é obrigatória'),
-    dataFimPrograma: yup.string().required('Data de fim é obrigatória'),
-    link: yup.string().url().required('Link de Acesso é obrigatório'),
-})
 
 export function RegisterProgramForm2({ navigation }: any) {
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({
-        resolver: yupResolver(registerProgramSchema),
-    })
+    const { register, handleSubmit, control, formState } = useFormContext();
+
+    const { errors } = formState;
+
     const onSubmit = (data: any) => {
         console.log(data)
         navigation.navigate('Página 3 de 3', data)
     }
-
 
     return (
         <VStack flex={1} px={6} pb={2} mt={2}>
@@ -58,6 +46,7 @@ export function RegisterProgramForm2({ navigation }: any) {
                         }}
                         render={({ field: { onChange } }) => (
                             <Select
+                                {...register("local")}
                                 options={ProgramLocalOptions}
                                 inputTitle="Local do programa:"
                                 isInvalid={!!errors.local}
@@ -78,6 +67,7 @@ export function RegisterProgramForm2({ navigation }: any) {
                         }}
                         render={({ field: { onChange } }) => (
                             <Select
+                                {...register("idioma")}
                                 options={ProgramLanguageOptions}
                                 isInvalid={!!errors.idioma}
                                 inputTitle="Idioma:"
@@ -98,6 +88,7 @@ export function RegisterProgramForm2({ navigation }: any) {
 
                         render={({ field: { onChange } }) => (
                             <DateInput
+                                {...register("dataInicioPrograma")}
                                 inputTitle="Início do Programa*:"
                                 variant={"underlined"}
                                 placeholder="DD/MM/AAAA"
@@ -114,6 +105,7 @@ export function RegisterProgramForm2({ navigation }: any) {
 
                         render={({ field: { onChange } }) => (
                             <DateInput
+                                {...register("dataFimPrograma")}
                                 inputTitle="Fim do Programa*:"
                                 variant={"underlined"}
                                 placeholder="DD/MM/AAAA"
@@ -130,6 +122,7 @@ export function RegisterProgramForm2({ navigation }: any) {
 
                         render={({ field: { onChange, onBlur, value } }) => (
                             <Input
+                                {...register("link")}
                                 inputTitle="Link de Acesso*:"
                                 variant={"underlined"}
                                 placeholder="Link"
