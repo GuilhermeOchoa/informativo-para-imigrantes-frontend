@@ -11,7 +11,7 @@ type Props = IInputProps & ISelectProps & {
 
 export function DateInput({ inputTitle, errorMessage = null, onChange, isInvalid, ...rest }: Props) {
     const [value, setValue] = useState('');
-    const invalid = errorMessage !== null || isInvalid;
+    const invalid = isValid(value) || value === '' ;
 
     const handleChange = (text: string) => {
         const cleanedText = text.replace(/\D/g, '');
@@ -51,7 +51,9 @@ export function DateInput({ inputTitle, errorMessage = null, onChange, isInvalid
                 onPress={() => setValue('')}
                 
             />
-            <FormControl.ErrorMessage>{errorMessage}</FormControl.ErrorMessage>
+            <FormControl.ErrorMessage>
+                <Text>Campo obrigatório</Text>
+            </FormControl.ErrorMessage>
         </FormControl>
     );
 }

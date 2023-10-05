@@ -7,8 +7,8 @@ type Props = IInputProps & {
     inputTitle: string;
 }
 
-export function Input({ inputTitle, errorMessage = null, isInvalid, ...rest }: Props) {
-    const invalid = errorMessage !== null || isInvalid;
+export function Input({ inputTitle, isInvalid, value, ...rest }: Props) {
+    const invalid = isInvalid || value === '' ;
     return (
     <FormControl mb={10} isInvalid={invalid}>
         <Text style={{ fontSize: 15 }}>
@@ -27,7 +27,7 @@ export function Input({ inputTitle, errorMessage = null, isInvalid, ...rest }: P
         </NativeBaseInput>
         
         <FormControl.ErrorMessage>
-            {errorMessage}
+            <Text>Campo obrigatório</Text>
         </FormControl.ErrorMessage>
     </FormControl>
     );

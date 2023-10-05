@@ -1,6 +1,5 @@
 import { useForm, Controller, useFormContext } from "react-hook-form"
 import { VStack, HStack, Center, Divider, Text } from "native-base"
-import * as yup from 'yup'
 
 import { Button } from "@components/Button"
 import { Input } from "@components/Input"
@@ -45,11 +44,9 @@ export function RegisterProgramForm1({ navigation }: any) {
 
                     <Controller
                         control={control}
-                        rules={{
-                            required: true,
+                        rules={{ required: 'Campo obrigatório' }}
 
-                        }}
-                        render={({ field: { onChange, onBlur } }) => (
+                        render={({ field: { onChange, onBlur, value } }) => (
                             <Input
                                 {...register("nomePrograma")}
                                 inputTitle="Título*:"
@@ -57,18 +54,17 @@ export function RegisterProgramForm1({ navigation }: any) {
                                 placeholder="Nome do programa"
                                 onBlur={onBlur}
                                 onChangeText={onChange}
-                                errorMessage={errors.nomePrograma?.message}
+                                value={value}
                             />
-
                         )}
                         name="nomePrograma"
                     />
                     <Controller
                         control={control}
-                        rules={{
-                            maxLength: 1000,
+                        rules={{ 
+                            required: 'Campo obrigatório', 
+                            maxLength: 1000
                         }}
-
                         render={({ field: { onChange, onBlur, value } }) => (
                             <TextArea
                                 {...register("descricao")}
@@ -85,17 +81,21 @@ export function RegisterProgramForm1({ navigation }: any) {
                         control={control}
                         rules={{
                             maxLength: 100,
+                            required: true,
                         }}
 
-                        render={({ field: { onChange, onBlur } }) => (
+                        render={({ field: { onChange, onBlur, value } }) => (
                             <DateInput
                                 {...register("dataInicio")}
-                                inputTitle="Fim das inscrições*:"
+                                inputTitle="Início das inscrições*:"
                                 variant={"underlined"}
                                 placeholder="DD/MM/AAAA"
+                                value={value}
                                 onBlur={onBlur}
                                 errorMessage={errors.dataFim?.message} 
-                                onChange={onChange}                            
+                                onChange={onChange}      
+                                onChangeText={onChange}
+                      
                             />
                         )}
                         name="dataInicio"
@@ -103,6 +103,7 @@ export function RegisterProgramForm1({ navigation }: any) {
                     <Controller
                         control={control}
                         rules={{
+                            required: true,
                             maxLength: 100,
                         }}
 

@@ -40,10 +40,7 @@ export function RegisterProgramForm2({ navigation }: any) {
 
                     <Controller
                         control={control}
-                        rules={{
-                            required: true,
-
-                        }}
+                        rules={{ required: false }}
                         render={({ field: { onChange } }) => (
                             <Select
                                 {...register("local")}
@@ -53,7 +50,6 @@ export function RegisterProgramForm2({ navigation }: any) {
                                 placeholder="Selecione o local"
                                 label={"Local do Programa"}
                                 onValueChange={value => onChange(value)}
-                                errorMessage={errors.local?.message}
                             />
 
                         )}
@@ -61,10 +57,7 @@ export function RegisterProgramForm2({ navigation }: any) {
                     />
                     <Controller
                         control={control}
-                        rules={{
-                            required: true,
-
-                        }}
+                        rules={{ required: false}}
                         render={({ field: { onChange } }) => (
                             <Select
                                 {...register("idioma")}
@@ -74,7 +67,6 @@ export function RegisterProgramForm2({ navigation }: any) {
                                 placeholder="Idioma"
                                 label={"Idioma utilizado:"}
                                 onValueChange={value => onChange(value)}
-                                errorMessage={errors.idioma?.message}
                             />
 
                         )}
@@ -83,40 +75,47 @@ export function RegisterProgramForm2({ navigation }: any) {
                     <Controller
                         control={control}
                         rules={{
+                            required: true,
                             maxLength: 100,
                         }}
 
-                        render={({ field: { onChange } }) => (
+                        render={({ field: { onChange, value } }) => (
                             <DateInput
                                 {...register("dataInicioPrograma")}
                                 inputTitle="Início do Programa*:"
                                 variant={"underlined"}
                                 placeholder="DD/MM/AAAA"
-                                errorMessage={errors.dataInicioPrograma?.message}
-                                onChange={onChange} />
+                                value={value}
+                                onChange={onChange} 
+                                onChangeText={onChange}
+                                />
                         )}
                         name="dataInicioPrograma"
                     />
                     <Controller
                         control={control}
                         rules={{
+                            required: true,
                             maxLength: 100,
                         }}
 
-                        render={({ field: { onChange } }) => (
+                        render={({ field: { onChange, value } }) => (
                             <DateInput
                                 {...register("dataFimPrograma")}
                                 inputTitle="Fim do Programa*:"
                                 variant={"underlined"}
+                                value={value}
                                 placeholder="DD/MM/AAAA"
-                                errorMessage={errors.dataFimPrograma?.message}
-                                onChange={onChange} />
+                                onChange={onChange} 
+                                onChangeText={onChange}
+                                />
                         )}
                         name="dataFimPrograma"
                     />
                     <Controller
                         control={control}
                         rules={{
+                            required: 'Campo obrigatório',
                             maxLength: 100,
                         }}
 
@@ -128,7 +127,7 @@ export function RegisterProgramForm2({ navigation }: any) {
                                 placeholder="Link"
                                 onBlur={onBlur}
                                 onChangeText={onChange}
-                                errorMessage={errors.link?.message}
+                                value={value}
                             />
                         )}
                         name="link"

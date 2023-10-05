@@ -10,8 +10,8 @@ type Props = ISelectProps & {
   options: { label: string; value: any }[];
 }
 
-export function Select({ onValueChange, options, inputTitle, errorMessage = null, isInvalid, ...rest }: Props) {
-  const invalid = errorMessage !== null || isInvalid;
+export function Select({ onValueChange, options, inputTitle, isInvalid, ...rest }: Props) {
+  const invalid = isInvalid; //not being used
   return (
     <Center>
       <FormControl mb={8}  isInvalid={invalid} >
@@ -42,7 +42,7 @@ export function Select({ onValueChange, options, inputTitle, errorMessage = null
 
         </NativeBaseSelect>
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-          {errorMessage}
+          <Text>Campo obrigatório</Text>
         </FormControl.ErrorMessage>
       </FormControl>
     </Center>
