@@ -1,6 +1,8 @@
 import { useForm, Controller, useFormContext } from "react-hook-form"
 import { VStack, HStack, Center, Divider, Text, ScrollView } from "native-base"
 
+import { parse, format } from "date-fns"
+
 import { Button } from "@components/Button"
 import { TextArea } from "@components/TextArea"
 import { TagSelection } from "@components/TagSelection"
@@ -29,15 +31,21 @@ export function RegisterProgramForm3() {
         const tags = methods.getValues('tags')
         const informacoesAdicionais = methods.getValues('informacoesAdicionais')
         //todo transform dates from string to Date
+        
+        const dataInicioParsed = parse(dataInicio, 'dd/MM/yyyy', new Date())
+        const dataFimParsed = parse(dataFim, 'dd/MM/yyyy', new Date())
+        const dataInicioProgramaParsed = parse(dataInicioPrograma, 'dd/MM/yyyy', new Date())
+        const dataFimProgramaParsed = parse(dataFimPrograma, 'dd/MM/yyyy', new Date())
+
         const dataToSend = {
-            dataInicio,
-            dataFim,
+            dataInicioParsed,
+            dataFimParsed,
             nomePrograma,
             descricao,
             local,
             idioma,
-            dataInicioPrograma,
-            dataFimPrograma,
+            dataInicioProgramaParsed,
+            dataFimProgramaParsed,
             link,
             tags,
             informacoesAdicionais
