@@ -11,12 +11,11 @@ import { DateInput } from "@components/DateInput"
 
 // build schema using yup
 const registerProgramSchema = yup.object().shape({
-    local: yup.string().required('Local é obrigatório'),
-    idioma: yup.string().required('Idioma é obrigatório'),
+    local: yup.string(),
+    idioma: yup.string(),
     dataInicioPrograma: yup.string().required('Data de início é obrigatória'),
     dataFimPrograma: yup.string().required('Data de fim é obrigatória'),
     link: yup.string().url().required('Link de Acesso é obrigatório'),
-
 })
 
 export function RegisterProgramForm2({ navigation }: any) {

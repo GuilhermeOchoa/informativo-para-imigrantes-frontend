@@ -10,7 +10,6 @@ import { DateInput } from "@components/DateInput"
 import { ScrollView } from "react-native"
 
 
-// build schema using yup
 const registerProgramSchema = yup.object().shape({
     nomePrograma: yup.string().required('Nome do programa é obrigatório'),
     descricao: yup.string().required('Descrição do programa é obrigatória'),

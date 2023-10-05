@@ -11,7 +11,7 @@ import { RegisterProgramForm1 } from '@screens/forms/RegisterProgram/RegisterPro
 
 import { Entypo } from '@expo/vector-icons'
 import { Feed } from '@screens/Feed';
-import RegisterProgram from '@screens/RegisterProgram';
+import RegisterProgram from '@screens/forms/RegisterProgram';
 
 type AppRoutes = {
     article: undefined;

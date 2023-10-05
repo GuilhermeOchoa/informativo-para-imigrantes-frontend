@@ -7,6 +7,7 @@ import { TagSelection } from "@components/TagSelection"
 import FileAttachment from "@components/FileAttachment"
 
 import { TagOptions } from "@utils/SelectOptions"
+import { postProgramForm } from "@services/Forms"
 
 export function RegisterProgramForm3() {
 
@@ -27,7 +28,7 @@ export function RegisterProgramForm3() {
         const link = methods.getValues('link')
         const tags = methods.getValues('tags')
         const informacoesAdicionais = methods.getValues('informacoesAdicionais')
-
+        //todo transform dates from string to Date
         const dataToSend = {
             dataInicio,
             dataFim,
@@ -42,7 +43,7 @@ export function RegisterProgramForm3() {
             informacoesAdicionais
         }
 
-        console.log("dataToSend",dataToSend)
+        return postProgramForm(dataToSend)
     }
 
     return (
