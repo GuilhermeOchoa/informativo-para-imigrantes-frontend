@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import { Entypo } from '@expo/vector-icons';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
-import { MenuSelectCountries } from '@components/MenuSelectCountries';
-import { Button, ScrollView, useToast } from 'native-base';
-import { useTranslation } from 'react-i18next';
-import { getmmigrant, postImmigrant } from '@services/Immigrant';
 import { AppError } from '@utils/AppError';
-import { ImmigrantDTO } from '@dtos/ImmigrantDTO';
+import { useTranslation } from 'react-i18next';
+import { Ionicons } from '@expo/vector-icons';
+import { postImmigrant } from '@services/Immigrant';
+import { useNavigation } from "@react-navigation/native";
+import { MenuSelectCountries } from '@components/MenuSelectCountries';
+import { VStack, ScrollView, useToast, HStack, Center, Text, Divider, Box, Icon } from 'native-base';
 
 import { Input } from '@components/Input';
 
+import * as yup from 'yup'
+import { Button } from '@components/Button';
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
+import { AuthNavigatorRoutesProps } from '@routes/auth.routes';
 
 type FormDataProps = {
 	email: string,
@@ -32,8 +33,11 @@ const signUpSchema = yup.object({
 const UserLogin = () => {
 	const toast = useToast();
 	const [t, i18n] = useTranslation();
+
 	const [isLoading, setIsLoading] = useState(false);
 	const [selectedCountry, setSelectedCountry] = useState('');
+
+	const navigation = useNavigation<AuthNavigatorRoutesProps>();
 
 	const { control, handleSubmit, formState: { errors } } = useForm<FormDataProps>({
 		resolver: yupResolver(signUpSchema)
@@ -44,6 +48,16 @@ const UserLogin = () => {
 			setIsLoading(true);
 
 			await postImmigrant({ email, name, countryOfOrigin: selectedCountry, password });
+
+			toast.show({
+				title: "Cadastro realizado com sucesso",
+				placement: "top",
+				bgColor: "green.500"
+			});
+
+			setTimeout(function () {
+				navigation.goBack();
+			}, 5000);
 
 		} catch (error) {
 			const isAppError = error instanceof AppError;
@@ -60,168 +74,128 @@ const UserLogin = () => {
 	}
 
 	return (
-		<ScrollView style={styles.container}>
+		<ScrollView showsVerticalScrollIndicator={false}>
+			<VStack flex={1} px={6} pb={6} mt={12}>
 
-			<Text style={styles.title}>Cadastro de usuário</Text>
+				<HStack alignItems="center" m={2} mb={6}>
 
-			<Text style={styles.subtitle}>Informações do usuário</Text>
+					<VStack flex={1}>
+						<Center>
+							<Text fontFamily="body" fontSize="xl">
+								{t("Cadastro de Usuario")}
+							</Text>
+						</Center>
 
-			<Controller
-				control={control}
-				name='name'
-				render={({ field: { onChange, value } }) => (
-					<Input
-						placeholder="Digite seu nome"
-						onChangeText={onChange}
-						style={styles.input}
-						value={value}
-						errorMessage={errors.name?.message}
+						<Divider my={4} bgColor="green.500" />
+
+						<Center>
+							<Text fontFamily="body" fontSize="lg" pt={6}>
+								{t("Informações do usuário")}
+							</Text>
+						</Center>
+					</VStack>
+
+				</HStack>
+
+
+				<Controller
+					control={control}
+					name='name'
+					render={({ field: { onChange, value } }) => (
+						<Input
+							placeholder="Nome *"
+							onChangeText={onChange}
+							value={value}
+							errorMessage={errors.name?.message}
+						/>
+					)}
+				/>
+
+				<Controller
+					control={control}
+					name="email"
+					render={({ field: { onChange, value } }) => (
+						<Input
+							placeholder="Email *"
+							onChangeText={onChange}
+							value={value}
+							errorMessage={errors.email?.message}
+						/>
+					)}
+				/>
+
+				<Controller
+					control={control}
+					name="password"
+					render={({ field: { onChange, value } }) => (
+						<Input
+							placeholder="Senha *"
+							secureTextEntry
+							onChangeText={onChange}
+							value={value}
+							errorMessage={errors.password?.message}
+						/>
+					)}
+				/>
+
+				<Controller
+					control={control}
+					name="confirmPassword"
+					render={({ field: { onChange, value } }) => (
+						<Input
+							placeholder="Confirme a Senha *"
+							secureTextEntry
+							onChangeText={onChange}
+							value={value}
+							errorMessage={errors.confirmPassword?.message}
+						/>
+					)}
+				/>
+
+				<Controller
+					control={control}
+					name="countryOfOrigin"
+					render={() => (
+						<MenuSelectCountries
+							selectCountryFunction={setSelectedCountry}
+							selectedCountry={selectedCountry}
+						/>
+					)}
+				/>
+
+				<Box justifyContent="center" alignItems="center" py={12} >
+					<HStack bg="lightGreen.500" rounded="md" p={2}>
+
+						<VStack>
+							<Center p={1}>
+								<Icon
+									as={Ionicons}
+									name="heart-sharp"
+								/>
+							</Center>
+						</VStack>
+
+						<VStack flex={1}>
+							<Text bold fontSize="md">Compromisso com sua privacidade</Text>
+							<Text fontSize="md">
+								<Text bold >Seus dados não serão compartilhados com ninguém. </Text>
+								Seu cadastro jamais será distribuído para instituições ou órgãos governamentais de qualquer tipo.
+							</Text>
+						</VStack>
+					</HStack>
+				</Box>
+
+				<Center>
+					<Button
+						title="Finalizar Cadastro"
+						onPress={handleSubmit(addImmigrant)}
+						isLoading={isLoading}
 					/>
-				)}
-			/>
+				</Center>
+			</VStack>
 
-			<Controller
-				control={control}
-				name="email"
-				render={({ field: { onChange, value } }) => (
-					<Input
-						placeholder="Digite seu email"
-						onChangeText={onChange}
-						style={styles.input}
-						value={value}
-						errorMessage={errors.name?.message}
-					/>
-				)}
-			/>
-
-			<Controller
-				control={control}
-				name="password"
-				render={({ field: { onChange, value } }) => (
-					<Input
-						placeholder="Digite sua senha"
-						secureTextEntry
-						style={styles.input}
-						onChangeText={onChange}
-						value={value}
-						errorMessage={errors.password?.message}
-					/>
-				)}
-			/>
-
-			<Controller
-				control={control}
-				name="confirmPassword"
-				render={({ field: { onChange, value } }) => (
-					<Input
-						placeholder="Confirme sua senha"
-						secureTextEntry
-						onChangeText={onChange}
-						value={value}
-						style={styles.input}
-						errorMessage={errors.password?.message}
-					/>
-				)}
-			/>
-
-			<Controller
-				control={control}
-				name="countryOfOrigin"
-				render={() => (
-					<MenuSelectCountries
-						selectCountryFunction={setSelectedCountry}
-						selectedCountry={selectedCountry}
-					/>
-				)}
-			/>
-
-			<View style={styles.message}>
-				<Entypo style={styles.icon} name="heart" size={24} color="#737373" />
-				<View style={styles.messageText}>
-					<Text style={styles.boldText}>Compromisso com sua privacidade</Text>
-					<Text>
-						<Text style={styles.boldText}>Seus dados não serão compartilhados com ninguém. </Text>
-						Seu cadastro jamais será distribuído para instituições ou órgãos governamentais de qualquer tipo.
-					</Text>
-				</View>
-			</View>
-
-			<Button
-				onPress={handleSubmit(addImmigrant)}
-				isLoading={isLoading}
-			>
-				Finalizar cadastro
-			</Button>
-		</ScrollView>
+		</ScrollView >
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		padding: 20,
-	},
-	title: {
-		fontSize: 22,
-		alignSelf: 'center',
-		marginTop: 30,
-		paddingBottom: 10,
-		borderBottomWidth: 1,
-		borderColor: '#55917F',
-		paddingHorizontal: 50,
-	},
-	subtitle: {
-		fontSize: 18,
-		alignSelf: 'center',
-		paddingBottom: 40,
-		marginTop: 40,
-	},
-	label: {
-		fontSize: 20,
-		marginBottom: 5,
-		marginTop: 10,
-		color: "#A3A3A3"
-	},
-	input: {
-		borderBottomWidth: 1,
-		borderColor: '#55917F',
-		padding: 10,
-		marginBottom: 10,
-	},
-	error: {
-		color: 'red',
-	},
-	message: {
-		backgroundColor: '#E1F0C4',
-		opacity: 0.6,
-		color: '#404040',
-		marginTop: 60,
-		marginBottom: 30,
-		display: 'flex',
-		flexDirection: 'row',
-		padding: 10,
-		height: 120,
-		wordWrap: 'break-word',
-	},
-	messageText: {
-		display: 'flex',
-		wordWrap: 'break-word',
-		padding: 5,
-
-	},
-	icon: {
-		padding: 5,
-	},
-	boldText: {
-		fontWeight: 'bold',
-	},
-	button: {
-		backgroundColor: '#6BAB90',
-		width: 150,
-		height: 50,
-		fontSize: 16,
-		alignSelf: 'center',
-		color: '#fff',
-	}
-});
 
 export default UserLogin;
