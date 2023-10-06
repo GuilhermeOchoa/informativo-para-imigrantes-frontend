@@ -38,6 +38,7 @@ export function RegisterProgramForm1() {
 	});
 
 	function onSubmit({ name, description, initialDate, endDate }: FormDataProps) {
+		console.log({ name, description, initialDate, endDate })
 		navigation.navigate("registerProgramForm2", { name, description, initialDate, endDate })
 	}
 
@@ -106,12 +107,12 @@ export function RegisterProgramForm1() {
 					}}
 					render={({ field: { onChange, onBlur, value } }) => (
 						<DateInput
-							{...register("dataInicio")}
+							{...register("dataInicioInscricao")}
 							inputTitle="Início das inscrições*:"
 							variant={"underlined"}
 							placeholder="DD/MM/AAAA"
-							value={value}
 							onBlur={onBlur}
+							errorMessage={errors.initialDate?.message}
 							onChange={onChange}
 							onChangeText={onChange}
 						/>

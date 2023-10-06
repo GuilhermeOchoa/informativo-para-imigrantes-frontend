@@ -62,8 +62,9 @@ export function RegisterProgramForm3() {
 			};
 
 			setIsLoading(true);
+			console.log(data)
 
-			await postProgramForm(data);
+			// await postProgramForm(data);
 
 			toast.show({
 				title: "Cadastro realizado com sucesso",

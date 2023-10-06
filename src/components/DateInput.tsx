@@ -1,4 +1,5 @@
-import { Input as NativeBaseInput, IInputProps, FormControl, Text, ISelectProps, DeleteIcon, IconButton } from 'native-base';
+import { Input as NativeBaseInput, IInputProps, FormControl, Text, ISelectProps, DeleteIcon, IconButton, Pressable } from 'native-base';;
+import DateTimePicker from "@react-native-community/datetimepicker"
 import { parse, isValid } from 'date-fns';
 import { useState } from 'react';
 import { StyleSheet } from 'react-native';
@@ -10,50 +11,67 @@ type Props = IInputProps & ISelectProps & {
 };
 
 export function DateInput({ inputTitle, errorMessage = null, onChange, isInvalid, ...rest }: Props) {
-	const [value, setValue] = useState('');
-	const invalid = isValid(value) || value === '';
+	const [date, setDate] = useState(new Date());
+	const [showPicker, setShowPicker] = useState<boolean>(false);
+	const [inputDate, setInputDate] = useState<string>("");
+	const invalid = isValid(inputDate) || inputDate === '';
 
-	const handleChange = (text: string) => {
-		const cleanedText = text.replace(/\D/g, '');
+	const toggleDatePicker = () => {
+		setShowPicker(!showPicker);
+	}
 
-		const formattedText = cleanedText
-			.split('')
-			.reduce((acc, char, index) => acc + char + (index === 1 || index === 3 ? '/' : ''), '');
-
-		const parsedDate = parse(formattedText, 'dd/MM/yyyy', new Date());
-
-		setValue(formattedText);
-		if (isValid(parsedDate)) {
-			onChange(text);
+	const teste = ({ type }: any, selectedDate: any) => {
+		if (type == "set") {
+			toggleDatePicker();
+			const currentDate = selectedDate;
+			setDate(currentDate);
+			setInputDate(formatarData(currentDate));
+		} else {
+			toggleDatePicker();
 		}
-	};
+	}
+
+	function formatarData(data: string): string {
+		const dataObj = new Date(data);
+		const dia = String(dataObj.getDate()).padStart(2, '0');
+		const mes = String(dataObj.getMonth() + 1).padStart(2, '0');
+		const ano = dataObj.getFullYear();
+
+		return `${dia}/${mes}/${ano}`;
+	}
+
 
 	return (
 		<FormControl mb={10}>
-			<Text style={{ fontSize: 15 }}>{inputTitle}</Text>
-			<NativeBaseInput
-				w="full"
-				h={10}
-				{...rest}
-				onChangeText={handleChange}
-				value={value}
-				keyboardType="numeric"
-				placeholder="DD/MM/YYYY"
-				_focus={{
-					borderColor: 'green.500',
-					backgroundColor: 'white.800',
-				}}
-				fontSize={'lg'}
-			/>
-			<IconButton
-				style={styles.icon}
-				icon={<DeleteIcon size={6} style={styles.icon} />}
-				onPress={() => setValue('')}
 
-			/>
+			{showPicker && (
+				<DateTimePicker
+					mode="date"
+					display="spinner"
+					value={date}
+					onChange={teste}
+				/>
+			)}
+
+			<Text style={{ fontSize: 15 }}>{inputTitle}</Text>
+			<Pressable onPress={toggleDatePicker}>
+				<NativeBaseInput
+					w="full"
+					h={10}
+					{...rest}
+					value={inputDate}
+					keyboardType="numeric"
+					_focus={{
+						borderColor: 'green.500',
+						backgroundColor: 'white.800',
+					}}
+					isReadOnly
+					fontSize={'lg'}
+				/>
+			</Pressable>
 			{/* <FormControl.ErrorMessage>
-                <Text>Campo obrigatório</Text>
-            </FormControl.ErrorMessage> */}
+				<Text>Campo obrigatório</Text>
+			</FormControl.ErrorMessage> */}
 		</FormControl>
 	);
 }
@@ -62,11 +80,5 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: '#fff',
-	},
-	icon: {
-		position: 'absolute',
-		right: 10,
-		top: 5,
-		color: '#5E4C5A',
-	},
+	}
 })
