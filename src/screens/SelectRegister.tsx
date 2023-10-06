@@ -64,7 +64,7 @@ export function SelectRegister() {
 								Instituicao de ensino / ONG
 							</Text>
 							<Text fontFamily="body" fontSize="md" py={2}>
-								Praesent velit nunc, luctus tincid Donec nec pharetra magna.
+								Cadastro de instituicao para divulgar programas da minha organizacao
 							</Text>
 						</VStack>
 					</HStack>
@@ -96,7 +96,7 @@ export function SelectRegister() {
 								Sou Imigrante em busca de oportunidades
 							</Text>
 							<Text fontFamily="body" fontSize="md" py={2}>
-								Praesent velit nunc, luctus tincid Donec nec pharetra magna.
+								Cadastro de imigrante a procura de programas
 							</Text>
 						</VStack>
 					</HStack>
@@ -155,7 +155,7 @@ export function SelectRegister() {
 
 					<HStack>
 						<TouchableOpacity onPress={handleRegisterInstitution}>
-							<Center flex={1}>
+							<Center>
 								<Text fontSize="lg">Sou instituicao de ensino </Text>
 							</Center>
 						</TouchableOpacity>

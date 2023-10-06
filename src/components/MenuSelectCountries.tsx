@@ -24,7 +24,7 @@ export function MenuSelectCountries({ selectCountryFunction, selectedCountry }: 
 					marginLeft: -15
 				}}
 			>
-				<Picker.Item label={t("Selecione um pais (opcional)")} value="" />
+				<Picker.Item label={t("Selecione um pais (opcional)")} value="" style={{ fontSize: 18 }} />
 				{
 					countryAcronyms.map((country) => (
 						<Picker.Item

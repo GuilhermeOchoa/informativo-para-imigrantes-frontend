@@ -13,7 +13,7 @@ export function MenuSelectTypeInstitution({ errorMessage = null, selectTypeFunct
 
 	return (
 		<Center>
-			<FormControl w="3/4" maxW="300" isRequired isInvalid={!!errorMessage} {...rest}>
+			<FormControl w="full" isRequired isInvalid={!!errorMessage} {...rest}>
 
 				<Select
 					selectedValue={selectedType}
