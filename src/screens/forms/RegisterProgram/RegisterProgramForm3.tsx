@@ -134,22 +134,31 @@ export function RegisterProgramForm3() {
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
 
-			<VStack flex={1} px={6} pb={2} mt={4}>
-				<HStack alignItems="center" m={2}>
+			<VStack flex={1} px={6} pb={6} mt={12}>
+
+				<HStack alignItems="center" m={2} mb={6}>
 
 					<VStack flex={1}>
 						<Center>
-							<Text style={{ fontSize: 20 }}>
-								{"Cadastro de Programa"}
+							<Text fontFamily="body" fontSize="xl">
+								{t("Cadastro de Instituição")}
+							</Text>
+						</Center>
+
+						<Divider my={4} bgColor="green.500" />
+
+						<Center>
+							<Text fontFamily="body" fontSize="lg" pt={2}>
+								{t("Informacoes da Instituição")}
 							</Text>
 						</Center>
 					</VStack>
+
 				</HStack>
 
-				<Divider my={4} bgColor="green.500" />
 				<ScrollView>
 
-					<VStack flex={1} mt={8}>
+					<VStack flex={1} mt={6}>
 						<Controller
 							control={control}
 							rules={{

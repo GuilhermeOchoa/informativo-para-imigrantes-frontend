@@ -73,8 +73,8 @@ export function RegisterProgramForm2() {
 						<Divider my={4} bgColor="green.500" />
 
 						<Center>
-							<Text fontFamily="body" fontSize="lg" pt={8}>
-								{t("Informacoes do programa")}
+							<Text fontFamily="body" fontSize="lg" pt={2}>
+								{t("Informacoes da Instituição")}
 							</Text>
 						</Center>
 					</VStack>
