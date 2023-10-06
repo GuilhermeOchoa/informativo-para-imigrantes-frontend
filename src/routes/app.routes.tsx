@@ -20,6 +20,8 @@ type AppRoutes = {
 	contact: undefined;
 	article: undefined;
 	articleDetails: ArticleDTO;
+	registerProgramFormPage: undefined;
+	onboarding: undefined;
 }
 
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>;
@@ -144,6 +146,6 @@ export function AppRoutes() {
 
 			/>
 
-		</Navigator>
+		</Navigator >
 	)
 }

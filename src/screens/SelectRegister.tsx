@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Image, Text, Button, VStack, HStack, Center, Divider, Icon, useTheme, Box, ScrollView } from "native-base";
-import { SafeAreaView, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Image, Text, VStack, HStack, Center, Divider, Icon, useTheme, Box, ScrollView } from "native-base";
+import { TouchableOpacity } from "react-native";
+
+import { Button } from '@components/Button'
 
 import logo from "@assets/logo.png";
 import { Ionicons } from "@expo/vector-icons";
@@ -107,6 +109,10 @@ export function SelectRegister() {
 		}
 	};
 
+	function handlePaginaDoArthur() {
+		navigation.navigate('registerProgramForm1');
+	}
+
 	return (
 		<VStack flex={1} px={6} pb={6} mt={10}>
 			<ScrollView showsVerticalScrollIndicator={false}>
@@ -179,6 +185,11 @@ export function SelectRegister() {
 
 					<DetailUser />
 					<DetailInstitution />
+
+					<Button
+						title='teste'
+						onPress={handlePaginaDoArthur}
+					/>
 
 					<TouchableOpacity onPress={handleSendToInformationRoutes}>
 						<Box p={8} justifyContent="center" alignItems="center">
