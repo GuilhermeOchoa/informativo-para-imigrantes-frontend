@@ -193,6 +193,7 @@ export function RegisterProgramForm3() {
 									inputTitle={"Informações Adicionais:"}
 								/>
 							)}
+
 						/>
 						<Center>
 							<Text style={{ fontSize: 15 }}>
