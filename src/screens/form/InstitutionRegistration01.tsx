@@ -25,12 +25,9 @@ const signUpSchema = yup.object({
 		.required('Informe o CNPJ.')
 		.matches(/^[0-9]+$/, 'O CNPJ deve conter apenas numeros.')
 		.min(14, 'O CNPJ deve conter 14 digitos.'),
-	selectedType: yup
+	type: yup
 		.string()
-		.strict(true)
-		.trim()
 		.required('Selecione um tipo válido.')
-		.min(1, 'Selecione um tipo válido.'),
 });
 
 export function InstitutionRegistration01() {
@@ -39,12 +36,17 @@ export function InstitutionRegistration01() {
 	const navigation = useNavigation<AuthNavigatorRoutesProps>();
 	const [selectedType, setSelectedType] = useState('');
 
-	const { control, handleSubmit, formState: { errors } } = useForm<FormDataProps>({
+	const { control, handleSubmit, formState: { errors }, setValue } = useForm<FormDataProps>({
 		resolver: yupResolver(signUpSchema)
 	});
 
+	function handleSelect(newType: string) {
+		setSelectedType(newType)
+		setValue("type", newType)
+	}
+
 	function addInstitution({ cnpj, institutionName, type }: FormDataProps) {
-		navigation.navigate("institutionRegistration02", { cnpj, institutionName, type: selectedType })
+		navigation.navigate("institutionRegistration02", { cnpj, institutionName, type })
 	}
 
 	return (
@@ -106,8 +108,9 @@ export function InstitutionRegistration01() {
 					name="type"
 					render={() => (
 						<MenuSelectTypeInstitution
-							selectTypeFunction={setSelectedType}
+							selectTypeFunction={handleSelect}
 							selectedType={selectedType}
+							errorMessage={errors.type?.message}
 						/>
 					)}
 				/>
@@ -116,7 +119,6 @@ export function InstitutionRegistration01() {
 					<Button
 						title="Proximo"
 						onPress={handleSubmit(addInstitution)}
-						variant="outline"
 					/>
 				</Center>
 			</VStack>

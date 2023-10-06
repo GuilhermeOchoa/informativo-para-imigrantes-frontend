@@ -113,7 +113,7 @@ export function SelectRegister() {
 				<HStack alignItems="center" m={2}>
 					<Center flex={1}>
 						<Text fontFamily="body" fontSize="xl">
-							Informacao
+							Cadastro
 						</Text>
 					</Center>
 				</HStack>
