@@ -186,10 +186,10 @@ export function SelectRegister() {
 					<DetailUser />
 					<DetailInstitution />
 
-					{/* <Button
+					<Button
 						title='teste'
 						onPress={handlePaginaDoArthur}
-					/> */}
+					/>
 
 					<TouchableOpacity onPress={handleSendToInformationRoutes}>
 						<Box p={8} justifyContent="center" alignItems="center">
