@@ -190,6 +190,8 @@ const UserSignIn = () => {
 						title="Finalizar Cadastro"
 						onPress={handleSubmit(addImmigrant)}
 						isLoading={isLoading}
+						rounded="full"
+						variant="outline"
 					/>
 				</Center>
 			</VStack>

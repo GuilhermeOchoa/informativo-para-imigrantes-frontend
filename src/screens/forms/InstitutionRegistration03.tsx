@@ -139,7 +139,8 @@ export function InstitutionRegistration03() {
 					<Button
 						title="Proximo"
 						onPress={handleSubmit(addInstitution)}
-						variant="outline"
+						rounded="full"
+						variant="solid"
 					/>
 				</Center>
 			</VStack>

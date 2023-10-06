@@ -185,6 +185,7 @@ export function RegisterProgramForm2() {
 					<Button
 						title="Proximo"
 						onPress={handleSubmit(onSubmit)}
+						rounded="full"
 						variant="outline"
 					/>
 				</Center>
