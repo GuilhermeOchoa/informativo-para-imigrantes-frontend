@@ -196,9 +196,8 @@ export function RegisterProgramForm3() {
 
 				<Center mt={10}>
 					<Button
-						title="Continuar"
+						title="Finalizar cadastro"
 						onPress={handleSubmit(onSubmit)}
-						variant="outline"
 					/>
 				</Center>
 			</VStack>

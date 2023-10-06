@@ -181,9 +181,13 @@ export function RegisterProgramForm2() {
 					/>
 				</VStack>
 
-				<Button title="Continuar" onPress={handleSubmit(onSubmit)}>
-					Continuar
-				</Button>
+				<Center mt={2}>
+					<Button
+						title="Proximo"
+						onPress={handleSubmit(onSubmit)}
+						variant="outline"
+					/>
+				</Center>
 			</VStack>
 
 		</ScrollView>

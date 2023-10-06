@@ -26,7 +26,7 @@ type FormDataProps = {
 const signUpSchema = yup.object({
 	email: yup.string().required('Informe o e-mail.').email('E-mail invalido.'),
 	name: yup.string().required('Informe o nome.'),
-	password: yup.string().required('Informe a senha.').min(6, "A senha deve ter pelo menos 6 digitos"),
+	password: yup.string().required('Informe a senha.').min(8, "A senha deve ter pelo menos 8 digitos"),
 	confirmPassword: yup.string().required('Confirme a senha.').oneOf([yup.ref("password"), ''], 'Senha diferente da anterior'),
 });
 

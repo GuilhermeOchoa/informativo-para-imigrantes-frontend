@@ -85,12 +85,14 @@ export function RegisterProgramForm1() {
 					render={({ field: { onChange, value } }) => (
 						<TextArea
 							autoCompleteType
-							placeholder="Text Area Placeholder"
+							placeholder="Drescicao do programa"
+							fontSize="md"
 							onChangeText={onChange}
 							value={value}
 							// errorMessage={errors.description?.message}
 							w="full"
 							bg="gray.100"
+							mb={4}
 						/>
 					)}
 				/>
@@ -140,6 +142,7 @@ export function RegisterProgramForm1() {
 					<Button
 						title="Proximo"
 						onPress={handleSubmit(onSubmit)}
+						variant="outline"
 					/>
 				</Center>
 			</VStack>
