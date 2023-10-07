@@ -1,11 +1,14 @@
 {
     "translation": {
+		"Selecione um pais (opcional)": "Select a country (optional)",
         "ver mais": "see more",
         "Nao foi possivel carregar os informativos": "Unable to load informatives.",
         "Informativos": "Informatives",
         "Fonte": "Source",
         "Contato": "Contact",
+		"Perfil": "Profile",
         "Programas": "Programs",
+		"Artigos": "Articles",
         "Saiba mais": "Read more",
         "Nao ha informativos disponiveis": "No informatives available.",
         "Acessar": "Join",

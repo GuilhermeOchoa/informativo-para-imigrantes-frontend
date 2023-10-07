@@ -8,8 +8,11 @@ import { ReactNode, createContext, useEffect, useState } from "react";
 
 export type AuthContextDataProps = {
     user: UserDTO;
-    saveIsValidUser: (isValid: boolean) => void;
+    saveFirstAcessUser: () => void;
     isLoadingUserStorageData: boolean;
+	updateLocalStorageUserNoLogged: () => void;
+	updateLocalStorageUserLogged: () => void;
+	exit: () => void;
 }
 
 type AuthContextProviderProps = {
@@ -22,14 +25,43 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     const [user, setUser] = useState<UserDTO>({} as UserDTO);
     const [isLoadingUserStorageData, setIsLoadingUserStorageData] = useState(true);
 
-    function saveIsValidUser() {
+    function saveFirstAcessUser() {
         try {
-            setUser({ isValid: true, language: i18n.language });
-            storageUserSave({ isValid: true, language: i18n.language });
+            setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: false });
+            storageUserSave({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: false });
         } catch (error) {
             throw error;
         }
     }
+
+	function updateLocalStorageUserNoLogged() {
+        try {
+            setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: true });
+            storageUserSave({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: true });
+        } catch (error) {
+            throw error;
+        }
+    }
+
+
+	function exit() {
+        try {
+            setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: false });
+            storageUserSave({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: false });
+        } catch (error) {
+            throw error;
+        }
+    }
+
+	function updateLocalStorageUserLogged() {
+        try {
+            setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: true, justInformation: false });
+            storageUserSave({ showOnboarding: true, language: i18n.language, isLoggedIn: true, justInformation: false });
+        } catch (error) {
+            throw error;
+        }
+    }
+
 
     async function loadIsValidUser() {
         try {
@@ -51,7 +83,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, saveIsValidUser, isLoadingUserStorageData }}>
+        <AuthContext.Provider value={{ user, saveFirstAcessUser, isLoadingUserStorageData, updateLocalStorageUserNoLogged, updateLocalStorageUserLogged, exit }}>
             {children}
         </AuthContext.Provider>
     )

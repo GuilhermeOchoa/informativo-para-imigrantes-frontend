@@ -14,74 +14,74 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@components/Button';
 
 export function ArticlesDetals() {
-    const { t, i18n } = useTranslation();
-    const route = useRoute();
-    const article = route.params as ArticleDTO;
+	const { t, i18n } = useTranslation();
+	const route = useRoute();
+	const article = route.params as ArticleDTO;
 
-    const toast = useToast();
+	const toast = useToast();
 
-    const navigation = useNavigation();
+	const navigation = useNavigation();
 
-    async function openLink() {
-        try {
-            await Linking.openURL(article.externalUrl);
-        } catch (error) {
-            toast.show({
-                title: t("Nao foi possivel abrir o link"),
-                placement: "top",
-                bgColor: "red.500"
-            });
-        }
-    }
+	async function openLink() {
+		try {
+			await Linking.openURL(article.externalUrl);
+		} catch (error) {
+			toast.show({
+				title: t("Nao foi possivel abrir o link"),
+				placement: "top",
+				bgColor: "red.500"
+			});
+		}
+	}
 
-    function handleGoBack() {
-        navigation.goBack();
-    }
+	function handleGoBack() {
+		navigation.goBack();
+	}
 
-    return (
-        <VStack flex={1} px={6} pb={6} mt={12}>
-            <HStack alignItems="center" m={2}>
-                <TouchableOpacity >
-                    <Icon
-                        as={MaterialIcons}
-                        name="arrow-back"
-                        size={7}
-                        onPress={handleGoBack}
-                    />
-                </TouchableOpacity>
+	return (
+		<VStack flex={1} px={6} pb={6} mt={12}>
+			<HStack alignItems="center" m={2}>
+				<TouchableOpacity >
+					<Icon
+						as={MaterialIcons}
+						name="arrow-back"
+						size={7}
+						onPress={handleGoBack}
+					/>
+				</TouchableOpacity>
 
-                <VStack flex={1} mr={7}>
-                    <Center>
-                        <Text fontFamily="body" fontSize="xl">
-                            {t("Informativos")}
-                        </Text>
-                    </Center>
-                </VStack>
+				<VStack flex={1} mr={7}>
+					<Center>
+						<Text fontFamily="body" fontSize="xl">
+							{t("Informativos")}
+						</Text>
+					</Center>
+				</VStack>
 
-            </HStack>
+			</HStack>
 
-            <Divider my={4} bgColor="green.500" />
+			<Divider my={4} bgColor="green.500" />
 
-            <ScrollView pr={2}>
-                <VStack alignItems="center">
-                    <Text fontSize="lg" mt={2} textAlign="justify">
-                        {article.title}
-                    </Text>
+			<ScrollView pr={2}>
+				<VStack alignItems="center">
+					<Text fontSize="lg" mt={2} textAlign="justify">
+						{article.title}
+					</Text>
 
-                    <Text fontSize="md" mt={6} textAlign="justify">
-                        {decode(article.content)}
-                    </Text>
+					<Text fontSize="md" mt={6} textAlign="justify">
+						{decode(article.content)}
+					</Text>
 
-                    <Button
-                        title={t("Saiba mais")}
-                        onPress={openLink}
-                        w={200}
-                        mb={4}
+					<Button
+						title={t("Saiba mais")}
+						onPress={openLink}
+						w={200}
+						mb={4}
 						mt={10}
-                    />
-                </VStack>
-            </ScrollView>
+					/>
+				</VStack>
+			</ScrollView>
 
-        </VStack>
-    );
+		</VStack>
+	);
 }

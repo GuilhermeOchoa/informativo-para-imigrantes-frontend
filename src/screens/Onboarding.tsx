@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, StyleSheet, View } from "react-native";
-import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { MenuSelectLanguage } from "@components/MenuSelectLanguage";
 import { CarouselSlides } from "@components/CarouselSlides";

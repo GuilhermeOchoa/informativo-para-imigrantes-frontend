@@ -32,7 +32,7 @@ export function CarouselSlides() {
     const { t, i18n } = useTranslation();
     const ref = React.createRef<any>();
     const [activeIndex, setActiveIndex] = useState(0);
-    const { saveIsValidUser } = useAuth();
+    const { saveFirstAcessUser } = useAuth();
 
     const [carouselItems, setCarouselItems] = useState<ItemProps[]>([]);
 
@@ -68,7 +68,7 @@ export function CarouselSlides() {
     };
 
     function handleNavigate() {
-        saveIsValidUser(true);
+        saveFirstAcessUser();
     }
 
     return (
