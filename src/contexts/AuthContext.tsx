@@ -46,8 +46,8 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
 	function exit() {
         try {
-            setUser({ showOnboarding: false, language: i18n.language, isLoggedIn: false, justInformation: false });
-            storageUserSave({ showOnboarding: false, language: i18n.language, isLoggedIn: false, justInformation: false });
+            setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: false });
+            storageUserSave({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: false });
         } catch (error) {
             throw error;
         }

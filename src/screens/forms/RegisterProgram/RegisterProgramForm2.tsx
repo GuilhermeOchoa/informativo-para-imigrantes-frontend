@@ -66,7 +66,7 @@ export function RegisterProgramForm2() {
 					<VStack flex={1}>
 						<Center>
 							<Text fontFamily="body" fontSize="xl">
-								{t("Cadastro de Instituição")}
+								{t("Cadastro de Programa")}
 							</Text>
 						</Center>
 
@@ -74,7 +74,7 @@ export function RegisterProgramForm2() {
 
 						<Center>
 							<Text fontFamily="body" fontSize="lg" pt={2}>
-								{t("Informacoes da Instituição")}
+								{t("Informacoes do Programa")}
 							</Text>
 						</Center>
 					</VStack>

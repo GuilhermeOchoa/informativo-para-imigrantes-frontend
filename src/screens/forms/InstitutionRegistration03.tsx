@@ -137,7 +137,7 @@ export function InstitutionRegistration03() {
 
 				<Center mt={10}>
 					<Button
-						title="Proximo"
+						title="Finalizar cadastro"
 						onPress={handleSubmit(addInstitution)}
 						rounded="full"
 						variant="solid"

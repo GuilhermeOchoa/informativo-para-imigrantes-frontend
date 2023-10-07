@@ -66,7 +66,7 @@ export function InstitutionRegistration01() {
 
 						<Center>
 							<Text fontFamily="body" fontSize="lg" pt={8}>
-								{t("Informações do usuário")}
+								{t("Informações do Instituição")}
 							</Text>
 						</Center>
 					</VStack>
