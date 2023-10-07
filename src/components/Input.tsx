@@ -1,10 +1,11 @@
-import { Input as NativeBaseInput, IInputProps, FormControl } from 'native-base';
+import { Input as NativeBaseInput, IInputProps, FormControl, Text } from 'native-base';
 
 type Props = IInputProps & {
 	errorMessage?: string | null;
+	inputTitle: string;
 }
 
-export function Input({ errorMessage = null, isInvalid, ...rest }: Props) {
+export function Input({inputTitle, errorMessage = null, isInvalid, ...rest }: Props) {
 	const invalid = !!errorMessage || isInvalid;
 
 	return (
@@ -12,6 +13,8 @@ export function Input({ errorMessage = null, isInvalid, ...rest }: Props) {
 			isInvalid={invalid}
 			mb={4}
 		>
+			<Text style={{ fontSize: 15 }}>{inputTitle}</Text>
+
 			<NativeBaseInput
 				variant="underlined"
 				h={14}
