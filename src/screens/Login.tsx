@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity, StyleSheet } from "react-native";
 
-export function SelectRegister() {
+export function Login() {
   const { sizes, colors } = useTheme();
   const { t, i18n } = useTranslation();
 
