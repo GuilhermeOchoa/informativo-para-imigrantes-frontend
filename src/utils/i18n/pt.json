@@ -19,6 +19,23 @@
         "OnboardingText01": "Aqui, tentaremos lhe oferecer as melhores e mais facilitadoras ferramentas para lhe auxiliar.",
         "OnboardingText02": "Esta aplicação oferece a possibilidade de organizar e sistematizar a oferta educativa por instituição, opção acadêmica e localização.",
         "OnboardingText03": "Agradecemos pelo seu voto de confiança. E lembre-se: em caso de dúvidas, nossa equipe estará à disposição via contato online. ",
-        "OnboardingText04": "Agora, nas próximas telas, iniciará um breve tutorial sobre as opções dentro da aplicação e como utilizá-las."
+        "OnboardingText04": "Agora, nas próximas telas, iniciará um breve tutorial sobre as opções dentro da aplicação e como utilizá-las.",
+        "CadastroPrograma": "Cadastro de Programa",
+        "InformacoesPrograma": "Informacoes do Programa",
+        "Titulo": "Título",
+        "Descricao": "Descrição",
+        "DescricaoPrograma": "Decrição do Programa",
+        "DataInicialInscricoes": "Data inicial de inscrição",
+        "DataFinalInscricoes": "Data final de inscrição",
+        "Proximo": "Próximo",
+        "LocalPrograma": "Local do Programa",
+        "LocalProgramaPlaceHolder": "Local do programa",
+        "Idioma": "Idioma",
+        "DataInicioPrograma": "Data inicial do programa",
+        "DataFinalPrograma": "Data final do programa",
+        "ErroInsercaoCadastro": "Cadastro de Programa",
+        "InformacoesAdicionaisPlaceHolder": "Requisitos do candidato, informações adicionais, etc.",
+        "Anexar": "Anexar",
+        "FinalizarCadastro": "Finalizar Cadastro"
     }
 }

@@ -32,3 +32,5 @@ npx expo install @react-native-async-storage/async-storage
 npm install react-hook-form
 # Schema Validation
 npm install @hookform/resolvers yup
+# DateTimePicker
+npx expo install @react-native-community/datetimepicker

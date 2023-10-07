@@ -2,6 +2,7 @@ import { useForm, Controller } from "react-hook-form"
 import { VStack, HStack, Center, Divider, Text, ScrollView } from "native-base"
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import { useState } from "react"
 
 import { Button } from "@components/Button"
 import { Input } from "@components/Input"
@@ -14,24 +15,36 @@ import { ProgramDTO } from "@dtos/ProgramDTO"
 import { useTranslation } from "react-i18next"
 
 type FormDataProps = {
-	local?: string,
-	idioma?: string,
-	dataInicioPrograma?: string,
-	dataFimPrograma?: string,
-	link?: string
+	local: string,
+	idioma: string,
+	dataInicioPrograma: string,
+	dataFimPrograma: string,
+	link: string
 }
 
 const signUpSchema = yup.object({
-	// local: yup.string().required('Informe o local.'),
-	// idioma: yup.string().required('Informe o idioma.'),
-	// dataInicioPrograma: yup.string().required('Informe a data do inicio do programa.'),
-	// dataFimPrograma: yup.string().required('Informe a data final do programa.'),
-	// link: yup.string().required('Informe o link.'),
+	local: yup
+	.string()
+	.required('Informe o local.'),
+	idioma: yup
+	.string()
+	.required('Informe o idioma.'),
+	dataInicioPrograma: yup
+	.string()
+	.required('Informe a data do inicio do programa.'),
+	dataFimPrograma: yup
+	.string()
+	.required('Informe a data final do programa.'),
+	link: yup
+	.string()
+	.required('Informe o link.'),
 });
 
 export function RegisterProgramForm2() {
 	const navigation = useNavigation<AuthNavigatorRoutesProps>();
 	const { t, i18n } = useTranslation();
+    const [selectedEndDate, setSelectedEndDate] = useState('');
+    const [selectedInitialDate, setSelectedInitialDate] = useState('');
 
 	const route = useRoute();
 	const program = route.params as ProgramDTO;
@@ -39,6 +52,15 @@ export function RegisterProgramForm2() {
 	const { register, control, handleSubmit, formState: { errors }, setValue } = useForm<FormDataProps>({
 		resolver: yupResolver(signUpSchema)
 	});
+
+    function handleEndDate(newDate: string) {
+		setSelectedEndDate(newDate)
+		setValue("dataFimPrograma", newDate)
+	}
+    function handleInitialDate(newDate: string) {
+		setSelectedInitialDate(newDate)
+		setValue("dataInicioPrograma", newDate)
+	}
 
 	function onSubmit({ local, idioma, dataInicioPrograma, dataFimPrograma, link }: FormDataProps) {
 		const data = {
@@ -73,8 +95,8 @@ export function RegisterProgramForm2() {
 						<Divider my={4} bgColor="green.500" />
 
 						<Center>
-							<Text fontFamily="body" fontSize="lg" pt={2}>
-								{t("Informacoes do Programa")}
+							<Text fontFamily="body" fontSize="lg" pt={8}>
+								{t("Informacoes do programa")}
 							</Text>
 						</Center>
 					</VStack>
@@ -95,7 +117,7 @@ export function RegisterProgramForm2() {
 								inputTitle="Local do programa:"
 								isInvalid={!!errors.local}
 								placeholder="Selecione o local"
-								label={"Local do Programa"}
+								label={t("Local do Programa")}
 								onValueChange={value => onChange(value)}
 							/>
 
@@ -111,79 +133,67 @@ export function RegisterProgramForm2() {
 								isInvalid={!!errors.idioma}
 								inputTitle="Idioma:"
 								placeholder="Idioma"
-								label={"Idioma utilizado:"}
+								label={t("Idioma")}
 								onValueChange={value => onChange(value)}
 							/>
 
 						)}
 						name="idioma"
 					/>
+					<Text style={{ fontSize: 15 }}>
+						{t("DataInicioPrograma")}
+						</Text>
 					<Controller
-						control={control}
-						rules={{
-							required: true,
-							maxLength: 100,
-						}}
-
-						render={({ field: { onChange, value } }) => (
-							<DateInput
-								{...register("dataInicioPrograma")}
-								inputTitle="Início do Programa*:"
-								variant={"underlined"}
-								placeholder="DD/MM/AAAA"
-								value={value}
-								onChange={onChange}
-								onChangeText={onChange}
-							/>
-						)}
-						name="dataInicioPrograma"
-					/>
+					control={control}
+					name="dataInicioPrograma"
+					rules={{
+						required: true,
+						maxLength: 100,
+					}}
+					render={() => (
+						<DateInput
+							variant={"underlined"}
+							selectDateFunction={handleInitialDate}
+							selectedDate={selectedInitialDate}
+                            errorMessage={errors.dataInicioPrograma?.message}
+						/>
+					)}
+				/>
+					<Text style={{ fontSize: 15 }}>
+						{t("DataFinalPrograma")}
+						</Text>
 					<Controller
-						control={control}
-						name="dataFimPrograma"
-
-						rules={{
-							required: true,
-							maxLength: 100,
-						}}
-
-						render={({ field: { onChange, value } }) => (
-							<DateInput
-								{...register("dataFimPrograma")}
-								inputTitle="Fim do Programa*:"
-								variant={"underlined"}
-								value={value}
-								placeholder="DD/MM/AAAA"
-								onChange={onChange}
-								onChangeText={onChange}
-							/>
-						)}
-					/>
+					control={control}
+					name="dataFimPrograma"
+					rules={{
+						required: true,
+						maxLength: 100,
+					}}
+					render={() => (
+						<DateInput
+							variant={"underlined"}
+							selectDateFunction={handleEndDate}
+							selectedDate={selectedEndDate}
+                            errorMessage={errors.dataFimPrograma?.message}
+						/>
+					)}
+				/>
 					<Controller
-						control={control}
-						rules={{
-							required: 'Campo obrigatório',
-							maxLength: 100,
-						}}
-
-						render={({ field: { onChange, onBlur, value } }) => (
-							<Input
-								{...register("link")}
-								inputTitle="Link de Acesso*:"
-								variant={"underlined"}
-								placeholder="Link"
-								onBlur={onBlur}
-								onChangeText={onChange}
-								value={value}
-							/>
-						)}
-						name="link"
-					/>
+					control={control}
+					name='link'
+					render={({ field: { onChange, value } }) => (
+						<Input
+							placeholder="Link*"
+							onChangeText={onChange}
+							value={value}
+						/>
+					)}
+			/>
 				</VStack>
 
 				<Center mt={2}>
 					<Button
-						title="Proximo"
+						title={t("Proximo")}
 						onPress={handleSubmit(onSubmit)}
 						rounded="full"
 						variant="outline"

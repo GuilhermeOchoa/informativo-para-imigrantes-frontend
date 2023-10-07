@@ -14,28 +14,49 @@ import * as yup from 'yup'
 import { DateInput } from "@components/DateInput";
 
 type FormDataProps = {
-	name?: string,
-	description?: string,
-	initialDate?: string,
-	endDate?: string
+	name: string,
+	description: string,
+	initialDate: string,
+	endDate: string
 }
 
 const signUpSchema = yup.object({
-	// name: yup.string().required('Informe o nome.'),
-	// description: yup.string().required('Informe o nome.'),
-	// initialDate: yup.string().required('Informe o nome.'),
-	// endDate: yup.string().required('Informe o nome.'),
+	name: yup
+	.string()
+	.required('Informe o nome.')
+	.min(3, 'O título deve conter mais de 3 digitos'),
+	description: yup
+	.string()
+	.required('Informe o nome.')
+	.min(12, 'A descrição deve conter mais de 12 digitos'),
+	initialDate: yup
+	.string()
+	.required('Informe a data do início das inscrições.')
+,
+	endDate: yup
+	.string()
+	.required('Informe a data do termino das inscrições.'),
 });
 
 export function RegisterProgramForm1() {
 	const { t, i18n } = useTranslation();
 
 	const navigation = useNavigation<AuthNavigatorRoutesProps>();
-	const [selectedType, setSelectedType] = useState('');
+	const [selectedEndDate, setSelectedEndDate] = useState('');
+    const [selectedInitialDate, setSelectedInitialDate] = useState('');
 
 	const { register, control, handleSubmit, formState: { errors }, setValue } = useForm<FormDataProps>({
 		resolver: yupResolver(signUpSchema)
 	});
+
+    function handleEndDate(newDate: string) {
+		setSelectedEndDate(newDate)
+		setValue("endDate", newDate)
+	}
+    function handleInitialDate(newDate: string) {
+		setSelectedInitialDate(newDate)
+		setValue("initialDate", newDate)
+	}
 
 	function onSubmit({ name, description, initialDate, endDate }: FormDataProps) {
 		console.log({ name, description, initialDate, endDate })
@@ -58,8 +79,8 @@ export function RegisterProgramForm1() {
 						<Divider my={4} bgColor="green.500" />
 
 						<Center>
-							<Text fontFamily="body" fontSize="lg" pt={2}>
-								{t("Informacoes do Programa")}
+							<Text fontFamily="body" fontSize="lg" pt={8}>
+								{t("Informacoes do programa")}
 							</Text>
 						</Center>
 					</VStack>
@@ -78,7 +99,7 @@ export function RegisterProgramForm1() {
 					)}
 				/>
 
-				<Text pt={6} pb={2} fontSize="lg" color="gray.400">Descricao*</Text>
+				<Text pt={8} pb={2} fontSize="lg" color="gray.400">Descricao*</Text>
 
 				<Controller
 					control={control}
@@ -97,27 +118,24 @@ export function RegisterProgramForm1() {
 						/>
 					)}
 				/>
-
-				<Controller
+				<Text style={{ fontSize: 15 }}>{"Inicio das inscrições*:"}</Text>
+                <Controller
 					control={control}
 					name="initialDate"
 					rules={{
-						maxLength: 100,
 						required: true,
+						maxLength: 100,
 					}}
-					render={({ field: { onChange, onBlur, value } }) => (
+					render={() => (
 						<DateInput
-							{...register("dataInicioInscricao")}
-							inputTitle="Início das inscrições*:"
 							variant={"underlined"}
-							placeholder="DD/MM/AAAA"
-							onBlur={onBlur}
-							errorMessage={errors.initialDate?.message}
-							onChange={onChange}
-							onChangeText={onChange}
+							selectDateFunction={handleInitialDate}
+							selectedDate={selectedInitialDate}
+                            errorMessage={errors.initialDate?.message}
 						/>
 					)}
 				/>
+                <Text style={{ fontSize: 15 }}>{"Fim das inscrições*:"}</Text>
 				<Controller
 					control={control}
 					name="endDate"
@@ -125,26 +143,21 @@ export function RegisterProgramForm1() {
 						required: true,
 						maxLength: 100,
 					}}
-					render={({ field: { onChange, onBlur } }) => (
+					render={() => (
 						<DateInput
-							{...register("endDate")}
-							inputTitle="Fim das inscrições*:"
 							variant={"underlined"}
-							placeholder="DD/MM/AAAA"
-							onBlur={onBlur}
-							onChangeText={onChange}
-							onChange={onChange}
+							selectDateFunction={handleEndDate}
+							selectedDate={selectedEndDate}
+                            errorMessage={errors.endDate?.message}
 						/>
 					)}
 				/>
-
-
 				<Center mt={10}>
 					<Button
 						title="Proximo"
 						onPress={handleSubmit(onSubmit)}
-						rounded="full"
 						variant="outline"
+						rounded="full"
 					/>
 				</Center>
 			</VStack>
