@@ -66,7 +66,7 @@ export function AppRoutes() {
 				paddingTop: sizes[6],
 			},
 		}}>
-
+{/* 
 			<Screen
 				name='profile'
 				component={Profile}
@@ -82,7 +82,7 @@ export function AppRoutes() {
 						paddingTop: 10,
 					}
 				}}
-			/>
+			/> */}
 
 			<Screen
 				name='feed'
@@ -100,7 +100,7 @@ export function AppRoutes() {
 					}
 				}}
 			/>
-
+{/* 
 			<Screen
 				name='article'
 				component={Articles}
@@ -145,7 +145,7 @@ export function AppRoutes() {
 				}}
 
 			/>
-
+ */}
 		</Navigator >
 	)
 }
