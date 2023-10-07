@@ -77,6 +77,7 @@ export function ArticlesDetals() {
                         onPress={openLink}
                         w={200}
                         mb={4}
+						mt={10}
                     />
                 </VStack>
             </ScrollView>

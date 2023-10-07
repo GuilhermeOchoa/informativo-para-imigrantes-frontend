@@ -1,0 +1,21 @@
+{
+    "translation": {
+		"ver mais": "ver más",
+		"Nao foi possivel carregar os informativos": "No se pudo cargar la información",
+		"Informativos": "Información",
+		"Fonte": "Fuente",
+		"Contato": "Contacto",
+		"Programas": "Programas",
+		"Saiba mais": "Más información",
+		"Nao ha informativos disponiveis": "No hay información disponible",
+		"Acessar": "Acceder",
+        "OnboardingTitle01": "Bienvenido",
+        "OnboardingTitle02": "Estamos Aquí para Ayudar",
+        "OnboardingTitle03": "Exactamente lo Que Esperabas",
+        "OnboardingTitle04": "Todo Listo!",
+        "OnboardingText01": "Aquí, intentaremos ofrecerte las mejores y más facilitadoras herramientas para ayudarte",
+        "OnboardingText02": "Esta aplicación ofrece la posibilidad de organizar y sistematizar la oferta educativa por institución, opción académica y ubicación.",
+        "OnboardingText03": "Agradecemos tu voto de confianza. Y recuerda: en caso de dudas, nuestro equipo estará disponible a través de contacto en línea.",
+        "OnboardingText04": "Ahora, en las próximas pantallas, comenzará un breve tutorial sobre las opciones dentro de la aplicación y cómo utilizarlas."
+    }
+}
