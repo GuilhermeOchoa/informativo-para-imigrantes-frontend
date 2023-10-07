@@ -1,212 +1,208 @@
-import { AppNavigatorRoutesProps } from "@routes/onboarding.routes";
-import React, { useState } from "react";
-import {
-  Image,
-  Text,
-  VStack,
-  HStack,
-  Divider,
-  Center,
-  Icon,
-  useTheme,
-  Box,
-  Button,
-  View,
-} from "native-base";
+import React, { useState } from 'react';
+import { Image, Text, VStack, HStack, Center, Divider, Icon, useTheme, Box, ScrollView } from "native-base";
+import { TouchableOpacity } from "react-native";
+
+import { Button } from '@components/Button'
+
 import logo from "@assets/logo.png";
-
-import { Onboarding } from "@screens/Onboarding";
-import { Articles } from "@screens/Articles";
-
-import {
-  createNativeStackNavigator,
-  NativeStackNavigationProp,
-} from "@react-navigation/native-stack";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity, StyleSheet } from "react-native";
+
+import { useNavigation } from '@react-navigation/native';
+import { AuthNavigatorRoutesProps } from '@routes/auth.routes';
+import { useAuth } from '@hooks/useAuth';
 
 export function SelectRegister() {
-  const { sizes, colors } = useTheme();
+	const { sizes, colors } = useTheme();
 
-  const iconsSize = sizes[2];
+	const iconsSize = sizes[2];
 
-  const [isDetailUserVisible, setIsDetailUserVisible] = React.useState(false);
-  const [isDetailInstitutionVisible, setIsDetailInstitutionVisible] =
-    React.useState(false);
+	const [isDetailUserVisible, setIsDetailUserVisible] = useState(false);
+	const [isDetailInstitutionVisible, setIsDetailInstitutionVisible] = useState(false);
 
-  const navigation = useNavigation<AppNavigatorRoutesProps>();
+	const { updateLocalStorageUserNoLogged } = useAuth();
 
-  const handleClickableTextlPress = () => {
-    alert("adicionar redirect para tela de login");
-  };
+	const navigation = useNavigation<AuthNavigatorRoutesProps>();
 
-  const openUserDetail = () => {
-    setIsDetailUserVisible(true);
-    setIsDetailInstitutionVisible(false);
-  };
+	function handleLogin() {
+		navigation.navigate('userSignIn');
+	}
 
-  const openInstitutionDetail = () => {
-    setIsDetailUserVisible(false);
-    setIsDetailInstitutionVisible(true);
-  };
+	function handleSendToInformationRoutes() {
+		updateLocalStorageUserNoLogged();
+	}
 
-  function Articles() {
-    console.log("teste");
-    navigation.navigate("articles");
-  }
+	function handleRegisterInstitution() {
+		navigation.navigate('institutionRegistration01');
+	}
 
-  const ClickableText = ({ onPress }: any) => {
-    return (
-      <TouchableOpacity onPress={onPress}>
-        <VStack>
-          <Box p={8} justifyContent="center" alignItems="center">
-            <Text fontSize="md">
-              Ja tem uma conta?{" "}
-              <Text textDecorationLine="underline" color={colors.green[700]}>
-                Entre aqui
-              </Text>{" "}
-            </Text>
-          </Box>
-        </VStack>
-      </TouchableOpacity>
-    );
-  };
+	const openUserDetail = () => {
+		setIsDetailUserVisible(true);
+		setIsDetailInstitutionVisible(false);
+	};
 
-  const DetailInstitution = () => {
-    if (isDetailInstitutionVisible) {
-      return (
-        <Box justifyContent="center" alignItems="center" maxH={180}>
-          <HStack bg="lightGreen.500" borderRadius={10}>
-            <VStack>
-              <Center p={2}>
-                <Icon
-                  as={Ionicons}
-                  name="information-circle-outline"
-                  color={colors.black}
-                  size={iconsSize}
-                />
-              </Center>
-            </VStack>
+	const openInstitutionDetail = () => {
+		setIsDetailUserVisible(false);
+		setIsDetailInstitutionVisible(true);
+	};
 
-            <VStack flex={1}>
-              <Text fontFamily="heading" fontSize="md" py={2}>
-                Instituição de ensino / ONG
-              </Text>
-              <Text fontFamily="body" fontSize="md" py={2}>
-                Praesent velit nunc, luctus tincid Donec nec pharetra magna.
-              </Text>
-            </VStack>
-          </HStack>
-        </Box>
-      );
-    } else {
-      return null;
-    }
-  };
+	const DetailInstitution = () => {
+		if (isDetailInstitutionVisible) {
+			return (
+				<Box justifyContent="center" alignItems="center" h={140}>
+					<HStack bg="lightGreen.500" rounded="md">
+						<VStack>
+							<Center p={2}>
+								<Icon
+									as={Ionicons}
+									name="information-circle-outline"
+									color={colors.black}
+									size={iconsSize}
+								/>
+							</Center>
+						</VStack>
 
-  const DetailUser = () => {
-    if (isDetailUserVisible) {
-      return (
-        <Box justifyContent="center" alignItems="center" maxH={180}>
-          <HStack bg="lightGreen.500">
-            <VStack>
-              <Center p={2}>
-                <Icon
-                  as={Ionicons}
-                  name="information-circle-outline"
-                  color={colors.black}
-                  size={iconsSize}
-                />
-              </Center>
-            </VStack>
+						<VStack flex={1}>
+							<Text fontFamily="heading" fontSize="md" py={2}>
+								Instituicao de ensino / ONG
+							</Text>
+							<Text fontFamily="body" fontSize="md" py={2}>
+								Cadastro de instituicao para divulgar programas da minha organizacao
+							</Text>
+						</VStack>
+					</HStack>
+				</Box>
+			);
+		} else {
+			return null;
+		}
+	};
 
-            <VStack flex={1}>
-              <Text fontFamily="heading" fontSize="md" py={2}>
-                Sou Imigrante em busca de oportunidades
-              </Text>
-              <Text fontFamily="body" fontSize="md" py={2}>
-                Praesent velit nunc, luctus tincid Donec nec pharetra magna.
-              </Text>
-            </VStack>
-          </HStack>
-        </Box>
-      );
-    } else {
-      return null;
-    }
-  };
+	const DetailUser = () => {
+		if (isDetailUserVisible) {
+			return (
+				<Box justifyContent="center" alignItems="center" h={140}>
+					<HStack bg="lightGreen.500" rounded="md">
+						<VStack>
+							<Center p={2}>
+								<Icon
+									as={Ionicons}
+									name="information-circle-outline"
+									color={colors.black}
+									size={iconsSize}
+								/>
+							</Center>
+						</VStack>
 
-  return (
-    <VStack flex={1} px={6} pb={6} mt={12}>
-      <HStack alignItems="center" m={2}>
-        <Center flex={1}>
-          <Text fontFamily="body" fontSize="xl">
-            Cadastro de Informacao
-          </Text>
-        </Center>
-      </HStack>
+						<VStack flex={1}>
+							<Text fontFamily="heading" fontSize="md" py={2}>
+								Sou Imigrante em busca de oportunidades
+							</Text>
+							<Text fontFamily="body" fontSize="md" py={2}>
+								Cadastro de imigrante a procura de programas
+							</Text>
+						</VStack>
+					</HStack>
+				</Box>
+			);
+		} else {
+			return null;
+		}
+	};
 
-      <Divider my={4} bgColor="green.500" />
+	function handlePaginaDoArthur() {
+		navigation.navigate('registerProgramForm1');
+	}
 
-      <HStack alignItems="center" mt={10}>
-        <Center flex={1}>
-          <Image rounded="full" source={logo} alt="Image logo" />
-        </Center>
-      </HStack>
+	return (
+		<VStack flex={1} px={6} pb={6} mt={10}>
+			<ScrollView showsVerticalScrollIndicator={false}>
+				<HStack alignItems="center" m={2}>
+					<Center flex={1}>
+						<Text fontFamily="body" fontSize="xl">
+							Cadastro
+						</Text>
+					</Center>
+				</HStack>
 
-      <VStack mt={10}>
-        <Divider my={4} bgColor="green.500" />
-        <HStack>
-          <Center>
-            <Text fontSize="lg">Procuro informacoes</Text>
-          </Center>
-          <Center ml="20">
-            <Divider orientation="vertical" h={10} bgColor="green.500" />
-          </Center>
+				<Divider my={4} bgColor="green.500" />
 
-          <Center flex={1}>
-            <Button bgColor={"white"} onPress={() => openUserDetail()}>
-              <Icon
-                as={Ionicons}
-                name="information-circle-outline"
-                color={colors.green[700]}
-                size={iconsSize}
-              />
-            </Button>
-          </Center>
-        </HStack>
-        <Divider my={4} bgColor="green.500" />
-        <HStack>
-          <Center>
-            <Text fontSize="lg">Sou instituicao de ensino </Text>
-          </Center>
+				<HStack alignItems="center" mt={10}>
+					<Center flex={1}>
+						<Image rounded="full" source={logo} alt="Image logo" />
+					</Center>
+				</HStack>
 
-          <Center ml="9">
-            <Divider orientation="vertical" h={10} bgColor="green.500" />
-          </Center>
+				<VStack mt={10}>
+					<Divider my={4} bgColor="green.500" />
 
-          <Center flex={1}>
-            <Button bgColor={"white"} onPress={() => openInstitutionDetail()}>
-              <Icon
-                as={Ionicons}
-                name="information-circle-outline"
-                color={colors.green[700]}
-                size={iconsSize}
-              />
-            </Button>
-          </Center>
-        </HStack>
+					<HStack>
+						<TouchableOpacity onPress={handleLogin} >
+							<Center>
+								<Text fontSize="lg">Procuro informacoes{'        '}</Text>
+							</Center>
+						</TouchableOpacity>
 
-        <Divider my={4} bgColor="green.500" />
+						<Center flex={1}>
+							<Divider orientation="vertical" h={10} bgColor="green.500" />
+						</Center>
 
-        <DetailUser />
-        <DetailInstitution />
+						<Center w="20%">
+							<Icon
+								as={Ionicons}
+								name="information-circle-outline"
+								color={colors.green[700]}
+								size={iconsSize}
+								onPress={openUserDetail}
+							/>
+						</Center>
+					</HStack>
 
-        <Box>
-          <ClickableText onPress={handleClickableTextlPress}></ClickableText>
-        </Box>
-      </VStack>
-    </VStack>
-  );
+					<Divider my={4} bgColor="green.500" />
+
+					<HStack>
+						<TouchableOpacity onPress={handleRegisterInstitution}>
+							<Center>
+								<Text fontSize="lg">Sou instituicao de ensino </Text>
+							</Center>
+						</TouchableOpacity>
+
+						<Center flex={1}>
+							<Divider orientation="vertical" h={10} bgColor="green.500" />
+						</Center>
+
+						<Center w="20%">
+							<Icon
+								as={Ionicons}
+								name="information-circle-outline"
+								color={colors.green[700]}
+								size={iconsSize}
+								onPress={openInstitutionDetail}
+							/>
+						</Center>
+					</HStack>
+
+					<Divider my={4} bgColor="green.500" />
+
+					<DetailUser />
+					<DetailInstitution />
+
+					{/* <Button
+						title='teste'
+						onPress={handlePaginaDoArthur}
+					/> */}
+
+					<TouchableOpacity onPress={handleSendToInformationRoutes}>
+						<Box p={8} justifyContent="center" alignItems="center">
+							<Text fontSize="md">
+								Ja tem uma conta?{" "}
+								<Text underline color={colors.green[700]}>
+									Entre aqui
+								</Text>{" "}
+							</Text>
+						</Box>
+					</TouchableOpacity>
+				</VStack>
+			</ScrollView>
+		</VStack>
+	)
 }

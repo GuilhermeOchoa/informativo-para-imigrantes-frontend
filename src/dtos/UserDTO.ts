@@ -1,4 +1,6 @@
 export type UserDTO = {
-    isValid: boolean,
-    language: string
+    showOnboarding: boolean,
+    language: string,
+	isLoggedIn: boolean, //esta logado
+	justInformation: boolean, //so informacao
 }

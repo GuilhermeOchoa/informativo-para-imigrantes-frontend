@@ -1,11 +1,14 @@
 {
 	"translation": {
+		"Selecione um pais (opcional)": "Sélectionnez un pays (facultatif)",
 		"ver mais": "voir plus",
 		"Não foi possível carregar os informativos": "Impossible de charger les informations",
 		"Informativos": "Informations",
 		"Fonte": "Source",
 		"Contato": "Contact",
+		"Perfil": "Perfil",
 		"Programas": "Programmes",
+		"Artgios": "Article",
 		"Saiba mais": "En savoir plus",
 		"Não há informativos disponíveis": "Pas d'informations disponibles",
 		"Acessar": "Accéder",
