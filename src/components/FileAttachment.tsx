@@ -1,167 +1,78 @@
-import { useState } from "react"
-import { Controller, useForm } from "react-hook-form";
-import { VStack, HStack, Center, Divider, Text, TextArea } from "native-base"
-
-import { ScrollView } from "react-native"
-import { useTranslation } from "react-i18next"
-import { useNavigation } from "@react-navigation/native"
-import { AuthNavigatorRoutesProps } from "@routes/auth.routes"
-import { Input } from '@components/Input';
+import React, { useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import * as DocumentPicker from 'expo-document-picker';
+import axios from 'axios';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Button } from '@components/Button';
 
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import { DateInput } from "@components/DateInput";
+export default function FileAttachment() {
+    const [selectedFile, setSelectedFile] = useState<DocumentPicker.DocumentPickerAsset | null>(null);
 
-type FormDataProps = {
-	name: string,
-	description: string,
-	initialDate: string,
-	endDate: string
+    const selectDoc = async () => {
+        try {
+            const result = await DocumentPicker.getDocumentAsync({ multiple: false });
+            if (!result.canceled && result.assets.length > 0) {
+                setSelectedFile(result.assets[0]);
+            } else {
+                setSelectedFile(null);
+            }
+        } catch (error) {
+            console.error('Erro ao selecionar o documento:', error);
+        }
+    }
+
+    const uploadFile = async () => {
+        if (selectedFile) {
+            try {
+                const fileBlob = await fetch(selectedFile.uri).then((r) => r.blob()); // busca o arquivo no URI especificado, obtem a resposta dessa busca e transforma em um objeto Blob (representação binária do arquivo) pronto para ser enviado para o servidor.
+                const formData = new FormData();  
+                formData.append('file', fileBlob, selectedFile.name);
+
+                const response = await axios.post('url', formData);
+                console.log('Upload feito com sucesso.', response.data);
+            } catch (error) {
+                console.error('Erro no upload do arquivo:', error);
+            }
+        }
+    }
+
+    return (
+        <View style={styles.container}>
+            <Button
+                title={""}
+                style={styles.button}
+                onPress={selectDoc}
+                startIcon={<MaterialCommunityIcons name="file-document" size={24} color="white" style={{ justifyContent: 'center', paddingLeft: 5 }} />}
+            />
+            <Button
+                title={"Enviar Arquivo"}                
+                onPress={uploadFile}
+                rounded="full"
+                variant="outline"
+                startIcon={<MaterialCommunityIcons name="upload" size={24} color="#55917F" style={{ justifyContent: 'center', paddingLeft: 5 }}/>}
+            />
+            {selectedFile && (
+                <View>
+                    <Text>Nome do arquivo: {selectedFile.name}</Text>
+                </View>
+            )}
+        </View>
+    );
 }
 
-const signUpSchema = yup.object({
-	name: yup
-	.string()
-	.required('Informe o nome.')
-	.min(3, 'O título deve conter mais de 3 digitos'),
-	description: yup
-	.string()
-	.required('Informe o nome.')
-	.min(12, 'A descrição deve conter mais de 12 digitos'),
-	initialDate: yup
-	.string()
-	.required('Informe a data do início das inscrições.')
-,
-	endDate: yup
-	.string()
-	.required('Informe a data do termino das inscrições.'),
+const styles = StyleSheet.create({
+    button: {
+        width: 50,
+        height: 50,
+        marginBottom: 30,
+        marginTop: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 0,
+    },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 });
-
-export function RegisterProgramForm1() {
-	const { t, i18n } = useTranslation();
-
-	const navigation = useNavigation<AuthNavigatorRoutesProps>();
-	const [selectedEndDate, setSelectedEndDate] = useState('');
-    const [selectedInitialDate, setSelectedInitialDate] = useState('');
-
-	const { register, control, handleSubmit, formState: { errors }, setValue } = useForm<FormDataProps>({
-		resolver: yupResolver(signUpSchema)
-	});
-
-    function handleEndDate(newDate: string) {
-		setSelectedEndDate(newDate)
-		setValue("endDate", newDate)
-	}
-    function handleInitialDate(newDate: string) {
-		setSelectedInitialDate(newDate)
-		setValue("initialDate", newDate)
-	}
-
-	function onSubmit({ name, description, initialDate, endDate }: FormDataProps) {
-		console.log({ name, description, initialDate, endDate })
-		navigation.navigate("registerProgramForm2", { name, description, initialDate, endDate })
-	}
-
-	return (
-		<ScrollView showsVerticalScrollIndicator={false}>
-			<VStack flex={1} px={6} pb={6} mt={12}>
-
-				<HStack alignItems="center" m={2} mb={6}>
-
-					<VStack flex={1}>
-						<Center>
-							<Text fontFamily="body" fontSize="xl">
-								{t("Cadastro de Programa")}
-							</Text>
-						</Center>
-
-						<Divider my={4} bgColor="green.500" />
-
-						<Center>
-							<Text fontFamily="body" fontSize="lg" pt={8}>
-								{t("Informacoes do programa")}
-							</Text>
-						</Center>
-					</VStack>
-
-				</HStack>
-
-				<Controller
-					control={control}
-					name='name'
-					render={({ field: { onChange, value } }) => (
-						<Input
-							placeholder="Titulo*"
-							onChangeText={onChange}
-							value={value}
-						/>
-					)}
-				/>
-
-				<Text pt={8} pb={2} fontSize="lg" color="gray.400">Descricao*</Text>
-
-				<Controller
-					control={control}
-					name='description'
-					render={({ field: { onChange, value } }) => (
-						<TextArea
-							autoCompleteType
-							placeholder="Drescicao do programa"
-							fontSize="md"
-							onChangeText={onChange}
-							value={value}
-							// errorMessage={errors.description?.message}
-							w="full"
-							bg="gray.100"
-							mb={4}
-						/>
-					)}
-				/>
-				<Text style={{ fontSize: 15 }}>{"Inicio das inscrições*:"}</Text>
-                <Controller
-					control={control}
-					name="initialDate"
-					rules={{
-						required: true,
-						maxLength: 100,
-					}}
-					render={() => (
-						<DateInput
-							variant={"underlined"}
-							selectDateFunction={handleInitialDate}
-							selectedDate={selectedInitialDate}
-                            errorMessage={errors.initialDate?.message}
-						/>
-					)}
-				/>
-                <Text style={{ fontSize: 15 }}>{"Fim das inscrições*:"}</Text>
-				<Controller
-					control={control}
-					name="endDate"
-					rules={{
-						required: true,
-						maxLength: 100,
-					}}
-					render={() => (
-						<DateInput
-							variant={"underlined"}
-							selectDateFunction={handleEndDate}
-							selectedDate={selectedEndDate}
-                            errorMessage={errors.endDate?.message}
-						/>
-					)}
-				/>
-				<Center mt={10}>
-					<Button
-						title="Proximo"
-						onPress={handleSubmit(onSubmit)}
-						variant="outline"
-						rounded="full"
-					/>
-				</Center>
-			</VStack>
-
-		</ScrollView >
-	)
-}
