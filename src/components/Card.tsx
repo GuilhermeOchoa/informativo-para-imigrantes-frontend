@@ -1,4 +1,4 @@
-import { HStack, Icon, Text, VStack } from "native-base";
+import { Avatar, Circle, HStack, Icon, Text, VStack } from "native-base";
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -57,31 +57,23 @@ export function Card(/*{ data, cardType, cardContext, ...rest }: Props*/) {
 
 
     return (
-            <HStack bg="lightGreen.500" alignItems="center" p={2} rounded="md" mb={4}>
-
-                <VStack flex={1}>
-                    <Text mb={2} fontSize="lg" fontFamily="heading">
+        <HStack bg="lightYellow.500" alignItems="center" p={5} rounded="lg" mb={4}>
+            <VStack flex={1} >
+                <HStack bg="lightYellow.500">
+                    <Text mb={2} mt={2} fontSize="sm" fontFamily="heading" width="50%">
                         {"Título do programa: ensinando inglês para imigrantes"}
                     </Text>
+                    <Avatar variant="rounded">
+                    </Avatar>
+                    
+                </HStack>
 
-                    <Text fontSize="md" color="black" mt={1} numberOfLines={3}>
-                        Text
-                    </Text>
-
-                    <HStack justifyContent="flex-end" alignItems="flex-end" mt={2}>
-                        <Text color="blue.900" fontSize="md">
-                            {t("ver mais")}
-                        </Text>
-
-                        <Icon
-                            as={MaterialIcons}
-                            name="arrow-forward"
-                            size={5}
-                            color="blue.900"
-                        />
-                    </HStack>
-                </VStack>
-
-            </HStack>
+                <Text fontSize="md" color="black" mt={1} mb={7} numberOfLines={3}>
+                    Lorem ipsum dolor sit amet
+                    Lorem ipsum dolor sit amet
+                    Lorem ipsum dolor sit amet
+                </Text>
+            </VStack>
+        </HStack>
     );
 }
