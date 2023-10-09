@@ -57,22 +57,26 @@ export function Card(/*{ data, cardType, cardContext, ...rest }: Props*/) {
 
 
     return (
-        <HStack bg="lightYellow.500" alignItems="center" p={5} rounded="lg" mb={4}>
-            <VStack flex={1} >
-                <HStack bg="lightYellow.500">
-                    <Text mb={2} mt={2} fontSize="sm" fontFamily="heading" width="50%">
-                        {"Título do programa: ensinando inglês para imigrantes"}
+        <HStack bg="lightGreen.500" alignItems="center" p={5} rounded="3xl" mb={4}>
+            <VStack>
+
+                <HStack justifyContent={"space-evenly"} alignItems={"center"} mb={3} width="65%">
+
+                    <Text fontSize="md" fontFamily="heading" width="70%">
+                        {"Programa 1"}
                     </Text>
-                    <Avatar variant="rounded">
-                    </Avatar>
+                    
+                    <Avatar variant="rounded" marginRight="9"/>
                     
                 </HStack>
 
-                <Text fontSize="md" color="black" mt={1} mb={7} numberOfLines={3}>
+                <Text fontSize="sm" color="black" mt={1} mb={7} numberOfLines={3} width="40%">
                     Lorem ipsum dolor sit amet
                     Lorem ipsum dolor sit amet
                     Lorem ipsum dolor sit amet
                 </Text>
+                
+
             </VStack>
         </HStack>
     );
