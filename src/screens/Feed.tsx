@@ -63,7 +63,7 @@ export function Feed() {
                 </VStack>
 
             </HStack>
-
+            
             <Divider my={4} bgColor="green.500" />
             
             <Card  />

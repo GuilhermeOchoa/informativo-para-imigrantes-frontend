@@ -11,10 +11,11 @@ import { ArticleDTO } from "@dtos/ArticleDTO";
 import { InstitutionDTO } from "@dtos/InstitutionDTO";
 import { ActionButton } from "@components/ActionButton";
 import { TagDisplay } from "@components/TagDisplay";
+import { Button } from "./Button";
 
 type Props = TouchableOpacityProps & {
     data: ProgramDTO | ArticleDTO | InstitutionDTO, //define o tipo de dado que será renderizado
-    cardType: "program" | "article", //define o tipo de card que será renderizado
+    cardType: "program" | "article" | "institution", //define o tipo de card que será renderizado
     cardContext: "feed" | "articles" | "adminPrograms" | "adminInstitutions" | "myPrograms" //define o contexto em que o card será renderizado
 }
 
@@ -24,6 +25,7 @@ const mockedProgramData: ProgramDTO = { //remover depois
     initialDate: "2021-08-01",
     endDate: "2021-12-01",
     language: "en",
+    tags: [{ label: "tag1", value: "tag1" }, { label: "tag2", value: "tag2" }, { label: "tag3", value: "tag3" }],
     link: " https://www.google.com/ ",
     timeEnrollment: 120,
     institutionId: 1,
@@ -68,19 +70,38 @@ export function Card(/*{ data, cardType, cardContext, ...rest }: Props*/) {
 
                     {/*<Avatar variant="rounded" marginRight="9"/> Boa! mas pra facilitar o uso das props, vamos usar o Action Button (ele já vem com o método "onPress")*/}
 
-                <Text fontSize="sm" color="black" mt={1} mb={7} numberOfLines={2} width="60%">
+                <Text fontSize="sm" color="black" mt={1} mb={7} numberOfLines={2}>
                     Lorem ipsum dolor sit amet
                     Lorem ipsum dolor sit amet
                     Lorem ipsum dolor sit amet
                 </Text>
                 <TagDisplay 
-                    tags={[{ label: "tag1", value: "tag1" }, { label: "tag2", value: "tag2" }, { label: "tag3", value: "tag3" }]} //remover  depois
+                    tags={mockedProgramData.tags} //remover  depois
                 />          
             </VStack>
             <ActionButton
                 status={status}
                 onPress={() => { console.log("oi") }
             }
+            />
+            <Button title={"Ver mais"} 
+                top={52} 
+                right={-10} 
+                height={10}
+                width={120} 
+                rounded={100} 
+                variant={"solid"}
+                onPress={() => { console.log("oi") }}
+                endIcon={
+                    <Icon 
+                        as={MaterialIcons} 
+                        name="arrow-forward" 
+                        marginTop={1} 
+                        left={4} 
+                        size={5} 
+                        color="white" 
+                    />
+                }
             />
         </HStack>
     );

@@ -1,4 +1,4 @@
-import { Fab, Icon, Text, Box, Container } from "native-base";
+import { Fab, Icon, Text } from "native-base";
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacityProps, StyleSheet } from "react-native";
 
@@ -11,7 +11,7 @@ type Props = TouchableOpacityProps & {
 export function ActionButton({ onPress, status, ...rest }: Props) {
 const styles = StyleSheet.create({
     text : {
-        color: status === "pending" ? "yellow.400" : status === "approved" ? "blue.400" : "red.400",
+        color: status === "pending" ? "yellow.400" : status === "approved" ? "green.200" : "red.400",
         position: "absolute",
         top: 60,
         right: 10,

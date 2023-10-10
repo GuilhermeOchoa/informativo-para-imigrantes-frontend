@@ -10,7 +10,7 @@ export function TagDisplay ({ tags }: Props) {
 
         <HStack space={3} flexWrap={"wrap"}>
         {tags.map((tag) => (
-          <Badge variant={"outline"} colorScheme={"success"} mb={2} key={tag.value}>
+          <Badge variant={"outline"} colorScheme={"success"} mb={2} key={tag.value} rounded={10}>
             {tag.label}
           </Badge>
         ))}
