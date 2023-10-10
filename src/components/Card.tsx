@@ -9,7 +9,8 @@ import { useTranslation } from 'react-i18next';
 import { ProgramDTO } from "@dtos/ProgramDTO";
 import { ArticleDTO } from "@dtos/ArticleDTO";
 import { InstitutionDTO } from "@dtos/InstitutionDTO";
-import { ActionButton } from "./ActionButton";
+import { ActionButton } from "@components/ActionButton";
+import { TagDisplay } from "@components/TagDisplay";
 
 type Props = TouchableOpacityProps & {
     data: ProgramDTO | ArticleDTO | InstitutionDTO, //define o tipo de dado que será renderizado
@@ -56,30 +57,31 @@ const mockedInstitutionData: InstitutionDTO = { //remover depois
 export function Card(/*{ data, cardType, cardContext, ...rest }: Props*/) {
     const { t, i18n } = useTranslation();
 
-    const type = "approved" //remover depois
+    const status = "approved" //remover depois
     return (
         <HStack bg="lightGreen.500" alignItems="center" p={5} rounded="3xl" mb={4}>
 
-            <VStack>
-                    <Text fontSize="md" fontFamily="heading" width="70%">
+            <VStack flex={1}>
+                    <Text fontSize="md" fontFamily="heading">
                         {"Programa 1"}
                     </Text>
 
                     {/*<Avatar variant="rounded" marginRight="9"/> Boa! mas pra facilitar o uso das props, vamos usar o Action Button (ele já vem com o método "onPress")*/}
 
-                <Text fontSize="sm" color="black" mt={1} mb={7} numberOfLines={3} width="40%">
+                <Text fontSize="sm" color="black" mt={1} mb={7} numberOfLines={2} width="60%">
                     Lorem ipsum dolor sit amet
                     Lorem ipsum dolor sit amet
                     Lorem ipsum dolor sit amet
                 </Text>
-
+                <TagDisplay 
+                    tags={[{ label: "tag1", value: "tag1" }, { label: "tag2", value: "tag2" }, { label: "tag3", value: "tag3" }]} //remover  depois
+                />          
             </VStack>
             <ActionButton
-                status={type}
+                status={status}
                 onPress={() => { console.log("oi") }
             }
-            /> 
-            
+            />
         </HStack>
     );
 }
