@@ -60,25 +60,26 @@ export function Card(/*{ data, cardType, cardContext, ...rest }: Props*/) {
     const { t, i18n } = useTranslation();
 
     const status = "approved" //remover depois
+    const cardType = "program" //remover depois
+    const cardContext = "adminPrograms" //remover depois
     return (
         <HStack bg="lightGreen.500" alignItems="center" p={5} rounded="3xl" mb={4}>
 
             <VStack flex={1}>
                     <Text fontSize="md" fontFamily="heading">
-                        {"Programa 1"}
+                        {mockedProgramData.name}
                     </Text>
 
                     {/*<Avatar variant="rounded" marginRight="9"/> Boa! mas pra facilitar o uso das props, vamos usar o Action Button (ele já vem com o método "onPress")*/}
 
                 <Text fontSize="sm" color="black" mt={1} mb={7} numberOfLines={2}>
-                    Lorem ipsum dolor sit amet
-                    Lorem ipsum dolor sit amet
-                    Lorem ipsum dolor sit amet
+                   {mockedProgramData.description}
                 </Text>
                 <TagDisplay 
                     tags={mockedProgramData.tags} //remover  depois
                 />          
             </VStack>
+            {cardType === "program" && cardContext === "adminPrograms"}
             <ActionButton
                 status={status}
                 onPress={() => { console.log("oi") }
