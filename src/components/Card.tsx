@@ -56,12 +56,10 @@ const mockedInstitutionData: InstitutionDTO = { //remover depois
 }
 
 
-export function Card(/*{ data, cardType, cardContext, ...rest }: Props*/) {
+export function Card({ data, cardType, cardContext, ...rest }: Props) {
     const { t, i18n } = useTranslation();
 
     const status = "approved" //remover depois
-    const cardType = "program" //remover depois
-    const cardContext = "adminPrograms" //remover depois
     return (
         <HStack bg="lightGreen.500" alignItems="center" p={5} rounded="3xl" mb={4}>
 
@@ -69,8 +67,6 @@ export function Card(/*{ data, cardType, cardContext, ...rest }: Props*/) {
                     <Text fontSize="md" fontFamily="heading">
                         {mockedProgramData.name}
                     </Text>
-
-                    {/*<Avatar variant="rounded" marginRight="9"/> Boa! mas pra facilitar o uso das props, vamos usar o Action Button (ele já vem com o método "onPress")*/}
 
                 <Text fontSize="sm" color="black" mt={1} mb={7} numberOfLines={2}>
                    {mockedProgramData.description}
