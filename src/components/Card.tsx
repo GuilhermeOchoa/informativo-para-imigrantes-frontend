@@ -76,7 +76,7 @@ export function Card({ data, cardType, cardContext, ...rest }: Props) {
             </Box>
             <Box>
                 <Button
-                    title={"Ver mais"}
+                    title={t("Ver mais")}
                     alignSelf={"flex-end"}
                     bottom={39}
                     height={10}
