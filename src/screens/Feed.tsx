@@ -97,6 +97,55 @@ export function Feed() {
         minimalRequirements: ["Ser imigrante", "Ter vontade de aprender"],
     }]
 
+    const instituicoes = [{
+        institutionName: "Pontíficia Universidade Católica do Rio Grande do Sul",
+        email: "O programa de ensino de inglês para imigrantes é um programa que visa ensinar inglês para imigrantes",
+        cnpj: "en",
+        type: "ONG",
+        registrantName: "Fulano de Tal",
+        registrantCpf: "12345678910",
+        registrantRole: "Gerente",
+        phone: "12345678910",
+        attachment: "",
+        password: "vault"
+    },
+    {
+        institutionName: "Universidade Federal do Rio Grande do Sul",
+        email: "O programa de ensino de russo para imigrantes é um programa que visa ensinar russo para imigrantes",
+        cnpj: "en",
+        type: "ONG",
+        registrantName: "Fulano de Tal",
+        registrantCpf: "12345678910",
+        registrantRole: "Gerente",
+        phone: "12345678910",
+        attachment: "",
+        password: "vault"
+    },
+    {
+        institutionName: "ONG Amigos do Mundo",
+        email: "O programa de ensino de francês para imigrantes é um programa que visa ensinar francês para imigrantes",
+        cnpj: "en",
+        type: "ONG",
+        registrantName: "Fulano de Tal",
+        registrantCpf: "12345678910",
+        registrantRole: "Gerente",
+        phone: "12345678910",
+        attachment: "",
+        password: "vault"
+    },
+    {
+        institutionName: "Programa de ensino de espanhol para imigrantes",
+        email: "O programa de ensino de espanhol para imigrantes é um programa que visa ensinar espanhol para imigrantes",
+        cnpj: "en",
+        type: "ONG",
+        registrantName: "Fulano de Tal",
+        registrantCpf: "12345678910",
+        registrantRole: "Gerente",
+        phone: "12345678910",
+        attachment: "",
+        password: "vault"
+    }]
+
     function handleArticlePress(article: ArticleDTO) {
         navigation.navigate("articleDetails", article);
     }
@@ -128,9 +177,9 @@ export function Feed() {
                     <Card
                         data={item}
                         cardType="program"
-                        cardContext="myPrograms"
+                        cardContext="adminPrograms"
                         />
-                        )}
+                    )}
                     ListEmptyComponent={() => (
                         <VStack flex={1} justifyContent="center" alignItems="center" mt={16}>
                             <Text fontFamily="body" fontSize="lg">
