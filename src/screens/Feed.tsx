@@ -125,10 +125,11 @@ export function Feed() {
                     data={programas}
                     keyExtractor={item => item.name}
                     renderItem={({ item }) => (
-                        <Card
+                    <Card
                         data={item}
                         cardType="program"
-                        cardContext="feed"/>
+                        cardContext="myPrograms"
+                        />
                         )}
                     ListEmptyComponent={() => (
                         <VStack flex={1} justifyContent="center" alignItems="center" mt={16}>

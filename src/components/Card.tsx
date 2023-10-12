@@ -14,9 +14,15 @@ import { TagDisplay } from "@components/TagDisplay";
 import { Button } from "./Button";
 
 type Props = TouchableOpacityProps & {
-    data: ProgramDTO | ArticleDTO | InstitutionDTO, //define o tipo de dado que será renderizado
-    cardType: "program" | "article" | "institution", //define o tipo de card que será renderizado
-    cardContext: "feed" | "articles" | "adminPrograms" | "adminInstitutions" | "myPrograms" //define o contexto em que o card será renderizado
+    data: any,
+    cardType: "program" | "article" | "institution",
+    cardContext: "feed" | "articles" | "adminPrograms" | "adminInstitutions" | "myPrograms"
+}
+
+type data = {
+    institutionData: InstitutionDTO,
+    programData: ProgramDTO,
+    articleData: ArticleDTO
 }
 
 const mockedProgramData: ProgramDTO = { //remover depois
@@ -57,49 +63,79 @@ const mockedInstitutionData: InstitutionDTO = { //remover depois
 
 
 export function Card({ data, cardType, cardContext, ...rest }: Props) {
+    console.log(cardType, cardContext)
     const { t, i18n } = useTranslation();
 
     const status = "approved" //remover depois
+
     return (
-        <HStack bg="lightGreen.500" alignItems="center" p={5} rounded="3xl" mb={4}>
+        <Box width={"100%"}>
 
-            <VStack flex={1}>
-                    <Text fontSize="md" fontFamily="heading">
-                        {mockedProgramData.name}
-                    </Text>
+        <HStack bg="lightGreen.500" alignItems="center" p={5} rounded="3xl" mb={4} height={160}>
 
-                <Text fontSize="sm" color="black" mt={1} mb={7} numberOfLines={2}>
-                   {mockedProgramData.description}
+            <VStack>
+                <Box mt={2} right={2} width="90%">
+                <Text fontSize="md" fontFamily="heading" numberOfLines={1}>
+                    {cardType ===
+                        "program" ||
+                        "institution "
+                        ? data.name
+                        : data.institutionName
+                    }
                 </Text>
-                <TagDisplay 
-                    tags={mockedProgramData.tags} //remover  depois
-                />          
+                </Box>
+
+                <Box mt={2} bottom={52} left={45}>
+
+                    {cardType === "program" &&
+                        cardContext === "adminPrograms" ||
+                        cardContext === "myPrograms" &&
+                        <ActionButton
+                            status={status}
+                            onPress={() => { console.log("oi") }}
+                        />
+                    }
+                </Box>
+                
+                <Box mt={2} bottom={5} right={4} width="100%">
+
+                <Text fontSize="sm" color="black" mt={1} p={1} numberOfLines={3}>
+                    {cardType === "program"
+                        ? data.description
+                        : cardType === "article"
+                            ? data.content
+                            : data.type}
+                </Text>
+                </Box>
+                <Box mt={2} >
+                    {cardType === "program" &&
+                        <TagDisplay
+                            tags={data.tags} //remover  depois
+                        />
+                    }
+                </Box>
             </VStack>
-            {cardType === "program" && cardContext === "adminPrograms"}
-            <ActionButton
-                status={status}
-                onPress={() => { console.log("oi") }
-            }
-            />
-            <Button title={"Ver mais"} 
-                top={52} 
-                right={-10} 
+
+            <Button title={"Ver mais"}
+                top={52}
+                right={20}
                 height={10}
-                width={120} 
-                rounded={100} 
+                width={120}
+                rounded={100}
                 variant={"solid"}
                 onPress={() => { console.log("oi") }}
                 endIcon={
-                    <Icon 
-                        as={MaterialIcons} 
-                        name="arrow-forward" 
-                        marginTop={1} 
-                        left={4} 
-                        size={5} 
-                        color="white" 
+                    <Icon
+                        as={MaterialIcons}
+                        name="arrow-forward"
+                        marginTop={1}
+                        left={4}
+                        size={5}
+                        color="white"
                     />
                 }
             />
         </HStack>
+        </Box>
     );
 }
