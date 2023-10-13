@@ -58,7 +58,7 @@ export function Login() {
 
   return (
     <VStack flex={1} px={6} pb={6} mt={12} backgroundColor={"#f8f8f8"}>
-      <HStack justifyContent="flex-end" alignItems="flex-end"  mr={2}>
+      <HStack justifyContent="flex-end" alignItems="flex-end" mr={2}>
         <MenuSelectLanguage onLanguageChange={onLanguageChange} />
       </HStack>
       <HStack alignItems="center" m={2}>
@@ -83,8 +83,10 @@ export function Login() {
             <View style={styles.inputContainer}>
               <TextInput placeholder="Senha" secureTextEntry={true} />
             </View>
-            <Button style={styles.button} title="Login">
-            </Button>
+            <Center>
+              <Text style={styles.text}>Email ou senha incorreto</Text>
+            </Center>
+            <Button style={styles.button} title="Login"></Button>
           </Center>
           <Center ml="9">
             <TouchableOpacity
@@ -121,5 +123,8 @@ const styles = StyleSheet.create({
   },
   button: {
     marginVertical: 20,
+  },
+  text: {
+    color: 'red',
   }
 });
