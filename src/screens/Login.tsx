@@ -9,13 +9,15 @@ import {
   Center,
   useTheme,
   Box,
+  View,
 } from "native-base";
 import logo from "@assets/logo.png";
-
 import "@utils/i18n/i18n";
 import { useTranslation } from "react-i18next";
 import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet, TextInput } from "react-native";
+import { MenuSelectLanguage } from "@components/MenuSelectLanguage";
+import { Button } from "@components/Button";
 
 export function Login() {
   const { sizes, colors } = useTheme();
@@ -23,9 +25,18 @@ export function Login() {
 
   const iconsSize = sizes[2];
   const navigation = useNavigation<AppNavigatorRoutesProps>();
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
+
+  function onLanguageChange(language: string) {
+    setSelectedLanguage(language);
+  }
 
   const handleClickableTextlPress = () => {
     alert("adicionar redirect para tela de login");
+  };
+
+  const handleForgotPassword = () => {
+    alert("adicionar redirect para tela de esqueci minha senha");
   };
 
   const ClickableText = ({ onPress }: any) => {
@@ -46,7 +57,10 @@ export function Login() {
   };
 
   return (
-    <VStack flex={1} px={6} pb={6} mt={12}>
+    <VStack flex={1} px={6} pb={6} mt={12} backgroundColor={"#f8f8f8"}>
+      <HStack justifyContent="flex-end" alignItems="flex-end"  mr={2}>
+        <MenuSelectLanguage onLanguageChange={onLanguageChange} />
+      </HStack>
       <HStack alignItems="center" m={2}>
         <Center flex={1}>
           <Text fontFamily="body" fontSize="xl">
@@ -54,9 +68,6 @@ export function Login() {
           </Text>
         </Center>
       </HStack>
-
-      <Divider my={4} bgColor="green.500" />
-
       <HStack alignItems="center" mt={10}>
         <Center flex={1}>
           <Image rounded="full" source={logo} alt="Image logo" />
@@ -66,21 +77,49 @@ export function Login() {
       <VStack mt={10}>
         <HStack>
           <Center>
-            <Text fontSize="lg">Sou instituicao de ensino </Text>
+            <View style={styles.inputContainer}>
+              <TextInput placeholder="Email" keyboardType="email-address" />
+            </View>
+            <View style={styles.inputContainer}>
+              <TextInput placeholder="Senha" secureTextEntry={true} />
+            </View>
+            <Button style={styles.button} title="Login">
+            </Button>
           </Center>
-
           <Center ml="9">
-            <TouchableOpacity onPress={handleClickableTextlPress}>
-              <Text fontSize="lg"> {t("Esqueci a senha")} </Text>
-            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={handleClickableTextlPress}
+            ></TouchableOpacity>
           </Center>
         </HStack>
+        <Center>
+          <TouchableOpacity onPress={handleForgotPassword}>
+            <Text>Esqueci minha senha</Text>
+          </TouchableOpacity>
+        </Center>
 
-        <Divider my={4} bgColor="green.500" />
-        <Box>
+        <Center>
           <ClickableText onPress={handleClickableTextlPress}></ClickableText>
-        </Box>
+        </Center>
       </VStack>
     </VStack>
   );
 }
+
+const styles = StyleSheet.create({
+  inputContainer: {
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 30,
+    marginBottom: 20,
+    width: 350,
+    display: "flex",
+    justifyContent: "center",
+    height: 50,
+    fontSize: 20,
+    padding: 10,
+  },
+  button: {
+    marginVertical: 20,
+  }
+});
