@@ -8,10 +8,10 @@ import { useAuth } from "@hooks/useAuth";
 
 export function Profile() {
 	const { t, i18n } = useTranslation();
-	const { exit } = useAuth();
+	const { signOut } = useAuth();
 
 	function handleGoBack() {
-		exit();
+		signOut();
 	}
 
 	return (

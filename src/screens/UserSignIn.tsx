@@ -52,12 +52,13 @@ const UserSignIn = () => {
 			toast.show({
 				title: "Cadastro realizado com sucesso",
 				placement: "top",
-				bgColor: "green.500"
+				bgColor: "green.500",
+				duration: 3000,
 			});
 
 			setTimeout(function () {
-				navigation.goBack();
-			}, 5000);
+				navigation.navigate("login")
+			}, 3000);
 
 		} catch (error) {
 			const isAppError = error instanceof AppError;
