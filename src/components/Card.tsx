@@ -28,7 +28,7 @@ export function Card({ data, cardType, cardContext, ...rest }: Props) {
     console.log(cardType, cardContext)
     const { t, i18n } = useTranslation();
 
-    const status = "approved" //remover depois
+    const status = "pending" //remover depois
     console.log(data)
 
     return (
@@ -39,7 +39,6 @@ export function Card({ data, cardType, cardContext, ...rest }: Props) {
                     cardContext === "myPrograms") &&
                     <ActionButton
                         status={status}
-                        onPress={() => { console.log("oi") }}
                     />
                 }
             <Box p="5" rounded="3xl" bg={"lightGreen.500"} height={160}>
@@ -78,7 +77,9 @@ export function Card({ data, cardType, cardContext, ...rest }: Props) {
                 <Button
                     title={t("Ver mais")}
                     alignSelf={"flex-end"}
-                    bottom={39}
+                    marginRight={4}
+                    marginBottom={-6}
+                    bottom={12}
                     height={10}
                     width={120}
                     rounded={100}
@@ -89,7 +90,7 @@ export function Card({ data, cardType, cardContext, ...rest }: Props) {
                             as={MaterialIcons}
                             name="arrow-forward"
                             marginTop={1}
-                            left={4}
+                            left={1}
                             size={5}
                             color="white"
                         />

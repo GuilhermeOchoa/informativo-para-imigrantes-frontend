@@ -3,12 +3,11 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacityProps, StyleSheet } from "react-native";
 
 type Props = TouchableOpacityProps & {
-    onPress: () => void,
     status: "pending" | "approved" | "rejected"
 
 }
 
-export function ActionButton({ onPress, status, ...rest }: Props) {
+export function ActionButton({ status, ...rest }: Props) {
 const styles = StyleSheet.create({
     text : {
         color: status === "pending" ? "yellow.400" : status === "approved" ? "green.200" : "red.400",
@@ -19,40 +18,28 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         padding: 4,
     },
-    shadow: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 4
-        },
-        shadowOpacity: 0.32,
-        shadowRadius: 5.46,
-
-        elevation: 12,
-    }
 })
     return (
         <>
         <Fab
-            style={styles.shadow}
             renderInPortal={false}
-            shadow={2}
+            shadow={0}
             backgroundColor={
                 status === "pending" ? "yellow.400"
                     : status === "approved" ? "blue.400"
                         : "red.400"
             }
             placement="top-right"
-            size="sm"
+            size="1"
             icon={
                 <Icon
                     color="white"
                     as={MaterialIcons}
                     name={status === "pending" ? "access-time" : status === "approved" ? "check" : "close"}
-                    size="4"
+                    size="sm"
+                    marginLeft={-2}
                 />
             }
-            onPress={() => { console.log("oi") }}
         />
 
         <Text style={styles.text}>
