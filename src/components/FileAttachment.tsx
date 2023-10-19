@@ -47,6 +47,9 @@ export default function FileAttachment() {
             <Button
                 title={"Enviar Arquivo"}                
                 onPress={uploadFile}
+                rounded="full"
+                variant="outline"
+                startIcon={<MaterialCommunityIcons name="upload" size={24} color="#55917F" style={{ justifyContent: 'center', paddingLeft: 5 }}/>}
             />
             {selectedFile && (
                 <View>

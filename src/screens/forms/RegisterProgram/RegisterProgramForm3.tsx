@@ -2,7 +2,7 @@ import { useForm, Controller, useFormContext } from "react-hook-form"
 import { VStack, HStack, Center, Divider, Text, ScrollView, useToast } from "native-base"
 
 import { parse } from "date-fns"
-
+import { useState } from "react"
 import { Button } from "@components/Button"
 import { TextArea } from "@components/TextArea"
 import { TagSelection } from "@components/TagSelection"
@@ -18,7 +18,6 @@ import { AuthNavigatorRoutesProps } from "@routes/auth.routes"
 import { useTranslation } from "react-i18next"
 import { ProgramDTO } from "@dtos/ProgramDTO"
 import { AppError } from "@utils/AppError"
-import { useState } from "react"
 
 type FormDataProps = {
 	tags?: string,
@@ -50,12 +49,12 @@ export function RegisterProgramForm3() {
 			const data = {
 				name: "Meu Programa",
 				institutionId: 1,
-				description: "Descrição do meu programa",
+				description: "Descri  o do meu programa",
 				link: "https://exemplo.com/programa",
 				timeDuration: 12,
 				minimalRequirements: ["Requisito 1", "Requisito 2"],
 				timeEnrollment: 30,
-				language: "Português",
+				language: "Portugu s",
 				initialDate: "2023-10-05",
 				endDate: "2023-12-31",
 				status: "ACEITO"
@@ -134,31 +133,22 @@ export function RegisterProgramForm3() {
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
 
-			<VStack flex={1} px={6} pb={6} mt={12}>
-
-				<HStack alignItems="center" m={2} mb={6}>
+			<VStack flex={1} px={6} pb={2} mt={12}>
+				<HStack alignItems="center" m={2}>
 
 					<VStack flex={1}>
 						<Center>
-							<Text fontFamily="body" fontSize="xl">
-								{t("Cadastro de Programa")}
-							</Text>
-						</Center>
-
-						<Divider my={4} bgColor="green.500" />
-
-						<Center>
-							<Text fontFamily="body" fontSize="lg" pt={2}>
-								{t("Informacoes do Programa")}
+							<Text style={{ fontSize: 20 }}>
+								{"Cadastro de Programa"}
 							</Text>
 						</Center>
 					</VStack>
-
 				</HStack>
 
+				<Divider my={4} bgColor="green.500" />
 				<ScrollView>
 
-					<VStack flex={1} mt={6}>
+					<VStack flex={1} mt={8}>
 						<Controller
 							control={control}
 							rules={{
@@ -193,7 +183,6 @@ export function RegisterProgramForm3() {
 									inputTitle={"InformaÃ§Ãµes Adicionais:"}
 								/>
 							)}
-
 						/>
 						<Center>
 							<Text style={{ fontSize: 15 }}>
@@ -210,7 +199,6 @@ export function RegisterProgramForm3() {
 						title="Finalizar cadastro"
 						onPress={handleSubmit(onSubmit)}
 						rounded="full"
-						variant="solid"
 					/>
 				</Center>
 			</VStack>
