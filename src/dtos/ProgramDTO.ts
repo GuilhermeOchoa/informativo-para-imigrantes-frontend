@@ -10,4 +10,5 @@ export type ProgramDTO = {
 	status?: string;
 	timeDuration?: number;
 	minimalRequirements?: string[];
+	tags: {label: string; value: string}[];
 };
