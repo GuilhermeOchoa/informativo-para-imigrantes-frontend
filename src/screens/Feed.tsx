@@ -4,7 +4,7 @@ import { VStack, Center, FlatList, HStack, useToast, Divider, Text } from 'nativ
 import { AppError } from '@utils/AppError';
 import { ArticleDTO } from '@dtos/ArticleDTO';
 import { getArticles } from '@services/Articles';
-import { Card } from '@components/Card';
+import { OpportunityCads } from '@components/OpportunityCard';
 import { useNavigation } from '@react-navigation/native';
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
 
@@ -43,48 +43,8 @@ export function Feed() {
     }
 
     const programas =[{
-        name: "Programa de ensino de inglês para imigrantes",
+        name: "Ensino superior",
         description: " O programa de ensino de inglês para imigrantes é um programa que visa ensinar inglês para imigrantes",
-        initialDate: "2021-08-01",
-        endDate: "2021-12-01",
-        language: "en",
-        tags: [{ label: "tag1", value: "tag1" }, { label: "tag2", value: "tag2" }, { label: "tag3", value: "tag3" }],
-        link: " https://www.google.com/ ",
-        timeEnrollment: 120,
-        institutionId: 1,
-        status: "APPROVED",
-        timeDuration: 30,
-        minimalRequirements: ["Ser imigrante", "Ter vontade de aprender"],
-    },
-    {
-        name: "Programa de ensino de russo para imigrantes",
-        description: " O programa de ensino de russo para imigrantes é um programa que visa ensinar russo para imigrantes",
-        initialDate: "2021-08-01",
-        endDate: "2021-12-01",
-        language: "en",
-        tags: [{ label: "tag1", value: "tag1" }, { label: "tag2", value: "tag2" }, { label: "tag3", value: "tag3" }],
-        link: " https://www.google.com/ ",
-        timeEnrollment: 120,
-        institutionId: 1,
-        status: "APPROVED",
-        timeDuration: 30,
-        minimalRequirements: ["Ser imigrante", "Ter vontade de aprender"],
-    },    {
-        name: "Programa de ensino de francês para imigrantes",
-        description: " O programa de ensino de francês para imigrantes é um programa que visa ensinar francês para imigrantes",
-        initialDate: "2021-08-01",
-        endDate: "2021-12-01",
-        language: "en",
-        tags: [{ label: "tag1", value: "tag1" }, { label: "tag2", value: "tag2" }, { label: "tag3", value: "tag3" }],
-        link: " https://www.google.com/ ",
-        timeEnrollment: 120,
-        institutionId: 1,
-        status: "APPROVED",
-        timeDuration: 30,
-        minimalRequirements: ["Ser imigrante", "Ter vontade de aprender"],
-    },    {
-        name: "Programa de ensino de espanhol para imigrantes",
-        description: " O programa de ensino de espanhol para imigrantes é um programa que visa ensinar espanhol para imigrantes",
         initialDate: "2021-08-01",
         endDate: "2021-12-01",
         language: "en",
@@ -97,54 +57,6 @@ export function Feed() {
         minimalRequirements: ["Ser imigrante", "Ter vontade de aprender"],
     }]
 
-    const instituicoes = [{
-        institutionName: "Pontíficia Universidade Católica do Rio Grande do Sul",
-        email: "O programa de ensino de inglês para imigrantes é um programa que visa ensinar inglês para imigrantes",
-        cnpj: "en",
-        type: "ONG",
-        registrantName: "Fulano de Tal",
-        registrantCpf: "12345678910",
-        registrantRole: "Gerente",
-        phone: "12345678910",
-        attachment: "",
-        password: "vault"
-    },
-    {
-        institutionName: "Universidade Federal do Rio Grande do Sul",
-        email: "O programa de ensino de russo para imigrantes é um programa que visa ensinar russo para imigrantes",
-        cnpj: "en",
-        type: "ONG",
-        registrantName: "Fulano de Tal",
-        registrantCpf: "12345678910",
-        registrantRole: "Gerente",
-        phone: "12345678910",
-        attachment: "",
-        password: "vault"
-    },
-    {
-        institutionName: "ONG Amigos do Mundo",
-        email: "O programa de ensino de francês para imigrantes é um programa que visa ensinar francês para imigrantes",
-        cnpj: "en",
-        type: "ONG",
-        registrantName: "Fulano de Tal",
-        registrantCpf: "12345678910",
-        registrantRole: "Gerente",
-        phone: "12345678910",
-        attachment: "",
-        password: "vault"
-    },
-    {
-        institutionName: "Programa de ensino de espanhol para imigrantes",
-        email: "O programa de ensino de espanhol para imigrantes é um programa que visa ensinar espanhol para imigrantes",
-        cnpj: "en",
-        type: "ONG",
-        registrantName: "Fulano de Tal",
-        registrantCpf: "12345678910",
-        registrantRole: "Gerente",
-        phone: "12345678910",
-        attachment: "",
-        password: "vault"
-    }]
 
     function handleArticlePress(article: ArticleDTO) {
         navigation.navigate("articleDetails", article);
@@ -161,7 +73,7 @@ export function Feed() {
                 <VStack flex={1}>
                     <Center>
                         <Text fontFamily="body" fontSize="xl">
-                            {t("Programas")}
+                            {t("Oportunidades")}
                         </Text>
                     </Center>
                 </VStack>
@@ -174,7 +86,7 @@ export function Feed() {
                     data={programas}
                     keyExtractor={item => item.name}
                     renderItem={({ item }) => (
-                    <Card
+                    <OpportunityCads
                         data={item}
                         cardType="program"
                         cardContext="adminPrograms"
