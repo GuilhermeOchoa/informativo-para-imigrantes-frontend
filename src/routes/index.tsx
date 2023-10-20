@@ -23,15 +23,14 @@ export function Routes() {
 		<Box flex={1} bg="white">
 			<NavigationContainer theme={theme}>
 				{user.showOnboarding ? (
-					// (
-					// 	user.justInformation ? (
-					// 		<AppRoutes /> // Nao precisa estar logado para ver as rotas do app
-					// 	) : (
+					(
+						user.justInformation ? (
+							<AppRoutes /> // Nao precisa estar logado para ver as rotas do app
+						) : (
 							<AuthRoutes /> // Telas que nao precisam de autenticacao
 						)
-					//)
-				//) 
-				: (
+					)
+				) : (
 					<OnboardingRoutes /> // Mostra as rotas do onboarding
 				)}
 			</NavigationContainer>
