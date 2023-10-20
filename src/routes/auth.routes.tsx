@@ -30,7 +30,7 @@ const { Navigator, Screen } = createNativeStackNavigator<AuthRoutes>();
 export function AuthRoutes() {
 	return (
 		<Navigator screenOptions={{ headerShown: false }}>
-
+{/* 
 			<Screen
 				name='selectRegister'
 				component={SelectRegister}
@@ -54,7 +54,7 @@ export function AuthRoutes() {
 			<Screen
 				name='institutionRegistration03'
 				component={InstitutionRegistration03}
-			/>
+			/> */}
 
 			<Screen
 				name='registerProgramForm1'

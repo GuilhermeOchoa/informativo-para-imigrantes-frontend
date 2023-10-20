@@ -18,7 +18,6 @@ export function DateInput({ errorMessage = null, selectDateFunction, selectedDat
     }
 
     const teste = ({type}: any, selectedDate: any)=>{
-        console.log("from inside", selectedDate)
         if(type == "set"){
             toggleDatePicker();
             const currentDate = selectedDate;
@@ -57,7 +56,8 @@ export function DateInput({ errorMessage = null, selectDateFunction, selectedDat
                 h={10}
                 {...rest}
                 value={selectedDate}
-                keyboardType="numeric"
+                cursorColor={"white"}
+                editable={false}
                 placeholder="dd/mm/aaaa"
                 _focus={{
                     borderColor: 'green.500',
