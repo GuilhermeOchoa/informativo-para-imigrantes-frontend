@@ -5,16 +5,17 @@ import { MaterialIcons } from '@expo/vector-icons';
 import '@utils/i18n/i18n';
 import { useTranslation } from 'react-i18next';
 import { Button } from "./Button";
+import { OpportunityDTO } from '../dtos/OpportunityDTO';
 
 type Props = TouchableOpacityProps & {
-    data: any,
-    cardType: "program" | "article" | "institution",
-    cardContext: "feed" | "articles" | "adminPrograms" | "adminInstitutions" | "myPrograms"
+    data: any
 }
 
+type data = {
+    opportunity: OpportunityDTO,
+}
 
-export function OpportunityCads({ data, cardType, cardContext, ...rest }: Props) {
-    console.log(cardType, cardContext)
+export function OpportunityCads({ data }: Props) {
     const { t, i18n } = useTranslation();
 
     return (
@@ -23,23 +24,8 @@ export function OpportunityCads({ data, cardType, cardContext, ...rest }: Props)
 
                 <VStack flex={1}>
                     <Text marginLeft={2} fontSize="22" numberOfLines={1} width={230}>
-                        {cardType === "program"
-                            ? data.name
-                            : cardType === "article"
-                                ? data.title
-                                : data.institutionName
-                        }
+                        data.type
                     </Text>
-
-                    <Text marginLeft={2} fontSize="22" numberOfLines={1} width={230}>
-                        {cardType === "program"
-                            ? data.name
-                            : cardType === "article"
-                                ? data.title
-                                : data.institutionName
-                        }
-                    </Text>
-
                 </VStack>
             </HStack>
 
