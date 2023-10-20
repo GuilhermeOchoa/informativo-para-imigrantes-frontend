@@ -16,7 +16,7 @@ import { useEffect } from 'react';
 export default function App() {
     const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
 
-    async function loadIsValidUser() {
+    async function loadLanguage() {
         try {
             const user = await storageUserGet();
 
@@ -27,7 +27,7 @@ export default function App() {
     }
 
     useEffect(() => {
-        loadIsValidUser();
+        loadLanguage();
     }, []);
 
     return (

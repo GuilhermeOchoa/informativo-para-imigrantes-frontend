@@ -1,4 +1,7 @@
 import { UserDTO } from "@dtos/UserDTO";
+import { api } from "@services/Api";
+import { login } from "@services/Login";
+import { storageAuthTokenGet, storageAuthTokenRemove, storageAuthTokenSave } from "@storage/storageAuthToken";
 import { storageUserSave, storageUserGet } from "@storage/storageUser";
 
 import '@utils/i18n/i18n';
@@ -8,11 +11,11 @@ import { ReactNode, createContext, useEffect, useState } from "react";
 
 export type AuthContextDataProps = {
     user: UserDTO;
-    saveFirstAcessUser: () => void;
+    signIn: (email: string, password: string) => Promise<void>;
+    signOut: () => Promise<void>;
     isLoadingUserStorageData: boolean;
-	updateLocalStorageUserNoLogged: () => void;
-	updateLocalStorageUserLogged: () => void;
-	exit: () => void;
+    saveFirstAcessUser: () => void;
+    updateLocalStorageUserNoLogged: () => void;
 }
 
 type AuthContextProviderProps = {
@@ -25,52 +28,74 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     const [user, setUser] = useState<UserDTO>({} as UserDTO);
     const [isLoadingUserStorageData, setIsLoadingUserStorageData] = useState(true);
 
-    function saveFirstAcessUser() {
+    //Atualiza cabecalho de autenticacao
+    async function userAndTokenUpdate(userData: UserDTO, token: string) {
+        api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: true, justInformation: false, email: userData.email, name: userData.name, type: userData.type });
+    }
+
+    //...Salva no storage o usuario e o token
+    async function storageUserAndTokenSave(userData: UserDTO, token: string) {
         try {
-            setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: false });
-            storageUserSave({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: false });
+            setIsLoadingUserStorageData(true);
+
+            await storageUserSave({ showOnboarding: true, language: i18n.language, isLoggedIn: true, justInformation: false, email: userData.email, name: userData.name, type: userData.type });
+            await storageAuthTokenSave(token);
+
         } catch (error) {
             throw error;
+        } finally {
+            setIsLoadingUserStorageData(false);
         }
     }
 
-	function updateLocalStorageUserNoLogged() {
+    //Autenticacao no app
+    async function signIn(email: string, password: string) {
         try {
-            setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: true });
-            storageUserSave({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: true });
-        } catch (error) {
-            throw error;
-        }
-    }
+            //Buscar os dados do usuario
+            const { data } = await login(email, password);
 
-
-	function exit() {
-        try {
-            setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: false });
-            storageUserSave({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: false });
-        } catch (error) {
-            throw error;
-        }
-    }
-
-	function updateLocalStorageUserLogged() {
-        try {
-            setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: true, justInformation: false });
-            storageUserSave({ showOnboarding: true, language: i18n.language, isLoggedIn: true, justInformation: false });
-        } catch (error) {
-            throw error;
-        }
-    }
-
-
-    async function loadIsValidUser() {
-        try {
-            const user = await storageUserGet();
-
-            if (user) {
-                setUser(user);
-                setIsLoadingUserStorageData(false);
+            //Se existir usuario e token...
+            if (data.user && data.token) {
+                //...Salva no storage o usuario e o token
+                await storageUserAndTokenSave(data.user, data.token)
+                //Atualiza o cabecalho
+                userAndTokenUpdate(data.user, data.token);
             }
+        } catch (error) {
+            throw error;
+        } finally {
+
+        }
+    }
+
+    async function signOut() {
+        try {
+            setIsLoadingUserStorageData(true);
+
+            saveFirstAcessUser();
+
+            await storageAuthTokenRemove();
+        } catch (error) {
+            throw error;
+        } finally {
+            setIsLoadingUserStorageData(false);
+        }
+    }
+
+    //Quando o usuario abre novamente o app, ele traz os dados para nao precisar logar novamente
+    async function loadUserData() {
+        try {
+            setIsLoadingUserStorageData(true);
+
+            const userLogged = await storageUserGet();
+            const token = await storageAuthTokenGet();
+
+            //verifica se esta autenticado, se tver tem token e os dados do usuario logado
+            if (token && userLogged) {
+                userAndTokenUpdate(userLogged, token);
+            }
+
         } catch (error) {
             throw error;
         } finally {
@@ -79,11 +104,36 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     }
 
     useEffect(() => {
-        loadIsValidUser();
+        loadUserData();
     }, []);
 
+    function saveFirstAcessUser() {
+        try {
+            setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: false, email: "", name: "", type: "" });
+            storageUserSave({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: false, email: "", name: "", type: "" });
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    function updateLocalStorageUserNoLogged() {
+        try {
+            setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: true, email: "", name: "", type: "" });
+            storageUserSave({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: true, email: "", name: "", type: "" });
+        } catch (error) {
+            throw error;
+        }
+    }
+
     return (
-        <AuthContext.Provider value={{ user, saveFirstAcessUser, isLoadingUserStorageData, updateLocalStorageUserNoLogged, updateLocalStorageUserLogged, exit }}>
+        <AuthContext.Provider value={{
+            user,
+            signIn,
+            signOut,
+            isLoadingUserStorageData,
+            saveFirstAcessUser,
+            updateLocalStorageUserNoLogged,
+        }}>
             {children}
         </AuthContext.Provider>
     )
