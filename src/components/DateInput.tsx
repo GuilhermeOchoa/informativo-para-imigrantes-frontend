@@ -1,10 +1,9 @@
-import { Input as NativeBaseInput, IInputProps, FormControl, Text, ISelectProps, DeleteIcon, IconButton, Pressable } from 'native-base';;
+import { Input as NativeBaseInput, IInputProps, FormControl, Text, DeleteIcon, IconButton, Pressable } from 'native-base';;
 import DateTimePicker from "@react-native-community/datetimepicker"
-import { parse, isValid } from 'date-fns';
 import { useState } from 'react';
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-type Props = IInputProps & ISelectProps & {
+type Props = IInputProps & {
     errorMessage?: string | null | any;
     selectedDate: string;
     selectDateFunction: (type: string) => void;
@@ -14,17 +13,18 @@ export function DateInput({ errorMessage = null, selectDateFunction, selectedDat
     const [date, setDate] = useState(new Date());
     const [showPicker, setShowPicker] = useState<boolean>(false);
 
-    const toggleDatePicker = () =>{
+    const toggleDatePicker = () => {
         setShowPicker(!showPicker);
     }
 
     const teste = ({type}: any, selectedDate: any)=>{
+        console.log("from inside", selectedDate)
         if(type == "set"){
             toggleDatePicker();
             const currentDate = selectedDate;
             setDate(currentDate);
             selectDateFunction(formatarData(currentDate));
-        }else {
+        } else {
             toggleDatePicker();
         }
     }

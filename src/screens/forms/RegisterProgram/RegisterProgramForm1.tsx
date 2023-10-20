@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Controller, useForm } from "react-hook-form";
-import { VStack, HStack, Center, Divider, Text, TextArea } from "native-base"
+import { VStack, HStack, Center, Divider, Text } from "native-base"
 
 import { ScrollView } from "react-native"
 import { useTranslation } from "react-i18next"
@@ -8,7 +8,7 @@ import { useNavigation } from "@react-navigation/native"
 import { AuthNavigatorRoutesProps } from "@routes/auth.routes"
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
-
+import { TextArea } from '@components/TextArea'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { DateInput } from "@components/DateInput";
@@ -20,7 +20,7 @@ type FormDataProps = {
 	endDate: string
 }
 
-const signUpSchema = yup.object({
+const programSchema = yup.object({
 	name: yup
 	.string()
 	.required('Informe o nome.')
@@ -31,8 +31,7 @@ const signUpSchema = yup.object({
 	.min(12, 'A descrição deve conter mais de 12 digitos'),
 	initialDate: yup
 	.string()
-	.required('Informe a data do início das inscrições.')
-,
+	.required('Informe a data do início das inscrições.'),
 	endDate: yup
 	.string()
 	.required('Informe a data do termino das inscrições.'),
@@ -45,17 +44,21 @@ export function RegisterProgramForm1() {
 	const [selectedEndDate, setSelectedEndDate] = useState('');
     const [selectedInitialDate, setSelectedInitialDate] = useState('');
 
-	const { register, control, handleSubmit, formState: { errors }, setValue } = useForm<FormDataProps>({
-		resolver: yupResolver(signUpSchema)
+	const { register, control, handleSubmit, formState: { errors }, setValue, getFieldState } = useForm<FormDataProps>({
+		resolver: yupResolver(programSchema)
 	});
 
-    function handleEndDate(newDate: string) {
-		setSelectedEndDate(newDate)
-		setValue("endDate", newDate)
-	}
+
     function handleInitialDate(newDate: string) {
+		console.log("from handle initial date", control.getFieldState("description"))
 		setSelectedInitialDate(newDate)
 		setValue("initialDate", newDate)
+	}
+
+	function handleEndDate(newDate: string) {
+		console.log("from handle initial date", control._formValues)
+		setSelectedEndDate(newDate)
+		setValue("endDate", newDate)
 	}
 
 	function onSubmit({ name, description, initialDate, endDate }: FormDataProps) {
@@ -67,7 +70,7 @@ export function RegisterProgramForm1() {
 		<ScrollView showsVerticalScrollIndicator={false}>
 			<VStack flex={1} px={6} pb={6} mt={12}>
 
-				<HStack alignItems="center" m={2} mb={6}>
+				<HStack alignItems="center" m={2} mb={2}>
 
 					<VStack flex={1}>
 						<Center>
@@ -93,6 +96,7 @@ export function RegisterProgramForm1() {
 					render={({ field: { onChange, value } }) => (
 						<Input
 							placeholder="Titulo*"
+							errorMessage={errors.name?.message}
 							onChangeText={onChange}
 							value={value}
 						/>
@@ -106,15 +110,14 @@ export function RegisterProgramForm1() {
 					name='description'
 					render={({ field: { onChange, value } }) => (
 						<TextArea
-							autoCompleteType
-							placeholder="Drescicao do programa"
+							placeholder="Descrição do programa"
 							fontSize="md"
 							onChangeText={onChange}
 							value={value}
-							// errorMessage={errors.description?.message}
+							errorMessage={errors.description?.message}
 							w="full"
-							bg="gray.100"
-							mb={4}
+							bg="white.400"
+							mb={2} inputTitle={""}						
 						/>
 					)}
 				/>
