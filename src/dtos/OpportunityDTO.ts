@@ -1,4 +1,4 @@
 export type OpportunityDTO = {
-	type: string,
-	quantity: number
-}
+	type: string;
+	quantity: number;
+};
