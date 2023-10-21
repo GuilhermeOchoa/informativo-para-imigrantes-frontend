@@ -15,24 +15,24 @@ import { ProgramDTO } from "@dtos/ProgramDTO"
 import { useTranslation } from "react-i18next"
 
 type FormDataProps = {
-	local: string,
-	idioma: string,
-	dataInicioPrograma: string,
-	dataFimPrograma: string,
+	location: string,
+	language: string,
+	programInitialDate: string,
+	programEndDate: string,
 	link: string
 }
 
 const signUpSchema = yup.object({
-	local: yup
+	location: yup
 	.string()
 	.required('Informe o local.'),
-	idioma: yup
+	language: yup
 	.string()
 	.required('Informe o idioma.'),
-	dataInicioPrograma: yup
+	programInitialDate: yup
 	.string()
 	.required('Informe a data do inicio do programa.'),
-	dataFimPrograma: yup
+	programEndDate: yup
 	.string()
 	.required('Informe a data final do programa.'),
 	link: yup
@@ -55,23 +55,23 @@ export function RegisterProgramForm2() {
 
     function handleEndDate(newDate: string) {
 		setSelectedEndDate(newDate)
-		setValue("dataFimPrograma", newDate)
+		setValue("programEndDate", newDate)
 	}
     function handleInitialDate(newDate: string) {
 		setSelectedInitialDate(newDate)
-		setValue("dataInicioPrograma", newDate)
+		setValue("programInitialDate", newDate)
 	}
 
-	function onSubmit({ local, idioma, dataInicioPrograma, dataFimPrograma, link }: FormDataProps) {
+	function onSubmit({ location, language, programInitialDate, programEndDate, link }: FormDataProps) {
 		const data = {
-			institutionName: program.name,
+			title: program.title,
 			description: program.description,
-			initialDate: program.initialDate,
-			endDate: program.endDate,
-			local,
-			idioma,
-			dataInicioPrograma,
-			dataFimPrograma,
+			enrollmentInitialDate: program.enrollmentInitialDate,
+			enrollmentEndDate: program.enrollmentEndDate,
+			location,
+			language,
+			programInitialDate,
+			programEndDate,
 			link
 		};
 
@@ -108,14 +108,14 @@ export function RegisterProgramForm2() {
 
 					<Controller
 						control={control}
-						name="local"
+						name="location"
 						rules={{ required: false }}
 						render={({ field: { onChange } }) => (
 							<Select
-								{...register("local")}
+								{...register("location")}
 								options={ProgramLocalOptions}
 								inputTitle="Local do programa:"
-								isInvalid={!!errors.local}
+								isInvalid={!!errors.location}
 								placeholder="Selecione o local"
 								label={t("Local do Programa")}
 								onValueChange={value => onChange(value)}
@@ -128,9 +128,9 @@ export function RegisterProgramForm2() {
 						rules={{ required: false }}
 						render={({ field: { onChange } }) => (
 							<Select
-								{...register("idioma")}
+								{...register("language")}
 								options={ProgramLanguageOptions}
-								isInvalid={!!errors.idioma}
+								isInvalid={!!errors.language}
 								inputTitle="Idioma:"
 								placeholder="Idioma"
 								label={t("Idioma")}
@@ -138,14 +138,14 @@ export function RegisterProgramForm2() {
 							/>
 
 						)}
-						name="idioma"
+						name="language"
 					/>
 					<Text style={{ fontSize: 15 }}>
-						{t("DataInicioPrograma")}
+						{t("programInitialDate")}
 						</Text>
 					<Controller
 					control={control}
-					name="dataInicioPrograma"
+					name="programInitialDate"
 					rules={{
 						required: true,
 						maxLength: 100,
@@ -155,7 +155,7 @@ export function RegisterProgramForm2() {
 							variant={"underlined"}
 							selectDateFunction={handleInitialDate}
 							selectedDate={selectedInitialDate}
-                            errorMessage={errors.dataInicioPrograma?.message}
+                            errorMessage={errors.programInitialDate?.message}
 						/>
 					)}
 				/>
@@ -164,7 +164,7 @@ export function RegisterProgramForm2() {
 						</Text>
 					<Controller
 					control={control}
-					name="dataFimPrograma"
+					name="programEndDate"
 					rules={{
 						required: true,
 						maxLength: 100,
@@ -174,7 +174,7 @@ export function RegisterProgramForm2() {
 							variant={"underlined"}
 							selectDateFunction={handleEndDate}
 							selectedDate={selectedEndDate}
-                            errorMessage={errors.dataFimPrograma?.message}
+                            errorMessage={errors.programEndDate?.message}
 						/>
 					)}
 				/>

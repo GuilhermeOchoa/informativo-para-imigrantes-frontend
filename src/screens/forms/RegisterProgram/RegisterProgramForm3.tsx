@@ -20,8 +20,7 @@ import { ProgramDTO } from "@dtos/ProgramDTO"
 import { AppError } from "@utils/AppError"
 
 type FormDataProps = {
-	tags?: string,
-	informacoesAdicionais?: string,
+	tags?: string[],
 }
 
 const signUpSchema = yup.object({
@@ -47,19 +46,18 @@ export function RegisterProgramForm3() {
 	async function onSubmit() {
 		try {
 			const data = {
-				name: program.name,
 				institutionId: 1,
-				description: "Descri  o do meu programa",
-				link: "https://exemplo.com/programa",
-				timeDuration: 12,
-				minimalRequirements: ["Requisito 1", "Requisito 2"],
-				timeEnrollment: 30,
-				language: "Portugu s",
-				initialDate: "2023-10-05",
-				endDate: program.endDate,
-				status: "ACEITO"
+				title: program.title,
+				description: program.description,
+				enrollmentInitialDate: program.enrollmentInitialDate,
+				enrollmentEndDate: program.enrollmentEndDate,
+				location: program.location,
+				language: program.location,
+				programInitialDate: program.location,
+				programEndDate: program.location,
+				link: program.location,
+				status: "PENDENTE"
 			};
-
 			setIsLoading(true);
 			console.log(data)
 
@@ -166,23 +164,6 @@ export function RegisterProgramForm3() {
 								/>
 							)}
 							name="tags"
-						/>
-
-						<Controller
-							control={control}
-							rules={{
-								maxLength: 1000,
-							}}
-							name="informacoesAdicionais"
-							render={({ field: { onChange, onBlur } }) => (
-								<TextArea
-									{...register("informacoesAdicionais")}
-									placeholder="Requisitos do candidato, informações adicionais, etc."
-									onBlur={onBlur}
-									onChangeText={onChange}
-									inputTitle={"Informações Adicionais:"}
-								/>
-							)}
 						/>
 						<Center>
 							<Text style={{ fontSize: 15 }}>

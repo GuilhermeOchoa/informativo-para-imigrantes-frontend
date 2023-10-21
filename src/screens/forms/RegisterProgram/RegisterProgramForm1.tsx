@@ -14,14 +14,14 @@ import * as yup from 'yup'
 import { DateInput } from "@components/DateInput";
 
 type FormDataProps = {
-	name: string,
+	title: string,
 	description: string,
-	initialDate: string,
-	endDate: string
+	enrollmentInitialDate: string,
+	enrollmentEndDate: string
 }
 
 const signUpSchema = yup.object({
-	name: yup
+	title: yup
 	.string()
 	.required('Informe o nome.')
 	.min(3, 'O título deve conter mais de 3 digitos'),
@@ -29,11 +29,10 @@ const signUpSchema = yup.object({
 	.string()
 	.required('Informe o nome.')
 	.min(8, 'A descrição deve conter mais de 12 digitos'),
-	initialDate: yup
+	enrollmentInitialDate: yup
 	.string()
-	.required('Informe a data do início das inscrições.')
-,
-	endDate: yup
+	.required('Informe a data do início das inscrições.'),
+	enrollmentEndDate: yup
 	.string()
 	.required('Informe a data do termino das inscrições.'),
 });
@@ -51,16 +50,16 @@ export function RegisterProgramForm1() {
 
     function handleEndDate(newDate: string) {
 		setSelectedEndDate(newDate)
-		setValue("endDate", newDate)
+		setValue("enrollmentEndDate", newDate)
 	}
     function handleInitialDate(newDate: string) {
 		setSelectedInitialDate(newDate)
-		setValue("initialDate", newDate)
+		setValue("enrollmentInitialDate", newDate)
 	}
 
-	function onSubmit({ name, description, initialDate, endDate }: FormDataProps) {
-		console.log({ name, description, initialDate, endDate })
-		navigation.navigate("registerProgramForm2", { title, description, programInitialDate, progr })
+	function onSubmit({ title, description, enrollmentInitialDate, enrollmentEndDate }: FormDataProps) {
+		console.log({ title, description, enrollmentInitialDate, enrollmentEndDate })
+		navigation.navigate("registerProgramForm2", { title, description, enrollmentInitialDate, enrollmentEndDate })
 	}
 
 	return (
@@ -89,7 +88,7 @@ export function RegisterProgramForm1() {
 
 				<Controller
 					control={control}
-					name='name'
+					name='title'
 					render={({ field: { onChange, value } }) => (
 						<Input
 							placeholder="Titulo*"
@@ -121,7 +120,7 @@ export function RegisterProgramForm1() {
 				<Text style={{ fontSize: 15 }}>{"Inicio das inscrições*:"}</Text>
                 <Controller
 					control={control}
-					name="initialDate"
+					name="enrollmentInitialDate"
 					rules={{
 						required: true,
 						maxLength: 100,
@@ -131,14 +130,14 @@ export function RegisterProgramForm1() {
 							variant={"underlined"}
 							selectDateFunction={handleInitialDate}
 							selectedDate={selectedInitialDate}
-                            errorMessage={errors.initialDate?.message}
+                            errorMessage={errors.enrollmentInitialDate?.message}
 						/>
 					)}
 				/>
                 <Text style={{ fontSize: 15 }}>{"Fim das inscrições*:"}</Text>
 				<Controller
 					control={control}
-					name="endDate"
+					name="enrollmentEndDate"
 					rules={{
 						required: true,
 						maxLength: 100,
@@ -148,7 +147,7 @@ export function RegisterProgramForm1() {
 							variant={"underlined"}
 							selectDateFunction={handleEndDate}
 							selectedDate={selectedEndDate}
-                            errorMessage={errors.endDate?.message}
+                            errorMessage={errors.enrollmentEndDate?.message}
 						/>
 					)}
 				/>
