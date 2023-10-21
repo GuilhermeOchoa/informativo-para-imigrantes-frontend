@@ -12,7 +12,8 @@ type Props = TouchableOpacityProps & {
 }
 
 type data = {
-    opportunity: OpportunityDTO,
+    type: string,
+    quantity: number
 }
 
 export function OpportunityCads({ data }: Props) {
@@ -25,6 +26,10 @@ export function OpportunityCads({ data }: Props) {
                 <VStack flex={1}>
                     <Text marginLeft={2} fontSize="22" numberOfLines={1} width={230}>
                         data.type
+                    </Text>
+
+                    <Text marginLeft={2} fontSize="22" numberOfLines={1} width={230}>
+                        data.quantity
                     </Text>
                 </VStack>
             </HStack>
