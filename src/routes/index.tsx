@@ -46,7 +46,6 @@ export function Routes() {
 		}
 	}
 
-
 	return (
 		<Box flex={1} bg="white">
 			<NavigationContainer theme={theme}>
