@@ -6,6 +6,7 @@ import '@utils/i18n/i18n';
 import { useTranslation } from 'react-i18next';
 import { Button } from "./Button";
 import { OpportunityDTO } from '../dtos/OpportunityDTO';
+import { ActionButton } from "./ActionButton";
 
 type Props = TouchableOpacityProps & {
     data: any
@@ -20,18 +21,29 @@ export function OpportunityCads({ data }: Props) {
     const { t, i18n } = useTranslation();
 
     return (
+
         <>
-            <HStack p="3" alignItems="center" rounded="3xl" bg={"lightGreen.500"} height={100}>
+            <HStack p="3" rounded="3xl" bg={"lightGreen.500"} height={100}>
 
-                <VStack flex={1}>
-                    <Text marginLeft={2} fontSize="22" numberOfLines={1} width={230}>
-                        data.type
+                <VStack  marginLeft={1} flex={1}>
+                    <Text fontSize={20} marginBottom={22}>
+                        {data.type}
                     </Text>
 
-                    <Text marginLeft={2} fontSize="22" numberOfLines={1} width={230}>
-                        data.quantity
-                    </Text>
                 </VStack>
+
+                <VStack textAlign={"center"} margin={0} flex={1}>
+                    <Text padding={0} fontSize={40} alignSelf={"flex-end"} marginRight={13}>
+                        {data.quantity}
+                    </Text>
+
+                    <Text fontSize={20} marginLeft={3} alignSelf={"flex-end"} >
+                        Itens
+                    </Text>
+
+                </VStack>
+
+
             </HStack>
 
             <Button

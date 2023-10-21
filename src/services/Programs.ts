@@ -1,14 +1,8 @@
 import { OpportunityDTO } from "@dtos/OpportunityDTO";
 import { api } from "@services/Api";
 
-export async function getCategoriesWithCount(): Promise<OpportunityDTO[]>  {
+export async function getCategoriesWithCount()  {
 
-    const response: Map<string, number> = await api.get('/program/categories');
+    return api.get('/program/categories');
 
-    const dtos: OpportunityDTO[] = [...response.entries()].map(([type, quantity]) => ({
-      type,
-      quantity,
-    }));
-
-    return dtos;
 }

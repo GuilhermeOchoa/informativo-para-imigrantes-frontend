@@ -12,6 +12,7 @@ import { Loading } from '@components/Loading';
 
 import '@utils/i18n/i18n';
 import { useTranslation } from 'react-i18next';
+import { getCategoriesWithCount } from '@services/Programs';
 
 export function Feed() {
     const [isLoading, setIsLoading] = useState(true);
@@ -21,7 +22,7 @@ export function Feed() {
     const { t, i18n } = useTranslation();
 
     async function fetchFeed() {
-        return oportunidades
+        return getCategoriesWithCount();
     }
 
     const oportunidades =[{
