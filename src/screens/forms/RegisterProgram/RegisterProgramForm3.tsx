@@ -20,7 +20,7 @@ import { ProgramDTO } from "@dtos/ProgramDTO"
 import { AppError } from "@utils/AppError"
 
 type FormDataProps = {
-	tags?: string[],
+	tags?: {label: string; value: string}[],
 }
 
 const signUpSchema = yup.object({
@@ -43,20 +43,19 @@ export function RegisterProgramForm3() {
 		resolver: yupResolver(signUpSchema)
 	});
 
-	async function onSubmit() {
+	async function onSubmit({ tags }: FormDataProps) {
 		try {
 			const data = {
-				institutionId: 1,
+				institutionEmail: "email@email.com",
 				title: program.title,
 				description: program.description,
-				enrollmentInitialDate: program.enrollmentInitialDate,
-				enrollmentEndDate: program.enrollmentEndDate,
+				enrollmentInitialDate: "2023-10-21",
+				enrollmentEndDate: "2023-10-21",
 				location: program.location,
-				language: program.location,
-				programInitialDate: program.location,
-				programEndDate: program.location,
-				link: program.location,
-				status: "PENDENTE"
+				language: program.language,
+				programInitialDate: "2023-10-21",
+				programEndDate: "2023-10-21",
+				link: program.link
 			};
 			setIsLoading(true);
 			console.log(data)

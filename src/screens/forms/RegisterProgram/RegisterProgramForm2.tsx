@@ -74,7 +74,7 @@ export function RegisterProgramForm2() {
 			programEndDate,
 			link
 		};
-
+		console.log(data)
 		navigation.navigate("registerProgramForm3", data)
 	}
 
@@ -124,6 +124,7 @@ export function RegisterProgramForm2() {
 						)}
 					/>
 					<Controller
+						name="language"
 						control={control}
 						rules={{ required: false }}
 						render={({ field: { onChange } }) => (
@@ -138,7 +139,6 @@ export function RegisterProgramForm2() {
 							/>
 
 						)}
-						name="language"
 					/>
 					<Text style={{ fontSize: 15 }}>
 						{t("programInitialDate")}

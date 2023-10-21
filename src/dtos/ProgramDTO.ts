@@ -10,7 +10,7 @@ export type ProgramDTO = {
 	file?: string;
 	link?: string;
 	programType?: number;
-	institutionEmail?: number;
+	institutionEmail?: string;
 	status?: string;
 	tags?: {label: string; value: string}[];
 };
