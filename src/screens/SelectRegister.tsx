@@ -34,7 +34,7 @@ export function SelectRegister() {
 	}
 
 	function handleRegisterInstitution() {
-		navigation.navigate('institutionRegistration01');
+		navigation.navigate('registerProgramForm1');
 	}
 
 	const openUserDetail = () => {

@@ -28,7 +28,7 @@ const signUpSchema = yup.object({
 	description: yup
 	.string()
 	.required('Informe o nome.')
-	.min(12, 'A descrição deve conter mais de 12 digitos'),
+	.min(8, 'A descrição deve conter mais de 12 digitos'),
 	initialDate: yup
 	.string()
 	.required('Informe a data do início das inscrições.')
@@ -60,7 +60,7 @@ export function RegisterProgramForm1() {
 
 	function onSubmit({ name, description, initialDate, endDate }: FormDataProps) {
 		console.log({ name, description, initialDate, endDate })
-		navigation.navigate("registerProgramForm2", { name, description, initialDate, endDate })
+		navigation.navigate("registerProgramForm2", { title, description, programInitialDate, progr })
 	}
 
 	return (

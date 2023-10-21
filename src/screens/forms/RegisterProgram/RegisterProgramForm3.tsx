@@ -47,7 +47,7 @@ export function RegisterProgramForm3() {
 	async function onSubmit() {
 		try {
 			const data = {
-				name: "Meu Programa",
+				name: program.name,
 				institutionId: 1,
 				description: "Descri  o do meu programa",
 				link: "https://exemplo.com/programa",
@@ -56,14 +56,14 @@ export function RegisterProgramForm3() {
 				timeEnrollment: 30,
 				language: "Portugu s",
 				initialDate: "2023-10-05",
-				endDate: "2023-12-31",
+				endDate: program.endDate,
 				status: "ACEITO"
 			};
 
 			setIsLoading(true);
 			console.log(data)
 
-			// await postProgramForm(data);
+			await postProgramForm(data);
 
 			toast.show({
 				title: "Cadastro realizado com sucesso",
