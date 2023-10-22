@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { Controller, useForm } from "react-hook-form";
-import { VStack, HStack, Center, Divider, Text } from "native-base"
+import { VStack, HStack, Center, Divider, Text, Box } from "native-base"
 
-import { ScrollView } from "react-native"
+import { Pressable, ScrollView } from "react-native"
 import { useTranslation } from "react-i18next"
 import { useNavigation } from "@react-navigation/native"
 import { AuthNavigatorRoutesProps } from "@routes/auth.routes"
@@ -50,13 +50,11 @@ export function RegisterProgramForm1() {
 
 
     function handleInitialDate(newDate: string) {
-		console.log("from handle initial date", control.getFieldState("description"))
 		setSelectedInitialDate(newDate)
 		setValue("initialDate", newDate)
 	}
 
 	function handleEndDate(newDate: string) {
-		console.log("from handle initial date", control._formValues)
 		setSelectedEndDate(newDate)
 		setValue("endDate", newDate)
 	}
@@ -83,7 +81,7 @@ export function RegisterProgramForm1() {
 
 						<Center>
 							<Text fontFamily="body" fontSize="lg" pt={8}>
-								{t("Informacoes do programa")}
+								{t("Informações do programa")}
 							</Text>
 						</Center>
 					</VStack>
@@ -121,7 +119,7 @@ export function RegisterProgramForm1() {
 						/>
 					)}
 				/>
-				<Text style={{ fontSize: 15 }}>{"Inicio das inscrições*:"}</Text>
+				<Text style={{ fontSize: 15, marginBottom: 4 }}>{"Inicio das inscrições*:"}</Text>
                 <Controller
 					control={control}
 					name="initialDate"
@@ -138,7 +136,8 @@ export function RegisterProgramForm1() {
 						/>
 					)}
 				/>
-                <Text style={{ fontSize: 15 }}>{"Fim das inscrições*:"}</Text>
+
+                <Text style={{ fontSize: 15, marginBottom: 4 }}>{"Fim das inscrições*:"}</Text>
 				<Controller
 					control={control}
 					name="endDate"
@@ -148,6 +147,7 @@ export function RegisterProgramForm1() {
 					}}
 					render={() => (
 						<DateInput
+							
 							variant={"underlined"}
 							selectDateFunction={handleEndDate}
 							selectedDate={selectedEndDate}

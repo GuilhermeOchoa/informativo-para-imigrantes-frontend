@@ -1,7 +1,9 @@
-import { Input as NativeBaseInput, IInputProps, FormControl, Text, DeleteIcon, IconButton, Pressable } from 'native-base';;
+import { Input as NativeBaseInput, IInputProps, FormControl, Text, DeleteIcon, IconButton, Pressable, Box, Center } from 'native-base';;
 import DateTimePicker from "@react-native-community/datetimepicker"
 import { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { Button } from '@components/Button';
+import { Platform, StyleSheet, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type Props = IInputProps & {
     errorMessage?: string | null | any;
@@ -9,24 +11,22 @@ type Props = IInputProps & {
     selectDateFunction: (type: string) => void;
 };
 
-export function DateInput({ errorMessage = null, selectDateFunction, selectedDate, ...rest }: Props) {
+export function DateInput({ errorMessage, selectDateFunction, selectedDate, ...rest }: Props) {
     const [date, setDate] = useState(new Date());
     const [showPicker, setShowPicker] = useState<boolean>(false);
 
-    const toggleDatePicker = () => {
-        setShowPicker(!showPicker);
+    // const toggleDatePicker = () => {
+    //     console.log(!showPicker)
+    //     setShowPicker(!showPicker);
+    // }
+
+    const teste = ({ type }: any, selectedDate: any) => {
+        setShowPicker(Platform.OS === 'ios');
+        const currentDate = selectedDate;
+        setDate(currentDate);
+        selectDateFunction(formatarData(currentDate));
     }
 
-    const teste = ({type}: any, selectedDate: any)=>{
-        if(type == "set"){
-            toggleDatePicker();
-            const currentDate = selectedDate;
-            setDate(currentDate);
-            selectDateFunction(formatarData(currentDate));
-        } else {
-            toggleDatePicker();
-        }
-    }
 
     function formatarData(data: string): string {
         const dataObj = new Date(data);
@@ -39,38 +39,58 @@ export function DateInput({ errorMessage = null, selectDateFunction, selectedDat
 
 
     return (
-        <FormControl mb={10} isInvalid={!!errorMessage} {...rest}>
+        <SafeAreaView style={{ flex: 1 }}>
 
-            {showPicker && (
-                <DateTimePicker
-                mode="date"
-                display="spinner"
-                value={date}
-                onChange={teste}
-            />
-            )}
-            
-            <Pressable onPress={toggleDatePicker}>
-                <NativeBaseInput
-                w="full"
-                h={10}
-                {...rest}
-                value={selectedDate}
-                cursorColor={"white"}
-                editable={false}
-                placeholder="dd/mm/aaaa"
-                _focus={{
-                    borderColor: 'green.500',
-                    backgroundColor: 'white.800',
-                }}
-                onPressIn={(toggleDatePicker)}
-                fontSize={'lg'}
-            />
-            </Pressable>
-            <FormControl.ErrorMessage>
-                <Text>Campo obrigatório</Text>
-            </FormControl.ErrorMessage>
-        </FormControl>
+            <FormControl mb={10} isInvalid={!!errorMessage} {...rest}>
+
+                {/* Conditional rendering based on iOS or Android */}
+                {Platform.OS === 'ios' &&
+                    (
+                    <Center>
+                        <DateTimePicker
+                                mode="date"
+                                display="default"
+                                value={date}
+                                onChange={teste}
+                            />
+                    </Center>
+                    )
+                }
+
+                {Platform.OS === 'android' &&
+                    <Button
+                        onPress={() => setShowPicker(!showPicker)}
+                        title={selectedDate ? selectedDate : "clique para selecionar"}
+                        width={"100%"}
+                        borderRadius={10}
+                        borderWidth={1}
+                        borderColor={errorMessage ? "red.500" : "green.700"}
+                        variant={'outline'}
+                    >
+                    </Button>
+                }
+                {Platform.OS === 'android' &&
+                    showPicker &&
+                    (
+                        <View style={{ flex: 1 }}>
+                            <View style={{ flex: 1 }}>
+                                <DateTimePicker
+                                    mode="date"
+                                    display="default"
+                                    value={date}
+                                    onChange={teste}
+                                />
+                            </View>
+                        </View>
+                    )
+                }
+
+                <FormControl.ErrorMessage>
+                    <Text>Campo obrigatório</Text>
+                </FormControl.ErrorMessage>
+            </FormControl>
+        </SafeAreaView>
+
     );
 }
 
