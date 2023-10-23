@@ -1,9 +1,10 @@
-import { Input as NativeBaseInput, IInputProps, FormControl, Text, DeleteIcon, IconButton, Pressable, Box, Center } from 'native-base';;
+import { Input as NativeBaseInput, IInputProps, FormControl, Text, DeleteIcon, IconButton, Pressable, Box, Center, Badge } from 'native-base';;
 import DateTimePicker from "@react-native-community/datetimepicker"
 import { useState } from 'react';
 import { Button } from '@components/Button';
 import { Platform, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useAuth } from '@hooks/useAuth';
 
 type Props = IInputProps & {
     errorMessage?: string | null | any;
@@ -11,14 +12,12 @@ type Props = IInputProps & {
     selectDateFunction: (type: string) => void;
 };
 
+
 export function DateInput({ errorMessage, selectDateFunction, selectedDate, ...rest }: Props) {
+    const { user } = useAuth();
+
     const [date, setDate] = useState(new Date());
     const [showPicker, setShowPicker] = useState<boolean>(false);
-
-    // const toggleDatePicker = () => {
-    //     console.log(!showPicker)
-    //     setShowPicker(!showPicker);
-    // }
 
     const teste = ({ type }: any, selectedDate: any) => {
         setShowPicker(Platform.OS === 'ios');
@@ -46,14 +45,21 @@ export function DateInput({ errorMessage, selectDateFunction, selectedDate, ...r
                 {/* Conditional rendering based on iOS or Android */}
                 {Platform.OS === 'ios' &&
                     (
-                    <Center>
-                        <DateTimePicker
-                                mode="date"
-                                display="default"
-                                value={date}
-                                onChange={teste}
-                            />
-                    </Center>
+                        <Center>
+                            <Badge colorScheme="success" alignSelf="center" variant={"outline"} >
+                                <DateTimePicker
+                                    mode="date"
+                                    display="default"
+                                    locale={
+                                        user.language === 'pt' ? 'pt-BR'
+                                            : user.language === 'en' ? 'en-US'
+                                                : 'es-ES'
+                                    }
+                                    value={date}
+                                    onChange={teste}
+                                />
+                            </Badge>
+                        </Center>
                     )
                 }
 
