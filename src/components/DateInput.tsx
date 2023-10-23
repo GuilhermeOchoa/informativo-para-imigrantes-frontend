@@ -46,7 +46,6 @@ export function DateInput({ errorMessage, selectDateFunction, selectedDate, ...r
                 {Platform.OS === 'ios' &&
                     (
                         <Center>
-                            <Badge colorScheme="success" alignSelf="center" variant={"outline"} >
                                 <DateTimePicker
                                     mode="date"
                                     display="default"
@@ -58,7 +57,6 @@ export function DateInput({ errorMessage, selectDateFunction, selectedDate, ...r
                                     value={date}
                                     onChange={teste}
                                 />
-                            </Badge>
                         </Center>
                     )
                 }
