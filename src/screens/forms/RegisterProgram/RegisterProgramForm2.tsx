@@ -184,6 +184,7 @@ export function RegisterProgramForm2() {
 					render={({ field: { onChange, value } }) => (
 						<Input
 							placeholder="Link*"
+							errorMessage={errors.link?.message}
 							onChangeText={onChange}
 							value={value}
 						/>

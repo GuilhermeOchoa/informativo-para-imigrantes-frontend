@@ -11,19 +11,19 @@ import es from './es.json';
 
 let locale = '';
 
-if (Platform.OS === 'ios') {
-	locale = NativeModules.SettingsManager.settings.AppleLocale.substring(0, 2) ||
-		NativeModules.SettingsManager.settings.AppleLanguages[0].substring(0, 2);
+// if (Platform.OS === 'ios') {
+// 	locale = NativeModules.SettingsManager.settings.AppleLocale.substring(0, 2) ||
+// 		NativeModules.SettingsManager.settings.AppleLanguages[0].substring(0, 2);
 
-} else if (Platform.OS === 'android') {
-	locale = NativeModules.I18nManager.localeIdentifier.substring(0, 2);
-} else {
-	locale = 'en'
-}
+// } else if (Platform.OS === 'android') {
+// 	locale = NativeModules.I18nManager.localeIdentifier.substring(0, 2);
+// } else {
+// 	locale = 'en'
+// }
 
-if (locale !== 'en' && locale !== 'pt' && locale !== 'es' && locale !== 'fr') {
-	locale = 'en';
-}
+// if (locale !== 'en' && locale !== 'pt' && locale !== 'es' && locale !== 'fr') {
+// 	locale = 'en';
+// }
 
 i18n.use(initReactI18next).init({
 	compatibilityJSON: 'v3',
