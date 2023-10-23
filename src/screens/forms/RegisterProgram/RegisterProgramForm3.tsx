@@ -86,47 +86,6 @@ export function RegisterProgramForm3() {
 		}
 	}
 
-	// const onSubmit = (data: any) => {
-	// 	console.log(data)
-	// 	//todo transform dates from string to Date
-
-	// 	const { dataInicio,
-	// 		dataFim,
-	// 		nomePrograma,
-	// 		descricao,
-	// 		local,
-	// 		idioma,
-	// 		dataInicioPrograma,
-	// 		dataFimPrograma,
-	// 		link,
-	// 		tags,
-	// 		informacoesAdicionais
-	// 	} = data
-
-	// 	const description = descricao;
-
-	// 	const dataInicioParsed = parse(dataInicio, 'dd/MM/yyyy', new Date())
-	// 	const dataFimParsed = parse(dataFim, 'dd/MM/yyyy', new Date())
-	// 	const dataInicioProgramaParsed = parse(dataInicioPrograma, 'dd/MM/yyyy', new Date())
-	// 	const dataFimProgramaParsed = parse(dataFimPrograma, 'dd/MM/yyyy', new Date())
-
-	// 	const dataToSend = {
-	// 		dataInicioParsed,
-	// 		dataFimParsed,
-	// 		nomePrograma,
-	// 		description,
-	// 		local,
-	// 		idioma,
-	// 		dataInicioProgramaParsed,
-	// 		dataFimProgramaParsed,
-	// 		link,
-	// 		tags,
-	// 		informacoesAdicionais
-	// 	}
-	// 	console.log("dataToSend", dataToSend)
-	// 	return postProgramForm(dataToSend)
-	// }
-
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
 
