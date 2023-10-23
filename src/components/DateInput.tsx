@@ -45,18 +45,19 @@ export function DateInput({ errorMessage, selectDateFunction, selectedDate, ...r
                 {/* Conditional rendering based on iOS or Android */}
                 {Platform.OS === 'ios' &&
                     (
-                        <Center>
-                                <DateTimePicker
-                                    mode="date"
-                                    display="default"
-                                    locale={
-                                        user.language === 'pt' ? 'pt-BR'
-                                            : user.language === 'en' ? 'en-US'
-                                                : 'es-ES'
-                                    }
-                                    value={date}
-                                    onChange={teste}
-                                />
+                        <Center width={50}>
+                            <DateTimePicker
+                                mode="date"
+                                display="default"
+                                locale={
+                                    user.language === 'pt' ? 'pt-BR'
+                                        : user.language === 'en' ? 'en-US'
+                                            : user.language === 'es-ES' ? 'es-ES'
+                                                : 'fr-FR'
+                                }
+                                value={date}
+                                onChange={teste}
+                            />
                         </Center>
                     )
                 }
