@@ -19,20 +19,37 @@ export function Routes() {
 	const theme = DefaultTheme;
 	theme.colors.background = colors.white;
 
+	console.log("user", user)
+
+	const isLoggedIn = user.isLoggedIn;
+	const userType = user.type; // Pode ser "immigrant", "adm" ou "instituicao"
+	const showOnboarding = user.showOnboarding;
+	const justInformation = user.justInformation;
+
+	let selectedRoutes;
+
+	if (!showOnboarding) {
+		selectedRoutes = <OnboardingRoutes />;
+	} else {
+		if (isLoggedIn) {
+			if (userType === "IMMIGRANT") {
+				selectedRoutes = <AppRoutes />;
+			} else if (userType === "INSTITUTION") {
+				// selectedRoutes = <InstitutionRoutes />;
+			} else if (userType === "ADM") {
+				// selectedRoutes = <AdmRoutes />;
+			}
+		} else if (justInformation) {
+			selectedRoutes = <AppRoutes />;
+		} else {
+			selectedRoutes = <AuthRoutes />;
+		}
+	}
+
 	return (
 		<Box flex={1} bg="white">
 			<NavigationContainer theme={theme}>
-				{user.showOnboarding ? (
-					(
-						user.justInformation ? (
-							<AppRoutes /> // Nao precisa estar logado para ver as rotas do app
-						) : (
-							<AuthRoutes /> // Telas que nao precisam de autenticacao
-						)
-					)
-				) : (
-					<OnboardingRoutes /> // Mostra as rotas do onboarding
-				)}
+				{selectedRoutes}
 			</NavigationContainer>
 		</Box>
 	);

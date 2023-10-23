@@ -1,4 +1,4 @@
-import { Input as NativeBaseInput, IInputProps, FormControl } from 'native-base';
+import { Input as NativeBaseInput, IInputProps, FormControl, Text } from 'native-base';
 
 type Props = IInputProps & {
 	errorMessage?: string | null;

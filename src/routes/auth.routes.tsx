@@ -7,6 +7,7 @@ import { InstitutionRegistration03 } from '@screens/forms/InstitutionRegistratio
 import { RegisterProgramForm1 } from '@screens/forms/RegisterProgram/RegisterProgramForm1';
 import { RegisterProgramForm2 } from '@screens/forms/RegisterProgram/RegisterProgramForm2';
 import { RegisterProgramForm3 } from '@screens/forms/RegisterProgram/RegisterProgramForm3';
+import { Login } from '@screens/Login';
 
 import { SelectRegister } from '@screens/SelectRegister';
 import UserSignIn from '@screens/UserSignIn';
@@ -21,6 +22,7 @@ type AuthRoutes = {
 	registerProgramForm1: undefined;
 	registerProgramForm2: ProgramDTO;
 	registerProgramForm3: ProgramDTO;
+	login: undefined;
 }
 
 export type AuthNavigatorRoutesProps = NativeStackNavigationProp<AuthRoutes>;
@@ -71,6 +73,10 @@ export function AuthRoutes() {
 				component={RegisterProgramForm3}
 			/>
 
+			<Screen
+				name='login'
+				component={Login}
+			/>
 		</Navigator>
 	)
 }

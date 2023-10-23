@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Image, Text, VStack, HStack, Center, Divider, Icon, useTheme, Box, ScrollView } from "native-base";
 import { TouchableOpacity } from "react-native";
 
-import { Button } from '@components/Button'
-
 import logo from "@assets/logo.png";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -27,12 +25,16 @@ export function SelectRegister() {
 		navigation.navigate('userSignIn');
 	}
 
+	function handleSendToLogin() {
+		navigation.navigate("login")
+	}
+
 	function handleSendToInformationRoutes() {
 		updateLocalStorageUserNoLogged();
 	}
 
 	function handleRegisterInstitution() {
-		navigation.navigate('institutionRegistration01');
+		navigation.navigate('registerProgramForm1');
 	}
 
 	const openUserDetail = () => {
@@ -186,21 +188,27 @@ export function SelectRegister() {
 					<DetailUser />
 					<DetailInstitution />
 
-					{/* <Button
-						title='teste'
-						onPress={handlePaginaDoArthur}
-					/> */}
-
-					<TouchableOpacity onPress={handleSendToInformationRoutes}>
-						<Box p={8} justifyContent="center" alignItems="center">
+					<Box justifyContent="center" alignItems="center">
+						<TouchableOpacity onPress={handleSendToLogin}>
 							<Text fontSize="md">
 								Ja tem uma conta?{" "}
 								<Text underline color={colors.green[700]}>
 									Entre aqui
 								</Text>{" "}
 							</Text>
-						</Box>
-					</TouchableOpacity>
+						</TouchableOpacity>
+					</Box>
+
+					<Box justifyContent="center" alignItems="center">
+						<TouchableOpacity onPress={handleSendToInformationRoutes}>
+							<Text fontSize="md">
+								Entrar sem criar conta{" "}
+								<Text underline color={colors.green[700]}>
+									Entre aqui
+								</Text>{" "}
+							</Text>
+						</TouchableOpacity>
+					</Box>
 				</VStack>
 			</ScrollView>
 		</VStack>
