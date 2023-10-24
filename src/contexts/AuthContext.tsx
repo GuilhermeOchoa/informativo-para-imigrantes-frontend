@@ -91,7 +91,11 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
             const userLogged = await storageUserGet();
             const token = await storageAuthTokenGet();
 
-            //verifica se esta autenticado, se tver tem token e os dados do usuario logado
+            if (userLogged) {
+                saveFirstAcessUser();
+            }
+
+            //Verifica se esta autenticado, se estiver tem token e os dados do usuario logado
             if (token && userLogged) {
                 userAndTokenUpdate(userLogged, token);
             }

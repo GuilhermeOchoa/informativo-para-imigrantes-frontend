@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Controller, useForm } from "react-hook-form";
 import { VStack, HStack, Center, Divider, Text, Box } from "native-base"
 
-import { Pressable, ScrollView } from "react-native"
+import { ScrollView } from "react-native"
 import { useTranslation } from "react-i18next"
 import { useNavigation } from "@react-navigation/native"
 import { AuthNavigatorRoutesProps } from "@routes/auth.routes"
@@ -44,8 +44,8 @@ export function RegisterProgramForm1() {
 	const [selectedEndDate, setSelectedEndDate] = useState('');
     const [selectedInitialDate, setSelectedInitialDate] = useState('');
 
-	const { register, control, handleSubmit, formState: { errors }, setValue, getFieldState } = useForm<FormDataProps>({
-		resolver: yupResolver(programSchema)
+	const { control, handleSubmit, formState: { errors }, setValue } = useForm<FormDataProps>({
+		resolver: yupResolver(signUpSchema)
 	});
 
     function handleEndDate(newDate: string) {
@@ -92,7 +92,7 @@ export function RegisterProgramForm1() {
 					render={({ field: { onChange, value } }) => (
 						<Input
 							placeholder="Titulo*"
-							errorMessage={errors.name?.message}
+							errorMessage={errors.title?.message}
 							onChangeText={onChange}
 							value={value}
 						/>
