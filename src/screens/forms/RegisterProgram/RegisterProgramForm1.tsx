@@ -45,7 +45,7 @@ export function RegisterProgramForm1() {
     const [selectedInitialDate, setSelectedInitialDate] = useState('');
 
 	const { register, control, handleSubmit, formState: { errors }, setValue, getFieldState } = useForm<FormDataProps>({
-		resolver: yupResolver(programSchema)
+		resolver: yupResolver(signUpSchema)
 	});
 
     function handleEndDate(newDate: string) {
@@ -92,7 +92,7 @@ export function RegisterProgramForm1() {
 					render={({ field: { onChange, value } }) => (
 						<Input
 							placeholder="Titulo*"
-							errorMessage={errors.name?.message}
+							errorMessage={errors.title?.message}
 							onChangeText={onChange}
 							value={value}
 						/>
