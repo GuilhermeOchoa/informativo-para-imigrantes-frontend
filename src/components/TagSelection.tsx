@@ -12,6 +12,7 @@ import {
         DeleteIcon, 
         AddIcon 
     } from 'native-base';
+import { TagsDTO } from '@dtos/TagsDTO';
 
 type Props = ISelectProps & {
     isInvalid?: boolean;
@@ -19,7 +20,7 @@ type Props = ISelectProps & {
     inputTitle: string;
     label: string;
     onValueChange: (values: { label: string; value: any }[]) => void; 
-    options: { label: string; value: any }[];
+    options: TagsDTO[];
 };
 
 export function TagSelection({
@@ -42,7 +43,7 @@ export function TagSelection({
           updatedValues.splice(existingIndex, 1);
           setSelectedValues(updatedValues);
         } else {
-          const selectedOption = options.find((option) => option.value === itemValue);
+          const selectedOption = options.find((option) => option.name === itemValue);
           if (selectedOption) {
             setSelectedValues([...selectedValues, selectedOption]);
             onValueChange([...selectedValues, selectedOption]);
@@ -77,16 +78,16 @@ export function TagSelection({
                         >
                             {options.map((option) => (
                                 <NativeBaseSelect.Item
-                                    key={option.value}
-                                    label={option.label}
-                                    value={option.value}
+                                    key={option.name}
+                                    label={option.name}
+                                    value={option.name}
                                     _pressed={{
                                         backgroundColor: 'green.600',
                                         borderRadius: 'lg',
                                     }}
-                                    endIcon={newItem(option.value) ? <DeleteIcon size="lg" /> : <AddIcon size="lg"/> }
+                                    endIcon={newItem(option.name) ? <DeleteIcon size="lg" /> : <AddIcon size="lg"/> }
                                 >
-                                    {option.label}
+                                    {option.name}
                                 </NativeBaseSelect.Item>
                             ))}
                         </NativeBaseSelect>
@@ -102,8 +103,8 @@ export function TagSelection({
             
           <HStack space={3} flexWrap={"wrap"} mb={8}>
             {selectedValues.map((tag) => (
-              <Badge variant={"outline"} colorScheme={"success"} mb={2} key={tag.value} rounded={10}>
-                {tag.label}
+              <Badge variant={"outline"} colorScheme={"success"} mb={2} key={tag.name} rounded={10}>
+                {tag.name}
               </Badge>
             ))}
           </HStack>

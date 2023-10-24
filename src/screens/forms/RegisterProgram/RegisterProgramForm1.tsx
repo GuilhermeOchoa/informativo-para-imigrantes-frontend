@@ -153,7 +153,7 @@ export function RegisterProgramForm1() {
 						/>
 					)}
 				/>
-				<Center mt={10}>
+				<Center mt={6}>
 					<Button
 						title="Proximo"
 						onPress={handleSubmit(onSubmit)}

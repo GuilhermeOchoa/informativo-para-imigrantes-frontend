@@ -1,3 +1,5 @@
+import { TagsDTO } from "./TagsDTO";
+
 export type ProgramDTO = {
 	title?: string;
 	description?: string;
@@ -12,5 +14,5 @@ export type ProgramDTO = {
 	programType?: number;
 	institutionEmail?: string;
 	status?: string;
-	tags?: {label: string; value: string}[];
+	tags?: TagsDTO[];
 };
