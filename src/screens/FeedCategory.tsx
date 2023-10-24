@@ -90,7 +90,7 @@ export function FeedCategory() {
       link: " https://www.google.com/ ",
       timeEnrollment: 120,
       institutionId: 1,
-      status: "APPROVED",
+      status: "rejected",
       timeDuration: 30,
       minimalRequirements: ["Ser imigrante", "Ter vontade de aprender"],
     },
@@ -109,7 +109,7 @@ export function FeedCategory() {
       link: " https://www.google.com/ ",
       timeEnrollment: 120,
       institutionId: 1,
-      status: "APPROVED",
+      status: "pending",
       timeDuration: 30,
       minimalRequirements: ["Ser imigrante", "Ter vontade de aprender"],
     },
@@ -121,6 +121,12 @@ export function FeedCategory() {
       endDate: "2021-12-01",
       language: "en",
       tags: [
+        { label: "tag1", value: "tag1" },
+        { label: "tag2", value: "tag2" },
+        { label: "tag3", value: "tag3" },
+        { label: "tag1", value: "tag1" },
+        { label: "tag2", value: "tag2" },
+        { label: "tag3", value: "tag3" },
         { label: "tag1", value: "tag1" },
         { label: "tag2", value: "tag2" },
         { label: "tag3", value: "tag3" },
@@ -145,10 +151,16 @@ export function FeedCategory() {
   return (
     <VStack flex={1} px={6} pb={6} mt={12}>
       <FlatList
-        data={programas}
-        keyExtractor={(item) => item.name!}
+        data={programas.slice().sort((a, b) => {
+          const statusOrder = { pending: 0, rejected: 1, approved: 2 };
+          const statusA = statusOrder[a.status.toLowerCase() as "pending" | "rejected" | "approved"];
+          const statusB = statusOrder[b.status.toLowerCase() as "pending" | "rejected" | "approved"];
+
+          return statusA - statusB;
+        })}
+        keyExtractor={(item) => item.name}
         renderItem={({ item }) => (
-          <Card data={item} cardType="program" cardContext="myPrograms" />
+          <Card status={item.status.toLowerCase()} data={item} cardType="program" cardContext="myPrograms" />
         )}
         ListEmptyComponent={() => (
           <VStack flex={1} justifyContent="center" alignItems="center" mt={16}>
