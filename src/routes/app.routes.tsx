@@ -6,7 +6,8 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { ArticleDTO } from '@dtos/ArticleDTO';
 
-import { Feed } from '@screens/Feed2';
+import { Feed } from '@screens/Feed';
+import { FeedCategory } from '@screens/FeedCategory';
 import { Contact } from '@screens/Contact';
 import { Profile } from '@screens/Profile';
 import { Articles } from '@screens/Articles';
@@ -22,6 +23,7 @@ type AppRoutes = {
 	articleDetails: ArticleDTO;
 	registerProgramFormPage: undefined;
 	onboarding: undefined;
+	feedCategory: undefined;
 }
 
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>;
@@ -66,6 +68,7 @@ export function AppRoutes() {
 				paddingTop: sizes[6],
 			},
 		}}>
+
 			<Screen
 				name='profile'
 				component={Profile}
@@ -99,6 +102,7 @@ export function AppRoutes() {
 					}
 				}}
 			/>
+
 			<Screen
 				name='article'
 				component={Articles}
@@ -143,6 +147,7 @@ export function AppRoutes() {
 				}}
 
 			/>
+
 		</Navigator >
 	)
 }

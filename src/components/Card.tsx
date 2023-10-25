@@ -1,4 +1,4 @@
-import { Box, Icon, Text } from "native-base";
+import { Box, Hidden, Icon, Text } from "native-base";
 import { TouchableOpacityProps } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -14,22 +14,20 @@ import { Button } from "./Button";
 type Props = TouchableOpacityProps & {
     data: any,
     cardType: "program" | "article" | "institution",
-    cardContext: "feed" | "articles" | "adminPrograms" | "adminInstitutions" | "myPrograms"
+    cardContext: "feed" | "articles" | "adminPrograms" | "adminInstitutions" | "myPrograms",
+    status: string,
+
 }
 
 type data = {
     institutionData: InstitutionDTO,
     programData: ProgramDTO,
-    articleData: ArticleDTO
+    articleData: ArticleDTO,
 }
 
 
-export function Card({ data, cardType, cardContext, ...rest }: Props) {
-    console.log(cardType, cardContext)
+export function Card({ data, cardType, cardContext, status, ...rest }: Props) {
     const { t, i18n } = useTranslation();
-
-    const status = "pending" //remover depois
-    console.log(data)
 
     return (
         <>
@@ -38,7 +36,7 @@ export function Card({ data, cardType, cardContext, ...rest }: Props) {
                     cardContext === "adminInstitutions" ||
                     cardContext === "myPrograms") &&
                     <ActionButton
-                        status={status}
+                        status={status as "pending" | "approved" | "rejected"}
                     />
                 }
             <Box p="5" rounded="3xl" bg={"lightGreen.500"} height={160}>
@@ -64,9 +62,9 @@ export function Card({ data, cardType, cardContext, ...rest }: Props) {
                         }
                     </Text>
                 </Box>
-                <Box mt={2} >
+                <Box mt={2}>
                     {cardType === "program" &&
-                        <TagDisplay
+                        <TagDisplay 
                             tags={data.tags}
                         />
                     }
