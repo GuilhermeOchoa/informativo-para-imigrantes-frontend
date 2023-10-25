@@ -6,7 +6,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { ArticleDTO } from '@dtos/ArticleDTO';
 
-import { Feed } from '@screens/Feed';
+import { Feed } from '@screens/Feed2';
 import { FeedCategory } from '@screens/FeedCategory';
 import { Contact } from '@screens/Contact';
 import { Profile } from '@screens/Profile';
