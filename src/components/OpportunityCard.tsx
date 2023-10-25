@@ -13,8 +13,7 @@ type Props = TouchableOpacityProps & {
 }
 
 type data = {
-    type: string,
-    quantity: number
+    opportunity: OpportunityDTO,
 }
 
 export function OpportunityCads({ data }: Props) {
