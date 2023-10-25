@@ -6,18 +6,12 @@ import '@utils/i18n/i18n';
 import { useTranslation } from 'react-i18next';
 import { Button } from "./Button";
 import { OpportunityDTO } from '../dtos/OpportunityDTO';
-import { ActionButton } from "./ActionButton";
 
 type Props = TouchableOpacityProps & {
-    data: any
-}
+    data: OpportunityDTO
+  };
 
-type data = {
-    type: string,
-    quantity: number
-}
-
-export function OpportunityCads({ data }: Props) {
+export function OpportunityCard({ data }: Props) {
     const { t, i18n } = useTranslation();
 
     return (

@@ -1,42 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import { VStack, Center, FlatList, HStack, useToast, Divider, Text } from 'native-base';
 
-import { AppError } from '@utils/AppError';
-import { ArticleDTO } from '@dtos/ArticleDTO';
-import { getArticles } from '@services/Articles';
-import { OpportunityCads } from '@components/OpportunityCard';
+import { OpportunityCard } from '@components/OpportunityCard';
 import { useNavigation } from '@react-navigation/native';
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
-
-import { Loading } from '@components/Loading';
 
 import '@utils/i18n/i18n';
 import { useTranslation } from 'react-i18next';
 import { getCategoriesWithCount } from '@services/Programs';
+import { OpportunityDTO } from '@dtos/OpportunityDTO';
 
-export function Feed() {
+export async function Feed() {
     const [isLoading, setIsLoading] = useState(true);
     const navigation = useNavigation<AppNavigatorRoutesProps>()
     const toast = useToast();
+    let feed: OpportunityDTO[] = []
 
     const { t, i18n } = useTranslation();
 
     async function fetchFeed() {
-        return getCategoriesWithCount();
-    }
+       try {
+         const response = await getCategoriesWithCount();
+         if (response) {
+            feed = response.data.map((item: any) => ({
+                type: item.type,
+                quantity: item.quantity,
+              }));
+         }
 
-    const oportunidades =[{
-        type: "Ensino superior",
-        quantity: 2
-    },
-    {
-        type: "Ensino superior",
-        quantity: 4
-    },
-    {
-        type: "Ensino superior",
-        quantity: 5
-    }]
+         console.log(response)
+       } catch (error) {
+         
+       }
+     }
+      
+
 
     useEffect(() => {
         fetchFeed();
@@ -57,16 +55,15 @@ export function Feed() {
             <Divider my={4} bgColor="green.500" />
 
             <FlatList
-                    data={oportunidades}
+                    data={feed}
                     renderItem={({ item }) => (
-                    <OpportunityCads
+                    <OpportunityCard
                         data={item}
                         />
                     )}
                     showsVerticalScrollIndicator={false}
                     _contentContainerStyle={{ paddingBottom: 10 }}
                 />
-
         </VStack>
     );
 }
