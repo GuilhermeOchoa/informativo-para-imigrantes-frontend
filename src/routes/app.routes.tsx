@@ -16,7 +16,7 @@ import { ArticlesDetals } from '@screens/ArticlesDetails';
 import { useTranslation } from 'react-i18next';
 
 type AppRoutes = {
-	feed: undefined;
+	feed2: undefined;
 	profile: undefined;
 	contact: undefined;
 	article: undefined;
@@ -87,7 +87,7 @@ export function AppRoutes() {
 			/>
 
 			<Screen
-				name='feed'
+				name='feed2'
 				component={Feed}
 				options={{
 					tabBarIcon: ({ color, focused }) => (

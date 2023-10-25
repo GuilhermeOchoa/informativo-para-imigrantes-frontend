@@ -1,14 +1,16 @@
 export type ProgramDTO = {
-	name?: string;
+	title?: string;
 	description?: string;
-	initialDate?: string;
-	endDate?: string;
+	programInitialDate?: string;
+	programEndDate?: string;
 	language?: string;
+	enrollmentInitialDate?: string;
+	enrollmentEndDate?: string;
+	location?: string;
+	file?: string;
 	link?: string;
-	timeEnrollment?: number;
-	institutionId?: number;
+	programType?: number;
+	institutionEmail?: string;
 	status?: string;
-	timeDuration?: number;
-	minimalRequirements?: string[];
-	tags: {label: string; value: string}[];
+	tags?: {label: string; value: string}[];
 };

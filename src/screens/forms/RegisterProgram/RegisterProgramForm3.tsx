@@ -20,8 +20,7 @@ import { ProgramDTO } from "@dtos/ProgramDTO"
 import { AppError } from "@utils/AppError"
 
 type FormDataProps = {
-	tags?: string,
-	informacoesAdicionais?: string,
+	tags?: {label: string; value: string}[],
 }
 
 const signUpSchema = yup.object({
@@ -44,26 +43,24 @@ export function RegisterProgramForm3() {
 		resolver: yupResolver(signUpSchema)
 	});
 
-	async function onSubmit() {
+	async function onSubmit({ tags }: FormDataProps) {
 		try {
 			const data = {
-				name: "Meu Programa",
-				institutionId: 1,
-				description: "Descri  o do meu programa",
-				link: "https://exemplo.com/programa",
-				timeDuration: 12,
-				minimalRequirements: ["Requisito 1", "Requisito 2"],
-				timeEnrollment: 30,
-				language: "Portugu s",
-				initialDate: "2023-10-05",
-				endDate: "2023-12-31",
-				status: "ACEITO"
+				institutionEmail: "email@email.com",
+				title: program.title,
+				description: program.description,
+				enrollmentInitialDate: "2023-10-21",
+				enrollmentEndDate: "2023-10-21",
+				location: program.location,
+				language: program.language,
+				programInitialDate: "2023-10-21",
+				programEndDate: "2023-10-21",
+				link: program.link
 			};
-
 			setIsLoading(true);
 			console.log(data)
 
-			// await postProgramForm(data);
+			await postProgramForm(data);
 
 			toast.show({
 				title: "Cadastro realizado com sucesso",
@@ -88,47 +85,6 @@ export function RegisterProgramForm3() {
 			setIsLoading(false);
 		}
 	}
-
-	// const onSubmit = (data: any) => {
-	// 	console.log(data)
-	// 	//todo transform dates from string to Date
-
-	// 	const { dataInicio,
-	// 		dataFim,
-	// 		nomePrograma,
-	// 		descricao,
-	// 		local,
-	// 		idioma,
-	// 		dataInicioPrograma,
-	// 		dataFimPrograma,
-	// 		link,
-	// 		tags,
-	// 		informacoesAdicionais
-	// 	} = data
-
-	// 	const description = descricao;
-
-	// 	const dataInicioParsed = parse(dataInicio, 'dd/MM/yyyy', new Date())
-	// 	const dataFimParsed = parse(dataFim, 'dd/MM/yyyy', new Date())
-	// 	const dataInicioProgramaParsed = parse(dataInicioPrograma, 'dd/MM/yyyy', new Date())
-	// 	const dataFimProgramaParsed = parse(dataFimPrograma, 'dd/MM/yyyy', new Date())
-
-	// 	const dataToSend = {
-	// 		dataInicioParsed,
-	// 		dataFimParsed,
-	// 		nomePrograma,
-	// 		description,
-	// 		local,
-	// 		idioma,
-	// 		dataInicioProgramaParsed,
-	// 		dataFimProgramaParsed,
-	// 		link,
-	// 		tags,
-	// 		informacoesAdicionais
-	// 	}
-	// 	console.log("dataToSend", dataToSend)
-	// 	return postProgramForm(dataToSend)
-	// }
 
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
@@ -166,23 +122,6 @@ export function RegisterProgramForm3() {
 								/>
 							)}
 							name="tags"
-						/>
-
-						<Controller
-							control={control}
-							rules={{
-								maxLength: 1000,
-							}}
-							name="informacoesAdicionais"
-							render={({ field: { onChange, onBlur } }) => (
-								<TextArea
-									{...register("informacoesAdicionais")}
-									placeholder="Requisitos do candidato, informações adicionais, etc."
-									onBlur={onBlur}
-									onChangeText={onChange}
-									inputTitle={"Informações Adicionais:"}
-								/>
-							)}
 						/>
 						<Center>
 							<Text style={{ fontSize: 15 }}>
