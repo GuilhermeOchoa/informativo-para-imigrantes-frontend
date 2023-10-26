@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { 
-        Select as NativeBaseSelect, 
-        Text, 
-        Center, 
-        FormControl, 
-        WarningOutlineIcon, 
-        ISelectProps, 
-        View, 
-        DeleteIcon, 
-        AddIcon 
-    } from 'native-base';
+import {
+    Select as NativeBaseSelect,
+    Text,
+    Center,
+    FormControl,
+    WarningOutlineIcon,
+    ISelectProps,
+    View,
+    DeleteIcon,
+    AddIcon
+} from 'native-base';
 //import { TagsDTO } from '@dtos/TagsDTO';
 import { TagDisplay } from './TagDisplay';
 
@@ -18,8 +18,8 @@ type Props = ISelectProps & {
     errorMessage?: string | null;
     inputTitle: string;
     label: string;
-    onValueChange: (values: { label: string; value: any }[]) => void; 
-//    options: TagsDTO[];
+    onValueChange: (values: { label: string; value: any }[]) => void;
+    //    options: TagsDTO[];
     options: string[];
 };
 
@@ -32,19 +32,19 @@ export function TagSelection({
     ...rest
 }: Props) {
 
-    const [selectedValues, setSelectedValues] = useState<any[]>([]); 
+    const [selectedValues, setSelectedValues] = useState<any[]>([]);
     const newItem = (itemValue: any) => selectedValues.find((obj) => obj === itemValue);
 
     const handleValueChange = (itemValue: any) => {
-        console.log("itemValue", itemValue)
-        if (newItem(itemValue)) {
-          setSelectedValues(selectedValues.filter((obj) => obj !== itemValue));
-        } else {
-          setSelectedValues([...selectedValues, itemValue]);
-        }
-        console.log(selectedValues);
-        onValueChange(selectedValues);
-    }
+        setSelectedValues((prevSelectedValues) => {
+            const updatedValues = newItem(itemValue)
+                ? prevSelectedValues.filter((obj) => obj !== itemValue)
+                : [...prevSelectedValues, itemValue];
+    
+            onValueChange(updatedValues);
+            return updatedValues;
+        });
+    };
 
     return (
         <>
@@ -63,7 +63,7 @@ export function TagSelection({
                             _selectedItem={{
                                 borderColor: 'green.400',
                                 backgroundColor: 'green.200',
-                                
+
                             }}
 
                             fontSize={'lg'}
@@ -79,7 +79,7 @@ export function TagSelection({
                                         backgroundColor: 'green.600',
                                         borderRadius: 'lg',
                                     }}
-                                    endIcon={newItem(option) ? <DeleteIcon size="lg" /> : <AddIcon size="lg"/> }
+                                    endIcon={newItem(option) ? <DeleteIcon size="lg" /> : <AddIcon size="lg" />}
                                 >
                                     {option}
                                 </NativeBaseSelect.Item>
@@ -87,17 +87,17 @@ export function TagSelection({
                         </NativeBaseSelect>
                     </View>
 
-                    <FormControl.ErrorMessage 
+                    <FormControl.ErrorMessage
                         leftIcon={<WarningOutlineIcon size="xs" />}
                     >
                         {errorMessage}
                     </FormControl.ErrorMessage>
                 </FormControl>
             </Center>
-            
-          <TagDisplay 
-            tags={selectedValues}          
-          />
+
+            <TagDisplay
+                tags={selectedValues}
+            />
         </>
     );
 }
