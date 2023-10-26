@@ -42,12 +42,13 @@ export function MyPrograms() {
       setIsLoading(true);
 
       const response = await getAllProgram(user.email);
+      console.log("recuperou----"+response.data);
       setPrograms(response.data);
     } catch (error) {
       const isAppError = error instanceof AppError;
       const title = isAppError
         ? error.message
-        : t("Nao foi possivel carregar os informativos");
+        : t("Nao foi possivel resgatar os programas");
 
       toast.show({
         title,
@@ -143,7 +144,6 @@ export function MyPrograms() {
   ];
 
   return (
-    <SafeAreaView>
       <VStack flex={1} px={6} pb={6} mt={12}>
         <HStack alignItems="center" m={2}>
           <HStack flex={1} alignItems="center">
@@ -161,7 +161,6 @@ export function MyPrograms() {
         ) : (
           <FlatList
             data={programs}
-            keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <Card data={item} cardType="program" cardContext="myPrograms" />
             )}
@@ -191,6 +190,5 @@ export function MyPrograms() {
           onPress={handleRegisterProgramForm}
         />
       </VStack>
-    </SafeAreaView>
   );
 }

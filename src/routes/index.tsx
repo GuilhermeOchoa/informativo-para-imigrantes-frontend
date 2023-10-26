@@ -30,7 +30,7 @@ export function Routes() {
 
 	let selectedRoutes;
 
-	if (!showOnboarding) {
+	if (showOnboarding) {
 		selectedRoutes = <OnboardingRoutes />;
 	} else {
 		if (isLoggedIn) {

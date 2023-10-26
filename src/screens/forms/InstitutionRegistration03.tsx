@@ -65,7 +65,7 @@ export function InstitutionRegistration03() {
 			});
 
 			setTimeout(function () {
-				navigation.navigate("registerProgramForm1");
+				navigation.navigate("login");
 			}, 5000);
 
 		} catch (error) {

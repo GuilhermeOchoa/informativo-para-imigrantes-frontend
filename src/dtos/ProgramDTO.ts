@@ -1,5 +1,5 @@
 export type ProgramDTO = {
-	id: string;
+	id?: string;
 	title?: string;
 	description?: string;
 	programInitialDate?: string;
@@ -16,9 +16,9 @@ export type ProgramDTO = {
 	tags?: {label: string; value: string}[];
 };
 enum Status {
-	PENDENTE = 'PENDENTE',
-	ACEITO = 'ACEITO',
-	RECUSADO = 'RECUSADO'
+	PENDING = 'PENDING',
+	APPROVED = 'APPROVED',
+	REJECTED = 'REJECTED'
    }
    
    enum ProgramType {

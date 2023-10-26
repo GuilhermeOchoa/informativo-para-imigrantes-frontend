@@ -14,7 +14,7 @@ import * as yup from 'yup'
 import { TagOptions } from "@utils/SelectOptions"
 import { postProgramForm } from "@services/Forms"
 import { useNavigation, useRoute } from "@react-navigation/native"
-import { AuthNavigatorRoutesProps } from "@routes/auth.routes"
+import { InstitutionNavigatorRoutesProps } from "@routes/institution.routes"
 import { useTranslation } from "react-i18next"
 import { ProgramDTO } from "@dtos/ProgramDTO"
 import { AppError } from "@utils/AppError"
@@ -30,7 +30,7 @@ const signUpSchema = yup.object({
 
 export function RegisterProgramForm3() {
 
-	const navigation = useNavigation<AuthNavigatorRoutesProps>();
+	const navigation = useNavigation<InstitutionNavigatorRoutesProps>();
 	const { t, i18n } = useTranslation();
 	const toast = useToast();
 
@@ -61,20 +61,20 @@ export function RegisterProgramForm3() {
 			console.log(data)
 
 			await postProgramForm(data);
-
+			navigation.navigate("myPrograms");
 			toast.show({
-				title: "Cadastro realizado com sucesso",
+				title: "Programa cadastrado com sucesso",
 				placement: "top",
 				bgColor: "green.500"
 			});
 
 			setTimeout(function () {
-				navigation.navigate("selectRegister");
+				navigation.navigate("myPrograms");
 			}, 5000);
 
 		} catch (error) {
 			const isAppError = error instanceof AppError;
-			const title = isAppError ? error.message : t("Nao foi possivel cadastrar a instituicao")
+			const title = isAppError ? error.message : t("Nao foi possivel cadastrar o programa")
 
 			toast.show({
 				title,
