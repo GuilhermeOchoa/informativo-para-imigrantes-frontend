@@ -1,4 +1,4 @@
-import { useForm, Controller, useFormContext } from "react-hook-form"
+import { UseFormClearErrors, Controller } from "react-hook-form"
 import { VStack, HStack, Center, Divider, Text, ScrollView, useToast } from "native-base"
 
 import { parse } from "date-fns"
@@ -61,7 +61,6 @@ export function RegisterProgramForm3() {
 			console.log(data)
 
 			await postProgramForm(data);
-			navigation.navigate("myPrograms");
 			toast.show({
 				title: "Programa cadastrado com sucesso",
 				placement: "top",
@@ -83,6 +82,7 @@ export function RegisterProgramForm3() {
 			});
 		} finally {
 			setIsLoading(false);
+			navigation.navigate("myPrograms");
 		}
 	}
 

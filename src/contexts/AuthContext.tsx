@@ -113,8 +113,8 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
     function saveFirstAcessUser() {
         try {
-            setUser({ showOnboarding: false, language: i18n.language, isLoggedIn: false, justInformation: false, email: "", name: "", type: "" });
-            storageUserSave({ showOnboarding: false, language: i18n.language, isLoggedIn: false, justInformation: false, email: "", name: "", type: "" });
+            setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: false, email: "", name: "", type: "" });
+            storageUserSave({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: false, email: "", name: "", type: "" });
         } catch (error) {
             throw error;
         }
