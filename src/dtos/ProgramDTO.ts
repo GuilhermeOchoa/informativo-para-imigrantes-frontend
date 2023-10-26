@@ -1,4 +1,5 @@
 export type ProgramDTO = {
+	id: string;
 	title?: string;
 	description?: string;
 	programInitialDate?: string;
@@ -9,8 +10,20 @@ export type ProgramDTO = {
 	location?: string;
 	file?: string;
 	link?: string;
-	programType?: number;
+	programType?: ProgramType;
 	institutionEmail?: string;
-	status?: string;
+	status?: Status;
 	tags?: {label: string; value: string}[];
 };
+enum Status {
+	PENDENTE = 'PENDENTE',
+	ACEITO = 'ACEITO',
+	RECUSADO = 'RECUSADO'
+   }
+   
+   enum ProgramType {
+	SUPERIOR = 'Ensino Superior',
+	BASIC = 'Ensino Basico',
+	ASSISTANCE = 'Programas de auxílio'
+   }
+   
