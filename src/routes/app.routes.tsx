@@ -6,7 +6,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { ArticleDTO } from '@dtos/ArticleDTO';
 
-import { Feed } from '@screens/Feed2';
+import { Feed } from '@screens/Feed';
 import { FeedCategory } from '@screens/FeedCategory';
 import { Contact } from '@screens/Contact';
 import { Profile } from '@screens/Profile';
@@ -14,16 +14,17 @@ import { Articles } from '@screens/Articles';
 import { ArticlesDetals } from '@screens/ArticlesDetails';
 
 import { useTranslation } from 'react-i18next';
+import { OpportunityDTO } from '@dtos/OpportunityDTO';
 
 type AppRoutes = {
-	feed2: undefined;
+	feed: undefined;
 	profile: undefined;
 	contact: undefined;
 	article: undefined;
 	articleDetails: ArticleDTO;
 	registerProgramFormPage: undefined;
 	onboarding: undefined;
-	feedCategory: undefined;
+	feedCategory: OpportunityDTO;
 }
 
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>;
@@ -87,7 +88,7 @@ export function AppRoutes() {
 			/>
 
 			<Screen
-				name='feed2'
+				name='feed'
 				component={Feed}
 				options={{
 					tabBarIcon: ({ color, focused }) => (
@@ -123,6 +124,14 @@ export function AppRoutes() {
 			<Screen
 				name='articleDetails'
 				component={ArticlesDetals}
+				options={{
+					tabBarButton: () => null
+				}}
+			/>
+
+			<Screen
+				name='feedCategory'
+				component={FeedCategory}
 				options={{
 					tabBarButton: () => null
 				}}

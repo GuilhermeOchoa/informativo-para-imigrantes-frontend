@@ -15,7 +15,7 @@ type Props = TouchableOpacityProps & {
     data: any,
     cardType: "program" | "article" | "institution",
     cardContext: "feed" | "articles" | "adminPrograms" | "adminInstitutions" | "myPrograms",
-    status?: string,
+    status: string,
 }
 
 type data = {
@@ -45,31 +45,34 @@ export function Card({ data, cardType, cardContext, status, ...rest }: Props) {
                         ? data.title
                         : cardType === "article"
                             ? data.title
-                                : data.institutionName
+                            : data.institutionName
                     }
                 </Text>
+
                 <Box>
-                    <Text fontSize="sm" color="black" mt={1} p={1} numberOfLines={3}>
+                    <Text fontSize="sm" color="black" mt={1} numberOfLines={3}>
                         {cardType === "program"
                             ? data.description
                             : cardType === "article"
                                 ? data.content
                                 : data.type + "\n "
-                                    + data.registrantName + " - " 
-                                    + data.registrantRole + "\n Fone: "
-                                    + data.phone
+                                + data.registrantName + " - "
+                                + data.registrantRole + "\n Fone: "
+                                + data.phone
                         }
                     </Text>
                 </Box>
+
                 <Box mt={2}>
                     {cardType === "program" &&
-                        <TagDisplay 
+                        <TagDisplay
                             tags={data.tags}
                         />
                     }
                 </Box>
 
             </Box>
+
             <Box>
                 <Button
                     title={t("Ver mais")}

@@ -19,6 +19,10 @@
         "OnboardingText01": "Here, we will try to offer you the best and most facilitating tools to assist you.",
         "OnboardingText02": "This application offers the possibility to organize and systematize the educational offering by institution, academic option, and location.",
         "OnboardingText03": "We appreciate your vote of confidence. And remember: in case of doubts, our team will be available via online contact.",
-        "OnboardingText04": "Now, on the next screens, a brief tutorial will begin on the options within the application and how to use them."
+        "OnboardingText04": "Now, on the next screens, a brief tutorial will begin on the options within the application and how to use them.",
+        "BASIC": "Basic",
+        "ASSISTANCE": "Assistance",
+        "HIGHER": "Plus Élevé",
+        "Oportunidades": "Opportunities"
     }
 }
