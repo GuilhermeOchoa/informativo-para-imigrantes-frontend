@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
 
 export function Feed() {
-    const navigation = useNavigation<AppNavigatorRoutesProps>()
+	const navigation = useNavigation<AppNavigatorRoutesProps>()
 	const [isLoading, setIsLoading] = useState(true);
 	const toast = useToast();
 
@@ -46,9 +46,8 @@ export function Feed() {
 		}
 	}
 
-	function handleGoProgramByCategory() {
-		console.log("êntrou")
-        navigation.navigate("feedCategory");
+	function handleGoProgramByCategory(item: OpportunityDTO) {
+		navigation.navigate("feedCategory", item);
 	}
 
 	useEffect(() => {
@@ -75,7 +74,7 @@ export function Feed() {
 					keyExtractor={item => item.type}
 					renderItem={({ item }) => (
 						<OpportunityCads
-							onPress={() => handleGoProgramByCategory()}
+							onPress={() => handleGoProgramByCategory(item)}
 							data={item}
 						/>
 					)}

@@ -15,12 +15,12 @@ export function OpportunityCads({ data, ...rest }: Props) {
     const { t, i18n } = useTranslation();
 
     return (
-        <HStack flex={1} bg="lightGreen.500" alignItems="center" p={4} rounded="3xl" mb={4}>
+        <TouchableOpacity {...rest}>
+            <HStack flex={1} bg="lightGreen.500" alignItems="center" p={4} rounded="3xl" mb={4}>
 
-            <VStack flex={1}>
-                <Text fontSize={28} color="gray.800">{t(data.type)}</Text>
+                <VStack flex={1}>
+                    <Text fontSize={28} color="gray.800">{t(data.type)}</Text>
 
-                <TouchableOpacity {...rest}>
 
                     <Button
                         title={t("Clique para ver mais")}
@@ -39,19 +39,19 @@ export function OpportunityCads({ data, ...rest }: Props) {
                             />
                         }
                     />
-                </TouchableOpacity>
 
-            </VStack>
+                </VStack>
 
-            <VStack >
-                <Center>
-                    <Text fontWeight="normal" fontSize={38} color="gray.800">{data.quantity}</Text>
-                    <Text fontWeight="normal" fontSize={22} color="gray.800">Itens</Text>
-                </Center>
-            </VStack>
+                <VStack >
+                    <Center>
+                        <Text fontWeight="normal" fontSize={38} color="gray.800">{data.quantity}</Text>
+                        <Text fontWeight="normal" fontSize={22} color="gray.800">Itens</Text>
+                    </Center>
+                </VStack>
 
-        </HStack>
+            </HStack>
 
+        </TouchableOpacity>
 
 
     );

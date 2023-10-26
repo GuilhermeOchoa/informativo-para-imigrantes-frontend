@@ -14,6 +14,7 @@ import { Articles } from '@screens/Articles';
 import { ArticlesDetals } from '@screens/ArticlesDetails';
 
 import { useTranslation } from 'react-i18next';
+import { OpportunityDTO } from '@dtos/OpportunityDTO';
 
 type AppRoutes = {
 	feed: undefined;
@@ -23,7 +24,7 @@ type AppRoutes = {
 	articleDetails: ArticleDTO;
 	registerProgramFormPage: undefined;
 	onboarding: undefined;
-	feedCategory: undefined;
+	feedCategory: OpportunityDTO;
 }
 
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>;
