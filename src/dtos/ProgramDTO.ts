@@ -14,5 +14,5 @@ export type ProgramDTO = {
 	programType?: number;
 	institutionEmail?: string;
 	status?: string;
-	tags?: TagsDTO[];
+	tags?: string[];
 };

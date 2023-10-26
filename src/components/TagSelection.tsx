@@ -7,12 +7,11 @@ import {
         WarningOutlineIcon, 
         ISelectProps, 
         View, 
-        HStack, 
-        Badge, 
         DeleteIcon, 
         AddIcon 
     } from 'native-base';
-import { TagsDTO } from '@dtos/TagsDTO';
+//import { TagsDTO } from '@dtos/TagsDTO';
+import { TagDisplay } from './TagDisplay';
 
 type Props = ISelectProps & {
     isInvalid?: boolean;
@@ -20,7 +19,8 @@ type Props = ISelectProps & {
     inputTitle: string;
     label: string;
     onValueChange: (values: { label: string; value: any }[]) => void; 
-    options: TagsDTO[];
+//    options: TagsDTO[];
+    options: string[];
 };
 
 export function TagSelection({
@@ -33,25 +33,19 @@ export function TagSelection({
 }: Props) {
 
     const [selectedValues, setSelectedValues] = useState<any[]>([]); 
-    const handleValueChange = (itemValue: any) => {
-        console.log(itemValue)
-        
-        const existingIndex = selectedValues.findIndex((obj) => obj.value === itemValue);
-    
-        if (existingIndex !== -1) {
-          const updatedValues = [...selectedValues];
-          updatedValues.splice(existingIndex, 1);
-          setSelectedValues(updatedValues);
-        } else {
-          const selectedOption = options.find((option) => option.name === itemValue);
-          if (selectedOption) {
-            setSelectedValues([...selectedValues, selectedOption]);
-            onValueChange([...selectedValues, selectedOption]);
-          }
-        }
-      };
+    const newItem = (itemValue: any) => selectedValues.find((obj) => obj === itemValue);
 
-      const newItem = (itemValue: any) => selectedValues.find((obj) => obj.value === itemValue);
+    const handleValueChange = (itemValue: any) => {
+        console.log("itemValue", itemValue)
+        if (newItem(itemValue)) {
+          setSelectedValues(selectedValues.filter((obj) => obj !== itemValue));
+        } else {
+          setSelectedValues([...selectedValues, itemValue]);
+        }
+        console.log(selectedValues);
+        onValueChange(selectedValues);
+    }
+
     return (
         <>
             <Center>
@@ -78,16 +72,16 @@ export function TagSelection({
                         >
                             {options.map((option) => (
                                 <NativeBaseSelect.Item
-                                    key={option.name}
-                                    label={option.name}
-                                    value={option.name}
+                                    key={option}
+                                    label={option}
+                                    value={option}
                                     _pressed={{
                                         backgroundColor: 'green.600',
                                         borderRadius: 'lg',
                                     }}
-                                    endIcon={newItem(option.name) ? <DeleteIcon size="lg" /> : <AddIcon size="lg"/> }
+                                    endIcon={newItem(option) ? <DeleteIcon size="lg" /> : <AddIcon size="lg"/> }
                                 >
-                                    {option.name}
+                                    {option}
                                 </NativeBaseSelect.Item>
                             ))}
                         </NativeBaseSelect>
@@ -101,13 +95,9 @@ export function TagSelection({
                 </FormControl>
             </Center>
             
-          <HStack space={3} flexWrap={"wrap"} mb={8}>
-            {selectedValues.map((tag) => (
-              <Badge variant={"outline"} colorScheme={"success"} mb={2} key={tag.name} rounded={10}>
-                {tag.name}
-              </Badge>
-            ))}
-          </HStack>
+          <TagDisplay 
+            tags={selectedValues}          
+          />
         </>
     );
 }

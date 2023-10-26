@@ -23,13 +23,12 @@ import { AppError } from "@utils/AppError"
 import { TagsDTO } from "@dtos/TagsDTO"
 
 type FormDataProps = {
-	tags?: TagsDTO[],
-	informacoesAdicionais?: string
+//	tags?: TagsDTO[],
+	tags?: string[],
 }
 
 const signUpSchema = yup.object({
 	// tags: yup.string().required('Informe o local.'),
-	// informacoesAdicionais: yup.string().required('Informe o idioma.'),
 });
 
 export function RegisterProgramForm3() {
@@ -37,47 +36,49 @@ export function RegisterProgramForm3() {
 	const navigation = useNavigation<AuthNavigatorRoutesProps>();
 	const { t, i18n } = useTranslation();
 
+	const user = useAuth();
 	const toast = useToast();
 	const route = useRoute();
 
 	const program = route.params as ProgramDTO;
 
 	const [isLoading, setIsLoading] = useState(false);
-	const [tags, setTags] = useState<TagsDTO[]>([]);
+//	const [tags, setTags] = useState<string[]>([]);
 
 
-	async function fetchTags() {
-		try {
-			setIsLoading(true);
-			const response = await getAllTags(i18n.language ? i18n.language : "pt");
-			console.log("response", response.data)
-			setTags(response.data);
-		} catch (error) {
-			const isAppError = error instanceof AppError;
-			const title = isAppError ? error.message : t("Nao foi possivel carregar as tags")
+	// async function fetchTags() {
+	// 	try {
+	// 		setIsLoading(true);
+	// 		const response = await getAllTags(i18n.language ? i18n.language : "pt");
+	// 		console.log("response", response.data)
+	// 		setTags(response.data);
+	// 	} catch (error) {
+	// 		const isAppError = error instanceof AppError;
+	// 		const title = isAppError ? error.message : t("Nao foi possivel carregar as tags")
 
-			toast.show({
-				title,
-				placement: "top",
-				bgColor: "red.500"
-			});
-		} finally {
-			setIsLoading(false);
-		}
-	}
+	// 		toast.show({
+	// 			title,
+	// 			placement: "top",
+	// 			bgColor: "red.500"
+	// 		});
+	// 	} finally {
+	// 		setIsLoading(false);
+	// 	}
+	// }
 
-	useEffect(() => {
-		fetchTags();
-	}, [i18n.language])
+	// useEffect(() => {
+	// 	fetchTags();
+	// }, [i18n.language])
 
 	const { register, control, handleSubmit, formState: { errors }, setValue } = useForm<FormDataProps>({
 		resolver: yupResolver(signUpSchema)
 	});
 
-	async function onSubmit() {
+	async function onSubmit({ tags }: FormDataProps) {
+		console.log("program", program)
 		try {
 			const data = {
-				institutionEmail: "email@email.com",
+				institutionEmail: user.user.email ? user.user.email : "naofornecido@naofornecido.com",
 				title: program.title,
 				description: program.description,
 				enrollmentInitialDate: "2023-10-21",
@@ -87,7 +88,7 @@ export function RegisterProgramForm3() {
 				programInitialDate: "2023-10-21",
 				programEndDate: "2023-10-21",
 				link: program.link,
-				tags: program.tags
+				tags: tags
 			};
 			setIsLoading(true);
 			console.log(data)
@@ -150,13 +151,13 @@ export function RegisterProgramForm3() {
 									onValueChange={value => onChange(value)}
 									inputTitle={"Tags:"}
 									label={"tags"}
-									options={tags}
+									options={TagOptions}
 								/>
 							)}
 							name="tags"
 						/>
 						<Center>
-							<Text style={{ fontSize: 15 }}>
+							<Text style={{ fontSize: 15, marginTop: 20 }}>
 								{"Anexar arquivo:"}
 							</Text>
 						</Center>
@@ -165,7 +166,7 @@ export function RegisterProgramForm3() {
 					</VStack>
 				</ScrollView>
 
-				<Center mt={6}>
+				<Center mt={24}>
 					<Button
 						title="Finalizar cadastro"
 						onPress={handleSubmit(onSubmit)}
