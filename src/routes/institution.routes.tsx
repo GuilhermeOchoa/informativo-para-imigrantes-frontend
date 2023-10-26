@@ -1,8 +1,17 @@
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { Profile } from '@screens/Profile';
+import { MyPrograms } from '@screens/MyPrograms';
+import { ProgramDTO } from '@dtos/ProgramDTO';
+import { RegisterProgramForm1 } from '@screens/forms/RegisterProgram/RegisterProgramForm1';
+import { RegisterProgramForm2 } from '@screens/forms/RegisterProgram/RegisterProgramForm2';
+import { RegisterProgramForm3 } from '@screens/forms/RegisterProgram/RegisterProgramForm3';
 
 type InstitutionRoutes = {
     profile: undefined
+    myPrograms: undefined
+    registerProgramForm1: undefined;
+	registerProgramForm2: ProgramDTO;
+	registerProgramForm3: ProgramDTO;
 }
 
 export type InstitutionNavigatorRoutesProps = NativeStackNavigationProp<InstitutionRoutes>;
@@ -16,6 +25,24 @@ export function InstitutionRoutes() {
                 name='profile'
                 component={Profile}
             />
+            <Screen
+                name='myPrograms'
+                component={MyPrograms}
+            />
+            <Screen
+				name='registerProgramForm1'
+				component={RegisterProgramForm1}
+			/>
+
+			<Screen
+				name='registerProgramForm2'
+				component={RegisterProgramForm2}
+			/>
+
+			<Screen
+				name='registerProgramForm3'
+				component={RegisterProgramForm3}
+			/>
         </Navigator>
     )
 }
