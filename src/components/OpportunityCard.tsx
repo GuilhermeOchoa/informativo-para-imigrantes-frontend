@@ -1,68 +1,52 @@
-import { Icon, Text, VStack, HStack } from "native-base";
+import { Icon, Text, VStack, HStack, Center } from "native-base";
 import { TouchableOpacityProps } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons';
 
-import '@utils/i18n/i18n';
+import { OpportunityDTO } from '@dtos/OpportunityDTO';
+import { Button } from "@components/Button";
+
 import { useTranslation } from 'react-i18next';
-import { Button } from "./Button";
-import { OpportunityDTO } from '../dtos/OpportunityDTO';
 
 type Props = TouchableOpacityProps & {
     data: OpportunityDTO
-  };
-
-type data = {
-    opportunity: OpportunityDTO,
-}
+};
 
 export function OpportunityCads({ data }: Props) {
     const { t, i18n } = useTranslation();
 
     return (
+        <HStack flex={1} bg="lightGreen.500" alignItems="center" p={4} rounded="3xl" mb={4}>
 
-        <>
-            <HStack p="3" rounded="3xl" bg={"lightGreen.500"} height={100}>
+            <VStack flex={1}>
+                <Text fontSize={28} color="gray.800">{t(data.type)}</Text>
 
-                <VStack  marginLeft={1} flex={1}>
-                    <Text fontSize={20} marginBottom={22}>
-                        {data.type}
-                    </Text>
+                <Button
+                    title={t("Clique para ver mais")}
+                    height={10}
+                    width={200}
+                    rounded={100}
+                    variant={"solid"}
+                    endIcon={
+                        <Icon
+                            as={MaterialIcons}
+                            name="arrow-forward"
+                            marginTop={1}
+                            left={1}
+                            size={5}
+                            color="white"
+                        />
+                    }
+                />
+            </VStack>
 
-                </VStack>
+            <VStack >
+                <Center>
+                    <Text fontWeight="normal" fontSize={38} color="gray.800">{data.quantity}</Text>
+                    <Text fontWeight="normal" fontSize={22} color="gray.800">Itens</Text>
+                </Center>
+            </VStack>
 
-                <VStack textAlign={"center"} margin={0} flex={1}>
-                    <Text padding={0} fontSize={40} alignSelf={"flex-end"} marginRight={13}>
-                        {data.quantity}
-                    </Text>
+        </HStack>
 
-                    <Text fontSize={20} marginLeft={3} alignSelf={"flex-end"} >
-                        Itens
-                    </Text>
-
-                </VStack>
-
-
-            </HStack>
-
-            <Button
-                title={t("Clique para ver mais")}
-                bottom={12}
-                height={10}
-                width={200}
-                rounded={100}
-                marginLeft={3}
-                variant={"solid"}
-                endIcon={
-                    <Icon
-                        as={MaterialIcons}
-                        name="arrow-forward"
-                        marginTop={1}
-                        left={1}
-                        size={5}
-                        color="white"
-                    />
-                }
-            />
-        </>
     );
 }

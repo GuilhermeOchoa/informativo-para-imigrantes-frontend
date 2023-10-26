@@ -4,61 +4,83 @@ import { VStack, Center, FlatList, HStack, useToast, Divider, Text } from 'nativ
 import { OpportunityDTO } from '@dtos/OpportunityDTO';
 import { getCategoriesWithCount } from '@services/Programs';
 import { OpportunityCads } from '@components/OpportunityCard';
+import { AppError } from '@utils/AppError';
+import { t } from 'i18next';
+import { Loading } from '@components/Loading';
 
 export function Feed() {
-  const [oportunidades, setOportunidades] = useState<OpportunityDTO[] | null>(null);
-  const toast = useToast();
+	const [isLoading, setIsLoading] = useState(false);
+	const toast = useToast();
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await getCategoriesWithCount();
-        const data = response.data;
-        console.log("response" + response)
-        console.log("response data" + response.data)
+	const [oportunidades, setOportunidades] = useState<OpportunityDTO[] | null>(null);
 
-        const oportunidadesRecebidas: OpportunityDTO[] = [];
+	async function fetchData() {
+		try {
+			setIsLoading(true);
 
-        for (const [type, quantity] of Object.entries(data)) {
-          const quantityNumber = Number(quantity);
-          oportunidadesRecebidas.push(new OpportunityDTO(type, quantityNumber));
-        }
+			const response = await getCategoriesWithCount();
+			const data = response.data;
 
-        setOportunidades(oportunidadesRecebidas);
-      } catch (error) {
-        console.error('Erro na requisição:', error);
-       
-      }
-    }
+			const oportunidadesRecebidas: OpportunityDTO[] = [];
 
-    fetchData();
-  }, []);
+			for (const [type, quantity] of Object.entries(data)) {
+				const quantityNumber = Number(quantity);
+				oportunidadesRecebidas.push(new OpportunityDTO(type, quantityNumber));
+			}
 
-  return (
-    <VStack flex={1} px={6} pb={6} mt={12}>
-      <HStack alignItems="center" m={2}>
-        <VStack flex={1}>
-          <Center>
-            <Text fontFamily="body" fontSize="xl">
-              Oportunidades
-            </Text>
-          </Center>
-        </VStack>
-      </HStack>
-      <Divider my={4} bgColor="green.500" />
+			setOportunidades(oportunidadesRecebidas);
+		} catch (error) {
+			const isAppError = error instanceof AppError;
+			const title = isAppError ? error.message : t("Nao foi possivel carregar os tipos de programas")
 
-      {oportunidades && oportunidades.length > 0 ? (
-        <FlatList
-          data={oportunidades}
-          renderItem={({ item }) => (
-            <OpportunityCads data={item} />
-          )}
-          showsVerticalScrollIndicator={false}
-          _contentContainerStyle={{ paddingBottom: 10 }}
-        />
-      ) : (
-        <Text>No momento não há oportunidades disponíveis.</Text>
-      )}
-    </VStack>
-  );
+			toast.show({
+				title,
+				placement: "top",
+				bgColor: "red.500"
+			});
+		} finally {
+			setIsLoading(false);
+		}
+	}
+
+	useEffect(() => {
+		fetchData();
+	}, []);
+
+	return (
+		<VStack flex={1} px={6} pb={6} mt={12}>
+			<HStack alignItems="center" m={2}>
+				<VStack flex={1}>
+					<Center>
+						<Text fontFamily="body" fontSize="xl">
+							{t("Oportunidades")}
+						</Text>
+					</Center>
+				</VStack>
+			</HStack>
+
+			<Divider my={4} bgColor="green.500" />
+
+			{isLoading ? <Loading /> :
+				<FlatList
+					data={oportunidades}
+					keyExtractor={item => item.type}
+					renderItem={({ item }) => (
+						<OpportunityCads
+							data={item}
+						/>
+					)}
+					ListEmptyComponent={() => (
+						<VStack flex={1} justifyContent="center" alignItems="center" mt={16}>
+							<Text fontFamily="body" fontSize="md">
+								{t("No momento não há oportunidades disponíveis.")}
+							</Text>
+						</VStack>
+					)}
+					showsVerticalScrollIndicator={false}
+					_contentContainerStyle={{ paddingBottom: 10 }}
+				/>
+			}
+		</VStack>
+	);
 }

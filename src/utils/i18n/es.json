@@ -19,6 +19,10 @@
         "OnboardingText01": "Aquí, intentaremos ofrecerte las mejores y más facilitadoras herramientas para ayudarte",
         "OnboardingText02": "Esta aplicación ofrece la posibilidad de organizar y sistematizar la oferta educativa por institución, opción académica y ubicación.",
         "OnboardingText03": "Agradecemos tu voto de confianza. Y recuerda: en caso de dudas, nuestro equipo estará disponible a través de contacto en línea.",
-        "OnboardingText04": "Ahora, en las próximas pantallas, comenzará un breve tutorial sobre las opciones dentro de la aplicación y cómo utilizarlas."
-    }
+        "OnboardingText04": "Ahora, en las próximas pantallas, comenzará un breve tutorial sobre las opciones dentro de la aplicación y cómo utilizarlas.",
+		"BASIC": "Básico",
+        "ASSISTANCE": "Asistencia",
+        "HIGHER": "Más Alto",
+        "Oportunidades": "Oportunidades"
+	}
 }

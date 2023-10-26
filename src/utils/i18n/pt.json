@@ -36,6 +36,10 @@
         "ErroInsercaoCadastro": "Cadastro de Programa",
         "InformacoesAdicionaisPlaceHolder": "Requisitos do candidato, informações adicionais, etc.",
         "Anexar": "Anexar",
-        "FinalizarCadastro": "Finalizar Cadastro"
+        "FinalizarCadastro": "Finalizar Cadastro",
+        "BASIC": "Ensino Básico",
+        "ASSISTANCE": "Programa de Auxílio",
+        "HIGHER": "Ensino Superior",
+        "Oportunidades": "Oportunidades"
     }
 }

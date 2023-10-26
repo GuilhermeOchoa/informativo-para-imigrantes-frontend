@@ -19,6 +19,10 @@
 		"OnboardingText01": "Ici, nous essaierons de vous offrir les meilleurs outils les plus facilitants pour vous aider.",
 		"OnboardingText02": "Cette application offre la possibilité d'organiser et de systématiser l'offre éducative par institution, option académique et emplacement.",
 		"OnboardingText03": "Nous apprécions votre vote de confiance. Et n'oubliez pas : en cas de doutes, notre équipe sera disponible via un contact en ligne.",
-		"OnboardingText04": "Maintenant, sur les écrans suivants, un bref tutoriel débutera sur les options au sein de l'application et comment les utiliser."
+		"OnboardingText04": "Maintenant, sur les écrans suivants, un bref tutoriel débutera sur les options au sein de l'application et comment les utiliser.",
+		"BASIC": "Ensino Básico",
+		"ASSISTANCE": "Programa de Auxílio",
+		"HIGHER": "Ensino Superior",
+        "Oportunidades": "Opportunités"
 	}
 }
