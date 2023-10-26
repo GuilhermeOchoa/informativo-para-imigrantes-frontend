@@ -22,10 +22,6 @@ export function InstitutionRoutes() {
     return (
         <Navigator screenOptions={{ headerShown: false }}>
             <Screen
-                name='profile'
-                component={Profile}
-            />
-            <Screen
                 name='myPrograms'
                 component={MyPrograms}
             />

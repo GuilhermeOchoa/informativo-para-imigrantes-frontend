@@ -5,7 +5,7 @@ import { VStack, HStack, Center, Divider, Text, Box } from "native-base"
 import { ScrollView } from "react-native"
 import { useTranslation } from "react-i18next"
 import { useNavigation } from "@react-navigation/native"
-import { AuthNavigatorRoutesProps } from "@routes/auth.routes"
+import { InstitutionNavigatorRoutesProps } from "@routes/institution.routes"
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 import { TextArea } from '@components/TextArea'
@@ -40,7 +40,7 @@ const signUpSchema = yup.object({
 export function RegisterProgramForm1() {
 	const { t, i18n } = useTranslation();
 
-	const navigation = useNavigation<AuthNavigatorRoutesProps>();
+	const navigation = useNavigation<InstitutionNavigatorRoutesProps>();
 	const [selectedEndDate, setSelectedEndDate] = useState('');
     const [selectedInitialDate, setSelectedInitialDate] = useState('');
 

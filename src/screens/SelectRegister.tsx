@@ -34,7 +34,7 @@ export function SelectRegister() {
 	}
 
 	function handleRegisterInstitution() {
-		navigation.navigate('registerProgramForm1');
+		navigation.navigate('institutionRegistration01');
 	}
 
 	const openUserDetail = () => {
@@ -110,10 +110,6 @@ export function SelectRegister() {
 			return null;
 		}
 	};
-
-	function handlePaginaDoArthur() {
-		navigation.navigate('registerProgramForm1');
-	}
 
 	return (
 		<VStack flex={1} px={6} pb={6} mt={10}>
