@@ -130,8 +130,8 @@ export function RegisterProgramForm1() {
 						/>
 					)}
 				/>
-				<Text style={{ fontSize: 15, marginBottom: 4 }}>{"Inicio das inscrições*:"}</Text>
-				<Controller
+				<Text style={{ fontSize: 15, marginBottom: 4 }}>{t("DataInicialInscricoes")}</Text>
+                <Controller
 					control={control}
 					name="enrollmentInitialDate"
 					rules={{
@@ -148,7 +148,7 @@ export function RegisterProgramForm1() {
 					)}
 				/>
 
-				<Text style={{ fontSize: 15, marginBottom: 4 }}>{"Fim das inscrições*:"}</Text>
+                <Text style={{ fontSize: 15, marginBottom: 4 }}>{t("DataFinalInscricoes")}</Text>
 				<Controller
 					control={control}
 					name="enrollmentEndDate"
@@ -158,7 +158,6 @@ export function RegisterProgramForm1() {
 					}}
 					render={() => (
 						<DateInput
-
 							variant={"underlined"}
 							selectDateFunction={handleEndDate}
 							selectedDate={selectedEndDate}
@@ -166,8 +165,7 @@ export function RegisterProgramForm1() {
 						/>
 					)}
 				/>
-				
-				<Center mt={10}>
+				<Center mt={6}>
 					<Button
 						title="Proximo"
 						onPress={handleSubmit(onSubmit)}

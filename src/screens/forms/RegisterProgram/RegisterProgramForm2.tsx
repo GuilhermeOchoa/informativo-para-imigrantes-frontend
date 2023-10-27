@@ -150,8 +150,7 @@ export function RegisterProgramForm2() {
 
 					<Text style={{ fontSize: 15 }}>
 						{t("DataInicioPrograma")}
-					</Text>
-
+						</Text>
 					<Controller
 						control={control}
 						name="programInitialDate"

@@ -1,3 +1,5 @@
+import { TagsDTO } from "./TagsDTO";
+
 export type ProgramDTO = {
 	id?: string;
 	title?: string;
@@ -13,12 +15,12 @@ export type ProgramDTO = {
 	programType?: string;
 	institutionEmail?: string;
 	status?: Status;
-	tags?: {label: string; value: string}[];
+	tags?: string[];
 };
+
 enum Status {
 	PENDING = 'PENDING',
 	APPROVED = 'APPROVED',
 	REJECTED = 'REJECTED'
-   }
+}
 
-   

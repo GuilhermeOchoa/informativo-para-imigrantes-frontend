@@ -1,19 +1,26 @@
-import { Badge, HStack } from "native-base";
+import { FlatList, HStack, View, Text, Badge } from "native-base";
 
 type Props = {
-  tags: { label: string; value: any }[];
+  tags: string[];
 };
 
+export function TagDisplay({ tags, ...rest }: Props) {
 
-export function TagDisplay({ tags }: Props) {
   return (
+    <HStack space={3} display="flex" flexWrap="nowrap" overflow="hidden">
 
-    <HStack space={3} display="flex" width={150} flexWrap="nowrap" overflow="hidden">
-      {tags.map((tag) => (
-        <Badge variant={"outline"} colorScheme={"success"} mb={2} key={tag.value} rounded={10}>
-          {tag}
-        </Badge>
-      ))}
+      <FlatList
+        horizontal
+        data={tags}
+        keyExtractor={(tag) => tag}
+        renderItem={({ item }) => (
+          <Badge mr={2} variant={"outline"} colorScheme={"success"} mb={2} rounded={10}>
+            {item}
+          </Badge>
+        )}
+        showsHorizontalScrollIndicator={false}
+        {...rest}
+      />
     </HStack>
   )
 }

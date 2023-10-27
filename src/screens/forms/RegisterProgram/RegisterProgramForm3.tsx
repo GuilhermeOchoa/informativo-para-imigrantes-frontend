@@ -1,12 +1,11 @@
 import { UseFormClearErrors, Controller, useForm } from "react-hook-form"
 import { VStack, HStack, Center, Divider, Text, ScrollView, useToast } from "native-base"
 
-import { parse } from "date-fns"
-import { useState } from "react"
 import { Button } from "@components/Button"
 import { Select } from "@components/Select"
 import { TagSelection } from "@components/TagSelection"
 import FileAttachment from "@components/FileAttachment"
+import { useAuth } from "@hooks/useAuth"
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -18,9 +17,10 @@ import { InstitutionNavigatorRoutesProps } from "@routes/institution.routes"
 import { useTranslation } from "react-i18next"
 import { ProgramDTO } from "@dtos/ProgramDTO"
 import { AppError } from "@utils/AppError"
+import { useState } from "react"
 
 type FormDataProps = {
-	tags?: { label: string; value: string }[],
+	tags?: string[],
 	programType: string,
 }
 
@@ -33,14 +33,16 @@ const signUpSchema = yup.object({
 	programType: yup
 		.string()
 		.required('Informe o tipo de programa'),
-});
+})
+
 
 export function RegisterProgramForm3() {
 
 	const navigation = useNavigation<InstitutionNavigatorRoutesProps>();
 	const { t, i18n } = useTranslation();
-	const toast = useToast();
 
+	const user = useAuth();
+	const toast = useToast();
 	const route = useRoute();
 	const program = route.params as routesData;
 
@@ -50,29 +52,30 @@ export function RegisterProgramForm3() {
 		resolver: yupResolver(signUpSchema)
 	});
 
-	async function onSubmit({ tags, programType }: FormDataProps) {
+	async function onSubmit({ tags }: FormDataProps) {
+		console.log("program", program)
 		try {
-			const data = {
-				institutionEmail: "email@email.com",
+			const programData = {
+				institutionEmail: user.user.email ? user.user.email : "naofornecido@naofornecido.com",
 				title: program.data?.title,
 				description: program.data?.description,
-				enrollmentInitialDate: "2023-10-21",
-				enrollmentEndDate: "2023-10-21",
+				enrollmentInitialDate: formatarData(program.data?.enrollmentInitialDate),
+				enrollmentEndDate: formatarData(program.data?.enrollmentEndDate),
 				location: program.data?.location,
 				language: program.data?.language,
-				programInitialDate: "2023-10-21",
-				programEndDate: "2023-10-21",
+				programInitialDate: formatarData(program.data?.programInitialDate),
+				programEndDate: formatarData(program.data?.programEndDate),
 				link: program.data?.link,
-				programType
+				tags: tags
 			};
 
 			setIsLoading(true);
-			console.log(data)
+			console.log(programData)
 
-			await postProgramForm(data);
+			await postProgramForm(programData);
 
 			program.fetchPrograms();
-			
+
 			toast.show({
 				title: "Programa cadastrado com sucesso",
 				placement: "top",
@@ -95,8 +98,22 @@ export function RegisterProgramForm3() {
 			});
 		} finally {
 			setIsLoading(false);
-			navigation.navigate("myPrograms");
 		}
+	}
+
+	function formatarData(data: any) {
+		if (!data) {
+			return null;
+		}
+
+		const partesDaData = data.split('/');
+
+		if (partesDaData.length !== 3) {
+			return null;
+		}
+
+		const dataFormatada = `${partesDaData[2]}-${partesDaData[1]}-${partesDaData[0]}`;
+		return dataFormatada;
 	}
 
 	return (
@@ -153,7 +170,7 @@ export function RegisterProgramForm3() {
 							name="tags"
 						/>
 						<Center>
-							<Text style={{ fontSize: 15 }}>
+							<Text style={{ fontSize: 15, marginTop: 20 }}>
 								{"Anexar arquivo:"}
 							</Text>
 						</Center>
@@ -162,7 +179,7 @@ export function RegisterProgramForm3() {
 					</VStack>
 				</ScrollView>
 
-				<Center mt={10}>
+				<Center mt={24}>
 					<Button
 						title="Finalizar cadastro"
 						onPress={handleSubmit(onSubmit)}

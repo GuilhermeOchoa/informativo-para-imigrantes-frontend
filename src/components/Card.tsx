@@ -31,13 +31,13 @@ export function Card({ data, cardType, cardContext, status, ...rest }: Props) {
     return (
         <>
             {cardType !== "article" && (
-                    cardContext === "adminPrograms" ||
-                    cardContext === "adminInstitutions" ||
-                    cardContext === "myPrograms") &&
-                    <ActionButton
-                        status={data.status as "PENDING" | "APPROVED" | "REJECTED"}
-                    />
-                }
+                cardContext === "adminPrograms" ||
+                cardContext === "adminInstitutions" ||
+                cardContext === "myPrograms") &&
+                <ActionButton
+                    status={data.status as "PENDING" | "APPROVED" | "REJECTED"}
+                />
+            }
             <Box p="5" rounded="3xl" bg={"lightGreen.500"} height={160}>
 
                 <Text fontSize="md" fontFamily="heading" numberOfLines={1} width={230}>

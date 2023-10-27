@@ -45,7 +45,7 @@ export function DateInput({ errorMessage, selectDateFunction, selectedDate, ...r
                 {/* Conditional rendering based on iOS or Android */}
                 {Platform.OS === 'ios' &&
                     (
-                        <Center width={50}>
+                        <Center width={"35%"}>
                             <DateTimePicker
                                 mode="date"
                                 display="default"
