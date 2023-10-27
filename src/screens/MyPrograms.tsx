@@ -40,7 +40,7 @@ export function MyPrograms() {
       setIsLoading(true);
 
       const response = await getAllProgram(user.email);
-      console.log("recuperou----"+response.data);
+      console.log("recuperou----", response.data);
       setPrograms(response.data);
     } catch (error) {
       const isAppError = error instanceof AppError;
@@ -63,51 +63,51 @@ export function MyPrograms() {
   }, [i18n.language]);
 
   return (
-      <VStack flex={1} px={6} pb={6} mt={12}>
-        <HStack alignItems="center" m={2}>
-          <HStack flex={1} alignItems="center">
-            <Center flex={1} mr={7}>
-              <Text fontFamily="body" fontSize="xl">
-                {t("Meus Programas")}
-              </Text>
-            </Center>
-          </HStack>
+    <VStack flex={1} px={6} pb={6} mt={12}>
+      <HStack alignItems="center" m={2}>
+        <HStack flex={1} alignItems="center">
+          <Center flex={1} mr={7}>
+            <Text fontFamily="body" fontSize="xl">
+              {t("Meus Programas")}
+            </Text>
+          </Center>
         </HStack>
+      </HStack>
 
-        <Divider my={4} bgColor="green.500" />
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <FlatList
-            data={programs}
-            renderItem={({ item }) => (
-              <Card data={item} cardType="program" cardContext="myPrograms" />
-            )}
-            ListEmptyComponent={() => (
-              <VStack
-                flex={1}
-                justifyContent="center"
-                alignItems="center"
-                mt={16}
-              >
-                <Text fontFamily="body" fontSize="lg">
-                  {t("Nao ha programas disponiveis")}
-                </Text>
-              </VStack>
-            )}
-            showsVerticalScrollIndicator={false}
-            _contentContainerStyle={{ paddingBottom: 10 }}
-          />
-        )}
-        <Fab
-          placement="bottom-right"
-          style={{ backgroundColor: "#55917F" }}
-          renderInPortal={false}
-          shadow={2}
-          size="sm"
-          icon={<Icon color="white" as={<AntDesign name="plus" />} size="sm" />}
-          onPress={handleRegisterProgramForm}
+      <Divider my={4} bgColor="green.500" />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <FlatList
+          data={programs}
+          renderItem={({ item }) => (
+            <Card data={item} cardType="program" cardContext="myPrograms" />
+          )}
+          ListEmptyComponent={() => (
+            <VStack
+              flex={1}
+              justifyContent="center"
+              alignItems="center"
+              mt={16}
+            >
+              <Text fontFamily="body" fontSize="lg">
+                {t("Nao ha programas disponiveis")}
+              </Text>
+            </VStack>
+          )}
+          showsVerticalScrollIndicator={false}
+          _contentContainerStyle={{ paddingBottom: 10 }}
         />
-      </VStack>
+      )}
+      <Fab
+        placement="bottom-right"
+        style={{ backgroundColor: "#55917F" }}
+        renderInPortal={false}
+        shadow={2}
+        size="sm"
+        icon={<Icon color="white" as={<AntDesign name="plus" />} size="sm" />}
+        onPress={handleRegisterProgramForm}
+      />
+    </VStack>
   );
 }
