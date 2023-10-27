@@ -70,7 +70,7 @@ export function Login() {
 
     } catch (error) {
       const isAppError = error instanceof AppError;
-      const title = isAppError ? error.message : t("Nao foi possivel cadastrar o usuario")
+      const title = isAppError ? error.message : t("Email ou senha incorreta")
 
       setMessageError(title);
 

@@ -28,6 +28,7 @@
 		"Esqueci a senha": "Olvidé mi contraseña",
 		"Nao tem uma conta": "¿No tiene una cuenta?",
 		"Cadastre-se aqui": "Regístrese aquí",
-		"Senha": "Contraseña"
+		"Senha": "Contraseña",
+		"Email ou senha incorreta": "Correo electrónico o contraseña incorrectos"
     }
 }

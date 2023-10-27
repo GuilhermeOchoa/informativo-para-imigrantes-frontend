@@ -32,6 +32,7 @@
         "Esqueci a senha": "J'ai oublié le mot de passe",
         "Nao tem uma conta": "Vous n'avez pas de compte?",
         "Cadastre-se aqui": "Inscrivez-vous ici",
-        "Senha": "Mot de passe"
+        "Senha": "Mot de passe",
+		"Email ou senha incorreta": "Email ou mot de passe incorrect"
 	}
 }

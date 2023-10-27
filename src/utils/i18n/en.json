@@ -32,6 +32,7 @@
         "Esqueci a senha": "Fotgot password",
         "Nao tem uma conta": "Don't have an account?",
         "Cadastre-se aqui": "Sign up",
-        "Senha": "Password"
+        "Senha": "Password",
+        "Email ou senha incorreta": "Incorrect email or password"
     }
 }

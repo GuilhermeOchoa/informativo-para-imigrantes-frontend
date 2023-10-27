@@ -45,6 +45,7 @@
         "Esqueci a senha": "Esqueci a senha",
         "Nao tem uma conta": "Não tem uma conta?",
         "Cadastre-se aqui": "Cadastre-se aqui",
-        "Senha": "Senha"
+        "Senha": "Senha",
+        "Email ou senha incorreta": "Email ou senha incorreta"
     }
 }
