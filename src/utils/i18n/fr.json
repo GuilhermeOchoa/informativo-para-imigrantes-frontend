@@ -1,8 +1,8 @@
 {
 	"translation": {
-		"Selecione um pais (opcional)": "Sélectionnez un pays (facultatif)",
+		"Selecione um pais (opcional)": "Sï¿½lectionnez un pays (facultatif)",
 		"ver mais": "voir plus",
-		"Não foi possível carregar os informativos": "Impossible de charger les informations",
+		"Nï¿½o foi possï¿½vel carregar os informativos": "Impossible de charger les informations",
 		"Informativos": "Informations",
 		"Fonte": "Source",
 		"Contato": "Contact",
@@ -10,15 +10,19 @@
 		"Programas": "Programmes",
 		"Artgios": "Article",
 		"Saiba mais": "En savoir plus",
-		"Não há informativos disponíveis": "Pas d'informations disponibles",
-		"Acessar": "Accéder",
+		"Nï¿½o hï¿½ informativos disponï¿½veis": "Pas d'informations disponibles",
+		"Acessar": "Accï¿½der",
+		"DataFinalInscricoes": "Date de fin des inscriptions",
+		"DataFinalPrograma": "Date de fin du programme",
+		"DataInicialInscricoes": "Date de dï¿½but des inscriptions",
+		"DataInicialPrograma": "Date de dï¿½but du programme",
 		"OnboardingTitle01": "Bienvenue",
-		"OnboardingTitle02": "Nous sommes là pour vous aider",
+		"OnboardingTitle02": "Nous sommes lï¿½ pour vous aider",
 		"OnboardingTitle03": "Exactement ce que vous attendiez",
-		"OnboardingTitle04": "Tout est prêt !",
+		"OnboardingTitle04": "Tout est prï¿½t !",
 		"OnboardingText01": "Ici, nous essaierons de vous offrir les meilleurs outils les plus facilitants pour vous aider.",
-		"OnboardingText02": "Cette application offre la possibilité d'organiser et de systématiser l'offre éducative par institution, option académique et emplacement.",
-		"OnboardingText03": "Nous apprécions votre vote de confiance. Et n'oubliez pas : en cas de doutes, notre équipe sera disponible via un contact en ligne.",
-		"OnboardingText04": "Maintenant, sur les écrans suivants, un bref tutoriel débutera sur les options au sein de l'application et comment les utiliser."
+		"OnboardingText02": "Cette application offre la possibilitï¿½ d'organiser et de systï¿½matiser l'offre ï¿½ducative par institution, option acadï¿½mique et emplacement.",
+		"OnboardingText03": "Nous apprï¿½cions votre vote de confiance. Et n'oubliez pas : en cas de doutes, notre ï¿½quipe sera disponible via un contact en ligne.",
+		"OnboardingText04": "Maintenant, sur les ï¿½crans suivants, un bref tutoriel dï¿½butera sur les options au sein de l'application et comment les utiliser."
 	}
 }

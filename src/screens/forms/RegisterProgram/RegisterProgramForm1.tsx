@@ -117,7 +117,7 @@ export function RegisterProgramForm1() {
 						/>
 					)}
 				/>
-				<Text style={{ fontSize: 15, marginBottom: 4 }}>{"Inicio das inscrições*:"}</Text>
+				<Text style={{ fontSize: 15, marginBottom: 4 }}>{t("DataInicialInscricoes")}</Text>
                 <Controller
 					control={control}
 					name="enrollmentInitialDate"
@@ -135,7 +135,7 @@ export function RegisterProgramForm1() {
 					)}
 				/>
 
-                <Text style={{ fontSize: 15, marginBottom: 4 }}>{"Fim das inscrições*:"}</Text>
+                <Text style={{ fontSize: 15, marginBottom: 4 }}>{t("DataFinalInscricoes")}</Text>
 				<Controller
 					control={control}
 					name="enrollmentEndDate"

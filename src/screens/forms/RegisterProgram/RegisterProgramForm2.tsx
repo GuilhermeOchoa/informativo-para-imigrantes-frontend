@@ -141,7 +141,7 @@ export function RegisterProgramForm2() {
 						)}
 					/>
 					<Text style={{ fontSize: 15 }}>
-						{t("programInitialDate")}
+						{t("DataInicialPrograma")}
 						</Text>
 					<Controller
 					control={control}
