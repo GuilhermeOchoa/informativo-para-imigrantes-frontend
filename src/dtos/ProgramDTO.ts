@@ -10,7 +10,7 @@ export type ProgramDTO = {
 	location?: string;
 	file?: string;
 	link?: string;
-	programType?: ProgramType;
+	programType?: string;
 	institutionEmail?: string;
 	status?: Status;
 	tags?: {label: string; value: string}[];
@@ -20,10 +20,5 @@ enum Status {
 	APPROVED = 'APPROVED',
 	REJECTED = 'REJECTED'
    }
-   
-   enum ProgramType {
-	SUPERIOR = 'Ensino Superior',
-	BASIC = 'Ensino Basico',
-	ASSISTANCE = 'Programas de auxílio'
-   }
+
    

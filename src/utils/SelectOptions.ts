@@ -31,6 +31,12 @@ export const ProgramLocalOptions = [
 
 ];
 
+export const ProgramTypesOptions = [
+    {value: 'SUPERIOR', label: 'Ensino Superior'},
+    {value: 'BASICO', label: 'Ensino Básico'},
+    {value: 'AUXILIO', label: 'Programas de Auxílio'},
+];
+   
 
 export const ProgramLanguageOptions = [
     { value: 'EN', label: 'Inglês' },
