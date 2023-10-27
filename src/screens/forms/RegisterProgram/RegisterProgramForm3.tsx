@@ -4,14 +4,14 @@ import { VStack, HStack, Center, Divider, Text, ScrollView, useToast } from "nat
 import { parse } from "date-fns"
 import { useState } from "react"
 import { Button } from "@components/Button"
-import { TextArea } from "@components/TextArea"
+import { Select } from "@components/Select"
 import { TagSelection } from "@components/TagSelection"
 import FileAttachment from "@components/FileAttachment"
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
-import { TagOptions } from "@utils/SelectOptions"
+import { TagOptions,ProgramTypesOptions } from "@utils/SelectOptions"
 import { postProgramForm } from "@services/Forms"
 import { useNavigation, useRoute } from "@react-navigation/native"
 import { InstitutionNavigatorRoutesProps } from "@routes/institution.routes"
@@ -21,11 +21,13 @@ import { AppError } from "@utils/AppError"
 
 type FormDataProps = {
 	tags?: {label: string; value: string}[],
+	programType: string,
 }
 
 const signUpSchema = yup.object({
-	// tags: yup.string().required('Informe o local.'),
-	// informacoesAdicionais: yup.string().required('Informe o idioma.'),
+	programType: yup
+	.string()
+	.required('Informe o tipo de programa'),   
 });
 
 export function RegisterProgramForm3() {
@@ -43,7 +45,7 @@ export function RegisterProgramForm3() {
 		resolver: yupResolver(signUpSchema)
 	});
 
-	async function onSubmit({ tags }: FormDataProps) {
+	async function onSubmit({ tags,programType }: FormDataProps) {
 		try {
 			const data = {
 				institutionEmail: "email@email.com",
@@ -55,7 +57,8 @@ export function RegisterProgramForm3() {
 				language: program.language,
 				programInitialDate: "2023-10-21",
 				programEndDate: "2023-10-21",
-				link: program.link
+				link: program.link,
+				programType
 			};
 			setIsLoading(true);
 			console.log(data)
@@ -105,6 +108,22 @@ export function RegisterProgramForm3() {
 				<ScrollView>
 
 					<VStack flex={1} mt={8}>
+						<Controller
+							control={control}
+							name="programType"
+							rules={{ required: false }}
+							render={({ field: { onChange } }) => (
+								<Select
+									{...register("programType")}
+									options={ProgramTypesOptions}
+									inputTitle="Tipo de programa:"
+									placeholder="Selecione o tipo"
+									label={t("Tipos de programa")}
+									onValueChange={value => onChange(value)}
+								/>			
+							)}	
+						/>
+
 						<Controller
 							control={control}
 							rules={{
