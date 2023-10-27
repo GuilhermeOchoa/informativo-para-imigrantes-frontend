@@ -96,7 +96,7 @@ export function Login() {
         </HStack>
 
         <Center>
-          <Text fontSize="xl">Bem-vindo(a)</Text>
+          <Text fontSize="xl">{t("Bem-vindo")}</Text>
         </Center>
 
         <HStack alignItems="center" mt={4}>
@@ -156,7 +156,7 @@ export function Login() {
                     />
                   </Pressable>
                 }
-                placeholder="Password"
+                placeholder={t("Senha")}
                 rounded="full"
                 fontFamily="body"
                 fontSize="md"
@@ -176,7 +176,7 @@ export function Login() {
           </Center>
 
           <Button
-            title="Entrar"
+            title={t("Entrar")}
             onPress={handleSubmit(handleLogin)}
             isLoading={isLoading}
             rounded="full"
@@ -184,14 +184,14 @@ export function Login() {
 
           <TouchableOpacity onPress={handleForgotPassword}>
             <Center pt={8}>
-              <Text underline color="purple.500" fontSize="md">Esqueci a senha</Text>
+              <Text underline color="purple.500" fontSize="md">{t("Esqueci a senha")}</Text>
             </Center>
           </TouchableOpacity>
 
           <Center pt={4}>
             <TouchableOpacity onPress={handleGoBack}>
-              <Text color=".500" fontSize="md">Não tem uma conta?{" "}
-                <Text bold underline color="green.500">Cadastre-se aqui</Text>
+              <Text color=".500" fontSize="md">{t("Nao tem uma conta")}{" "}
+                <Text bold underline color="green.500">{t("Cadastre-se aqui")}</Text>
               </Text>
             </TouchableOpacity>
           </Center>

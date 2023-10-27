@@ -16,7 +16,7 @@
         "DataFinalInscricoes" : "End enrollment date",
         "DataInicialPrograma" : "Start date",
         "DataInicialInscricoes" : "Start enrollment date",
-        "OnboardingTitle01": "Welcome",
+        "Bem-vindo": "Welcome",
         "OnboardingTitle02": "We're Here to Help",
         "OnboardingTitle03": "Exactly What You Expected!",
         "OnboardingTitle04": "All Set!",
@@ -27,6 +27,11 @@
         "BASIC": "Basic",
         "ASSISTANCE": "Assistance",
         "HIGHER": "Plus Élevé",
-        "Oportunidades": "Opportunities"
+        "Oportunidades": "Opportunities",
+        "Entrar":"Log in",
+        "Esqueci a senha": "Fotgot password",
+        "Nao tem uma conta": "Don't have an account?",
+        "Cadastre-se aqui": "Sign up",
+        "Senha": "Password"
     }
 }

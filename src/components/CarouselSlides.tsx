@@ -39,7 +39,7 @@ export function CarouselSlides() {
     useEffect(() => {
         setCarouselItems([
             {
-                title: t("OnboardingTitle01"),
+                title: t("Bem-vindo"),
                 text: t("OnboardingText01"),
                 image: logo,
             },

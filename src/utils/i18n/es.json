@@ -16,13 +16,14 @@
 		"DataFinalInscricoes" : "Fecha de finalizaci�n de las inscripciones",
 		"DataInicialPrograma" : "Fecha de inicio del programa",
 		"DataFinalPrograma" : "Fecha de finalizaci�n del programa",
-        "OnboardingTitle01": "Bienvenido",
+        "Bem-vindo": "Bienvenido",
         "OnboardingTitle02": "Estamos Aqu� para Ayudar",
         "OnboardingTitle03": "Exactamente lo Que Esperabas",
         "OnboardingTitle04": "Todo Listo!",
         "OnboardingText01": "Aqu�, intentaremos ofrecerte las mejores y m�s facilitadoras herramientas para ayudarte",
         "OnboardingText02": "Esta aplicaci�n ofrece la posibilidad de organizar y sistematizar la oferta educativa por instituci�n, opci�n acad�mica y ubicaci�n.",
         "OnboardingText03": "Agradecemos tu voto de confianza. Y recuerda: en caso de dudas, nuestro equipo estar� disponible a trav�s de contacto en l�nea.",
-        "OnboardingText04": "Ahora, en las pr�ximas pantallas, comenzar� un breve tutorial sobre las opciones dentro de la aplicaci�n y c�mo utilizarlas."
+        "OnboardingText04": "Ahora, en las pr�ximas pantallas, comenzar� un breve tutorial sobre las opciones dentro de la aplicaci�n y c�mo utilizarlas.",
+		"Entrar":"Log in"
     }
 }
