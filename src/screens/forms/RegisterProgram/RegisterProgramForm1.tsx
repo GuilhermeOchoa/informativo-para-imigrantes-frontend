@@ -4,7 +4,7 @@ import { VStack, HStack, Center, Divider, Text, Box } from "native-base"
 
 import { ScrollView } from "react-native"
 import { useTranslation } from "react-i18next"
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation, useRoute } from "@react-navigation/native"
 import { InstitutionNavigatorRoutesProps } from "@routes/institution.routes"
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
@@ -12,6 +12,7 @@ import { TextArea } from '@components/TextArea'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { DateInput } from "@components/DateInput";
+import { ProgramDTO } from "@dtos/ProgramDTO";
 
 type FormDataProps = {
 	title: string,
@@ -20,21 +21,26 @@ type FormDataProps = {
 	enrollmentEndDate: string
 }
 
+type routesData = {
+	data?: ProgramDTO,
+	fetchPrograms: () => void
+}
+
 const signUpSchema = yup.object({
 	title: yup
-	.string()
-	.required('Informe o nome.')
-	.min(3, 'O título deve conter mais de 3 digitos'),
+		.string()
+		.required('Informe o nome.')
+		.min(3, 'O título deve conter mais de 3 digitos'),
 	description: yup
-	.string()
-	.required('Informe o nome.')
-	.min(8, 'A descrição deve conter mais de 12 digitos'),
+		.string()
+		.required('Informe o nome.')
+		.min(8, 'A descrição deve conter mais de 12 digitos'),
 	enrollmentInitialDate: yup
-	.string()
-	.required('Informe a data do início das inscrições.'),
+		.string()
+		.required('Informe a data do início das inscrições.'),
 	enrollmentEndDate: yup
-	.string()
-	.required('Informe a data do termino das inscrições.'),
+		.string()
+		.required('Informe a data do termino das inscrições.'),
 });
 
 export function RegisterProgramForm1() {
@@ -42,24 +48,31 @@ export function RegisterProgramForm1() {
 
 	const navigation = useNavigation<InstitutionNavigatorRoutesProps>();
 	const [selectedEndDate, setSelectedEndDate] = useState('');
-    const [selectedInitialDate, setSelectedInitialDate] = useState('');
+	const [selectedInitialDate, setSelectedInitialDate] = useState('');
+
+	const route = useRoute();
+	const program = route.params as routesData;
 
 	const { control, handleSubmit, formState: { errors }, setValue } = useForm<FormDataProps>({
 		resolver: yupResolver(signUpSchema)
 	});
 
-    function handleEndDate(newDate: string) {
+	function handleEndDate(newDate: string) {
 		setSelectedEndDate(newDate)
 		setValue("enrollmentEndDate", newDate)
 	}
-    function handleInitialDate(newDate: string) {
+
+	function handleInitialDate(newDate: string) {
 		setSelectedInitialDate(newDate)
 		setValue("enrollmentInitialDate", newDate)
 	}
 
 	function onSubmit({ title, description, enrollmentInitialDate, enrollmentEndDate }: FormDataProps) {
 		console.log({ title, description, enrollmentInitialDate, enrollmentEndDate })
-		navigation.navigate("registerProgramForm2", { title, description, enrollmentInitialDate, enrollmentEndDate })
+
+		let data = { title, description, enrollmentInitialDate, enrollmentEndDate }
+
+		navigation.navigate("registerProgramForm2", { data, fetchPrograms: program.fetchPrograms })
 	}
 
 	return (
@@ -113,12 +126,12 @@ export function RegisterProgramForm1() {
 							errorMessage={errors.description?.message}
 							w="full"
 							bg="white.400"
-							mb={2} inputTitle={""}						
+							mb={2} inputTitle={""}
 						/>
 					)}
 				/>
 				<Text style={{ fontSize: 15, marginBottom: 4 }}>{"Inicio das inscrições*:"}</Text>
-                <Controller
+				<Controller
 					control={control}
 					name="enrollmentInitialDate"
 					rules={{
@@ -130,12 +143,12 @@ export function RegisterProgramForm1() {
 							variant={"underlined"}
 							selectDateFunction={handleInitialDate}
 							selectedDate={selectedInitialDate}
-                            errorMessage={errors.enrollmentInitialDate?.message}
+							errorMessage={errors.enrollmentInitialDate?.message}
 						/>
 					)}
 				/>
 
-                <Text style={{ fontSize: 15, marginBottom: 4 }}>{"Fim das inscrições*:"}</Text>
+				<Text style={{ fontSize: 15, marginBottom: 4 }}>{"Fim das inscrições*:"}</Text>
 				<Controller
 					control={control}
 					name="enrollmentEndDate"
@@ -145,14 +158,15 @@ export function RegisterProgramForm1() {
 					}}
 					render={() => (
 						<DateInput
-							
+
 							variant={"underlined"}
 							selectDateFunction={handleEndDate}
 							selectedDate={selectedEndDate}
-                            errorMessage={errors.enrollmentEndDate?.message}
+							errorMessage={errors.enrollmentEndDate?.message}
 						/>
 					)}
 				/>
+				
 				<Center mt={10}>
 					<Button
 						title="Proximo"

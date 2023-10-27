@@ -15,7 +15,7 @@ type Props = TouchableOpacityProps & {
     data: any,
     cardType: "program" | "article" | "institution",
     cardContext: "feed" | "articles" | "adminPrograms" | "adminInstitutions" | "myPrograms",
-    status: string,
+    status?: string,
 }
 
 type data = {

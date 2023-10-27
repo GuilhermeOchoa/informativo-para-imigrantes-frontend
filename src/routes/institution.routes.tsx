@@ -7,25 +7,31 @@ import { RegisterProgramForm2 } from '@screens/forms/RegisterProgram/RegisterPro
 import { RegisterProgramForm3 } from '@screens/forms/RegisterProgram/RegisterProgramForm3';
 
 type InstitutionRoutes = {
-    profile: undefined
-    myPrograms: undefined
-    registerProgramForm1: undefined;
-	registerProgramForm2: ProgramDTO;
-	registerProgramForm3: ProgramDTO;
+	profile: undefined
+	myPrograms: undefined
+	registerProgramForm1: routesData;
+	registerProgramForm2: routesData;
+	registerProgramForm3: routesData;
 }
+
+type routesData = {
+	data?: ProgramDTO,
+	fetchPrograms: () => void
+}
+
 
 export type InstitutionNavigatorRoutesProps = NativeStackNavigationProp<InstitutionRoutes>;
 
 const { Navigator, Screen } = createNativeStackNavigator<InstitutionRoutes>();
 
 export function InstitutionRoutes() {
-    return (
-        <Navigator screenOptions={{ headerShown: false }}>
-            <Screen
-                name='myPrograms'
-                component={MyPrograms}
-            />
-            <Screen
+	return (
+		<Navigator screenOptions={{ headerShown: false }}>
+			<Screen
+				name='myPrograms'
+				component={MyPrograms}
+			/>
+			<Screen
 				name='registerProgramForm1'
 				component={RegisterProgramForm1}
 			/>
@@ -39,6 +45,6 @@ export function InstitutionRoutes() {
 				name='registerProgramForm3'
 				component={RegisterProgramForm3}
 			/>
-        </Navigator>
-    )
+		</Navigator>
+	)
 }

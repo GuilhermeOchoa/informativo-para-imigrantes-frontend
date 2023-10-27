@@ -1,4 +1,4 @@
-import { UseFormClearErrors, Controller,useForm } from "react-hook-form"
+import { UseFormClearErrors, Controller, useForm } from "react-hook-form"
 import { VStack, HStack, Center, Divider, Text, ScrollView, useToast } from "native-base"
 
 import { parse } from "date-fns"
@@ -11,7 +11,7 @@ import FileAttachment from "@components/FileAttachment"
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
-import { TagOptions,ProgramTypesOptions } from "@utils/SelectOptions"
+import { TagOptions, ProgramTypesOptions } from "@utils/SelectOptions"
 import { postProgramForm } from "@services/Forms"
 import { useNavigation, useRoute } from "@react-navigation/native"
 import { InstitutionNavigatorRoutesProps } from "@routes/institution.routes"
@@ -20,14 +20,19 @@ import { ProgramDTO } from "@dtos/ProgramDTO"
 import { AppError } from "@utils/AppError"
 
 type FormDataProps = {
-	tags?: {label: string; value: string}[],
+	tags?: { label: string; value: string }[],
 	programType: string,
+}
+
+type routesData = {
+	data?: ProgramDTO,
+	fetchPrograms: () => void
 }
 
 const signUpSchema = yup.object({
 	programType: yup
-	.string()
-	.required('Informe o tipo de programa'),   
+		.string()
+		.required('Informe o tipo de programa'),
 });
 
 export function RegisterProgramForm3() {
@@ -37,7 +42,7 @@ export function RegisterProgramForm3() {
 	const toast = useToast();
 
 	const route = useRoute();
-	const program = route.params as ProgramDTO;
+	const program = route.params as routesData;
 
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -45,34 +50,39 @@ export function RegisterProgramForm3() {
 		resolver: yupResolver(signUpSchema)
 	});
 
-	async function onSubmit({ tags,programType }: FormDataProps) {
+	async function onSubmit({ tags, programType }: FormDataProps) {
 		try {
 			const data = {
 				institutionEmail: "email@email.com",
-				title: program.title,
-				description: program.description,
+				title: program.data?.title,
+				description: program.data?.description,
 				enrollmentInitialDate: "2023-10-21",
 				enrollmentEndDate: "2023-10-21",
-				location: program.location,
-				language: program.language,
+				location: program.data?.location,
+				language: program.data?.language,
 				programInitialDate: "2023-10-21",
 				programEndDate: "2023-10-21",
-				link: program.link,
+				link: program.data?.link,
 				programType
 			};
+
 			setIsLoading(true);
 			console.log(data)
 
 			await postProgramForm(data);
+
+			program.fetchPrograms();
+			
 			toast.show({
 				title: "Programa cadastrado com sucesso",
 				placement: "top",
-				bgColor: "green.500"
+				bgColor: "green.500",
+				duration: 3000,
 			});
 
 			setTimeout(function () {
 				navigation.navigate("myPrograms");
-			}, 5000);
+			}, 3000);
 
 		} catch (error) {
 			const isAppError = error instanceof AppError;
@@ -120,8 +130,8 @@ export function RegisterProgramForm3() {
 									placeholder="Selecione o tipo"
 									label={t("Tipos de programa")}
 									onValueChange={value => onChange(value)}
-								/>			
-							)}	
+								/>
+							)}
 						/>
 
 						<Controller

@@ -40,6 +40,8 @@ export function Routes() {
 				selectedRoutes = <InstitutionRoutes />;
 			} else if (userType === "ADMIN") {
 				selectedRoutes = <AdmRoutes />;
+			} else {
+				selectedRoutes = <AuthRoutes />;
 			}
 		} else if (justInformation) {
 			selectedRoutes = <AppRoutes />;

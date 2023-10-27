@@ -1,18 +1,47 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { VStack, Text } from 'native-base';
-import { StyleSheet, View } from 'react-native';
+import { VStack, Text, HStack, Center, Divider, Icon } from 'native-base';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import '@utils/i18n/i18n';
 import { useTranslation } from 'react-i18next';
 import { PendingInstitutions } from '@screens/PendingInstitutions';
 import { PendingPrograms } from '@screens/PendingPrograms';
+import { MaterialIcons } from '@expo/vector-icons';
+import { useAuth } from '@hooks/useAuth';
 
 const Tab = createMaterialTopTabNavigator();
 
 export function Admin() {
 	const { t, i18n } = useTranslation();
+	const { signOut } = useAuth();
+
+	function handleGoBack() {
+		signOut();
+	}
 
 	return (
-		<VStack flex={1} pb={6} mt={2}>
+		<VStack flex={1}pb={6} mt={12}>
+			<HStack alignItems="center" m={2}>
+
+				<HStack flex={1} alignItems="center" >
+					<TouchableOpacity>
+						<Icon
+							as={MaterialIcons}
+							name="logout"
+							color="gray.700"
+							size={7}
+							onPress={handleGoBack}
+						/>
+					</TouchableOpacity>
+
+					<Center flex={1} mr={7}>
+						<Text fontFamily="body" fontSize="xl" >
+							{t("Admnistrativo")}
+						</Text>
+					</Center>
+				</HStack>
+
+			</HStack>
+			
 			<Tab.Navigator
 				screenOptions={{
 					tabBarLabelStyle: { fontSize: 0, color: '#FFF', fontWeight: 'bold' },
@@ -103,6 +132,6 @@ const styles = StyleSheet.create({
 		color: '#fff',
 		fontWeight: 'bold',
 		position: 'absolute',
-		fontSize: 11,		
+		fontSize: 11,
 	}
 })

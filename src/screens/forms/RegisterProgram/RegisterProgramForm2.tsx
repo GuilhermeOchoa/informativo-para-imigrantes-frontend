@@ -22,60 +22,66 @@ type FormDataProps = {
 	link: string
 }
 
+type routesData = {
+	data?: ProgramDTO,
+	fetchPrograms: () => void
+}
+
 const signUpSchema = yup.object({
 	location: yup
-	.string()
-	.required('Informe o local.'),
+		.string()
+		.required('Informe o local.'),
 	language: yup
-	.string()
-	.required('Informe o idioma.'),
+		.string()
+		.required('Informe o idioma.'),
 	programInitialDate: yup
-	.string()
-	.required('Informe a data do inicio do programa.'),
+		.string()
+		.required('Informe a data do inicio do programa.'),
 	programEndDate: yup
-	.string()
-	.required('Informe a data final do programa.'),
+		.string()
+		.required('Informe a data final do programa.'),
 	link: yup
-	.string()
-	.required('Informe o link.'),
+		.string()
+		.required('Informe o link.'),
 });
 
 export function RegisterProgramForm2() {
 	const navigation = useNavigation<InstitutionNavigatorRoutesProps>();
 	const { t, i18n } = useTranslation();
-    const [selectedEndDate, setSelectedEndDate] = useState('');
-    const [selectedInitialDate, setSelectedInitialDate] = useState('');
+	const [selectedEndDate, setSelectedEndDate] = useState('');
+	const [selectedInitialDate, setSelectedInitialDate] = useState('');
 
 	const route = useRoute();
-	const program = route.params as ProgramDTO;
+	const program = route.params as routesData;
 
 	const { register, control, handleSubmit, formState: { errors }, setValue } = useForm<FormDataProps>({
 		resolver: yupResolver(signUpSchema)
 	});
 
-    function handleEndDate(newDate: string) {
+	function handleEndDate(newDate: string) {
 		setSelectedEndDate(newDate)
 		setValue("programEndDate", newDate)
 	}
-    function handleInitialDate(newDate: string) {
+	function handleInitialDate(newDate: string) {
 		setSelectedInitialDate(newDate)
 		setValue("programInitialDate", newDate)
 	}
 
 	function onSubmit({ location, language, programInitialDate, programEndDate, link }: FormDataProps) {
 		const data = {
-			title: program.title,
-			description: program.description,
-			enrollmentInitialDate: program.enrollmentInitialDate,
-			enrollmentEndDate: program.enrollmentEndDate,
+			title: program.data?.title,
+			description: program.data?.description,
+			enrollmentInitialDate: program.data?.enrollmentInitialDate,
+			enrollmentEndDate: program.data?.enrollmentEndDate,
 			location,
 			language,
 			programInitialDate,
 			programEndDate,
 			link
 		};
-		console.log(data)
-		navigation.navigate("registerProgramForm3", data)
+
+		navigation.navigate("registerProgramForm3", { data, fetchPrograms: program.fetchPrograms })
+
 	}
 
 	return (
@@ -123,6 +129,7 @@ export function RegisterProgramForm2() {
 
 						)}
 					/>
+
 					<Controller
 						name="language"
 						control={control}
@@ -140,56 +147,62 @@ export function RegisterProgramForm2() {
 
 						)}
 					/>
+
 					<Text style={{ fontSize: 15 }}>
-						{t("programInitialDate")}
-						</Text>
+						{t("DataInicioPrograma")}
+					</Text>
+
 					<Controller
-					control={control}
-					name="programInitialDate"
-					rules={{
-						required: true,
-						maxLength: 100,
-					}}
-					render={() => (
-						<DateInput
-							variant={"underlined"}
-							selectDateFunction={handleInitialDate}
-							selectedDate={selectedInitialDate}
-                            errorMessage={errors.programInitialDate?.message}
-						/>
-					)}
-				/>
+						control={control}
+						name="programInitialDate"
+						rules={{
+							required: true,
+							maxLength: 100,
+						}}
+						render={() => (
+							<DateInput
+								variant={"underlined"}
+								selectDateFunction={handleInitialDate}
+								selectedDate={selectedInitialDate}
+								errorMessage={errors.programInitialDate?.message}
+							/>
+						)}
+					/>
+
 					<Text style={{ fontSize: 15 }}>
 						{t("DataFinalPrograma")}
-						</Text>
+					</Text>
+
 					<Controller
-					control={control}
-					name="programEndDate"
-					rules={{
-						required: true,
-						maxLength: 100,
-					}}
-					render={() => (
-						<DateInput
-							variant={"underlined"}
-							selectDateFunction={handleEndDate}
-							selectedDate={selectedEndDate}
-                            errorMessage={errors.programEndDate?.message}
-						/>
-					)}
-				/>
+						control={control}
+						name="programEndDate"
+						rules={{
+							required: true,
+							maxLength: 100,
+						}}
+						render={() => (
+							<DateInput
+								variant={"underlined"}
+								selectDateFunction={handleEndDate}
+								selectedDate={selectedEndDate}
+								errorMessage={errors.programEndDate?.message}
+							/>
+						)}
+					/>
+
 					<Controller
-					control={control}
-					name='link'
-					render={({ field: { onChange, value } }) => (
-						<Input
-							placeholder="Link*"
-							errorMessage={errors.link?.message}
-							onChangeText={onChange}
-							value={value}
-						/>
-					)}
-			/>
+						control={control}
+						name='link'
+						render={({ field: { onChange, value } }) => (
+							<Input
+								placeholder="Link*"
+								errorMessage={errors.link?.message}
+								onChangeText={onChange}
+								value={value}
+							/>
+						)}
+					/>
+
 				</VStack>
 
 				<Center mt={2}>

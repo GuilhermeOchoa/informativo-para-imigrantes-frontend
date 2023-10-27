@@ -13,10 +13,11 @@ import { Loading } from "@components/Loading";
 import { getProgramByType } from "@services/Programs";
 import { TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { AppNavigatorRoutesProps } from "@routes/app.routes";
 
 export function FeedCategory() {
+	const navigation = useNavigation<AppNavigatorRoutesProps>()
 	const { t, i18n } = useTranslation();
-	const navigation = useNavigation();
 	const route = useRoute();
 	const toast = useToast();
 
@@ -54,7 +55,7 @@ export function FeedCategory() {
 	}, [opportunity]);
 
 	function handleGoBack() {
-		navigation.goBack();
+		navigation.navigate("feed");
 	}
 
 	return (

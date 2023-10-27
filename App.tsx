@@ -1,4 +1,4 @@
-import { StatusBar } from 'react-native';
+import { LogBox, StatusBar } from 'react-native';
 import { NativeBaseProvider } from 'native-base'
 import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
 
@@ -12,6 +12,9 @@ import i18n from '@utils/i18n/i18n';
 
 import { storageUserGet } from '@storage/storageUser';
 import { useEffect } from 'react';
+
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
 
 export default function App() {
     const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
