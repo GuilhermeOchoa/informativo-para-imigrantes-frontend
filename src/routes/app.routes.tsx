@@ -57,18 +57,20 @@ export function AppRoutes() {
 	const [t, i18n] = useTranslation();
 
 	return (
-		<Navigator screenOptions={{
-			headerShown: false,
-			tabBarActiveTintColor: colors.green[500],
-			tabBarInactiveTintColor: colors.gray[800],
-			tabBarStyle: {
-				backgroundColor: colors.white,
-				borderTopWidth: 1,
-				height: 90,
-				paddingBottom: sizes[6],
-				paddingTop: sizes[6],
-			},
-		}}>
+		<Navigator
+			initialRouteName='feed'
+			screenOptions={{
+				headerShown: false,
+				tabBarActiveTintColor: colors.green[500],
+				tabBarInactiveTintColor: colors.gray[800],
+				tabBarStyle: {
+					backgroundColor: colors.white,
+					borderTopWidth: 1,
+					height: 90,
+					paddingBottom: sizes[6],
+					paddingTop: sizes[6],
+				},
+			}}>
 
 			<Screen
 				name='profile'
