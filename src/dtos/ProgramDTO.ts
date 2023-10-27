@@ -1,6 +1,7 @@
 import { TagsDTO } from "./TagsDTO";
 
 export type ProgramDTO = {
+	id?: string;
 	title?: string;
 	description?: string;
 	programInitialDate?: string;
@@ -11,8 +12,20 @@ export type ProgramDTO = {
 	location?: string;
 	file?: string;
 	link?: string;
-	programType?: number;
+	programType?: ProgramType;
 	institutionEmail?: string;
-	status?: string;
+	status?: Status;
 	tags?: string[];
 };
+enum Status {
+	PENDING = 'PENDING',
+	APPROVED = 'APPROVED',
+	REJECTED = 'REJECTED'
+   }
+   
+   enum ProgramType {
+	SUPERIOR = 'Ensino Superior',
+	BASIC = 'Ensino Basico',
+	ASSISTANCE = 'Programas de auxílio'
+   }
+   

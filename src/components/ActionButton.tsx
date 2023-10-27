@@ -3,14 +3,14 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacityProps, StyleSheet } from "react-native";
 
 type Props = TouchableOpacityProps & {
-    status: "pending" | "approved" | "rejected"
+    status: "PENDING" | "APPROVED" | "REJECTED"
 
 }
 
 export function ActionButton({ status, ...rest }: Props) {
 const styles = StyleSheet.create({
     text : {
-        color: status === "pending" ? "yellow.400" : status === "approved" ? "green.200" : "red.400",
+        color: status === "PENDING" ? "yellow.400" : status === "APPROVED" ? "green.200" : "red.400",
         position: "absolute",
         top: 60,
         right: 10,
@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
             renderInPortal={false}
             shadow={0}
             backgroundColor={
-                status === "pending" ? "yellow.400"
-                    : status === "approved" ? "blue.400"
+                status === "PENDING" ? "yellow.400"
+                    : status === "APPROVED" ? "blue.400"
                         : "red.400"
             }
             placement="top-right"
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
                 <Icon
                     color="white"
                     as={MaterialIcons}
-                    name={status === "pending" ? "access-time" : status === "approved" ? "check" : "close"}
+                    name={status === "PENDING" ? "access-time" : status === "APPROVED" ? "check" : "close"}
                     size="sm"
                     marginLeft={-2}
                 />
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         />
 
         <Text style={styles.text}>
-        {status === "pending" ? "Pendente" : status === "approved" ? "Aprovado" : "Rejeitado"}
+        {status === "PENDING" ? "Pendente" : status === "APPROVED" ? "Aprovado" : "Rejeitado"}
     </Text>  
     </>
     )

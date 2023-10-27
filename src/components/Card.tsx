@@ -1,4 +1,4 @@
-import { Box, Icon, Text } from "native-base";
+import { Box, Hidden, Icon, Text } from "native-base";
 import { TouchableOpacityProps } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -14,22 +14,19 @@ import { Button } from "./Button";
 type Props = TouchableOpacityProps & {
     data: any,
     cardType: "program" | "article" | "institution",
-    cardContext: "feed" | "articles" | "adminPrograms" | "adminInstitutions" | "myPrograms"
+    cardContext: "feed" | "articles" | "adminPrograms" | "adminInstitutions" | "myPrograms",
+    status: string,
 }
 
 type data = {
     institutionData: InstitutionDTO,
     programData: ProgramDTO,
-    articleData: ArticleDTO
+    articleData: ArticleDTO,
 }
 
 
-export function Card({ data, cardType, cardContext, ...rest }: Props) {
-    console.log(cardType, cardContext)
+export function Card({ data, cardType, cardContext, status, ...rest }: Props) {
     const { t, i18n } = useTranslation();
-
-    const status = "pending" //remover depois
-    console.log(data)
 
     return (
         <>
@@ -38,33 +35,35 @@ export function Card({ data, cardType, cardContext, ...rest }: Props) {
                     cardContext === "adminInstitutions" ||
                     cardContext === "myPrograms") &&
                     <ActionButton
-                        status={status}
+                        status={data.status as "PENDING" | "APPROVED" | "REJECTED"}
                     />
                 }
             <Box p="5" rounded="3xl" bg={"lightGreen.500"} height={160}>
 
                 <Text fontSize="md" fontFamily="heading" numberOfLines={1} width={230}>
                     {cardType === "program"
-                        ? data.name
+                        ? data.title
                         : cardType === "article"
                             ? data.title
-                                : data.institutionName
+                            : data.institutionName
                     }
                 </Text>
+
                 <Box>
-                    <Text fontSize="sm" color="black" mt={1} p={1} numberOfLines={3}>
+                    <Text fontSize="sm" color="black" mt={1} numberOfLines={3}>
                         {cardType === "program"
                             ? data.description
                             : cardType === "article"
                                 ? data.content
                                 : data.type + "\n "
-                                    + data.registrantName + " - " 
-                                    + data.registrantRole + "\n Fone: "
-                                    + data.phone
+                                + data.registrantName + " - "
+                                + data.registrantRole + "\n Fone: "
+                                + data.phone
                         }
                     </Text>
                 </Box>
-                <Box mt={2} >
+
+                <Box mt={2}>
                     {cardType === "program" &&
                         <TagDisplay
                             tags={data.tags}
@@ -73,6 +72,7 @@ export function Card({ data, cardType, cardContext, ...rest }: Props) {
                 </Box>
 
             </Box>
+
             <Box>
                 <Button
                     title={t("Ver mais")}

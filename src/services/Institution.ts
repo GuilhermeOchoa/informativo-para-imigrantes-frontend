@@ -9,3 +9,7 @@ export function postInstitution(institutionDTO: InstitutionDTO) {
 export function getmmigrant() {
 	return api.get('/institutions');
 }
+
+export function getInstitutionsByStatus(status: String){
+    return api.get(`/institutions?=${status}`);
+}

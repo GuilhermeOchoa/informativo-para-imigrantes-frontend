@@ -23,6 +23,10 @@
 		"OnboardingText01": "Ici, nous essaierons de vous offrir les meilleurs outils les plus facilitants pour vous aider.",
 		"OnboardingText02": "Cette application offre la possibilit� d'organiser et de syst�matiser l'offre �ducative par institution, option acad�mique et emplacement.",
 		"OnboardingText03": "Nous appr�cions votre vote de confiance. Et n'oubliez pas : en cas de doutes, notre �quipe sera disponible via un contact en ligne.",
-		"OnboardingText04": "Maintenant, sur les �crans suivants, un bref tutoriel d�butera sur les options au sein de l'application et comment les utiliser."
+		"OnboardingText04": "Maintenant, sur les �crans suivants, un bref tutoriel d�butera sur les options au sein de l'application et comment les utiliser.",
+		"BASIC" : "Ensino B�sico",
+		"ASSISTANCE": "Programa de Aux�lio",
+		"HIGHER": "Ensino Superior",
+        "Oportunidades": "Opportunit�s"
 	}
 }

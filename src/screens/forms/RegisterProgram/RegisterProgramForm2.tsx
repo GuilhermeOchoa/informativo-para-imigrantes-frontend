@@ -9,10 +9,10 @@ import { Input } from "@components/Input"
 import { Select } from "@components/Select"
 import { ProgramLanguageOptions, ProgramLocalOptions } from "@utils/SelectOptions"
 import { DateInput } from "@components/DateInput"
-import { AuthNavigatorRoutesProps } from "@routes/auth.routes"
 import { useNavigation, useRoute } from "@react-navigation/native"
 import { ProgramDTO } from "@dtos/ProgramDTO"
 import { useTranslation } from "react-i18next"
+import { InstitutionNavigatorRoutesProps } from "@routes/institution.routes"
 
 type FormDataProps = {
 	location: string,
@@ -41,7 +41,7 @@ const signUpSchema = yup.object({
 });
 
 export function RegisterProgramForm2() {
-	const navigation = useNavigation<AuthNavigatorRoutesProps>();
+	const navigation = useNavigation<InstitutionNavigatorRoutesProps>();
 	const { t, i18n } = useTranslation();
     const [selectedEndDate, setSelectedEndDate] = useState('');
     const [selectedInitialDate, setSelectedInitialDate] = useState('');

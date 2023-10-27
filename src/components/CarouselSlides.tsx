@@ -124,6 +124,7 @@ export function CarouselSlides() {
                     title={t("Acessar")}
                     style={styles.button}
                     onPress={handleNavigate}
+                    rounded="full"
                 />
             ) : (
                 <CarouselMenu
@@ -191,8 +192,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     button: {
-        width: 200,
-        height: 50,
         alignSelf: "center",
         marginBottom: 40,
     },
