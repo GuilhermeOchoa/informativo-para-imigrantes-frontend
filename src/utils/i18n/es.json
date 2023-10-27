@@ -24,6 +24,10 @@
         "OnboardingText02": "Esta aplicaci�n ofrece la posibilidad de organizar y sistematizar la oferta educativa por instituci�n, opci�n acad�mica y ubicaci�n.",
         "OnboardingText03": "Agradecemos tu voto de confianza. Y recuerda: en caso de dudas, nuestro equipo estar� disponible a trav�s de contacto en l�nea.",
         "OnboardingText04": "Ahora, en las pr�ximas pantallas, comenzar� un breve tutorial sobre las opciones dentro de la aplicaci�n y c�mo utilizarlas.",
-		"Entrar":"Log in"
+		"Entrar": "Iniciar sesión",
+		"Esqueci a senha": "Olvidé mi contraseña",
+		"No tiene una cuenta": "¿No tiene una cuenta?",
+		"Regístrese aquí": "Regístrese aquí",
+		"Contraseña": "Contraseña"
     }
 }

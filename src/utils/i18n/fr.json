@@ -28,6 +28,10 @@
 		"ASSISTANCE": "Programa de Aux�lio",
 		"HIGHER": "Ensino Superior",
         "Oportunidades": "Opportunit�s",
-		"Entrar":"Log in"
+		"Entrar":"Entrer",
+        "Esqueci a senha": "J'ai oublié le mot de passe",
+        "Nao tem uma conta": "Vous n'avez pas de compte?",
+        "Cadastre-se aqui": "Inscrivez-vous ici",
+        "Senha": "Mot de passe"
 	}
 }
