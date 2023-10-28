@@ -28,9 +28,9 @@ type data = {
 export function Card({ data, cardType, cardContext, status, ...rest }: Props) {
     const { t, i18n } = useTranslation();
 
-    return (
+	return (
         <>
-            {cardType !== "article" && (
+            {cardType !== "article" &&  (
                 cardContext === "adminPrograms" ||
                 cardContext === "adminInstitutions" ||
                 cardContext === "myPrograms") &&

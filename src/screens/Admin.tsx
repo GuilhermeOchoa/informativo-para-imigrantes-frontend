@@ -19,7 +19,7 @@ export function Admin() {
 	}
 
 	return (
-		<VStack flex={1}pb={6} mt={12}>
+		<VStack flex={1} pb={6} mt={12}>
 			<HStack alignItems="center" m={2}>
 
 				<HStack flex={1} alignItems="center" >
@@ -35,13 +35,13 @@ export function Admin() {
 
 					<Center flex={1} mr={7}>
 						<Text fontFamily="body" fontSize="xl" >
-							{t("Admnistrativo")}
+							{t("Administrativo")}
 						</Text>
 					</Center>
 				</HStack>
 
 			</HStack>
-			
+
 			<Tab.Navigator
 				screenOptions={{
 					tabBarLabelStyle: { fontSize: 0, color: '#FFF', fontWeight: 'bold' },
@@ -49,7 +49,8 @@ export function Admin() {
 					tabBarStyle: { backgroundColor: '#6BAB90' },
 					tabBarIndicatorStyle: { height: 0 },
 					swipeEnabled: false,
-					tabBarPressColor: 'transparent'
+					tabBarPressColor: 'transparent',
+					tabBarShowLabel: false
 				}}>
 				<Tab.Screen
 					name="Instituições Pendentes"
@@ -63,7 +64,6 @@ export function Admin() {
 								backgroundColor: focused ? '#3D7D6A' : '#6BAB90',
 								width: 175,
 								alignSelf: 'center',
-								marginTop: 6,
 								borderRadius: 6,
 							}}>
 								<View style={styles.circle}>
@@ -88,7 +88,6 @@ export function Admin() {
 								backgroundColor: focused ? '#3D7D6A' : '#6BAB90',
 								width: 170,
 								alignSelf: 'center',
-								marginTop: 6,
 								borderRadius: 6,
 							}}>
 								<View style={styles.circle}>

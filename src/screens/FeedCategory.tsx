@@ -81,14 +81,13 @@ export function FeedCategory() {
 			</HStack>
 
 			<Divider my={4} bgColor="green.500" />
-			
+
 			{isLoading ? <Loading /> :
 				<FlatList
 					data={programs}
 					renderItem={({ item }) => (
 						<Card
 							data={item}
-							status="approved"
 							cardType="program"
 							cardContext="myPrograms"
 						/>

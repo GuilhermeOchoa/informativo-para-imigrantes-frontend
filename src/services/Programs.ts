@@ -5,5 +5,6 @@ export async function getCategoriesWithCount() {
 }
 
 export function getProgramByType(programType: string) {
-    return api.get("/programs?type=" + programType);
+	console.log(programType)
+    return api.get(`/programs?type=` + programType + `&status=APPROVED`);
 };

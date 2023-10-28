@@ -10,7 +10,7 @@ type Props = TouchableOpacityProps & {
 export function ActionButton({ status, ...rest }: Props) {
 const styles = StyleSheet.create({
     text : {
-        color: status === "PENDING" ? "yellow.400" : status === "APPROVED" ? "green.200" : "red.400",
+        color: status === "PENDING" ? "yellow" : status === "APPROVED" ? "green" : "red",
         position: "absolute",
         top: 60,
         right: 10,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 
         <Text style={styles.text}>
         {status === "PENDING" ? "Pendente" : status === "APPROVED" ? "Aprovado" : "Rejeitado"}
-    </Text>  
+    </Text>
     </>
     )
 }
