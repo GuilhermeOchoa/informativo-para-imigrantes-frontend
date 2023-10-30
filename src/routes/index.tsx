@@ -7,6 +7,8 @@ import { useAuth } from '@hooks/useAuth';
 import { Loading } from '@components/Loading';
 import { AuthRoutes } from './auth.routes';
 import { AppRoutes } from './app.routes';
+import { AdmRoutes } from './adm.routes';
+import { InstitutionRoutes } from './institution.routes';
 
 export function Routes() {
 	const { colors } = useTheme();
@@ -35,9 +37,11 @@ export function Routes() {
 			if (userType === "IMMIGRANT") {
 				selectedRoutes = <AppRoutes />;
 			} else if (userType === "INSTITUTION") {
-				// selectedRoutes = <InstitutionRoutes />;
-			} else if (userType === "ADM") {
-				// selectedRoutes = <AdmRoutes />;
+				selectedRoutes = <InstitutionRoutes />;
+			} else if (userType === "ADMIN") {
+				selectedRoutes = <AdmRoutes />;
+			} else {
+				selectedRoutes = <AuthRoutes />;
 			}
 		} else if (justInformation) {
 			selectedRoutes = <AppRoutes />;
@@ -46,6 +50,7 @@ export function Routes() {
 		}
 	}
 
+	console.log("rota ", selectedRoutes);
 
 	return (
 		<Box flex={1} bg="#F8F8F8">

@@ -34,3 +34,5 @@ npm install react-hook-form
 npm install @hookform/resolvers yup
 # DateTimePicker
 npx expo install @react-native-community/datetimepicker
+# Top tabs
+npm install @react-navigation/material-top-tabs

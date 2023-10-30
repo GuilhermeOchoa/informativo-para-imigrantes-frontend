@@ -12,7 +12,7 @@
         "Saiba mais": "Saiba mais",
         "Nao ha informativos disponiveis": "Nao ha informativos disponiveis",
         "Acessar":  "Acessar",
-        "OnboardingTitle01": "Bem-vindo(a)",
+        "Bem-vindo": "Bem-vindo(a)",
         "OnboardingTitle02": "Estamos aqui para ajudar",
         "OnboardingTitle03": "Exatamente o que você esperava!",
         "OnboardingTitle04": "Tudo pronto!",
@@ -36,6 +36,16 @@
         "ErroInsercaoCadastro": "Cadastro de Programa",
         "InformacoesAdicionaisPlaceHolder": "Requisitos do candidato, informações adicionais, etc.",
         "Anexar": "Anexar",
-        "FinalizarCadastro": "Finalizar Cadastro"
+        "FinalizarCadastro": "Finalizar Cadastro",
+        "BASIC": "Ensino Básico",
+        "ASSISTANCE": "Programa de Auxílio",
+        "HIGHER": "Ensino Superior",
+        "Oportunidades": "Oportunidades",
+        "Entrar":"Entrar",
+        "Esqueci a senha": "Esqueci a senha",
+        "Nao tem uma conta": "Não tem uma conta?",
+        "Cadastre-se aqui": "Cadastre-se aqui",
+        "Senha": "Senha",
+        "Email ou senha incorreta": "Email ou senha incorreta"
     }
 }

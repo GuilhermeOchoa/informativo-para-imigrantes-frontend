@@ -7,12 +7,14 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { ArticleDTO } from '@dtos/ArticleDTO';
 
 import { Feed } from '@screens/Feed';
+import { FeedCategory } from '@screens/FeedCategory';
 import { Contact } from '@screens/Contact';
 import { Profile } from '@screens/Profile';
 import { Articles } from '@screens/Articles';
 import { ArticlesDetals } from '@screens/ArticlesDetails';
 
 import { useTranslation } from 'react-i18next';
+import { OpportunityDTO } from '@dtos/OpportunityDTO';
 
 type AppRoutes = {
 	feed: undefined;
@@ -22,6 +24,7 @@ type AppRoutes = {
 	articleDetails: ArticleDTO;
 	registerProgramFormPage: undefined;
 	onboarding: undefined;
+	feedCategory: OpportunityDTO;
 }
 
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>;
@@ -54,18 +57,20 @@ export function AppRoutes() {
 	const [t, i18n] = useTranslation();
 
 	return (
-		<Navigator screenOptions={{
-			headerShown: false,
-			tabBarActiveTintColor: colors.green[500],
-			tabBarInactiveTintColor: colors.gray[800],
-			tabBarStyle: {
-				backgroundColor: colors.white,
-				borderTopWidth: 1,
-				height: 90,
-				paddingBottom: sizes[6],
-				paddingTop: sizes[6],
-			},
-		}}>
+		<Navigator
+			initialRouteName='feed'
+			screenOptions={{
+				headerShown: false,
+				tabBarActiveTintColor: colors.green[500],
+				tabBarInactiveTintColor: colors.gray[800],
+				tabBarStyle: {
+					backgroundColor: colors.white,
+					borderTopWidth: 1,
+					height: 90,
+					paddingBottom: sizes[6],
+					paddingTop: sizes[6],
+				},
+			}}>
 
 			<Screen
 				name='profile'
@@ -121,6 +126,14 @@ export function AppRoutes() {
 			<Screen
 				name='articleDetails'
 				component={ArticlesDetals}
+				options={{
+					tabBarButton: () => null
+				}}
+			/>
+
+			<Screen
+				name='feedCategory'
+				component={FeedCategory}
 				options={{
 					tabBarButton: () => null
 				}}

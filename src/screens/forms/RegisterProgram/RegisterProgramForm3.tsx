@@ -1,42 +1,50 @@
-import { useForm, Controller, useFormContext } from "react-hook-form"
+import { UseFormClearErrors, Controller, useForm } from "react-hook-form"
 import { VStack, HStack, Center, Divider, Text, ScrollView, useToast } from "native-base"
 
-import { parse } from "date-fns"
-import { useState } from "react"
 import { Button } from "@components/Button"
-import { TextArea } from "@components/TextArea"
+import { Select } from "@components/Select"
 import { TagSelection } from "@components/TagSelection"
 import FileAttachment from "@components/FileAttachment"
+import { useAuth } from "@hooks/useAuth"
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
-import { TagOptions } from "@utils/SelectOptions"
+import { TagOptions, ProgramTypesOptions } from "@utils/SelectOptions"
 import { postProgramForm } from "@services/Forms"
 import { useNavigation, useRoute } from "@react-navigation/native"
-import { AuthNavigatorRoutesProps } from "@routes/auth.routes"
+import { InstitutionNavigatorRoutesProps } from "@routes/institution.routes"
 import { useTranslation } from "react-i18next"
 import { ProgramDTO } from "@dtos/ProgramDTO"
 import { AppError } from "@utils/AppError"
+import { useState } from "react"
 
 type FormDataProps = {
-	tags?: string,
-	informacoesAdicionais?: string,
+	tags?: string[],
+	programType: string,
+}
+
+type routesData = {
+	data?: ProgramDTO,
+	fetchPrograms: () => void
 }
 
 const signUpSchema = yup.object({
-	// tags: yup.string().required('Informe o local.'),
-	// informacoesAdicionais: yup.string().required('Informe o idioma.'),
-});
+	programType: yup
+		.string()
+		.required('Informe o tipo de programa'),
+})
+
 
 export function RegisterProgramForm3() {
 
-	const navigation = useNavigation<AuthNavigatorRoutesProps>();
+	const navigation = useNavigation<InstitutionNavigatorRoutesProps>();
 	const { t, i18n } = useTranslation();
-	const toast = useToast();
 
+	const user = useAuth();
+	const toast = useToast();
 	const route = useRoute();
-	const program = route.params as ProgramDTO;
+	const program = route.params as routesData;
 
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -44,40 +52,44 @@ export function RegisterProgramForm3() {
 		resolver: yupResolver(signUpSchema)
 	});
 
-	async function onSubmit() {
+	async function onSubmit({ tags }: FormDataProps) {
+		console.log("program", program)
 		try {
-			const data = {
-				name: "Meu Programa",
-				institutionId: 1,
-				description: "Descri  o do meu programa",
-				link: "https://exemplo.com/programa",
-				timeDuration: 12,
-				minimalRequirements: ["Requisito 1", "Requisito 2"],
-				timeEnrollment: 30,
-				language: "Portugu s",
-				initialDate: "2023-10-05",
-				endDate: "2023-12-31",
-				status: "ACEITO"
+			const programData = {
+				institutionEmail: user.user.email ? user.user.email : "naofornecido@naofornecido.com",
+				title: program.data?.title,
+				description: program.data?.description,
+				enrollmentInitialDate: formatarData(program.data?.enrollmentInitialDate),
+				enrollmentEndDate: formatarData(program.data?.enrollmentEndDate),
+				location: program.data?.location,
+				language: program.data?.language,
+				programInitialDate: formatarData(program.data?.programInitialDate),
+				programEndDate: formatarData(program.data?.programEndDate),
+				link: program.data?.link,
+				tags: tags
 			};
 
 			setIsLoading(true);
-			console.log(data)
+			console.log(programData)
 
-			// await postProgramForm(data);
+			await postProgramForm(programData);
+
+			program.fetchPrograms();
 
 			toast.show({
-				title: "Cadastro realizado com sucesso",
+				title: "Programa cadastrado com sucesso",
 				placement: "top",
-				bgColor: "green.500"
+				bgColor: "green.500",
+				duration: 3000,
 			});
 
 			setTimeout(function () {
-				navigation.navigate("selectRegister");
-			}, 5000);
+				navigation.navigate("myPrograms");
+			}, 3000);
 
 		} catch (error) {
 			const isAppError = error instanceof AppError;
-			const title = isAppError ? error.message : t("Nao foi possivel cadastrar a instituicao")
+			const title = isAppError ? error.message : t("Nao foi possivel cadastrar o programa")
 
 			toast.show({
 				title,
@@ -89,46 +101,20 @@ export function RegisterProgramForm3() {
 		}
 	}
 
-	// const onSubmit = (data: any) => {
-	// 	console.log(data)
-	// 	//todo transform dates from string to Date
+	function formatarData(data: any) {
+		if (!data) {
+			return null;
+		}
 
-	// 	const { dataInicio,
-	// 		dataFim,
-	// 		nomePrograma,
-	// 		descricao,
-	// 		local,
-	// 		idioma,
-	// 		dataInicioPrograma,
-	// 		dataFimPrograma,
-	// 		link,
-	// 		tags,
-	// 		informacoesAdicionais
-	// 	} = data
+		const partesDaData = data.split('/');
 
-	// 	const description = descricao;
+		if (partesDaData.length !== 3) {
+			return null;
+		}
 
-	// 	const dataInicioParsed = parse(dataInicio, 'dd/MM/yyyy', new Date())
-	// 	const dataFimParsed = parse(dataFim, 'dd/MM/yyyy', new Date())
-	// 	const dataInicioProgramaParsed = parse(dataInicioPrograma, 'dd/MM/yyyy', new Date())
-	// 	const dataFimProgramaParsed = parse(dataFimPrograma, 'dd/MM/yyyy', new Date())
-
-	// 	const dataToSend = {
-	// 		dataInicioParsed,
-	// 		dataFimParsed,
-	// 		nomePrograma,
-	// 		description,
-	// 		local,
-	// 		idioma,
-	// 		dataInicioProgramaParsed,
-	// 		dataFimProgramaParsed,
-	// 		link,
-	// 		tags,
-	// 		informacoesAdicionais
-	// 	}
-	// 	console.log("dataToSend", dataToSend)
-	// 	return postProgramForm(dataToSend)
-	// }
+		const dataFormatada = `${partesDaData[2]}-${partesDaData[1]}-${partesDaData[0]}`;
+		return dataFormatada;
+	}
 
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
@@ -151,6 +137,22 @@ export function RegisterProgramForm3() {
 					<VStack flex={1} mt={8}>
 						<Controller
 							control={control}
+							name="programType"
+							rules={{ required: false }}
+							render={({ field: { onChange } }) => (
+								<Select
+									{...register("programType")}
+									options={ProgramTypesOptions}
+									inputTitle="Tipo de programa:"
+									placeholder="Selecione o tipo"
+									label={t("Tipos de programa")}
+									onValueChange={value => onChange(value)}
+								/>
+							)}
+						/>
+
+						<Controller
+							control={control}
 							rules={{
 								maxLength: 10,
 							}}
@@ -167,25 +169,8 @@ export function RegisterProgramForm3() {
 							)}
 							name="tags"
 						/>
-
-						<Controller
-							control={control}
-							rules={{
-								maxLength: 1000,
-							}}
-							name="informacoesAdicionais"
-							render={({ field: { onChange, onBlur } }) => (
-								<TextArea
-									{...register("informacoesAdicionais")}
-									placeholder="Requisitos do candidato, informações adicionais, etc."
-									onBlur={onBlur}
-									onChangeText={onChange}
-									inputTitle={"Informações Adicionais:"}
-								/>
-							)}
-						/>
 						<Center>
-							<Text style={{ fontSize: 15 }}>
+							<Text style={{ fontSize: 15, marginTop: 20 }}>
 								{"Anexar arquivo:"}
 							</Text>
 						</Center>
@@ -194,7 +179,7 @@ export function RegisterProgramForm3() {
 					</VStack>
 				</ScrollView>
 
-				<Center mt={10}>
+				<Center mt={24}>
 					<Button
 						title="Finalizar cadastro"
 						onPress={handleSubmit(onSubmit)}

@@ -1,13 +1,26 @@
+import { TagsDTO } from "./TagsDTO";
+
 export type ProgramDTO = {
-	name?: string;
+	id?: string;
+	title?: string;
 	description?: string;
-	initialDate?: string;
-	endDate?: string;
+	programInitialDate?: string;
+	programEndDate?: string;
 	language?: string;
+	enrollmentInitialDate?: string;
+	enrollmentEndDate?: string;
+	location?: string;
+	file?: string;
 	link?: string;
-	timeEnrollment?: number;
-	institutionId?: number;
-	status?: string;
-	timeDuration?: number;
-	minimalRequirements?: string[];
+	programType?: string;
+	institutionEmail?: string;
+	status?: Status;
+	tags?: string[];
 };
+
+enum Status {
+	PENDING = 'PENDING',
+	APPROVED = 'APPROVED',
+	REJECTED = 'REJECTED'
+}
+

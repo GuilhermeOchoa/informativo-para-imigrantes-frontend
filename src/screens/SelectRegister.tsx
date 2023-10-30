@@ -111,10 +111,6 @@ export function SelectRegister() {
 		}
 	};
 
-	function handlePaginaDoArthur() {
-		navigation.navigate('registerProgramForm1');
-	}
-
 	return (
 		<VStack flex={1} px={6} pb={6} mt={10}>
 			<ScrollView showsVerticalScrollIndicator={false}>
