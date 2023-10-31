@@ -1,5 +1,5 @@
 import { useForm, Controller } from "react-hook-form"
-import { VStack, HStack, Center, Divider, Text, ScrollView } from "native-base"
+import { VStack, HStack, Center, Divider, Text, ScrollView, Box } from "native-base"
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useState } from "react"
@@ -148,9 +148,7 @@ export function RegisterProgramForm2() {
 						)}
 					/>
 
-					<Text style={{ fontSize: 15 }}>
-						{t("DataInicioPrograma")}
-						</Text>
+					<Text pt={2} pb={2} fontSize="lg" color="gray.400">{t("DataInicialPrograma") + "*"}</Text>
 					<Controller
 						control={control}
 						name="programInitialDate"
@@ -168,9 +166,8 @@ export function RegisterProgramForm2() {
 						)}
 					/>
 
-					<Text style={{ fontSize: 15 }}>
-						{t("DataFinalPrograma")}
-					</Text>
+					<Text pt={8} pb={2} fontSize="lg" color="gray.400">{t("DataFinalPrograma") + "*"}</Text>
+
 
 					<Controller
 						control={control}
@@ -189,18 +186,22 @@ export function RegisterProgramForm2() {
 						)}
 					/>
 
+					<Box pt={2} pb={2}>
+
 					<Controller
 						control={control}
 						name='link'
 						render={({ field: { onChange, value } }) => (
 							<Input
-								placeholder="Link*"
+								style={{ marginTop: 12 }}
+								placeholder={t("Link") + "*"}
 								errorMessage={errors.link?.message}
 								onChangeText={onChange}
 								value={value}
 							/>
 						)}
 					/>
+					</Box>
 
 				</VStack>
 

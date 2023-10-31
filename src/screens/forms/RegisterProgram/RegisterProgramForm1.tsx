@@ -104,7 +104,7 @@ export function RegisterProgramForm1() {
 					name='title'
 					render={({ field: { onChange, value } }) => (
 						<Input
-							placeholder="Titulo*"
+							placeholder={t("Titulo") + "*"}
 							errorMessage={errors.title?.message}
 							onChangeText={onChange}
 							value={value}
@@ -112,7 +112,7 @@ export function RegisterProgramForm1() {
 					)}
 				/>
 
-				<Text pt={8} pb={2} fontSize="lg" color="gray.400">Descricao*</Text>
+				<Text pt={8} pb={2} fontSize="lg" color="gray.400">{t("Descricao") + "*"}</Text>
 
 				<Controller
 					control={control}
@@ -126,11 +126,10 @@ export function RegisterProgramForm1() {
 							errorMessage={errors.description?.message}
 							w="full"
 							bg="white.400"
-							mb={2} inputTitle={""}
 						/>
 					)}
 				/>
-				<Text style={{ fontSize: 15, marginBottom: 4 }}>{t("DataInicialInscricoes")}</Text>
+				<Text pt={8} pb={2} fontSize="lg" color="gray.400">{t("DataInicialInscricoes") + "*"}</Text>
                 <Controller
 					control={control}
 					name="enrollmentInitialDate"
@@ -148,7 +147,7 @@ export function RegisterProgramForm1() {
 					)}
 				/>
 
-                <Text style={{ fontSize: 15, marginBottom: 4 }}>{t("DataFinalInscricoes")}</Text>
+                <Text pt={8} pb={2} fontSize="lg" color="gray.400">{t("DataFinalInscricoes") + "*"}</Text>
 				<Controller
 					control={control}
 					name="enrollmentEndDate"
@@ -165,7 +164,7 @@ export function RegisterProgramForm1() {
 						/>
 					)}
 				/>
-				<Center mt={6}>
+				<Center mt={10}>
 					<Button
 						title="Proximo"
 						onPress={handleSubmit(onSubmit)}

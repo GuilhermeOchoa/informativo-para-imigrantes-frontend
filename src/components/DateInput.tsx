@@ -38,9 +38,8 @@ export function DateInput({ errorMessage, selectDateFunction, selectedDate, ...r
 
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
 
-            <FormControl mb={10} isInvalid={!!errorMessage} {...rest}>
+            <FormControl isInvalid={!!errorMessage} {...rest}>
 
                 {/* Conditional rendering based on iOS or Android */}
                 {Platform.OS === 'ios' &&
@@ -94,7 +93,6 @@ export function DateInput({ errorMessage, selectDateFunction, selectedDate, ...r
                     <Text>Campo obrigatório</Text>
                 </FormControl.ErrorMessage>
             </FormControl>
-        </SafeAreaView>
 
     );
 }
