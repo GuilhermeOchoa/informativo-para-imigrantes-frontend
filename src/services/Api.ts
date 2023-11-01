@@ -7,7 +7,8 @@ const api = axios.create({
 });
 
 api.interceptors.response.use(response => response, error => {
-console.log("response")
+
+
 	if (error.response && error.response.data && error.response.data.message) { //Quando tem exception tratada no backend que vai retonrar data e message
 		console.log("error 1: " + error);
 		return Promise.reject(new AppError(error.response.data.message));

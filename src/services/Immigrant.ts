@@ -5,6 +5,6 @@ export function postImmigrant(immigrantsUser: ImmigrantDTO) {
 	return api.post(`/immigrants`, immigrantsUser);
 }
 
-export function getmmigrant() {
-	return api.get('/immigrants');
+export function getImmigrant(email: string) {
+	return api.get('/immigrants/' + email);
 }
