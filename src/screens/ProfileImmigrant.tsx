@@ -14,21 +14,24 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { AppError } from "@utils/AppError";
 import { Button } from "@components/Button";
-import { getImmigrant } from "@services/Immigrant";
+import { getImmigrant, updateImmigrant } from "@services/Immigrant";
 import { ImmigrantDTO } from "@dtos/ImmigrantDTO";
 import { Loading } from "@components/Loading";
+import { MenuSelectCountries } from "@components/MenuSelectCountries";
 
 type FormDataProps = {
 	name: string;
 	email: string;
+	countryOfOrigin?: string,
 	password: string;
 	old_password: string;
 	confirm_password: string;
 }
 
 const profileSchema = yup.object({
+	email: yup.string().required('Informe o e-mail.').email('E-mail invalido.'),
 	name: yup.string().required('Informe o nome.'),
-	password: yup.string().min(6, 'A senha deve ter pelo menos 8 digitos.').nullable().transform((value) => !!value ? value : null),
+	password: yup.string().min(8, 'A senha deve ter pelo menos 8 digitos.').nullable().transform((value) => !!value ? value : null),
 	confirm_password: yup
 		.string()
 		.nullable()
@@ -42,8 +45,6 @@ const profileSchema = yup.object({
 				.required('Informe a confirmação da senha.')
 				.transform((value) => !!value ? value : null),
 		}),
-
-
 });
 
 export function ProfileImmigrant() {
@@ -53,20 +54,24 @@ export function ProfileImmigrant() {
 	const [show, setShow] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
+	const [selectedCountry, setSelectedCountry] = useState('');
 
 	const [dataUser, setDataUser] = useState<ImmigrantDTO | null>(null);
-	
+
 	async function handleProfileUpdate(data: FormDataProps) {
 		try {
 			setIsLoading(true);
 
-			//as proximas 2 linhas atualiza no contexto o nome do usuario quando for editado na tela de perfil
-			const userUpdate = user; //dado atual do usuario
+			let updatedData = {
+				name: data.name,
+				countryOfOrigin: data.countryOfOrigin,
+				password: data.password
+			}
 
-			// await api.put('/users', data);
+			await updateImmigrant(user.email, updatedData);
 
 			//a proxima linhas atualiza no contexto o nome do usuario quando for editado na tela de perfil
-			// await updateUserProfile(userUpdate); //atualiza tanto no dispositivo quanto no estado
+			//await updateUserProfile(userUpdate); //atualiza tanto no dispositivo quanto no estado
 
 			toast.show({
 				title: 'Perfil atualizado com sucesso',
@@ -88,19 +93,12 @@ export function ProfileImmigrant() {
 		}
 	}
 
-
-	function handleGoBack() {
-		signOut();
-	}
-
 	async function fetchProfile() {
 		try {
 			setIsLoading(true);
-			console.log(user.email)
 			const response = await getImmigrant(user.email);
 
 			setDataUser(response.data);
-			console.log(dataUser)
 		} catch (error) {
 			const isAppError = error instanceof AppError;
 			const title = isAppError ? error.message : t("Nao foi possivel carregar os dados do usuario")
@@ -115,13 +113,17 @@ export function ProfileImmigrant() {
 		}
 	}
 
-	const { control, handleSubmit, formState: { errors }, setValue } = useForm<FormDataProps>({
-		resolver: yupResolver(profileSchema)
-	});
+	function handleGoBack() {
+		signOut();
+	}
 
 	function onLanguageChange(language: string) {
 		setSelectedLanguage(language);
 	}
+
+	const { control, handleSubmit, formState: { errors }, setValue } = useForm<FormDataProps>({
+		resolver: yupResolver(profileSchema)
+	});
 
 	useEffect(() => {
 		fetchProfile();
@@ -131,12 +133,13 @@ export function ProfileImmigrant() {
 		if (dataUser) {
 			setValue("name", dataUser.name);
 			setValue("email", dataUser.email);
+			setValue("countryOfOrigin", dataUser.countryOfOrigin);
 			setIsLoading(false);
 		}
 	}, [dataUser]);
 
 	return (
-		<VStack flex={1} bg="#F8F8F8" px={4} >
+		<VStack flex={1} px={4} >
 			<HStack pb={6} mt={12} alignItems="center" justifyContent="space-between">
 
 				<TouchableOpacity onPress={handleGoBack}>
@@ -157,7 +160,11 @@ export function ProfileImmigrant() {
 				<MenuSelectLanguage onLanguageChange={onLanguageChange} />
 			</HStack>
 
-			{dataUser?.email ? <Loading /> :
+			{!user.email ? (
+				<Text>Crie uma conta para acessar seu perfil.</Text>
+			) : isLoading ? (
+				<Loading />
+			) : (
 				<ScrollView contentContainerStyle={{ paddingBottom: 36 }} showsVerticalScrollIndicator={false}>
 					<Center mt={6} >
 
@@ -218,6 +225,17 @@ export function ProfileImmigrant() {
 										borderBottomWidth: 1,
 										borderColor: "green.500"
 									}}
+								/>
+							)}
+						/>
+
+						<Controller
+							control={control}
+							name="countryOfOrigin"
+							render={() => (
+								<MenuSelectCountries
+									selectCountryFunction={setSelectedCountry}
+									selectedCountry={selectedCountry}
 								/>
 							)}
 						/>
@@ -331,7 +349,7 @@ export function ProfileImmigrant() {
 					</Center>
 
 				</ScrollView>
-			}
+			)}
 
 		</VStack>
 	)

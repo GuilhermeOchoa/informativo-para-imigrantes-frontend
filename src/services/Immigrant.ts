@@ -8,3 +8,7 @@ export function postImmigrant(immigrantsUser: ImmigrantDTO) {
 export function getImmigrant(email: string) {
 	return api.get('/immigrants/' + email);
 }
+
+export function updateImmigrant(email: string, user: ImmigrantDTO) {
+	return api.patch('/immigrants/' + email, user);
+}
