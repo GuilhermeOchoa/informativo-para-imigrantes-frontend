@@ -2,7 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { VStack, HStack, Center, Text, Divider, ScrollView } from "native-base";
 
-import { Input } from '@components/Input';
+import { Input, MaskedInput } from '@components/Input';
 import { Button } from '@components/Button';
 
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -10,6 +10,7 @@ import * as yup from 'yup'
 import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { InstitutionDTO } from "@dtos/InstitutionDTO";
+import { KeyboardAvoidingView, Platform } from "react-native";
 
 type FormDataProps = {
 	registrantName: string,
@@ -64,104 +65,110 @@ export function InstitutionRegistration02() {
 	}
 
 	return (
-		<ScrollView showsVerticalScrollIndicator={false}>
-			<VStack flex={1} px={6} pb={6} mt={12}>
+		<KeyboardAvoidingView
+			style={{ flex: 1 }}
+			behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+			keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 70}
+		>
 
-				<HStack alignItems="center" m={2} mb={6}>
+			<ScrollView showsVerticalScrollIndicator={false}>
+				<VStack flex={1} px={6} pb={6} mt={12}>
 
-					<VStack flex={1}>
-						<Center>
-							<Text fontFamily="body" fontSize="xl">
-								{t("Cadastro de Instituição")}
-							</Text>
-						</Center>
+					<HStack alignItems="center" m={2} mb={6}>
 
-						<Divider my={4} bgColor="green.500" />
+						<VStack flex={1}>
+							<Center>
+								<Text fontFamily="body" fontSize="xl">
+									{t("Cadastro de Instituição")}
+								</Text>
+							</Center>
 
-						<Center>
-							<Text fontFamily="body" fontSize="lg" pt={8}>
-								{t("Informações do cadastrante")}
-							</Text>
-						</Center>
-					</VStack>
+							<Divider my={4} bgColor="green.500" />
 
-				</HStack>
+							<Center>
+								<Text fontFamily="body" fontSize="lg" pt={8}>
+									{t("Informações do cadastrante")}
+								</Text>
+							</Center>
+						</VStack>
 
-				<Controller
-					control={control}
-					name='registrantName'
-					render={({ field: { onChange, value } }) => (
-						<Input
-							placeholder="Informe seu nome *"
-							onChangeText={onChange}
-							value={value}
-							errorMessage={errors.registrantName?.message}
-						/>
-					)}
-				/>
+					</HStack>
 
-				<Controller
-					control={control}
-					name='registrantCpf'
-					render={({ field: { onChange, value } }) => (
-						<Input
-							placeholder="CPF *"
-							onChangeText={onChange}
-							value={value}
-							errorMessage={errors.registrantCpf?.message}
-						/>
-					)}
-				/>
-
-				<Controller
-					control={control}
-					name='registrantRole'
-					render={({ field: { onChange, value } }) => (
-						<Input
-							placeholder="Cargo *"
-							onChangeText={onChange}
-							value={value}
-							errorMessage={errors.registrantRole?.message}
-						/>
-					)}
-				/>
-
-				<Controller
-					control={control}
-					name='email'
-					render={({ field: { onChange, value } }) => (
-						<Input
-							placeholder="Email *"
-							onChangeText={onChange}
-							value={value}
-							errorMessage={errors.email?.message}
-						/>
-					)}
-				/>
-
-				<Controller
-					control={control}
-					name='phone'
-					render={({ field: { onChange, value } }) => (
-						<Input
-							placeholder="Telefone *"
-							onChangeText={onChange}
-							value={value}
-							errorMessage={errors.phone?.message}
-						/>
-					)}
-				/>
-
-				<Center mt={10}>
-					<Button
-						title="Proximo"
-						onPress={handleSubmit(addInstitution)}
-						rounded="full"
-						variant="outline"
+					<Controller
+						control={control}
+						name='registrantName'
+						render={({ field: { onChange, value } }) => (
+							<Input
+								placeholder="Informe seu nome *"
+								onChangeText={onChange}
+								value={value}
+								errorMessage={errors.registrantName?.message}
+							/>
+						)}
 					/>
-				</Center>
-			</VStack>
 
-		</ScrollView >
+					<Controller
+						control={control}
+						name='registrantCpf'
+						render={({ field: { onChange, value } }) => (
+							<Input
+								placeholder="CPF *"
+								onChangeText={onChange}
+								value={value}
+								errorMessage={errors.registrantCpf?.message}
+								keyboardType="number-pad"
+							/>
+						)}
+					/>
+
+					<Controller
+						control={control}
+						name='registrantRole'
+						render={({ field: { onChange, value } }) => (
+							<Input
+								placeholder="Cargo *"
+								onChangeText={onChange}
+								value={value}
+								errorMessage={errors.registrantRole?.message}
+							/>
+						)}
+					/>
+
+					<Controller
+						control={control}
+						name='email'
+						render={({ field: { onChange, value } }) => (
+							<Input
+								placeholder="Email *"
+								onChangeText={onChange}
+								value={value}
+								errorMessage={errors.email?.message}
+								keyboardType="email-address"
+							/>
+						)}
+					/>
+
+					<Controller
+						control={control}
+						name='phone'
+						render={({ field: { onChange, value } }) => (
+							<MaskedInput
+								errorMessage={errors.phone?.message}
+							/>
+						)}
+					/>
+
+					<Center mt={10}>
+						<Button
+							title="Proximo"
+							onPress={handleSubmit(addInstitution)}
+							rounded="full"
+							variant="outline"
+						/>
+					</Center>
+				</VStack>
+
+			</ScrollView >
+		</KeyboardAvoidingView>
 	);
 }

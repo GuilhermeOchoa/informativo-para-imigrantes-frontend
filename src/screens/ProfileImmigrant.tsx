@@ -36,15 +36,10 @@ const profileSchema = yup.object({
 		.string()
 		.nullable()
 		.transform((value) => !!value ? value : null)
-		.oneOf([yup.ref('password'), null], 'As senhas devem ser iguais.')
-		.when('password', {
-			is: (Field: any) => Field,
-			then: () => yup
-				.string()
-				.nullable()
-				.required('Informe a confirmação da senha.')
-				.transform((value) => !!value ? value : null),
-		}),
+		.oneOf([yup.ref('password'), ''], 'As senhas devem ser iguais.')
+
+	// password: yup.string().required('Informe a senha.').min(8, "A senha deve ter pelo menos 8 digitos"),
+	// confirm_password: yup.string().required('Confirme a senha.').oneOf([yup.ref("password"), ''], 'Senha diferente da anterior'),
 });
 
 export function ProfileImmigrant() {
@@ -54,7 +49,7 @@ export function ProfileImmigrant() {
 	const [show, setShow] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
-	const [selectedCountry, setSelectedCountry] = useState('');
+	const [selectedCountry, setSelectedCountry] = useState<string | undefined>('');
 
 	const [dataUser, setDataUser] = useState<ImmigrantDTO | null>(null);
 
@@ -134,6 +129,7 @@ export function ProfileImmigrant() {
 			setValue("name", dataUser.name);
 			setValue("email", dataUser.email);
 			setValue("countryOfOrigin", dataUser.countryOfOrigin);
+			setSelectedCountry(dataUser.countryOfOrigin)
 			setIsLoading(false);
 		}
 	}, [dataUser]);
@@ -166,181 +162,189 @@ export function ProfileImmigrant() {
 				<Loading />
 			) : (
 				<ScrollView contentContainerStyle={{ paddingBottom: 36 }} showsVerticalScrollIndicator={false}>
-					<Center mt={6} >
 
-						<Controller
-							control={control}
-							name="name"
-							render={({ field: { onChange, value } }) => (
-								<InputNativeBase
-									onChangeText={onChange}
-									value={value}
-									h={16}
-									pl={4}
-									InputRightElement={
+					<Controller
+						control={control}
+						name="name"
+						render={({ field: { onChange, value } }) => (
+							<InputNativeBase
+								variant="underlined"
+								onChangeText={onChange}
+								value={value}
+								h={16}
+								pl={4}
+								InputRightElement={
+									<Icon
+										as={<SimpleLineIcons name="pencil" />}
+										size={6}
+										mr="4"
+										color="muted.400"
+									/>
+								}
+								bg="white"
+								placeholder="Name"
+								rounded="full"
+								fontFamily="body"
+								fontSize="md"
+								_focus={{
+									borderBottomWidth: 1,
+									borderColor: "green.500"
+								}}
+							/>
+						)}
+					/>
+
+					<Controller
+						control={control}
+						name="email"
+						render={({ field: { onChange, value } }) => (
+							<InputNativeBase
+								variant="underlined"
+								onChangeText={onChange}
+								value={value}
+								h={16}
+								pl={4}
+								InputRightElement={
+									<Icon
+										as={<SimpleLineIcons name="pencil" />}
+										size={6}
+										mr="4"
+										color="muted.400"
+									/>
+								}
+								placeholder="E-mail"
+								rounded="full"
+								fontFamily="body"
+								fontSize="md"
+								mt={4}
+								bg="white"
+								_focus={{
+									borderBottomWidth: 1,
+									borderColor: "green.500"
+								}}
+							/>
+						)}
+					/>
+
+					<Controller
+						control={control}
+						name="countryOfOrigin"
+						render={() => (
+							<MenuSelectCountries
+								selectCountryFunction={setSelectedCountry}
+								selectedCountry={selectedCountry}
+							/>
+						)}
+					/>
+
+					<Heading color="gray.500" fontSize="md" mb={2} alignSelf="flex-start" mt={12} fontFamily="heading">
+						Alterar senha
+					</Heading>
+
+					<Controller
+						control={control}
+						name="old_password"
+						render={({ field: { onChange, value } }) => (
+							<InputNativeBase
+								variant="underlined"
+								onChangeText={onChange}
+								value={value}
+								h={16}
+								type={show ? "text" : "password"}
+								InputRightElement={
+									<Pressable onPress={() => setShow(!show)}>
 										<Icon
-											as={<SimpleLineIcons name="pencil" />}
+											as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />}
 											size={6}
 											mr="4"
 											color="muted.400"
 										/>
-									}
-									bg="white"
-									placeholder="Name"
-									rounded="full"
-									fontFamily="body"
-									fontSize="md"
-									_focus={{
-										borderBottomWidth: 1,
-										borderColor: "green.500"
-									}}
-								/>
-							)}
-						/>
+									</Pressable>
+								}
+								placeholder="Senha antiga"
+								rounded="full"
+								fontFamily="body"
+								fontSize="md"
+								mt={4}
+								_focus={{
+									borderBottomWidth: 1,
+									borderColor: "green.500"
+								}}
+							/>
+						)}
+					/>
+					<Text color="red.500" fontSize="md">{errors.old_password?.message}</Text>
 
-						<Controller
-							control={control}
-							name="email"
-							render={({ field: { onChange, value } }) => (
-								<InputNativeBase
-									onChangeText={onChange}
-									value={value}
-									h={16}
-									pl={4}
-									InputRightElement={
+
+					<Controller
+						control={control}
+						name="password"
+						render={({ field: { onChange, value } }) => (
+							<InputNativeBase
+								variant="underlined"
+								onChangeText={onChange}
+								value={value}
+								h={16}
+								type={show ? "text" : "password"}
+								InputRightElement={
+									<Pressable onPress={() => setShow(!show)}>
 										<Icon
-											as={<SimpleLineIcons name="pencil" />}
+											as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />}
 											size={6}
 											mr="4"
 											color="muted.400"
 										/>
-									}
-									placeholder="E-mail"
-									rounded="full"
-									fontFamily="body"
-									fontSize="md"
-									mt={4}
-									bg="white"
-									_focus={{
-										borderBottomWidth: 1,
-										borderColor: "green.500"
-									}}
-								/>
-							)}
-						/>
+									</Pressable>
+								}
+								placeholder="Nova Senha"
+								rounded="full"
+								fontFamily="body"
+								fontSize="md"
+								mt={4}
+								_focus={{
+									borderBottomWidth: 1,
+									borderColor: "green.500"
+								}}
+							/>
+						)}
+					/>
+					<Text color="red.500" fontSize="md">{errors.password?.message}</Text>
 
-						<Controller
-							control={control}
-							name="countryOfOrigin"
-							render={() => (
-								<MenuSelectCountries
-									selectCountryFunction={setSelectedCountry}
-									selectedCountry={selectedCountry}
-								/>
-							)}
-						/>
+					<Controller
+						control={control}
+						name="confirm_password"
+						render={({ field: { onChange, value } }) => (
+							<InputNativeBase
+								variant="underlined"
+								onChangeText={onChange}
+								value={value}
+								h={16}
+								type={show ? "text" : "password"}
+								InputRightElement={
+									<Pressable onPress={() => setShow(!show)}>
+										<Icon
+											as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />}
+											size={6}
+											mr="4"
+											color="muted.400"
+										/>
+									</Pressable>
+								}
+								placeholder="Confirme a nova senha"
+								rounded="full"
+								fontFamily="body"
+								fontSize="md"
+								my={4}
+								_focus={{
+									borderBottomWidth: 1,
+									borderColor: "green.500"
+								}}
+							/>
+						)}
+					/>
+					<Text color="red.500" fontSize="md">{errors.confirm_password?.message}</Text>
 
-						<Heading color="gray.500" fontSize="md" mb={2} alignSelf="flex-start" mt={12} fontFamily="heading">
-							Alterar senha
-						</Heading>
-
-						<Controller
-							control={control}
-							name="old_password"
-							render={({ field: { onChange, value } }) => (
-								<InputNativeBase
-									onChangeText={onChange}
-									value={value}
-									h={16}
-									type={show ? "text" : "password"}
-									InputRightElement={
-										<Pressable onPress={() => setShow(!show)}>
-											<Icon
-												as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />}
-												size={6}
-												mr="4"
-												color="muted.400"
-											/>
-										</Pressable>
-									}
-									placeholder="Senha antiga"
-									rounded="full"
-									fontFamily="body"
-									fontSize="md"
-									mt={4}
-									_focus={{
-										borderBottomWidth: 1,
-										borderColor: "green.500"
-									}}
-								/>
-							)}
-						/>
-
-						<Controller
-							control={control}
-							name="password"
-							render={({ field: { onChange, value } }) => (
-								<InputNativeBase
-									onChangeText={onChange}
-									value={value}
-									h={16}
-									type={show ? "text" : "password"}
-									InputRightElement={
-										<Pressable onPress={() => setShow(!show)}>
-											<Icon
-												as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />}
-												size={6}
-												mr="4"
-												color="muted.400"
-											/>
-										</Pressable>
-									}
-									placeholder="Nova Senha"
-									rounded="full"
-									fontFamily="body"
-									fontSize="md"
-									mt={4}
-									_focus={{
-										borderBottomWidth: 1,
-										borderColor: "green.500"
-									}}
-								/>
-							)}
-						/>
-
-						<Controller
-							control={control}
-							name="confirm_password"
-							render={({ field: { onChange, value } }) => (
-								<InputNativeBase
-									onChangeText={onChange}
-									value={value}
-									h={16}
-									type={show ? "text" : "password"}
-									InputRightElement={
-										<Pressable onPress={() => setShow(!show)}>
-											<Icon
-												as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />}
-												size={6}
-												mr="4"
-												color="muted.400"
-											/>
-										</Pressable>
-									}
-									placeholder="Confirme a nova senha"
-									rounded="full"
-									fontFamily="body"
-									fontSize="md"
-									my={4}
-									_focus={{
-										borderBottomWidth: 1,
-										borderColor: "green.500"
-									}}
-								/>
-							)}
-						/>
-
-
+					<Center>
 						<Button
 							title="Salvar alterações"
 							onPress={handleSubmit(handleProfileUpdate)}

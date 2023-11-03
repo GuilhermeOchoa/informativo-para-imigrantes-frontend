@@ -1,4 +1,6 @@
 import { Input as NativeBaseInput, IInputProps, FormControl, Text } from 'native-base';
+import { useState } from 'react';
+import MaskInput, { Masks } from 'react-native-mask-input';
 
 type Props = IInputProps & {
 	errorMessage?: string | null;
@@ -33,5 +35,39 @@ export function Input({ errorMessage = null, isInvalid, ...rest }: Props) {
 				{errorMessage}
 			</FormControl.ErrorMessage>
 		</FormControl >
+	);
+}
+
+export function MaskedInput({ errorMessage = null, isInvalid, ...rest }: Props) {
+	const [phone, setPhone] = useState('');
+	const [hasFocus, setFocus] = useState(false);
+	const invalid = !!errorMessage || isInvalid;
+
+	return (
+		<FormControl
+			isInvalid={invalid}
+			mb={4}
+		>
+			<MaskInput
+				style={{
+					borderBottomWidth: 1,
+					borderBottomColor: hasFocus ? "#55917F" : "#A1A1AA",
+					height: 56,
+					fontSize: 20
+				}}
+				onFocus={() => setFocus(true)}
+				onBlur={() => setFocus(false)}
+				value={phone}
+				onChangeText={(masked) => {
+					setPhone(masked);
+				}}
+				mask={Masks.BRL_PHONE}
+			/>
+
+			<FormControl.ErrorMessage _text={{ color: "red.500" }}>
+				{errorMessage}
+			</FormControl.ErrorMessage>
+		</FormControl >
+
 	);
 }
