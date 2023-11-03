@@ -14,6 +14,7 @@ import { Button } from '@components/Button';
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AuthNavigatorRoutesProps } from '@routes/auth.routes';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 
 type FormDataProps = {
 	email: string,
@@ -75,129 +76,136 @@ const UserSignIn = () => {
 	}
 
 	return (
-		<ScrollView showsVerticalScrollIndicator={false}>
-			<VStack flex={1} px={6} pb={6} mt={12}>
+		<KeyboardAvoidingView
+			style={{ flex: 1 }}
+			behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+			keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 70}
+		>
+			<ScrollView showsVerticalScrollIndicator={false}>
+				<VStack flex={1} px={6} pb={6} mt={12}>
 
-				<HStack alignItems="center" m={2} mb={6}>
+					<HStack alignItems="center" m={2} mb={6}>
 
-					<VStack flex={1}>
-						<Center>
-							<Text fontFamily="body" fontSize="xl">
-								{t("Cadastro de Usuario")}
-							</Text>
-						</Center>
+						<VStack flex={1}>
+							<Center>
+								<Text fontFamily="body" fontSize="xl">
+									{t("Cadastro de Usuario")}
+								</Text>
+							</Center>
 
-						<Divider my={4} bgColor="green.500" />
+							<Divider my={4} bgColor="green.500" />
 
-						<Center>
-							<Text fontFamily="body" fontSize="lg" pt={6}>
-								{t("Informações do usuário")}
-							</Text>
-						</Center>
-					</VStack>
-
-				</HStack>
-
-
-				<Controller
-					control={control}
-					name='name'
-					render={({ field: { onChange, value } }) => (
-						<Input
-							placeholder="Nome *"
-							onChangeText={onChange}
-							value={value}
-							errorMessage={errors.name?.message}
-						/>
-					)}
-				/>
-
-				<Controller
-					control={control}
-					name="email"
-					render={({ field: { onChange, value } }) => (
-						<Input
-							placeholder="Email *"
-							onChangeText={onChange}
-							value={value}
-							errorMessage={errors.email?.message}
-						/>
-					)}
-				/>
-
-				<Controller
-					control={control}
-					name="password"
-					render={({ field: { onChange, value } }) => (
-						<Input
-							placeholder="Senha *"
-							secureTextEntry
-							onChangeText={onChange}
-							value={value}
-							errorMessage={errors.password?.message}
-						/>
-					)}
-				/>
-
-				<Controller
-					control={control}
-					name="confirmPassword"
-					render={({ field: { onChange, value } }) => (
-						<Input
-							placeholder="Confirme a Senha *"
-							secureTextEntry
-							onChangeText={onChange}
-							value={value}
-							errorMessage={errors.confirmPassword?.message}
-						/>
-					)}
-				/>
-
-				<Controller
-					control={control}
-					name="countryOfOrigin"
-					render={() => (
-						<MenuSelectCountries
-							selectCountryFunction={setSelectedCountry}
-							selectedCountry={selectedCountry}
-						/>
-					)}
-				/>
-
-				<Box justifyContent="center" alignItems="center" py={12} >
-					<HStack bg="lightGreen.500" rounded="md" p={2}>
-
-						<VStack>
-							<Center p={1}>
-								<Icon
-									as={Ionicons}
-									name="heart-sharp"
-								/>
+							<Center>
+								<Text fontFamily="body" fontSize="lg" pt={6}>
+									{t("Informações do usuário")}
+								</Text>
 							</Center>
 						</VStack>
 
-						<VStack flex={1}>
-							<Text bold fontSize="md">Compromisso com sua privacidade</Text>
-							<Text fontSize="md">
-								<Text bold >Seus dados não serão compartilhados com ninguém. </Text>
-								Seu cadastro jamais será distribuído para instituições ou órgãos governamentais de qualquer tipo.
-							</Text>
-						</VStack>
 					</HStack>
-				</Box>
 
-				<Center>
-					<Button
-						title="Finalizar Cadastro"
-						onPress={handleSubmit(addImmigrant)}
-						isLoading={isLoading}
-						rounded="full"
-						variant="outline"
+
+					<Controller
+						control={control}
+						name='name'
+						render={({ field: { onChange, value } }) => (
+							<Input
+								placeholder="Nome *"
+								onChangeText={onChange}
+								value={value}
+								errorMessage={errors.name?.message}
+							/>
+						)}
 					/>
-				</Center>
-			</VStack>
 
-		</ScrollView >
+					<Controller
+						control={control}
+						name="email"
+						render={({ field: { onChange, value } }) => (
+							<Input
+								placeholder="Email *"
+								onChangeText={onChange}
+								value={value}
+								errorMessage={errors.email?.message}
+							/>
+						)}
+					/>
+
+					<Controller
+						control={control}
+						name="password"
+						render={({ field: { onChange, value } }) => (
+							<Input
+								placeholder="Senha *"
+								secureTextEntry
+								onChangeText={onChange}
+								value={value}
+								errorMessage={errors.password?.message}
+							/>
+						)}
+					/>
+
+					<Controller
+						control={control}
+						name="confirmPassword"
+						render={({ field: { onChange, value } }) => (
+							<Input
+								placeholder="Confirme a Senha *"
+								secureTextEntry
+								onChangeText={onChange}
+								value={value}
+								errorMessage={errors.confirmPassword?.message}
+							/>
+						)}
+					/>
+
+					<Controller
+						control={control}
+						name="countryOfOrigin"
+						render={() => (
+							<MenuSelectCountries
+								selectCountryFunction={setSelectedCountry}
+								selectedCountry={selectedCountry}
+							/>
+						)}
+					/>
+
+					<Box justifyContent="center" alignItems="center" py={12} >
+						<HStack bg="lightGreen.500" rounded="md" p={2}>
+
+							<VStack>
+								<Center p={1}>
+									<Icon
+										as={Ionicons}
+										name="heart-sharp"
+									/>
+								</Center>
+							</VStack>
+
+							<VStack flex={1}>
+								<Text bold fontSize="md">Compromisso com sua privacidade</Text>
+								<Text fontSize="md">
+									<Text bold >Seus dados não serão compartilhados com ninguém. </Text>
+									Seu cadastro jamais será distribuído para instituições ou órgãos governamentais de qualquer tipo.
+								</Text>
+							</VStack>
+						</HStack>
+					</Box>
+
+					<Center>
+						<Button
+							title="Finalizar Cadastro"
+							onPress={handleSubmit(addImmigrant)}
+							isLoading={isLoading}
+							rounded="full"
+							variant="outline"
+						/>
+					</Center>
+				</VStack>
+
+			</ScrollView >
+		</KeyboardAvoidingView>
+
 	);
 };
 

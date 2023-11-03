@@ -11,6 +11,7 @@ import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
 import { useNavigation } from "@react-navigation/native";
 import { MenuSelectTypeInstitution } from "@components/MenuSelectTypeInstitution";
 import { useState } from "react";
+import { KeyboardAvoidingView, Platform } from "react-native";
 
 type FormDataProps = {
 	institutionName: string,
@@ -50,81 +51,88 @@ export function InstitutionRegistration01() {
 	}
 
 	return (
-		<ScrollView showsVerticalScrollIndicator={false}>
-			<VStack flex={1} px={6} pb={6} mt={12}>
+		<KeyboardAvoidingView
+			style={{ flex: 1 }}
+			behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+			keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 70}
+		>
+			<ScrollView showsVerticalScrollIndicator={false}>
+				<VStack flex={1} px={6} pb={6} mt={12}>
 
-				<HStack alignItems="center" m={2} mb={6}>
+					<HStack alignItems="center" m={2} mb={6}>
 
-					<VStack flex={1}>
-						<Center>
-							<Text fontFamily="body" fontSize="xl">
-								{t("Cadastro de Instituição")}
-							</Text>
-						</Center>
+						<VStack flex={1}>
+							<Center>
+								<Text fontFamily="body" fontSize="xl">
+									{t("Cadastro de Instituição")}
+								</Text>
+							</Center>
 
-						<Divider my={4} bgColor="green.500" />
+							<Divider my={4} bgColor="green.500" />
 
-						<Center>
-							<Text fontFamily="body" fontSize="lg" pt={8}>
-								{t("Informações do Instituição")}
-							</Text>
-						</Center>
-					</VStack>
+							<Center>
+								<Text fontFamily="body" fontSize="lg" pt={8}>
+									{t("Informações do Instituição")}
+								</Text>
+							</Center>
+						</VStack>
 
-				</HStack>
+					</HStack>
 
-				<Controller
-					control={control}
-					name='institutionName'
-					render={({ field: { onChange, value } }) => (
-						<Input
-							placeholder="Nome da Instituicao*"
-							onChangeText={onChange}
-							value={value}
-							errorMessage={errors.institutionName?.message}
-						/>
-					)}
-				/>
-
-				<Controller
-					control={control}
-					name='cnpj'
-					render={({ field: { onChange, value } }) => (
-						<Input
-							placeholder="CNPJ *"
-							onChangeText={onChange}
-							value={value}
-							errorMessage={errors.cnpj?.message}
-						/>
-					)}
-				/>
-
-				<Text color="gray.400" fontSize="lg" mt={8} mb={4}>
-					Tipo de instituicao
-				</Text>
-
-				<Controller
-					control={control}
-					name="type"
-					render={() => (
-						<MenuSelectTypeInstitution
-							selectTypeFunction={handleSelect}
-							selectedType={selectedType}
-							errorMessage={errors.type?.message}
-						/>
-					)}
-				/>
-
-				<Center mt={10}>
-					<Button
-						title="Proximo"
-						onPress={handleSubmit(addInstitution)}
-						rounded="full"
-						variant="outline"
+					<Controller
+						control={control}
+						name='institutionName'
+						render={({ field: { onChange, value } }) => (
+							<Input
+								placeholder="Nome da Instituicao*"
+								onChangeText={onChange}
+								value={value}
+								errorMessage={errors.institutionName?.message}
+							/>
+						)}
 					/>
-				</Center>
-			</VStack>
 
-		</ScrollView >
+					<Controller
+						control={control}
+						name='cnpj'
+						render={({ field: { onChange, value } }) => (
+							<Input
+								placeholder="CNPJ *"
+								onChangeText={onChange}
+								value={value}
+								errorMessage={errors.cnpj?.message}
+							/>
+						)}
+					/>
+
+					<Text color="gray.400" fontSize="lg" mt={8} mb={4}>
+						Tipo de instituicao
+					</Text>
+
+					<Controller
+						control={control}
+						name="type"
+						render={() => (
+							<MenuSelectTypeInstitution
+								selectTypeFunction={handleSelect}
+								selectedType={selectedType}
+								errorMessage={errors.type?.message}
+							/>
+						)}
+					/>
+
+					<Center mt={10}>
+						<Button
+							title="Proximo"
+							onPress={handleSubmit(addInstitution)}
+							rounded="full"
+							variant="outline"
+						/>
+					</Center>
+				</VStack>
+
+			</ScrollView >
+		</KeyboardAvoidingView>
+
 	);
 }

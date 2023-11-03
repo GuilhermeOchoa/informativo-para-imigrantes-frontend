@@ -13,6 +13,7 @@ import { useState } from "react";
 import { InstitutionDTO } from "@dtos/InstitutionDTO";
 import { postInstitution } from "@services/Institution";
 import { AppError } from "@utils/AppError";
+import { Platform, KeyboardAvoidingView } from "react-native";
 
 type FormDataProps = {
 	password: string,
@@ -83,68 +84,76 @@ export function InstitutionRegistration03() {
 	}
 
 	return (
-		<ScrollView showsVerticalScrollIndicator={false}>
-			<VStack flex={1} px={6} pb={6} mt={12}>
+		<KeyboardAvoidingView
+			style={{ flex: 1 }}
+			behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+			keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 70}
+		>
 
-				<HStack alignItems="center" m={2} mb={6}>
+			<ScrollView showsVerticalScrollIndicator={false}>
+				<VStack flex={1} px={6} pb={6} mt={12}>
 
-					<VStack flex={1}>
-						<Center>
-							<Text fontFamily="body" fontSize="xl">
-								{t("Cadastro de Instituição")}
-							</Text>
-						</Center>
+					<HStack alignItems="center" m={2} mb={6}>
 
-						<Divider my={4} bgColor="green.500" />
+						<VStack flex={1}>
+							<Center>
+								<Text fontFamily="body" fontSize="xl">
+									{t("Cadastro de Instituição")}
+								</Text>
+							</Center>
 
-						<Center>
-							<Text fontFamily="body" fontSize="lg" pt={8}>
-								{t("Informações do cadastrante")}
-							</Text>
-						</Center>
-					</VStack>
+							<Divider my={4} bgColor="green.500" />
 
-				</HStack>
+							<Center>
+								<Text fontFamily="body" fontSize="lg" pt={8}>
+									{t("Informações do cadastrante")}
+								</Text>
+							</Center>
+						</VStack>
 
-				<Controller
-					control={control}
-					name="password"
-					render={({ field: { onChange, value } }) => (
-						<Input
-							placeholder="Senha *"
-							secureTextEntry
-							onChangeText={onChange}
-							value={value}
-							errorMessage={errors.password?.message}
-						/>
-					)}
-				/>
+					</HStack>
 
-				<Controller
-					control={control}
-					name="confirmPassword"
-					render={({ field: { onChange, value } }) => (
-						<Input
-							placeholder="Confirme a Senha *"
-							secureTextEntry
-							onChangeText={onChange}
-							value={value}
-							errorMessage={errors.confirmPassword?.message}
-						/>
-					)}
-				/>
-
-
-				<Center mt={10}>
-					<Button
-						title="Finalizar cadastro"
-						onPress={handleSubmit(addInstitution)}
-						rounded="full"
-						variant="solid"
+					<Controller
+						control={control}
+						name="password"
+						render={({ field: { onChange, value } }) => (
+							<Input
+								placeholder="Senha *"
+								secureTextEntry
+								onChangeText={onChange}
+								value={value}
+								errorMessage={errors.password?.message}
+							/>
+						)}
 					/>
-				</Center>
-			</VStack>
 
-		</ScrollView >
+					<Controller
+						control={control}
+						name="confirmPassword"
+						render={({ field: { onChange, value } }) => (
+							<Input
+								placeholder="Confirme a Senha *"
+								secureTextEntry
+								onChangeText={onChange}
+								value={value}
+								errorMessage={errors.confirmPassword?.message}
+							/>
+						)}
+					/>
+
+
+					<Center mt={10}>
+						<Button
+							title="Finalizar cadastro"
+							onPress={handleSubmit(addInstitution)}
+							rounded="full"
+							variant="solid"
+						/>
+					</Center>
+				</VStack>
+
+			</ScrollView >
+		</KeyboardAvoidingView>
+
 	);
 }

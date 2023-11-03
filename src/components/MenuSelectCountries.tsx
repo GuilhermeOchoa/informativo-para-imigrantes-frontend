@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 
 type Props = TouchableOpacityProps & {
 	selectCountryFunction: (country: string) => void;
-	selectedCountry: string;
+	selectedCountry: string | undefined;
 }
 
 export function MenuSelectCountries({ selectCountryFunction, selectedCountry }: Props) {

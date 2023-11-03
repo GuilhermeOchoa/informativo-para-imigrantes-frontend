@@ -2,7 +2,7 @@ import { Input as InputNativeBase, VStack, Text, HStack, Center, Image, Icon, He
 
 import '@utils/i18n/i18n';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, TouchableOpacity } from "react-native";
+import { KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity } from "react-native";
 import { MaterialIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { useAuth } from "@hooks/useAuth";
 import { MenuSelectLanguage } from "@components/MenuSelectLanguage";
@@ -29,17 +29,16 @@ type FormDataProps = {
 }
 
 const profileSchema = yup.object({
-	email: yup.string().required('Informe o e-mail.').email('E-mail invalido.'),
+	email: yup.string(),
 	name: yup.string().required('Informe o nome.'),
+	countryOfOrigin: yup.string(),
 	password: yup.string().min(8, 'A senha deve ter pelo menos 8 digitos.').nullable().transform((value) => !!value ? value : null),
 	confirm_password: yup
 		.string()
 		.nullable()
 		.transform((value) => !!value ? value : null)
-		.oneOf([yup.ref('password'), ''], 'As senhas devem ser iguais.')
-
-	// password: yup.string().required('Informe a senha.').min(8, "A senha deve ter pelo menos 8 digitos"),
-	// confirm_password: yup.string().required('Confirme a senha.').oneOf([yup.ref("password"), ''], 'Senha diferente da anterior'),
+		.oneOf([yup.ref('password'), ''], 'As senhas devem ser iguais.'),
+	old_password: yup.string(), // Removendo a validação de obrigatório para torná-lo opcional
 });
 
 export function ProfileImmigrant() {
@@ -65,8 +64,6 @@ export function ProfileImmigrant() {
 
 			await updateImmigrant(user.email, updatedData);
 
-			//a proxima linhas atualiza no contexto o nome do usuario quando for editado na tela de perfil
-			//await updateUserProfile(userUpdate); //atualiza tanto no dispositivo quanto no estado
 
 			toast.show({
 				title: 'Perfil atualizado com sucesso',
@@ -135,228 +132,233 @@ export function ProfileImmigrant() {
 	}, [dataUser]);
 
 	return (
-		<VStack flex={1} px={4} >
-			<HStack pb={6} mt={12} alignItems="center" justifyContent="space-between">
+		<KeyboardAvoidingView
+			style={{ flex: 1 }}
+			behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+			keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 70}
+		>
 
-				<TouchableOpacity onPress={handleGoBack}>
-					<HStack alignItems="center">
-						<Icon
-							as={SimpleLineIcons}
-							name="logout"
-							color="gray.700"
-							size={7}
+			<VStack flex={1} px={4} >
+				<HStack pb={6} mt={12} alignItems="center" justifyContent="space-between">
+
+					<TouchableOpacity onPress={handleGoBack}>
+						<HStack alignItems="center">
+							<Icon
+								as={SimpleLineIcons}
+								name="logout"
+								color="gray.700"
+								size={7}
+							/>
+
+							<Text fontFamily="body" fontSize="md" pl={2}>
+								Sair da conta
+							</Text>
+						</HStack>
+					</TouchableOpacity>
+
+					<MenuSelectLanguage onLanguageChange={onLanguageChange} />
+				</HStack>
+
+				{!user.email ? (
+					<Text>Crie uma conta para acessar seu perfil.</Text>
+				) : isLoading ? (
+					<Loading />
+				) : (
+					<ScrollView contentContainerStyle={{ paddingBottom: 36 }} showsVerticalScrollIndicator={false}>
+
+						<Controller
+							control={control}
+							name="name"
+							render={({ field: { onChange, value } }) => (
+								<InputNativeBase
+									variant="underlined"
+									onChangeText={onChange}
+									value={value}
+									h={16}
+									pl={4}
+									InputRightElement={
+										<Icon
+											as={<SimpleLineIcons name="pencil" />}
+											size={6}
+											mr="4"
+											color="muted.400"
+										/>
+									}
+									bg="white"
+									placeholder="Name"
+									rounded="full"
+									fontFamily="body"
+									fontSize="md"
+									_focus={{
+										borderBottomWidth: 1,
+										borderColor: "green.500"
+									}}
+								/>
+							)}
 						/>
 
-						<Text fontFamily="body" fontSize="md" pl={2}>
-							Sair da conta
-						</Text>
-					</HStack>
-				</TouchableOpacity>
-
-				<MenuSelectLanguage onLanguageChange={onLanguageChange} />
-			</HStack>
-
-			{!user.email ? (
-				<Text>Crie uma conta para acessar seu perfil.</Text>
-			) : isLoading ? (
-				<Loading />
-			) : (
-				<ScrollView contentContainerStyle={{ paddingBottom: 36 }} showsVerticalScrollIndicator={false}>
-
-					<Controller
-						control={control}
-						name="name"
-						render={({ field: { onChange, value } }) => (
-							<InputNativeBase
-								variant="underlined"
-								onChangeText={onChange}
-								value={value}
-								h={16}
-								pl={4}
-								InputRightElement={
-									<Icon
-										as={<SimpleLineIcons name="pencil" />}
-										size={6}
-										mr="4"
-										color="muted.400"
-									/>
-								}
-								bg="white"
-								placeholder="Name"
-								rounded="full"
-								fontFamily="body"
-								fontSize="md"
-								_focus={{
-									borderBottomWidth: 1,
-									borderColor: "green.500"
-								}}
-							/>
-						)}
-					/>
-
-					<Controller
-						control={control}
-						name="email"
-						render={({ field: { onChange, value } }) => (
-							<InputNativeBase
-								variant="underlined"
-								onChangeText={onChange}
-								value={value}
-								h={16}
-								pl={4}
-								InputRightElement={
-									<Icon
-										as={<SimpleLineIcons name="pencil" />}
-										size={6}
-										mr="4"
-										color="muted.400"
-									/>
-								}
-								placeholder="E-mail"
-								rounded="full"
-								fontFamily="body"
-								fontSize="md"
-								mt={4}
-								bg="white"
-								_focus={{
-									borderBottomWidth: 1,
-									borderColor: "green.500"
-								}}
-							/>
-						)}
-					/>
-
-					<Controller
-						control={control}
-						name="countryOfOrigin"
-						render={() => (
-							<MenuSelectCountries
-								selectCountryFunction={setSelectedCountry}
-								selectedCountry={selectedCountry}
-							/>
-						)}
-					/>
-
-					<Heading color="gray.500" fontSize="md" mb={2} alignSelf="flex-start" mt={12} fontFamily="heading">
-						Alterar senha
-					</Heading>
-
-					<Controller
-						control={control}
-						name="old_password"
-						render={({ field: { onChange, value } }) => (
-							<InputNativeBase
-								variant="underlined"
-								onChangeText={onChange}
-								value={value}
-								h={16}
-								type={show ? "text" : "password"}
-								InputRightElement={
-									<Pressable onPress={() => setShow(!show)}>
+						<Controller
+							control={control}
+							name="email"
+							render={({ field: { onChange, value } }) => (
+								<InputNativeBase
+									variant="underlined"
+									onChangeText={onChange}
+									value={value}
+									h={16}
+									pl={4}
+									InputRightElement={
 										<Icon
-											as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />}
+											as={<SimpleLineIcons name="pencil" />}
 											size={6}
 											mr="4"
 											color="muted.400"
 										/>
-									</Pressable>
-								}
-								placeholder="Senha antiga"
-								rounded="full"
-								fontFamily="body"
-								fontSize="md"
-								mt={4}
-								_focus={{
-									borderBottomWidth: 1,
-									borderColor: "green.500"
-								}}
-							/>
-						)}
-					/>
-					<Text color="red.500" fontSize="md">{errors.old_password?.message}</Text>
-
-
-					<Controller
-						control={control}
-						name="password"
-						render={({ field: { onChange, value } }) => (
-							<InputNativeBase
-								variant="underlined"
-								onChangeText={onChange}
-								value={value}
-								h={16}
-								type={show ? "text" : "password"}
-								InputRightElement={
-									<Pressable onPress={() => setShow(!show)}>
-										<Icon
-											as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />}
-											size={6}
-											mr="4"
-											color="muted.400"
-										/>
-									</Pressable>
-								}
-								placeholder="Nova Senha"
-								rounded="full"
-								fontFamily="body"
-								fontSize="md"
-								mt={4}
-								_focus={{
-									borderBottomWidth: 1,
-									borderColor: "green.500"
-								}}
-							/>
-						)}
-					/>
-					<Text color="red.500" fontSize="md">{errors.password?.message}</Text>
-
-					<Controller
-						control={control}
-						name="confirm_password"
-						render={({ field: { onChange, value } }) => (
-							<InputNativeBase
-								variant="underlined"
-								onChangeText={onChange}
-								value={value}
-								h={16}
-								type={show ? "text" : "password"}
-								InputRightElement={
-									<Pressable onPress={() => setShow(!show)}>
-										<Icon
-											as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />}
-											size={6}
-											mr="4"
-											color="muted.400"
-										/>
-									</Pressable>
-								}
-								placeholder="Confirme a nova senha"
-								rounded="full"
-								fontFamily="body"
-								fontSize="md"
-								my={4}
-								_focus={{
-									borderBottomWidth: 1,
-									borderColor: "green.500"
-								}}
-							/>
-						)}
-					/>
-					<Text color="red.500" fontSize="md">{errors.confirm_password?.message}</Text>
-
-					<Center>
-						<Button
-							title="Salvar alteraÃ§Ãµes"
-							onPress={handleSubmit(handleProfileUpdate)}
-							rounded="full"
+									}
+									placeholder="E-mail"
+									rounded="full"
+									fontFamily="body"
+									fontSize="md"
+									mt={4}
+									bg="white"
+									_focus={{
+										borderBottomWidth: 1,
+										borderColor: "green.500"
+									}}
+								/>
+							)}
 						/>
-					</Center>
 
-				</ScrollView>
-			)}
+						<Controller
+							control={control}
+							name="countryOfOrigin"
+							render={() => (
+								<MenuSelectCountries
+									selectCountryFunction={setSelectedCountry}
+									selectedCountry={selectedCountry}
+								/>
+							)}
+						/>
 
-		</VStack>
+						<Heading color="gray.500" fontSize="md" mb={2} alignSelf="flex-start" mt={12} fontFamily="heading">
+							Alterar senha
+						</Heading>
+
+						<Controller
+							control={control}
+							name="old_password"
+							render={({ field: { onChange, value } }) => (
+								<InputNativeBase
+									variant="underlined"
+									onChangeText={onChange}
+									value={value}
+									h={16}
+									type={show ? "text" : "password"}
+									InputRightElement={
+										<Pressable onPress={() => setShow(!show)}>
+											<Icon
+												as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />}
+												size={6}
+												mr="4"
+												color="muted.400"
+											/>
+										</Pressable>
+									}
+									placeholder="Senha antiga"
+									rounded="full"
+									fontFamily="body"
+									fontSize="md"
+									mt={4}
+									_focus={{
+										borderBottomWidth: 1,
+										borderColor: "green.500"
+									}}
+								/>
+							)}
+						/>
+						<Text color="red.500" fontSize="md">{errors.old_password?.message}</Text>
+
+
+						<Controller
+							control={control}
+							name="password"
+							render={({ field: { onChange, value } }) => (
+								<InputNativeBase
+									variant="underlined"
+									onChangeText={onChange}
+									value={value}
+									h={16}
+									type={show ? "text" : "password"}
+									InputRightElement={
+										<Pressable onPress={() => setShow(!show)}>
+											<Icon
+												as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />}
+												size={6}
+												mr="4"
+												color="muted.400"
+											/>
+										</Pressable>
+									}
+									placeholder="Nova Senha"
+									rounded="full"
+									fontFamily="body"
+									fontSize="md"
+									mt={4}
+									_focus={{
+										borderBottomWidth: 1,
+										borderColor: "green.500"
+									}}
+								/>
+							)}
+						/>
+						<Text color="red.500" fontSize="md">{errors.password?.message}</Text>
+
+						<Controller
+							control={control}
+							name="confirm_password"
+							render={({ field: { onChange, value } }) => (
+								<InputNativeBase
+									variant="underlined"
+									onChangeText={onChange}
+									value={value}
+									h={16}
+									type={show ? "text" : "password"}
+									InputRightElement={
+										<Pressable onPress={() => setShow(!show)}>
+											<Icon
+												as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />}
+												size={6}
+												mr="4"
+												color="muted.400"
+											/>
+										</Pressable>
+									}
+									placeholder="Confirme a nova senha"
+									rounded="full"
+									fontFamily="body"
+									fontSize="md"
+									my={4}
+									_focus={{
+										borderBottomWidth: 1,
+										borderColor: "green.500"
+									}}
+								/>
+							)}
+						/>
+						<Text color="red.500" fontSize="md">{errors.confirm_password?.message}</Text>
+
+						<Center>
+							<Button
+								title="Salvar alteraÃ§Ãµes"
+								onPress={handleSubmit(handleProfileUpdate)}
+								rounded="full"
+							/>
+						</Center>
+
+					</ScrollView>
+				)}
+
+			</VStack>
+		</KeyboardAvoidingView>
 	)
-
-
 }
