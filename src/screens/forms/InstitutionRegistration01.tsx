@@ -2,7 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { VStack, HStack, Center, Text, Divider, ScrollView } from "native-base";
 
-import { Input } from '@components/Input';
+import { Input, MaskedInputField } from '@components/Input';
 import { Button } from '@components/Button';
 
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -24,8 +24,7 @@ const signUpSchema = yup.object({
 	cnpj: yup
 		.string()
 		.required('Informe o CNPJ.')
-		.matches(/^[0-9]+$/, 'O CNPJ deve conter apenas numeros.')
-		.min(14, 'O CNPJ deve conter 14 digitos.'),
+		.min(18, 'O CNPJ deve conter 14 digitos.'),
 	type: yup
 		.string()
 		.required('Selecione um tipo válido.')
@@ -63,16 +62,16 @@ export function InstitutionRegistration01() {
 
 						<VStack flex={1}>
 							<Center>
-								<Text fontFamily="body" fontSize="xl">
-									{t("Cadastro de Instituição")}
+								<Text fontFamily="body" fontSize="xl" textAlign="center">
+									{t("CadastroInstituicao")}
 								</Text>
 							</Center>
 
 							<Divider my={4} bgColor="green.500" />
 
 							<Center>
-								<Text fontFamily="body" fontSize="lg" pt={8}>
-									{t("Informações do Instituição")}
+								<Text fontFamily="body" fontSize="lg" pt={8} textAlign="center">
+									{t("InformacoesInstituicao")}
 								</Text>
 							</Center>
 						</VStack>
@@ -84,7 +83,7 @@ export function InstitutionRegistration01() {
 						name='institutionName'
 						render={({ field: { onChange, value } }) => (
 							<Input
-								placeholder="Nome da Instituicao*"
+								placeholder={t("nomeDaInstituicao")}
 								onChangeText={onChange}
 								value={value}
 								errorMessage={errors.institutionName?.message}
@@ -96,17 +95,19 @@ export function InstitutionRegistration01() {
 						control={control}
 						name='cnpj'
 						render={({ field: { onChange, value } }) => (
-							<Input
+							<MaskedInputField
+								type={1}
+								value={value}
 								placeholder="CNPJ *"
 								onChangeText={onChange}
-								value={value}
+								keyboardType="number-pad"
 								errorMessage={errors.cnpj?.message}
 							/>
 						)}
 					/>
 
 					<Text color="gray.400" fontSize="lg" mt={8} mb={4}>
-						Tipo de instituicao
+						{t("tipoInstituicao")}
 					</Text>
 
 					<Controller
@@ -123,7 +124,7 @@ export function InstitutionRegistration01() {
 
 					<Center mt={10}>
 						<Button
-							title="Proximo"
+							title={t("Proximo")}
 							onPress={handleSubmit(addInstitution)}
 							rounded="full"
 							variant="outline"

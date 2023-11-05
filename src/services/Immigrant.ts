@@ -1,11 +1,5 @@
 import { api } from "@services/Api";
-import { ImmigrantDTO } from "@dtos/ImmigrantDTO";
-
-type immigrantRequestDTO = {
-	name: string,
-	countryOfOrigin?: string,
-	password: string,
-}
+import { ImmigrantDTO, immigrantRequestDTO } from "@dtos/ImmigrantDTO";
 
 export function postImmigrant(immigrantsUser: ImmigrantDTO) {
 	return api.post(`/immigrants`, immigrantsUser);

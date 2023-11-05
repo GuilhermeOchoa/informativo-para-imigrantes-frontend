@@ -38,7 +38,7 @@ const profileSchema = yup.object({
 		.nullable()
 		.transform((value) => !!value ? value : null)
 		.oneOf([yup.ref('password'), ''], 'As senhas devem ser iguais.'),
-	old_password: yup.string(), // Removendo a validação de obrigatório para torná-lo opcional
+	old_password: yup.string(), // Removendo a validaï¿½ï¿½o de obrigatï¿½rio para tornï¿½-lo opcional
 });
 
 export function ProfileImmigrant() {
@@ -59,7 +59,8 @@ export function ProfileImmigrant() {
 			let updatedData = {
 				name: data.name,
 				countryOfOrigin: data.countryOfOrigin,
-				password: data.password
+				passwordOld: data.old_password,
+				passwordNew: data.password
 			}
 
 			await updateImmigrant(user.email, updatedData);
@@ -138,7 +139,7 @@ export function ProfileImmigrant() {
 			keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 70}
 		>
 
-			<VStack flex={1} px={4} >
+			<VStack flex={1} bg="#F8F8F8" px={4} >
 				<HStack pb={6} mt={12} alignItems="center" justifyContent="space-between">
 
 					<TouchableOpacity onPress={handleGoBack}>
@@ -171,7 +172,6 @@ export function ProfileImmigrant() {
 							name="name"
 							render={({ field: { onChange, value } }) => (
 								<InputNativeBase
-									variant="underlined"
 									onChangeText={onChange}
 									value={value}
 									h={16}
@@ -202,19 +202,11 @@ export function ProfileImmigrant() {
 							name="email"
 							render={({ field: { onChange, value } }) => (
 								<InputNativeBase
-									variant="underlined"
 									onChangeText={onChange}
 									value={value}
 									h={16}
 									pl={4}
-									InputRightElement={
-										<Icon
-											as={<SimpleLineIcons name="pencil" />}
-											size={6}
-											mr="4"
-											color="muted.400"
-										/>
-									}
+									isDisabled
 									placeholder="E-mail"
 									rounded="full"
 									fontFamily="body"
@@ -249,7 +241,6 @@ export function ProfileImmigrant() {
 							name="old_password"
 							render={({ field: { onChange, value } }) => (
 								<InputNativeBase
-									variant="underlined"
 									onChangeText={onChange}
 									value={value}
 									h={16}
@@ -268,6 +259,7 @@ export function ProfileImmigrant() {
 									rounded="full"
 									fontFamily="body"
 									fontSize="md"
+									bg="white"
 									mt={4}
 									_focus={{
 										borderBottomWidth: 1,
@@ -284,7 +276,6 @@ export function ProfileImmigrant() {
 							name="password"
 							render={({ field: { onChange, value } }) => (
 								<InputNativeBase
-									variant="underlined"
 									onChangeText={onChange}
 									value={value}
 									h={16}
@@ -304,6 +295,7 @@ export function ProfileImmigrant() {
 									fontFamily="body"
 									fontSize="md"
 									mt={4}
+									bg="white"
 									_focus={{
 										borderBottomWidth: 1,
 										borderColor: "green.500"
@@ -318,7 +310,6 @@ export function ProfileImmigrant() {
 							name="confirm_password"
 							render={({ field: { onChange, value } }) => (
 								<InputNativeBase
-									variant="underlined"
 									onChangeText={onChange}
 									value={value}
 									h={16}
@@ -337,6 +328,7 @@ export function ProfileImmigrant() {
 									rounded="full"
 									fontFamily="body"
 									fontSize="md"
+									bg="white"
 									my={4}
 									_focus={{
 										borderBottomWidth: 1,

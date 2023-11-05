@@ -2,7 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { VStack, HStack, Center, Text, Divider, ScrollView, useToast } from "native-base";
 
-import { Input } from '@components/Input';
+import { Input, PasswordInput } from '@components/Input';
 import { Button } from '@components/Button';
 
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -97,16 +97,16 @@ export function InstitutionRegistration03() {
 
 						<VStack flex={1}>
 							<Center>
-								<Text fontFamily="body" fontSize="xl">
-									{t("Cadastro de Instituição")}
+								<Text fontFamily="body" fontSize="xl" textAlign="center">
+									{t("CadastroInstituicao")}
 								</Text>
 							</Center>
 
 							<Divider my={4} bgColor="green.500" />
 
 							<Center>
-								<Text fontFamily="body" fontSize="lg" pt={8}>
-									{t("Informações do cadastrante")}
+								<Text fontFamily="body" fontSize="lg" pt={8} textAlign="center">
+									{t("InformacoesCadastrante")}
 								</Text>
 							</Center>
 						</VStack>
@@ -117,13 +117,14 @@ export function InstitutionRegistration03() {
 						control={control}
 						name="password"
 						render={({ field: { onChange, value } }) => (
-							<Input
-								placeholder="Senha *"
-								secureTextEntry
+							<PasswordInput
 								onChangeText={onChange}
 								value={value}
+								type={2}
+								placeHolderParam={t("senha")}
 								errorMessage={errors.password?.message}
 							/>
+
 						)}
 					/>
 
@@ -131,8 +132,8 @@ export function InstitutionRegistration03() {
 						control={control}
 						name="confirmPassword"
 						render={({ field: { onChange, value } }) => (
-							<Input
-								placeholder="Confirme a Senha *"
+							<PasswordInput
+								placeholder={t("confirmeASenha")}
 								secureTextEntry
 								onChangeText={onChange}
 								value={value}
@@ -141,10 +142,9 @@ export function InstitutionRegistration03() {
 						)}
 					/>
 
-
 					<Center mt={10}>
 						<Button
-							title="Finalizar cadastro"
+							title={t("FinalizarCadastro")}
 							onPress={handleSubmit(addInstitution)}
 							rounded="full"
 							variant="solid"

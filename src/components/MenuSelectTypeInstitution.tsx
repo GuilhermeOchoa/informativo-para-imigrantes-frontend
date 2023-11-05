@@ -20,7 +20,7 @@ export function MenuSelectTypeInstitution({ errorMessage = null, selectTypeFunct
 					onValueChange={selectTypeFunction}
 					accessibilityLabel="Selecione o tipo de instituicao"
 					placeholder="Selecione o tipo de instituicao"
-					fontSize="lg"
+					fontSize="md"
 				>
 
 					<Select.Item label="Educacao Basica" value="HIGHER" />

@@ -1,5 +1,5 @@
 {
-    "translation": {
+	"translation": {
 		"Selecione um pais (opcional)": "Seleccione un pa�s (opcional)",
 		"ver mais": "ver m�s",
 		"Nao foi possivel carregar os informativos": "No se pudo cargar la informaci�n",
@@ -12,23 +12,36 @@
 		"Saiba mais": "M�s informaci�n",
 		"Nao ha informativos disponiveis": "No hay informaci�n disponible",
 		"Acessar": "Acceder",
-		"DataInicialInscricoes" : "Fecha de inicio de las inscripciones",
-		"DataFinalInscricoes" : "Fecha de finalizaci�n de las inscripciones",
-		"DataInicialPrograma" : "Fecha de inicio del programa",
-		"DataFinalPrograma" : "Fecha de finalizaci�n del programa",
-        "Bem-vindo": "Bienvenido",
-        "OnboardingTitle02": "Estamos Aqu� para Ayudar",
-        "OnboardingTitle03": "Exactamente lo Que Esperabas",
-        "OnboardingTitle04": "Todo Listo!",
-        "OnboardingText01": "Aqu�, intentaremos ofrecerte las mejores y m�s facilitadoras herramientas para ayudarte",
-        "OnboardingText02": "Esta aplicaci�n ofrece la posibilidad de organizar y sistematizar la oferta educativa por instituci�n, opci�n acad�mica y ubicaci�n.",
-        "OnboardingText03": "Agradecemos tu voto de confianza. Y recuerda: en caso de dudas, nuestro equipo estar� disponible a trav�s de contacto en l�nea.",
-        "OnboardingText04": "Ahora, en las pr�ximas pantallas, comenzar� un breve tutorial sobre las opciones dentro de la aplicaci�n y c�mo utilizarlas.",
+		"DataInicialInscricoes": "Fecha de inicio de las inscripciones",
+		"DataFinalInscricoes": "Fecha de finalizaci�n de las inscripciones",
+		"DataInicialPrograma": "Fecha de inicio del programa",
+		"DataFinalPrograma": "Fecha de finalizaci�n del programa",
+		"Bem-vindo": "Bienvenido",
+		"OnboardingTitle02": "Estamos Aqu� para Ayudar",
+		"OnboardingTitle03": "Exactamente lo Que Esperabas",
+		"OnboardingTitle04": "Todo Listo!",
+		"OnboardingText01": "Aqu�, intentaremos ofrecerte las mejores y m�s facilitadoras herramientas para ayudarte",
+		"OnboardingText02": "Esta aplicaci�n ofrece la posibilidad de organizar y sistematizar la oferta educativa por instituci�n, opci�n acad�mica y ubicaci�n.",
+		"OnboardingText03": "Agradecemos tu voto de confianza. Y recuerda: en caso de dudas, nuestro equipo estar� disponible a trav�s de contacto en l�nea.",
+		"OnboardingText04": "Ahora, en las pr�ximas pantallas, comenzar� un breve tutorial sobre las opciones dentro de la aplicaci�n y c�mo utilizarlas.",
 		"Entrar": "Iniciar sesión",
 		"Esqueci a senha": "Olvidé mi contraseña",
 		"Nao tem uma conta": "¿No tiene una cuenta?",
 		"Cadastre-se aqui": "Regístrese aquí",
 		"Senha": "Contraseña",
-		"Email ou senha incorreta": "Correo electrónico o contraseña incorrectos"
-    }
+		"Email ou senha incorreta": "Correo electrónico o contraseña incorrectos",
+		"InformacoesPrograma": "Información del Programa",
+		"CadastroInstituicao": "Registro de Institución",
+		"InformacoesCadastrante": "Información del Registrante",
+		"InformacoesInstituicao": "Información de la Institución",
+		"tipoInstituicao": "Tipo de Institución",
+		"nomeDaInstituicao": "Nombre de la Institución *",
+		"informeSeuNome": "Ingrese su Nombre *",
+		"cargo": "Puesto *",
+		"telefone": "Teléfono",
+		"senha": "Contraseña *",
+		"confirmeASenha": "Confirmar Contraseña *",
+		"finalizarCastro": "Finalizar Registro"
+
+	}
 }
