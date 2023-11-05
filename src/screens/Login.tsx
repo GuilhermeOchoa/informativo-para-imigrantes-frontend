@@ -125,6 +125,8 @@ export function Login() {
 									/>
 								}
 								placeholder="E-mail"
+								keyboardType="email-address"
+								autoCapitalize="none"
 								rounded="full"
 								fontFamily="body"
 								fontSize="md"

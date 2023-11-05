@@ -205,6 +205,7 @@ export function RegisterProgramForm2() {
 									errorMessage={errors.link?.message}
 									onChangeText={onChange}
 									value={value}
+									autoCapitalize="none"
 								/>
 							)}
 						/>

@@ -145,6 +145,7 @@ export function InstitutionRegistration02() {
 							<Input
 								value={value}
 								placeholder="E-mail *"
+								autoCapitalize="none"
 								onChangeText={onChange}
 								keyboardType="email-address"
 								errorMessage={errors.email?.message}

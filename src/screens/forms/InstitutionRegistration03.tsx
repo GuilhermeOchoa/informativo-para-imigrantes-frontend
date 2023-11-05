@@ -45,18 +45,18 @@ export function InstitutionRegistration03() {
 			const data = {
 				institutionName: institution.institutionName,
 				email: institution.email,
-				cnpj: institution.cnpj,
+				cnpj: removeNumericChars(institution.cnpj),
 				type: institution.type,
 				registrantName: institution.registrantName,
-				registrantCpf: institution.registrantCpf,
+				registrantCpf: removeNumericChars(institution.registrantCpf),
 				registrantRole: institution.registrantRole,
-				phone: institution.phone,
+				phone: removeNumericChars(institution.phone),
 				attachment: "",
 				password
 			};
 
 			setIsLoading(true);
-
+			console.log(data)
 			await postInstitution(data);
 
 			toast.show({
@@ -82,6 +82,11 @@ export function InstitutionRegistration03() {
 			setIsLoading(false);
 		}
 	}
+
+	function removeNumericChars(str: any) {
+		return str.replace(/\D/g, '');
+	}
+
 
 	return (
 		<KeyboardAvoidingView
