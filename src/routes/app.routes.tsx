@@ -15,6 +15,9 @@ import { ArticlesDetals } from '@screens/ArticlesDetails';
 
 import { useTranslation } from 'react-i18next';
 import { OpportunityDTO } from '@dtos/OpportunityDTO';
+import { Admin } from '@screens/Admin';
+import { AcceptPrograms } from '@screens/AcceptPrograms';
+import { DeclinedScreen } from '@screens/DeclinedScreen';
 
 type AppRoutes = {
 	feed: undefined;
@@ -25,6 +28,8 @@ type AppRoutes = {
 	registerProgramFormPage: undefined;
 	onboarding: undefined;
 	feedCategory: OpportunityDTO;
+	acceptPrograms: undefined;
+	declinedScreen: undefined;
 }
 
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>;
@@ -141,8 +146,18 @@ export function AppRoutes() {
 			/>
 
 			<Screen
+				name='declinedScreen'
+				component={DeclinedScreen}
+				options={{
+					tabBarButton: () => null
+				}}
+
+			/>
+
+
+			<Screen
 				name='contact'
-				component={Contact}
+				component={AcceptPrograms}
 				options={{
 					tabBarIcon: ({ color, focused }) => (
 						<CustomTabIcon name="help-circle-outline" color={color} focused={focused} iconsSize={iconsSize} />
