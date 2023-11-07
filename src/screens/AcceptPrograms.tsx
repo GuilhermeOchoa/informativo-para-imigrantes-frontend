@@ -85,9 +85,10 @@ export function AcceptPrograms() {
                             title={"Aprovar programa"}
                             //onPress={oi}
                             rounded="full"
-                            variant="outline"
+                            variant="solid"
                             style={styles.accept}
-                            titleStyle={{ fontSize: 20, color: "#FFFFFF" }}
+                            fontSize={'md'}
+                            color={"white"}
 
                         />
 
@@ -98,7 +99,7 @@ export function AcceptPrograms() {
                             rounded="full"
                             variant="outline"
                             style={styles.decline}
-                            titleStyle={{ fontSize: 20, color: "#55917F" }}
+                            fontSize={'md'}
                         />
                     </View>
 
