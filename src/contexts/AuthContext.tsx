@@ -72,6 +72,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     async function signOut() {
         try {
             setIsLoadingUserStorageData(true);
+            delete api.defaults.headers.common['Authorization'];
 
             saveFirstAcessUser();
 

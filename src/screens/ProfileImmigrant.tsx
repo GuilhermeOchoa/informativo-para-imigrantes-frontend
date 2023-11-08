@@ -1,8 +1,8 @@
-import { Input as InputNativeBase, VStack, Text, HStack, Center, Image, Icon, Heading, useToast, Pressable } from "native-base";
+import { Input as InputNativeBase, VStack, Text, HStack, Center, Image, Icon, Heading, useToast, Pressable, AlertDialog } from "native-base";
 
 import '@utils/i18n/i18n';
 import { useTranslation } from 'react-i18next';
-import { KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity } from "react-native";
+import { Alert, KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity } from "react-native";
 import { MaterialIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { useAuth } from "@hooks/useAuth";
 import { MenuSelectLanguage } from "@components/MenuSelectLanguage";
@@ -14,7 +14,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { AppError } from "@utils/AppError";
 import { Button } from "@components/Button";
-import { getImmigrant, updateImmigrant } from "@services/Immigrant";
+import { deleteImmigrant, getImmigrant, updateImmigrant } from "@services/Immigrant";
 import { ImmigrantDTO } from "@dtos/ImmigrantDTO";
 import { Loading } from "@components/Loading";
 import { MenuSelectCountries } from "@components/MenuSelectCountries";
@@ -38,12 +38,12 @@ const profileSchema = yup.object({
 		.nullable()
 		.transform((value) => !!value ? value : null)
 		.oneOf([yup.ref('password'), ''], 'As senhas devem ser iguais.'),
-	old_password: yup.string(), // Removendo a valida��o de obrigat�rio para torn�-lo opcional
+	old_password: yup.string(),
 });
 
 export function ProfileImmigrant() {
 	const toast = useToast();
-	const { user, signOut } = useAuth();
+	const { user, signOut, saveFirstAcessUser } = useAuth();
 	const { t, i18n } = useTranslation();
 	const [show, setShow] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
@@ -59,12 +59,11 @@ export function ProfileImmigrant() {
 			let updatedData = {
 				name: data.name,
 				countryOfOrigin: data.countryOfOrigin,
-				passwordOld: data.old_password,
-				passwordNew: data.password
+				oldPassword: data.old_password,
+				newPassword: data.password
 			}
 
 			await updateImmigrant(user.email, updatedData);
-
 
 			toast.show({
 				title: 'Perfil atualizado com sucesso',
@@ -81,6 +80,61 @@ export function ProfileImmigrant() {
 				placement: "top",
 				bgColor: "red.500"
 			});
+		} finally {
+			setIsLoading(false);
+		}
+	}
+
+	async function confirmDeleteAccount() {
+		return new Promise((resolve) => {
+			Alert.alert(
+				'Deletar conta',
+				'Tem certeza que deseja deletar sua conta?',
+				[
+					{
+						text: 'Cancelar',
+						style: 'cancel',
+						onPress: () => resolve(false),
+					},
+					{
+						text: 'Deletar',
+						style: 'destructive',
+						onPress: () => resolve(true),
+					},
+				],
+				{ cancelable: false },
+			);
+		});
+	}
+
+	async function handleProfileDelete() {
+		const hasConfirmed = await confirmDeleteAccount();
+
+		if (!hasConfirmed) {
+			return;
+		}
+
+		try {
+			setIsLoading(true);
+
+			signOut();
+			await deleteImmigrant(user.email);
+
+			toast.show({
+				title: 'Perfil deletado com sucesso',
+				placement: 'top',
+				bgColor: 'green.500',
+			});
+
+		} catch (error) {
+			const errorMessage = error instanceof AppError ? error.message : 'Não foi possível deletar sua conta.';
+
+			toast.show({
+				title: errorMessage,
+				placement: 'top',
+				bgColor: 'red.500',
+			});
+
 		} finally {
 			setIsLoading(false);
 		}
@@ -270,7 +324,6 @@ export function ProfileImmigrant() {
 						/>
 						<Text color="red.500" fontSize="md">{errors.old_password?.message}</Text>
 
-
 						<Controller
 							control={control}
 							name="password"
@@ -337,13 +390,24 @@ export function ProfileImmigrant() {
 								/>
 							)}
 						/>
+
 						<Text color="red.500" fontSize="md">{errors.confirm_password?.message}</Text>
 
 						<Center>
 							<Button
-								title="Salvar alterações"
+								title="Salvar"
+								isLoading={isLoading}
 								onPress={handleSubmit(handleProfileUpdate)}
 								rounded="full"
+							/>
+
+							<Button
+								title="Deletar"
+								isLoading={isLoading}
+								onPress={handleSubmit(handleProfileDelete)}
+								rounded="full"
+								backgroundColor="red.400"
+								mt={4}
 							/>
 						</Center>
 

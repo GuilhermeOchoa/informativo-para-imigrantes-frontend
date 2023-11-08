@@ -42,6 +42,8 @@ export function InstitutionRegistration03() {
 
 	async function addInstitution({ password }: FormDataProps) {
 		try {
+			setIsLoading(true);
+
 			const data = {
 				institutionName: institution.institutionName,
 				email: institution.email,
@@ -55,8 +57,6 @@ export function InstitutionRegistration03() {
 				password
 			};
 
-			setIsLoading(true);
-			console.log(data)
 			await postInstitution(data);
 
 			toast.show({
@@ -153,6 +153,7 @@ export function InstitutionRegistration03() {
 							onPress={handleSubmit(addInstitution)}
 							rounded="full"
 							variant="solid"
+							isLoading={isLoading}
 						/>
 					</Center>
 				</VStack>

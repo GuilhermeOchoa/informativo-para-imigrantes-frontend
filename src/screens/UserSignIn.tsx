@@ -15,6 +15,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AuthNavigatorRoutesProps } from '@routes/auth.routes';
 import { KeyboardAvoidingView, Platform } from 'react-native';
+import { background } from 'native-base/lib/typescript/theme/styled-system';
 
 type FormDataProps = {
 	email: string,
@@ -57,9 +58,7 @@ const UserSignIn = () => {
 				duration: 3000,
 			});
 
-			setTimeout(function () {
-				navigation.navigate("login")
-			}, 3000);
+			navigation.navigate("login");
 
 		} catch (error) {
 			const isAppError = error instanceof AppError;
@@ -70,8 +69,9 @@ const UserSignIn = () => {
 				placement: "top",
 				bgColor: "red.500"
 			});
+
 		} finally {
-			setIsLoading(false);
+			setTimeout(() => { setIsLoading(false); }, 750)
 		}
 	}
 
@@ -104,7 +104,6 @@ const UserSignIn = () => {
 
 					</HStack>
 
-
 					<Controller
 						control={control}
 						name='name'
@@ -123,9 +122,11 @@ const UserSignIn = () => {
 						name="email"
 						render={({ field: { onChange, value } }) => (
 							<Input
-								placeholder="Email *"
-								onChangeText={onChange}
 								value={value}
+								placeholder="Email *"
+								autoCapitalize="none"
+								onChangeText={onChange}
+								keyboardType='email-address'
 								errorMessage={errors.email?.message}
 							/>
 						)}
@@ -195,10 +196,12 @@ const UserSignIn = () => {
 					<Center>
 						<Button
 							title="Finalizar Cadastro"
-							onPress={handleSubmit(addImmigrant)}
 							isLoading={isLoading}
+							_loading={{
+								backgroundColor: "green.700"
+							}}
+							onPress={handleSubmit(addImmigrant)}
 							rounded="full"
-							variant="outline"
 						/>
 					</Center>
 				</VStack>

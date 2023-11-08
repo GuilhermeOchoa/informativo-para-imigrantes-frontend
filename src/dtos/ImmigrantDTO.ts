@@ -5,9 +5,9 @@ export type ImmigrantDTO = {
 	password: string,
 }
 
-export type immigrantRequestDTO = {
+export type ImmigrantRequestDTO = {
 	name: string,
 	countryOfOrigin?: string,
-	passwordOld: string,
-	passwordNew: string
+	oldPassword: string,
+	newPassword: string
 }
