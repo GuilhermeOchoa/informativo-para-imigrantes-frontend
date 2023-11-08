@@ -1,0 +1,16 @@
+{
+  "cli": {
+    "version": ">= 5.7.0"
+  },
+  "build": {
+    "preview": {
+      "android": {
+        "distribution": "internal"
+      },
+      "env": {
+        "EXPO_PUBLIC_URL": "http://ec2-3-144-96-243.us-east-2.compute.amazonaws.com:8080/"
+      }
+    },
+    "production": {}
+  }
+}
