@@ -59,8 +59,17 @@ export function RegisterProgramForm2() {
 	});
 
 	function handleEndDate(newDate: string) {
-		setSelectedEndDate(newDate)
-		setValue("programEndDate", newDate)
+		if (newDate < selectedInitialDate) {
+			control.setError("programEndDate", {
+				type: "manual",
+				message: "Data final não pode ser menor que a data inicial"
+			})
+			setSelectedEndDate("")
+			setValue("programEndDate", "")
+		} else {
+			setSelectedEndDate(newDate)
+			setValue("programEndDate", newDate)
+		}
 	}
 	function handleInitialDate(newDate: string) {
 		setSelectedInitialDate(newDate)
@@ -188,19 +197,19 @@ export function RegisterProgramForm2() {
 
 					<Box pt={2} pb={2}>
 
-					<Controller
-						control={control}
-						name='link'
-						render={({ field: { onChange, value } }) => (
-							<Input
-								style={{ marginTop: 12 }}
-								placeholder={t("Link") + "*"}
-								errorMessage={errors.link?.message}
-								onChangeText={onChange}
-								value={value}
-							/>
-						)}
-					/>
+						<Controller
+							control={control}
+							name='link'
+							render={({ field: { onChange, value } }) => (
+								<Input
+									style={{ marginTop: 12 }}
+									placeholder={t("Link") + "*"}
+									errorMessage={errors.link?.message}
+									onChangeText={onChange}
+									value={value}
+								/>
+							)}
+						/>
 					</Box>
 
 				</VStack>

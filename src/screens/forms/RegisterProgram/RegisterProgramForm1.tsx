@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Controller, useForm } from "react-hook-form";
+import { Controller, set, useForm } from "react-hook-form";
 import { VStack, HStack, Center, Divider, Text, Box } from "native-base"
 
 import { ScrollView } from "react-native"
@@ -58,8 +58,17 @@ export function RegisterProgramForm1() {
 	});
 
 	function handleEndDate(newDate: string) {
-		setSelectedEndDate(newDate)
-		setValue("enrollmentEndDate", newDate)
+		if (newDate < selectedInitialDate) {
+			control.setError("enrollmentEndDate", {
+				type: "manual",
+				message: "A data final não pode ser menor que a data inicial"
+			})
+			setSelectedEndDate("")
+			setValue("enrollmentEndDate", "")
+		} else {
+			setSelectedEndDate(newDate)
+			setValue("enrollmentEndDate", newDate)
+		}
 	}
 
 	function handleInitialDate(newDate: string) {
@@ -130,7 +139,7 @@ export function RegisterProgramForm1() {
 					)}
 				/>
 				<Text pt={8} pb={2} fontSize="lg" color="gray.400">{t("DataInicialInscricoes") + "*"}</Text>
-                <Controller
+				<Controller
 					control={control}
 					name="enrollmentInitialDate"
 					rules={{
@@ -147,7 +156,7 @@ export function RegisterProgramForm1() {
 					)}
 				/>
 
-                <Text pt={8} pb={2} fontSize="lg" color="gray.400">{t("DataFinalInscricoes") + "*"}</Text>
+				<Text pt={8} pb={2} fontSize="lg" color="gray.400">{t("DataFinalInscricoes") + "*"}</Text>
 				<Controller
 					control={control}
 					name="enrollmentEndDate"
