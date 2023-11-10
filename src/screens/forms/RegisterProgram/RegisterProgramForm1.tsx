@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Controller, set, useForm } from "react-hook-form";
 import { VStack, HStack, Center, Divider, Text, Box } from "native-base"
 
-import { ScrollView } from "react-native"
+import { KeyboardAvoidingView, Platform, ScrollView } from "react-native"
 import { useTranslation } from "react-i18next"
 import { useNavigation, useRoute } from "@react-navigation/native"
 import { InstitutionNavigatorRoutesProps } from "@routes/institution.routes"
@@ -180,9 +180,53 @@ export function RegisterProgramForm1() {
 						variant="outline"
 						rounded="full"
 					/>
-				</Center>
-			</VStack>
+					<Text style={{ fontSize: 15, marginBottom: 4 }}>{t("DataInicialInscricoes")}</Text>
+					<Controller
+						control={control}
+						name="enrollmentInitialDate"
+						rules={{
+							required: true,
+							maxLength: 100,
+						}}
+						render={() => (
+							<DateInput
+								variant={"underlined"}
+								selectDateFunction={handleInitialDate}
+								selectedDate={selectedInitialDate}
+								errorMessage={errors.enrollmentInitialDate?.message}
+							/>
+						)}
+					/>
 
-		</ScrollView >
+					<Text style={{ fontSize: 15, marginBottom: 4 }}>{t("DataFinalInscricoes")}</Text>
+					<Controller
+						control={control}
+						name="enrollmentEndDate"
+						rules={{
+							required: true,
+							maxLength: 100,
+						}}
+						render={() => (
+							<DateInput
+								variant={"underlined"}
+								selectDateFunction={handleEndDate}
+								selectedDate={selectedEndDate}
+								errorMessage={errors.enrollmentEndDate?.message}
+							/>
+						)}
+					/>
+					<Center mt={6}>
+						<Button
+							title="Proximo"
+							onPress={handleSubmit(onSubmit)}
+							variant="outline"
+							rounded="full"
+						/>
+					</Center>
+				</VStack>
+
+			</ScrollView >
+		</KeyboardAvoidingView>
+
 	)
 }

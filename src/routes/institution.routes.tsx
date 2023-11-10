@@ -1,5 +1,5 @@
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { Profile } from '@screens/Profile';
+import { Profile } from '@screens/ProfileImmigrant';
 import { MyPrograms } from '@screens/MyPrograms';
 import { ProgramDTO } from '@dtos/ProgramDTO';
 import { RegisterProgramForm1 } from '@screens/forms/RegisterProgram/RegisterProgramForm1';
