@@ -24,13 +24,14 @@ import { Card } from "@components/Card";
 import { useState, useEffect } from "react";
 import { Loading } from '@components/Loading';
 import { TouchableOpacity } from "react-native";
-import { getInstitutionsByStatus } from "@services/Institution";
+import { getInstituitionByEmail, getInstitutionsByStatus } from "@services/Institution";
 
 export function MyPrograms() {
 	const { t, i18n } = useTranslation();
 	const [isLoading, setIsLoading] = useState(true);
 	const navigation = useNavigation<InstitutionNavigatorRoutesProps>();
 	const [programs, setPrograms] = useState<ProgramDTO[]>([]);
+	const [showButton, setShowButton] = useState(false);
 	const { user, isLoadingUserStorageData, signOut } = useAuth();
 	const toast = useToast();
 
@@ -40,36 +41,25 @@ export function MyPrograms() {
 
 	const handleRegisterProgramForm = async () => {
 		try {
-		  // Verificar se o usuário é uma instituição
-		  if (user.type === "INSTITUTION" || user.type ==="ADMIN") {
-			// Se o usuário for uma instituição, verificar o status antes de permitir o registro do programa
-			const institutionStatusResponse = await getInstitutionsByStatus(user.status);
-			const institutionStatus = institutionStatusResponse.data?.status;
+		  // Verificar o status da instituição antes de permitir o registro do programa
+		  const institutionStatusResponse = await getInstituitionByEmail(user.email);
 	  
-			if (institutionStatus === Status.APPROVED) {
-			  // A instituição está aprovada, permitir navegação para a tela de registro do programa
-			  navigation.navigate("registerProgramForm1", { fetchPrograms });
-			} else {
-			  // A instituição não está aprovada, exibir uma mensagem informando ao usuário
-			  toast.show({
-				title: t("Sua instituição não está aprovada para criar programas."),
-				placement: "top",
-				bgColor: "red.500",
-			  });
-			}
+		  const institutionStatus = institutionStatusResponse.data?.status;
+	  
+		  if (institutionStatus === Status.APPROVED) {
+	
+			navigation.navigate("registerProgramForm1", { fetchPrograms });
+			setShowButton(true);
 		  } else {
-			// Se o usuário não for uma instituição, exibir mensagem informando que apenas instituições podem criar programas
-			toast.show({
-			  title: t("Apenas instituições podem criar programas."),
-			  placement: "top",
-			  bgColor: "red.500",
-			});
+			
+			setShowButton(true);
 		  }
 		} catch (error) {
 		  console.error("Erro ao verificar status da instituição:", error);
-		  // Tratar erros, se necessário
+		 
 		}
 	  };
+	  
 	async function fetchPrograms() {
 		try {
 			setIsLoading(true);
@@ -155,6 +145,7 @@ export function MyPrograms() {
 						size="sm"
 						icon={<Icon color="white" as={<AntDesign name="plus" />} size="sm" />}
 						onPress={handleRegisterProgramForm}
+						isDisabled={showButton}
 					/>
 				</>
 			)}
