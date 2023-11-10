@@ -1,22 +1,32 @@
 import { VStack, View, Text, Image, Modal } from "native-base";
 import { StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { Button } from "@components/Button";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import { Ionicons } from '@expo/vector-icons';
-import React from "react";
+import { useState } from "react";
 
 import pucrsmock from '@assets/pucrsmock.png'
+import { useTranslation } from "react-i18next";
+import { ProgramDTO } from "@dtos/ProgramDTO";
+import { InstitutionDTO } from "@dtos/InstitutionDTO";
 
-export function AcceptInstitutions() {
+export function DetailScreen() {
 
     const navigation = useNavigation<AppNavigatorRoutesProps>();
     
+    const { t, i18n } = useTranslation();
+	const route = useRoute();
+    const data = route.params as ProgramDTO | InstitutionDTO;
+
+    console.log("from inside", data)
+
+
     function declinedScreen() {
         navigation.navigate('declinedScreen');
     }
 
-    const [isModalVisible, setIsModalVisible] = React.useState(false);
+    const [isModalVisible, setIsModalVisible] = useState(false);
     const handleModal = () => {
         setIsModalVisible(!isModalVisible);
     };

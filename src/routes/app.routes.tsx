@@ -12,12 +12,15 @@ import { Contact } from '@screens/Contact';
 import { ProfileImmigrant } from '@screens/ProfileImmigrant';
 import { Articles } from '@screens/Articles';
 import { ArticlesDetals } from '@screens/ArticlesDetails';
+import { DetailScreen } from '@screens/DetailScreen';
 
 import { useTranslation } from 'react-i18next';
 import { OpportunityDTO } from '@dtos/OpportunityDTO';
 import { Admin } from '@screens/Admin';
 import { AcceptPrograms } from '@screens/AcceptPrograms';
 import { DeclinedScreen } from '@screens/DeclinedScreen';
+import { ProgramDTO } from '@dtos/ProgramDTO';
+import { InstitutionDTO } from '@dtos/InstitutionDTO';
 
 type AppRoutes = {
 	feed: undefined;
@@ -30,6 +33,7 @@ type AppRoutes = {
 	feedCategory: OpportunityDTO;
 	acceptPrograms: undefined;
 	declinedScreen: undefined;
+	detailScreen: ProgramDTO | InstitutionDTO;
 }
 
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>;
@@ -172,6 +176,14 @@ export function AppRoutes() {
 
 				}}
 
+			/>
+
+			<Screen
+				name='detailScreen'
+				component={DetailScreen}
+				options={{
+					tabBarButton: () => null
+				}}
 			/>
 
 		</Navigator >
