@@ -2,7 +2,7 @@ import { AppError } from "@utils/AppError";
 import axios from "axios";
 
 const api = axios.create({
-	baseURL: "http://10.0.2.2:8080",
+	baseURL: "http://ec2-3-144-96-243.us-east-2.compute.amazonaws.com:8080",
 	timeout: 6000,
 });
 
