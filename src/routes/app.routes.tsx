@@ -9,7 +9,7 @@ import { ArticleDTO } from '@dtos/ArticleDTO';
 import { Feed } from '@screens/Feed';
 import { FeedCategory } from '@screens/FeedCategory';
 import { Contact } from '@screens/Contact';
-import { Profile } from '@screens/Profile';
+import { ProfileImmigrant } from '@screens/ProfileImmigrant';
 import { Articles } from '@screens/Articles';
 import { ArticlesDetals } from '@screens/ArticlesDetails';
 
@@ -21,7 +21,7 @@ import { DeclinedScreen } from '@screens/DeclinedScreen';
 
 type AppRoutes = {
 	feed: undefined;
-	profile: undefined;
+	profileImmigrant: undefined;
 	contact: undefined;
 	article: undefined;
 	articleDetails: ArticleDTO;
@@ -78,8 +78,8 @@ export function AppRoutes() {
 			}}>
 
 			<Screen
-				name='profile'
-				component={Profile}
+				name='profileImmigrant'
+				component={ProfileImmigrant}
 				options={{
 					tabBarIcon: ({ color, focused }) => (
 						<CustomTabIcon name="person-outline" color={color} focused={focused} iconsSize={iconsSize} />

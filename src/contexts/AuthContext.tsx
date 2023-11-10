@@ -31,7 +31,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     //Atualiza cabecalho de autenticacao
     async function userAndTokenUpdate(userData: UserDTO, token: string) {
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: true, justInformation: false, email: userData.email, name: userData.name, type: userData.type });
+        setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: true, justInformation: false, email: userData.email, type: userData.type });
     }
 
     //...Salva no storage o usuario e o token
@@ -39,7 +39,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         try {
             setIsLoadingUserStorageData(true);
 
-            await storageUserSave({ showOnboarding: true, language: i18n.language, isLoggedIn: true, justInformation: false, email: userData.email, name: userData.name, type: userData.type });
+            await storageUserSave({ showOnboarding: true, language: i18n.language, isLoggedIn: true, justInformation: false, email: userData.email, type: userData.type });
             await storageAuthTokenSave(token);
 
         } catch (error) {
@@ -72,6 +72,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     async function signOut() {
         try {
             setIsLoadingUserStorageData(true);
+            delete api.defaults.headers.common['Authorization'];
 
             saveFirstAcessUser();
 
@@ -113,8 +114,8 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
     function saveFirstAcessUser() {
         try {
-            setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: false, email: "", name: "", type: "" });
-            storageUserSave({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: false, email: "", name: "", type: "" });
+            setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: false, email: "", type: "" });
+            storageUserSave({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: false, email: "", type: "" });
         } catch (error) {
             throw error;
         }
@@ -122,8 +123,8 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
     function updateLocalStorageUserNoLogged() {
         try {
-            setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: true, email: "", name: "", type: "" });
-            storageUserSave({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: true, email: "", name: "", type: "" });
+            setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: true, email: "", type: "" });
+            storageUserSave({ showOnboarding: true, language: i18n.language, isLoggedIn: false, justInformation: true, email: "", type: "" });
         } catch (error) {
             throw error;
         }

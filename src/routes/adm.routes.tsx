@@ -1,11 +1,9 @@
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { Profile } from '@screens/Profile';
 import { Admin } from '@screens/Admin';
 import { PendingPrograms } from '@screens/PendingPrograms';
 import { PendingInstitutions } from '@screens/PendingInstitutions';
 
 type AdmRoutes = {
-    profile: undefined
     admin: undefined
     pendingPrograms: undefined
     pendingInstitutions: undefined

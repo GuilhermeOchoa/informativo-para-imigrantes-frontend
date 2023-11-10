@@ -13,6 +13,7 @@ import { useNavigation, useRoute } from "@react-navigation/native"
 import { ProgramDTO } from "@dtos/ProgramDTO"
 import { useTranslation } from "react-i18next"
 import { InstitutionNavigatorRoutesProps } from "@routes/institution.routes"
+import { KeyboardAvoidingView, Platform } from "react-native"
 
 type FormDataProps = {
 	location: string,
@@ -85,136 +86,144 @@ export function RegisterProgramForm2() {
 	}
 
 	return (
-		<ScrollView showsVerticalScrollIndicator={false}>
+		<KeyboardAvoidingView
+			style={{ flex: 1 }}
+			behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+			keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 70}
+		>
 
-			<VStack flex={1} px={6} pb={6} mt={12}>
+			<ScrollView showsVerticalScrollIndicator={false}>
 
-				<HStack alignItems="center" m={2} mb={6}>
+				<VStack flex={1} px={6} pb={6} mt={12}>
 
-					<VStack flex={1}>
-						<Center>
-							<Text fontFamily="body" fontSize="xl">
-								{t("Cadastro de Programa")}
-							</Text>
-						</Center>
+					<HStack alignItems="center" m={2} mb={6}>
 
-						<Divider my={4} bgColor="green.500" />
+						<VStack flex={1}>
+							<Center>
+								<Text fontFamily="body" fontSize="xl">
+									{t("Cadastro de Programa")}
+								</Text>
+							</Center>
 
-						<Center>
-							<Text fontFamily="body" fontSize="lg" pt={8}>
-								{t("Informacoes do programa")}
-							</Text>
-						</Center>
+							<Divider my={4} bgColor="green.500" />
+
+							<Center>
+								<Text fontFamily="body" fontSize="lg" pt={8}>
+									{t("Informacoes do programa")}
+								</Text>
+							</Center>
+						</VStack>
+
+					</HStack>
+
+
+					<VStack flex={1} mt={1} mb={2}>
+
+						<Controller
+							control={control}
+							name="location"
+							rules={{ required: false }}
+							render={({ field: { onChange } }) => (
+								<Select
+									{...register("location")}
+									options={ProgramLocalOptions}
+									inputTitle="Local do programa:"
+									isInvalid={!!errors.location}
+									placeholder="Selecione o local"
+									label={t("Local do Programa")}
+									onValueChange={value => onChange(value)}
+								/>
+
+							)}
+						/>
+
+						<Controller
+							name="language"
+							control={control}
+							rules={{ required: false }}
+							render={({ field: { onChange } }) => (
+								<Select
+									{...register("language")}
+									options={ProgramLanguageOptions}
+									isInvalid={!!errors.language}
+									inputTitle="Idioma:"
+									placeholder="Idioma"
+									label={t("Idioma")}
+									onValueChange={value => onChange(value)}
+								/>
+
+							)}
+						/>
+
+						<Text style={{ fontSize: 15 }}>
+							{t("DataInicioPrograma")}
+						</Text>
+						<Controller
+							control={control}
+							name="programInitialDate"
+							rules={{
+								required: true,
+								maxLength: 100,
+							}}
+							render={() => (
+								<DateInput
+									variant={"underlined"}
+									selectDateFunction={handleInitialDate}
+									selectedDate={selectedInitialDate}
+									errorMessage={errors.programInitialDate?.message}
+								/>
+							)}
+						/>
+
+						<Text style={{ fontSize: 15 }}>
+							{t("DataFinalPrograma")}
+						</Text>
+
+						<Controller
+							control={control}
+							name="programEndDate"
+							rules={{
+								required: true,
+								maxLength: 100,
+							}}
+							render={() => (
+								<DateInput
+									variant={"underlined"}
+									selectDateFunction={handleEndDate}
+									selectedDate={selectedEndDate}
+									errorMessage={errors.programEndDate?.message}
+								/>
+							)}
+						/>
+
+						<Controller
+							control={control}
+							name='link'
+							render={({ field: { onChange, value } }) => (
+								<Input
+									placeholder="Link*"
+									errorMessage={errors.link?.message}
+									onChangeText={onChange}
+									value={value}
+									autoCapitalize="none"
+								/>
+							)}
+						/>
+
 					</VStack>
 
-				</HStack>
-
-
-				<VStack flex={1} mt={1} mb={2}>
-
-					<Controller
-						control={control}
-						name="location"
-						rules={{ required: false }}
-						render={({ field: { onChange } }) => (
-							<Select
-								{...register("location")}
-								options={ProgramLocalOptions}
-								inputTitle="Local do programa:"
-								isInvalid={!!errors.location}
-								placeholder="Selecione o local"
-								label={t("Local do Programa")}
-								onValueChange={value => onChange(value)}
-							/>
-
-						)}
-					/>
-
-					<Controller
-						name="language"
-						control={control}
-						rules={{ required: false }}
-						render={({ field: { onChange } }) => (
-							<Select
-								{...register("language")}
-								options={ProgramLanguageOptions}
-								isInvalid={!!errors.language}
-								inputTitle="Idioma:"
-								placeholder="Idioma"
-								label={t("Idioma")}
-								onValueChange={value => onChange(value)}
-							/>
-
-						)}
-					/>
-
-					<Text style={{ fontSize: 15 }}>
-						{t("DataInicioPrograma")}
-						</Text>
-					<Controller
-						control={control}
-						name="programInitialDate"
-						rules={{
-							required: true,
-							maxLength: 100,
-						}}
-						render={() => (
-							<DateInput
-								variant={"underlined"}
-								selectDateFunction={handleInitialDate}
-								selectedDate={selectedInitialDate}
-								errorMessage={errors.programInitialDate?.message}
-							/>
-						)}
-					/>
-
-					<Text style={{ fontSize: 15 }}>
-						{t("DataFinalPrograma")}
-					</Text>
-
-					<Controller
-						control={control}
-						name="programEndDate"
-						rules={{
-							required: true,
-							maxLength: 100,
-						}}
-						render={() => (
-							<DateInput
-								variant={"underlined"}
-								selectDateFunction={handleEndDate}
-								selectedDate={selectedEndDate}
-								errorMessage={errors.programEndDate?.message}
-							/>
-						)}
-					/>
-
-					<Controller
-						control={control}
-						name='link'
-						render={({ field: { onChange, value } }) => (
-							<Input
-								placeholder="Link*"
-								errorMessage={errors.link?.message}
-								onChangeText={onChange}
-								value={value}
-							/>
-						)}
-					/>
-
+					<Center mt={2}>
+						<Button
+							title={t("Proximo")}
+							onPress={handleSubmit(onSubmit)}
+							rounded="full"
+							variant="outline"
+						/>
+					</Center>
 				</VStack>
 
-				<Center mt={2}>
-					<Button
-						title={t("Proximo")}
-						onPress={handleSubmit(onSubmit)}
-						rounded="full"
-						variant="outline"
-					/>
-				</Center>
-			</VStack>
-
-		</ScrollView>
+			</ScrollView>
+		</KeyboardAvoidingView>
 
 	)
 }

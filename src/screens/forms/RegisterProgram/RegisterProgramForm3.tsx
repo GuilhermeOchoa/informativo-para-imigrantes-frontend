@@ -18,6 +18,7 @@ import { useTranslation } from "react-i18next"
 import { ProgramDTO } from "@dtos/ProgramDTO"
 import { AppError } from "@utils/AppError"
 import { useState } from "react"
+import { KeyboardAvoidingView, Platform } from "react-native"
 
 type FormDataProps = {
 	tags?: string[],
@@ -117,77 +118,83 @@ export function RegisterProgramForm3() {
 	}
 
 	return (
-		<ScrollView showsVerticalScrollIndicator={false}>
+		<KeyboardAvoidingView
+			style={{ flex: 1 }}
+			behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+			keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 70}
+		>
+			<ScrollView showsVerticalScrollIndicator={false}>
 
-			<VStack flex={1} px={6} pb={2} mt={12}>
-				<HStack alignItems="center" m={2}>
+				<VStack flex={1} px={6} pb={2} mt={12}>
+					<HStack alignItems="center" m={2}>
 
-					<VStack flex={1}>
-						<Center>
-							<Text style={{ fontSize: 20 }}>
-								{"Cadastro de Programa"}
-							</Text>
-						</Center>
-					</VStack>
-				</HStack>
+						<VStack flex={1}>
+							<Center>
+								<Text style={{ fontSize: 20 }}>
+									{"Cadastro de Programa"}
+								</Text>
+							</Center>
+						</VStack>
+					</HStack>
 
-				<Divider my={4} bgColor="green.500" />
-				<ScrollView>
+					<Divider my={4} bgColor="green.500" />
+					<ScrollView>
 
-					<VStack flex={1} mt={8}>
-						<Controller
-							control={control}
-							name="programType"
-							rules={{ required: false }}
-							render={({ field: { onChange } }) => (
-								<Select
-									{...register("programType")}
-									options={ProgramTypesOptions}
-									inputTitle="Tipo de programa:"
-									placeholder="Selecione o tipo"
-									label={t("Tipos de programa")}
-									onValueChange={value => onChange(value)}
-								/>
-							)}
+						<VStack flex={1} mt={8}>
+							<Controller
+								control={control}
+								name="programType"
+								rules={{ required: false }}
+								render={({ field: { onChange } }) => (
+									<Select
+										{...register("programType")}
+										options={ProgramTypesOptions}
+										inputTitle="Tipo de programa:"
+										placeholder="Selecione o tipo"
+										label={t("Tipos de programa")}
+										onValueChange={value => onChange(value)}
+									/>
+								)}
+							/>
+
+							<Controller
+								control={control}
+								rules={{
+									maxLength: 10,
+								}}
+
+								render={({ field: { onChange } }) => (
+									<TagSelection
+										{...register("tags")}
+										placeholder="Selecione as tags do programa"
+										onValueChange={value => onChange(value)}
+										inputTitle={"Tags:"}
+										label={"tags"}
+										options={TagOptions}
+									/>
+								)}
+								name="tags"
+							/>
+							<Center>
+								<Text style={{ fontSize: 15, marginTop: 20 }}>
+									{"Anexar arquivo:"}
+								</Text>
+							</Center>
+
+							<FileAttachment />
+						</VStack>
+					</ScrollView>
+
+					<Center mt={24}>
+						<Button
+							title="Finalizar cadastro"
+							onPress={handleSubmit(onSubmit)}
+							rounded="full"
 						/>
-
-						<Controller
-							control={control}
-							rules={{
-								maxLength: 10,
-							}}
-
-							render={({ field: { onChange } }) => (
-								<TagSelection
-									{...register("tags")}
-									placeholder="Selecione as tags do programa"
-									onValueChange={value => onChange(value)}
-									inputTitle={"Tags:"}
-									label={"tags"}
-									options={TagOptions}
-								/>
-							)}
-							name="tags"
-						/>
-						<Center>
-							<Text style={{ fontSize: 15, marginTop: 20 }}>
-								{"Anexar arquivo:"}
-							</Text>
-						</Center>
-
-						<FileAttachment />
-					</VStack>
-				</ScrollView>
-
-				<Center mt={24}>
-					<Button
-						title="Finalizar cadastro"
-						onPress={handleSubmit(onSubmit)}
-						rounded="full"
-					/>
-				</Center>
-			</VStack>
-		</ScrollView>
+					</Center>
+				</VStack>
+			</ScrollView>
+		</KeyboardAvoidingView>
 
 	)
 }

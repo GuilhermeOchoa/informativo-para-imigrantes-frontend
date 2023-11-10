@@ -4,3 +4,10 @@ export type ImmigrantDTO = {
 	countryOfOrigin?: string,
 	password: string,
 }
+
+export type ImmigrantRequestDTO = {
+	name: string,
+	countryOfOrigin?: string,
+	oldPassword: string,
+	newPassword: string
+}
