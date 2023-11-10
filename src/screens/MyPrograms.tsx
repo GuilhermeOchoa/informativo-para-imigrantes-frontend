@@ -41,7 +41,7 @@ export function MyPrograms() {
 	const handleRegisterProgramForm = async () => {
 		try {
 		  // Verificar se o usuário é uma instituição
-		  if (user.type === "INSTITUTION" && user.type ==="") {
+		  if (user.type === "INSTITUTION" || user.type ==="ADMIN") {
 			// Se o usuário for uma instituição, verificar o status antes de permitir o registro do programa
 			const institutionStatusResponse = await getInstitutionsByStatus(user.status);
 			const institutionStatus = institutionStatusResponse.data?.status;
