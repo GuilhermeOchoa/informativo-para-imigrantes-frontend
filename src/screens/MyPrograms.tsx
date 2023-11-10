@@ -16,6 +16,7 @@ import { InstitutionNavigatorRoutesProps } from "@routes/institution.routes";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "@hooks/useAuth";
 import { ProgramDTO } from "@dtos/ProgramDTO";
+import { Status} from "@dtos/InstitutionDTO";
 import { getAllProgram } from "@services/Program";
 import { AppError } from "@utils/AppError";
 
@@ -23,6 +24,7 @@ import { Card } from "@components/Card";
 import { useState, useEffect } from "react";
 import { Loading } from '@components/Loading';
 import { TouchableOpacity } from "react-native";
+import { getInstitutionsByStatus } from "@services/Institution";
 
 export function MyPrograms() {
 	const { t, i18n } = useTranslation();
@@ -36,10 +38,38 @@ export function MyPrograms() {
 		signOut();
 	}
 
-	const handleRegisterProgramForm = () => {
-		navigation.navigate("registerProgramForm1", { fetchPrograms });
-	};
-
+	const handleRegisterProgramForm = async () => {
+		try {
+		  // Verificar se o usuário é uma instituição
+		  if (user.type === "INSTITUTION" && user.type ==="") {
+			// Se o usuário for uma instituição, verificar o status antes de permitir o registro do programa
+			const institutionStatusResponse = await getInstitutionsByStatus(user.status);
+			const institutionStatus = institutionStatusResponse.data?.status;
+	  
+			if (institutionStatus === Status.APPROVED) {
+			  // A instituição está aprovada, permitir navegação para a tela de registro do programa
+			  navigation.navigate("registerProgramForm1", { fetchPrograms });
+			} else {
+			  // A instituição não está aprovada, exibir uma mensagem informando ao usuário
+			  toast.show({
+				title: t("Sua instituição não está aprovada para criar programas."),
+				placement: "top",
+				bgColor: "red.500",
+			  });
+			}
+		  } else {
+			// Se o usuário não for uma instituição, exibir mensagem informando que apenas instituições podem criar programas
+			toast.show({
+			  title: t("Apenas instituições podem criar programas."),
+			  placement: "top",
+			  bgColor: "red.500",
+			});
+		  }
+		} catch (error) {
+		  console.error("Erro ao verificar status da instituição:", error);
+		  // Tratar erros, se necessário
+		}
+	  };
 	async function fetchPrograms() {
 		try {
 			setIsLoading(true);

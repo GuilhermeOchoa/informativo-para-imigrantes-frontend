@@ -9,4 +9,10 @@ export type InstitutionDTO = {
 	phone?: string;
 	attachment?: string;
 	password?: string;
+	status?: Status;
 };
+export enum Status {
+	PENDING = 'PENDING',
+	APPROVED = 'APPROVED',
+	REJECTED = 'REJECTED'
+}
