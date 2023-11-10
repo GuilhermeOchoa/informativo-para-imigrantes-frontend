@@ -1,7 +1,7 @@
 import { api } from "@services/Api";
 
 export async function getCategoriesWithCount() {
-    return api.get('programs/categories');
+    return api.get('/programs/categories');
 }
 
 export function getProgramByType(programType: string) {

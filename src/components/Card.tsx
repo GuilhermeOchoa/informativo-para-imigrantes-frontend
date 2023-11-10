@@ -50,7 +50,7 @@ export function Card({ data, cardType, cardContext, status, ...rest }: Props) {
                 </Text>
 
                 <Box>
-                    <Text fontSize="sm" color="black" mt={1} numberOfLines={3}>
+                    <Text fontSize="sm" color="black" mt={1} numberOfLines={1}>
                         {cardType === "program"
                             ? data.description
                             : cardType === "article"

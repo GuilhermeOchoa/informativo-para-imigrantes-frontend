@@ -89,7 +89,7 @@ export function FeedCategory() {
 						<Card
 							data={item}
 							cardType="program"
-							cardContext="myPrograms"
+							cardContext="feed"
 						/>
 					)}
 					ListEmptyComponent={() => (

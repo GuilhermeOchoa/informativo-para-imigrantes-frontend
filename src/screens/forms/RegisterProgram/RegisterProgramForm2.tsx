@@ -1,5 +1,5 @@
 import { useForm, Controller } from "react-hook-form"
-import { VStack, HStack, Center, Divider, Text, ScrollView } from "native-base"
+import { VStack, HStack, Center, Divider, Text, ScrollView, Box } from "native-base"
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useState } from "react"
@@ -60,8 +60,17 @@ export function RegisterProgramForm2() {
 	});
 
 	function handleEndDate(newDate: string) {
-		setSelectedEndDate(newDate)
-		setValue("programEndDate", newDate)
+		if (newDate < selectedInitialDate) {
+			control.setError("programEndDate", {
+				type: "manual",
+				message: "Data final não pode ser menor que a data inicial"
+			})
+			setSelectedEndDate("")
+			setValue("programEndDate", "")
+		} else {
+			setSelectedEndDate(newDate)
+			setValue("programEndDate", newDate)
+		}
 	}
 	function handleInitialDate(newDate: string) {
 		setSelectedInitialDate(newDate)
@@ -212,14 +221,102 @@ export function RegisterProgramForm2() {
 
 					</VStack>
 
-					<Center mt={2}>
-						<Button
-							title={t("Proximo")}
-							onPress={handleSubmit(onSubmit)}
-							rounded="full"
-							variant="outline"
+				</HStack>
+
+
+				<VStack flex={1} mt={1} mb={2}>
+
+					<Controller
+						control={control}
+						name="location"
+						rules={{ required: false }}
+						render={({ field: { onChange } }) => (
+							<Select
+								{...register("location")}
+								options={ProgramLocalOptions}
+								inputTitle="Local do programa:"
+								isInvalid={!!errors.location}
+								placeholder="Selecione o local"
+								label={t("Local do Programa")}
+								onValueChange={value => onChange(value)}
+							/>
+
+						)}
+					/>
+
+					<Controller
+						name="language"
+						control={control}
+						rules={{ required: false }}
+						render={({ field: { onChange } }) => (
+							<Select
+								{...register("language")}
+								options={ProgramLanguageOptions}
+								isInvalid={!!errors.language}
+								inputTitle="Idioma:"
+								placeholder="Idioma"
+								label={t("Idioma")}
+								onValueChange={value => onChange(value)}
+							/>
+
+						)}
+					/>
+
+					<Text pt={2} pb={2} fontSize="lg" color="gray.400">{t("DataInicialPrograma") + "*"}</Text>
+					<Controller
+						control={control}
+						name="programInitialDate"
+						rules={{
+							required: true,
+							maxLength: 100,
+						}}
+						render={() => (
+							<DateInput
+								variant={"underlined"}
+								selectDateFunction={handleInitialDate}
+								selectedDate={selectedInitialDate}
+								errorMessage={errors.programInitialDate?.message}
+							/>
+						)}
+					/>
+
+					<Text pt={8} pb={2} fontSize="lg" color="gray.400">{t("DataFinalPrograma") + "*"}</Text>
+
+
+					<Controller
+						control={control}
+						name="programEndDate"
+						rules={{
+							required: true,
+							maxLength: 100,
+						}}
+						render={() => (
+							<DateInput
+								variant={"underlined"}
+								selectDateFunction={handleEndDate}
+								selectedDate={selectedEndDate}
+								errorMessage={errors.programEndDate?.message}
+							/>
+						)}
+					/>
+
+					<Box pt={2} pb={2}>
+
+						<Controller
+							control={control}
+							name='link'
+							render={({ field: { onChange, value } }) => (
+								<Input
+									style={{ marginTop: 12 }}
+									placeholder={t("Link") + "*"}
+									errorMessage={errors.link?.message}
+									onChangeText={onChange}
+									value={value}
+								/>
+							)}
 						/>
-					</Center>
+					</Box>
+
 				</VStack>
 
 			</ScrollView>

@@ -2,7 +2,7 @@ import { Input as NativeBaseInput, IInputProps, FormControl, Text, DeleteIcon, I
 import DateTimePicker from "@react-native-community/datetimepicker"
 import { useState } from 'react';
 import { Button } from '@components/Button';
-import { Platform, StyleSheet, View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '@hooks/useAuth';
 
@@ -19,7 +19,7 @@ export function DateInput({ errorMessage, selectDateFunction, selectedDate, ...r
     const [date, setDate] = useState(new Date());
     const [showPicker, setShowPicker] = useState<boolean>(false);
 
-    const teste = ({ type }: any, selectedDate: any) => {
+    const onChangeDate = ({ type }: any, selectedDate: any) => {
         setShowPicker(Platform.OS === 'ios');
         const currentDate = selectedDate;
         setDate(currentDate);
@@ -38,9 +38,8 @@ export function DateInput({ errorMessage, selectDateFunction, selectedDate, ...r
 
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
 
-            <FormControl mb={10} isInvalid={!!errorMessage} {...rest}>
+            <FormControl isInvalid={!!errorMessage} {...rest}>
 
                 {/* Conditional rendering based on iOS or Android */}
                 {Platform.OS === 'ios' &&
@@ -48,15 +47,10 @@ export function DateInput({ errorMessage, selectDateFunction, selectedDate, ...r
                         <Center width={"35%"}>
                             <DateTimePicker
                                 mode="date"
+                                minimumDate={new Date()}
                                 display="default"
-                                locale={
-                                    user.language === 'pt' ? 'pt-BR'
-                                        : user.language === 'en' ? 'en-US'
-                                            : user.language === 'es-ES' ? 'es-ES'
-                                                : 'fr-FR'
-                                }
                                 value={date}
-                                onChange={teste}
+                                onChange={onChangeDate}
                             />
                         </Center>
                     )
@@ -81,9 +75,10 @@ export function DateInput({ errorMessage, selectDateFunction, selectedDate, ...r
                             <View style={{ flex: 1 }}>
                                 <DateTimePicker
                                     mode="date"
+                                    minimumDate={new Date()}
                                     display="default"
                                     value={date}
-                                    onChange={teste}
+                                    onChange={onChangeDate}
                                 />
                             </View>
                         </View>
@@ -91,17 +86,9 @@ export function DateInput({ errorMessage, selectDateFunction, selectedDate, ...r
                 }
 
                 <FormControl.ErrorMessage>
-                    <Text>Campo obrigatório</Text>
+                    <Text>{errorMessage}</Text>
                 </FormControl.ErrorMessage>
             </FormControl>
-        </SafeAreaView>
 
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    }
-})
