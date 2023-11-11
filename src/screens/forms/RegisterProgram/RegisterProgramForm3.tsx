@@ -21,6 +21,7 @@ import { useState } from "react"
 import { KeyboardAvoidingView, Platform } from "react-native"
 
 type FormDataProps = {
+	//	tags?: TagsDTO[],
 	tags?: string[],
 	programType: string,
 }
@@ -31,6 +32,7 @@ type routesData = {
 }
 
 const signUpSchema = yup.object({
+	// tags: yup.string().required('Informe o local.'),
 	programType: yup
 		.string()
 		.required('Informe o tipo de programa'),
@@ -48,6 +50,33 @@ export function RegisterProgramForm3() {
 	const program = route.params as routesData;
 
 	const [isLoading, setIsLoading] = useState(false);
+	//	const [tags, setTags] = useState<string[]>([]);
+
+
+	// async function fetchTags() {
+	// 	try {
+	// 		setIsLoading(true);
+	// 		const response = await getAllTags(i18n.language ? i18n.language : "pt");
+	// 		console.log("response", response.data)
+	// 		setTags(response.data);
+	// 	} catch (error) {
+	// 		const isAppError = error instanceof AppError;
+	// 		const title = isAppError ? error.message : t("Nao foi possivel carregar as tags")
+
+	// 		toast.show({
+	// 			title,
+	// 			placement: "top",
+	// 			bgColor: "red.500"
+	// 		});
+	// 	} finally {
+	// 		setIsLoading(false);
+	// 	}
+	// }
+
+	// useEffect(() => {
+	// 	fetchTags();
+	// }, [i18n.language])
+
 
 	const { register, control, handleSubmit, formState: { errors }, setValue } = useForm<FormDataProps>({
 		resolver: yupResolver(signUpSchema)
@@ -102,7 +131,7 @@ export function RegisterProgramForm3() {
 		}
 	}
 
-	function formatarData(data: any) {
+	function formatarData(data?: any) {
 		if (!data) {
 			return null;
 		}

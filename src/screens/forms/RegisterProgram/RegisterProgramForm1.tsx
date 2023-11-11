@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Controller, useForm } from "react-hook-form";
+import { Controller, set, useForm } from "react-hook-form";
 import { VStack, HStack, Center, Divider, Text, Box } from "native-base"
 
 import { KeyboardAvoidingView, Platform, ScrollView } from "react-native"
@@ -58,8 +58,17 @@ export function RegisterProgramForm1() {
 	});
 
 	function handleEndDate(newDate: string) {
-		setSelectedEndDate(newDate)
-		setValue("enrollmentEndDate", newDate)
+		if (newDate < selectedInitialDate) {
+			control.setError("enrollmentEndDate", {
+				type: "manual",
+				message: "A data final não pode ser menor que a data inicial"
+			})
+			setSelectedEndDate("")
+			setValue("enrollmentEndDate", "")
+		} else {
+			setSelectedEndDate(newDate)
+			setValue("enrollmentEndDate", newDate)
+		}
 	}
 
 	function handleInitialDate(newDate: string) {
@@ -81,96 +90,94 @@ export function RegisterProgramForm1() {
 			behavior={Platform.OS === 'ios' ? 'padding' : undefined}
 			keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 70}
 		>
+		<ScrollView showsVerticalScrollIndicator={false}>
+			<VStack flex={1} px={6} pb={6} mt={12}>
 
-			<ScrollView showsVerticalScrollIndicator={false}>
-				<VStack flex={1} px={6} pb={6} mt={12}>
+				<HStack alignItems="center" m={2} mb={2}>
 
-					<HStack alignItems="center" m={2} mb={2}>
+					<VStack flex={1}>
+						<Center>
+							<Text fontFamily="body" fontSize="xl">
+								{t("Cadastro de Programa")}
+							</Text>
+						</Center>
 
-						<VStack flex={1}>
-							<Center>
-								<Text fontFamily="body" fontSize="xl">
-									{t("Cadastro de Programa")}
-								</Text>
-							</Center>
+						<Divider my={4} bgColor="green.500" />
 
-							<Divider my={4} bgColor="green.500" />
+						<Center>
+							<Text fontFamily="body" fontSize="lg" pt={8}>
+								{t("Informações do programa")}
+							</Text>
+						</Center>
+					</VStack>
 
-							<Center>
-								<Text fontFamily="body" fontSize="lg" pt={8}>
-									{t("Informações do programa")}
-								</Text>
-							</Center>
-						</VStack>
+				</HStack>
 
-					</HStack>
+				<Controller
+					control={control}
+					name='title'
+					render={({ field: { onChange, value } }) => (
+						<Input
+							placeholder={t("Titulo") + "*"}
+							errorMessage={errors.title?.message}
+							onChangeText={onChange}
+							value={value}
+						/>
+					)}
+				/>
 
-					<Controller
-						control={control}
-						name='title'
-						render={({ field: { onChange, value } }) => (
-							<Input
-								placeholder="Titulo*"
-								errorMessage={errors.title?.message}
-								onChangeText={onChange}
-								value={value}
-							/>
-						)}
-					/>
+				<Text pt={8} pb={2} fontSize="lg" color="gray.400">{t("Descricao") + "*"}</Text>
 
-					<Text pt={8} pb={2} fontSize="lg" color="gray.400">Descricao*</Text>
+				<Controller
+					control={control}
+					name='description'
+					render={({ field: { onChange, value } }) => (
+						<TextArea
+							placeholder="Descrição do programa"
+							fontSize="md"
+							onChangeText={onChange}
+							value={value}
+							errorMessage={errors.description?.message}
+							w="full"
+							bg="white.400"
+						/>
+					)}
+				/>
+				<Text pt={8} pb={2} fontSize="lg" color="gray.400">{t("DataInicialInscricoes") + "*"}</Text>
+				<Controller
+					control={control}
+					name="enrollmentInitialDate"
+					rules={{
+						required: true,
+						maxLength: 100,
+					}}
+					render={() => (
+						<DateInput
+							variant={"underlined"}
+							selectDateFunction={handleInitialDate}
+							selectedDate={selectedInitialDate}
+							errorMessage={errors.enrollmentInitialDate?.message}
+						/>
+					)}
+				/>
 
-					<Controller
-						control={control}
-						name='description'
-						render={({ field: { onChange, value } }) => (
-							<TextArea
-								placeholder="Descrição do programa"
-								fontSize="md"
-								onChangeText={onChange}
-								value={value}
-								errorMessage={errors.description?.message}
-								w="full"
-								bg="white.400"
-								mb={2} inputTitle={""}
-							/>
-						)}
-					/>
-					<Text style={{ fontSize: 15, marginBottom: 4 }}>{t("DataInicialInscricoes")}</Text>
-					<Controller
-						control={control}
-						name="enrollmentInitialDate"
-						rules={{
-							required: true,
-							maxLength: 100,
-						}}
-						render={() => (
-							<DateInput
-								variant={"underlined"}
-								selectDateFunction={handleInitialDate}
-								selectedDate={selectedInitialDate}
-								errorMessage={errors.enrollmentInitialDate?.message}
-							/>
-						)}
-					/>
-
-					<Text style={{ fontSize: 15, marginBottom: 4 }}>{t("DataFinalInscricoes")}</Text>
-					<Controller
-						control={control}
-						name="enrollmentEndDate"
-						rules={{
-							required: true,
-							maxLength: 100,
-						}}
-						render={() => (
-							<DateInput
-								variant={"underlined"}
-								selectDateFunction={handleEndDate}
-								selectedDate={selectedEndDate}
-								errorMessage={errors.enrollmentEndDate?.message}
-							/>
-						)}
-					/>
+				<Text pt={8} pb={2} fontSize="lg" color="gray.400">{t("DataFinalInscricoes") + "*"}</Text>
+				<Controller
+					control={control}
+					name="enrollmentEndDate"
+					rules={{
+						required: true,
+						maxLength: 100,
+					}}
+					render={() => (
+						<DateInput
+							variant={"underlined"}
+							selectDateFunction={handleEndDate}
+							selectedDate={selectedEndDate}
+							errorMessage={errors.enrollmentEndDate?.message}
+						/>
+					)}
+				/>
 					<Center mt={6}>
 						<Button
 							title="Proximo"
