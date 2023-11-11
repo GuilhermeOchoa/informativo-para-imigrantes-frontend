@@ -85,6 +85,11 @@ export function RegisterProgramForm1() {
 	}
 
 	return (
+		<KeyboardAvoidingView
+			style={{ flex: 1 }}
+			behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+			keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 70}
+		>
 		<ScrollView showsVerticalScrollIndicator={false}>
 			<VStack flex={1} px={6} pb={6} mt={12}>
 
@@ -173,48 +178,6 @@ export function RegisterProgramForm1() {
 						/>
 					)}
 				/>
-				<Center mt={10}>
-					<Button
-						title="Proximo"
-						onPress={handleSubmit(onSubmit)}
-						variant="outline"
-						rounded="full"
-					/>
-					<Text style={{ fontSize: 15, marginBottom: 4 }}>{t("DataInicialInscricoes")}</Text>
-					<Controller
-						control={control}
-						name="enrollmentInitialDate"
-						rules={{
-							required: true,
-							maxLength: 100,
-						}}
-						render={() => (
-							<DateInput
-								variant={"underlined"}
-								selectDateFunction={handleInitialDate}
-								selectedDate={selectedInitialDate}
-								errorMessage={errors.enrollmentInitialDate?.message}
-							/>
-						)}
-					/>
-
-					<Text style={{ fontSize: 15, marginBottom: 4 }}>{t("DataFinalInscricoes")}</Text>
-					<Controller
-						control={control}
-						name="enrollmentEndDate"
-						rules={{
-							required: true,
-							maxLength: 100,
-						}}
-						render={() => (
-							<DateInput
-								variant={"underlined"}
-								selectDateFunction={handleEndDate}
-								selectedDate={selectedEndDate}
-								errorMessage={errors.enrollmentEndDate?.message}
-							/>
-						)}
-					/>
 					<Center mt={6}>
 						<Button
 							title="Proximo"
