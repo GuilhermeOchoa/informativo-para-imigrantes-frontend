@@ -45,6 +45,7 @@
 		"telefone": "Téléphone",
 		"senha": "Mot de passe *",
 		"confirmeASenha": "Confirmer le Mot de passe *",
-		"finalizarCastro": "Terminer l'Inscription"
+		"finalizarCastro": "Terminer l'Inscription",
+		"Cadastro em avaliação": "Inscription à l'évaluation"
 	}
 }

@@ -31,28 +31,33 @@ export function MyPrograms() {
 	const [isLoading, setIsLoading] = useState(true);
 	const navigation = useNavigation<InstitutionNavigatorRoutesProps>();
 	const [programs, setPrograms] = useState<ProgramDTO[]>([]);
-	const [showButton, setShowButton] = useState(false);
+	const [buttonOpacity, setButtonOpacity] = useState(1);
+	const [disable, setDisable] = useState(false);
 	const { user, isLoadingUserStorageData, signOut } = useAuth();
 	const toast = useToast();
 
 	function handleGoBack() {
 		signOut();
 	}
+const handleRegisterProgramForm = () => {
+		navigation.navigate("registerProgramForm1", { fetchPrograms });
+	};
 
-	const handleRegisterProgramForm = async () => {
+	 async function fetchInstitution()  {
 		try {
 		  // Verificar o status da instituição antes de permitir o registro do programa
 		  const institutionStatusResponse = await getInstituitionByEmail(user.email);
-	  
+			
 		  const institutionStatus = institutionStatusResponse.data?.status;
 	  
 		  if (institutionStatus === Status.APPROVED) {
 	
 			navigation.navigate("registerProgramForm1", { fetchPrograms });
-			setShowButton(true);
+			setButtonOpacity(1);
+			setDisable(false);
 		  } else {
-			
-			setShowButton(true);
+			setDisable(true);
+			setButtonOpacity(0);
 		  }
 		} catch (error) {
 		  console.error("Erro ao verificar status da instituição:", error);
@@ -81,6 +86,9 @@ export function MyPrograms() {
 			setIsLoading(false);
 		}
 	}
+	useEffect(() => {
+		fetchInstitution();
+	}, []);
 
 	useEffect(() => {
 		fetchPrograms();
@@ -128,9 +136,14 @@ export function MyPrograms() {
 								alignItems="center"
 								mt={16}
 							>
+								{disable ? 
+								<Text fontFamily="body" fontSize="lg">
+								{t("Cadastro em avaliação")}
+								</Text>
+								:
 								<Text fontFamily="body" fontSize="lg">
 									{t("Nao ha programas disponiveis")}
-								</Text>
+								</Text>}
 							</VStack>
 						)}
 						showsVerticalScrollIndicator={false}
@@ -144,8 +157,9 @@ export function MyPrograms() {
 						shadow={2}
 						size="sm"
 						icon={<Icon color="white" as={<AntDesign name="plus" />} size="sm" />}
-						onPress={handleRegisterProgramForm}
-						isDisabled={showButton}
+						onPress={handleRegisterProgramForm }
+						isDisabled={disable}
+						opacity={buttonOpacity}
 					/>
 				</>
 			)}

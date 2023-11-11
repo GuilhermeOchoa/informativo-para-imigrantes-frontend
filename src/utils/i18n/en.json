@@ -45,6 +45,9 @@
 		"telefone": "Phone *",
 		"senha": "Password *",
 		"confirmeASenha": "Confirm Password *",
-		"finalizarCastro": "Complete Registration"
+		"finalizarCastro": "Complete Registration",
+		"Cadastro em avaliação": "Registration for evaluation"
+		
+		
 	}
 }
