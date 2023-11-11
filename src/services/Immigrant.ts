@@ -10,8 +10,6 @@ export function getImmigrant(email: string) {
 }
 
 export function updateImmigrant(email: string, user: ImmigrantRequestDTO) {
-	console.log(email)
-	console.log(user)
 	return api.patch('/immigrants/' + email, user);
 }
 

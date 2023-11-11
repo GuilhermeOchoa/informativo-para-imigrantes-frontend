@@ -31,6 +31,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     //Atualiza cabecalho de autenticacao
     async function userAndTokenUpdate(userData: UserDTO, token: string) {
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        console.log(token)
         setUser({ showOnboarding: true, language: i18n.language, isLoggedIn: true, justInformation: false, email: userData.email, type: userData.type });
     }
 

@@ -8,6 +8,6 @@ export type ImmigrantDTO = {
 export type ImmigrantRequestDTO = {
 	name: string,
 	countryOfOrigin?: string,
-	oldPassword: string,
-	newPassword: string
+	passwordOld: string,
+	passwordNew: string
 }

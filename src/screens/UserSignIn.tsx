@@ -141,9 +141,8 @@ const UserSignIn = () => {
 								type={2}
 								placeHolderParam={t("senha")}
 								errorMessage={errors.password?.message}
-								h={8}
+								mt={0}
 							/>
-
 						)}
 					/>
 
@@ -153,11 +152,10 @@ const UserSignIn = () => {
 						render={({ field: { onChange, value } }) => (
 							<PasswordInput
 								placeholder={t("confirmeASenha")}
-								secureTextEntry
 								onChangeText={onChange}
 								value={value}
 								errorMessage={errors.confirmPassword?.message}
-								h={8}
+								mt={0}
 							/>
 						)}
 					/>

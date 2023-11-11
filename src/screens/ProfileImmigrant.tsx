@@ -59,8 +59,9 @@ export function ProfileImmigrant() {
 			let updatedData = {
 				name: data.name,
 				countryOfOrigin: data.countryOfOrigin,
-				oldPassword: data.old_password,
-				newPassword: data.password
+				email: null,
+				passwordOld: data.old_password,
+				passwordNew: data.password
 			}
 
 			await updateImmigrant(user.email, updatedData);
@@ -73,7 +74,7 @@ export function ProfileImmigrant() {
 
 		} catch (error) {
 			const isAppError = error instanceof AppError;
-			const title = isAppError ? error.message : "Nao foi possivel carregar os dados do usuario."
+			const title = isAppError ? error.message : "Nao foi possivel atualizar os dados do usuario."
 
 			toast.show({
 				title,
