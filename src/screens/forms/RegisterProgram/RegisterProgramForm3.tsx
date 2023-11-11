@@ -131,15 +131,15 @@ export function RegisterProgramForm3() {
 		}
 	}
 
-	function formatarData(data?: any) {
+	function formatarData(data?: any): string | undefined {
 		if (!data) {
-			return null;
+			return undefined;
 		}
 
 		const partesDaData = data.split('/');
 
 		if (partesDaData.length !== 3) {
-			return null;
+			return undefined;
 		}
 
 		const dataFormatada = `${partesDaData[2]}-${partesDaData[1]}-${partesDaData[0]}`;
