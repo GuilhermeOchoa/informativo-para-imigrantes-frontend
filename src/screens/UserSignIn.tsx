@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { MenuSelectCountries } from '@components/MenuSelectCountries';
 import { VStack, ScrollView, useToast, HStack, Center, Text, Divider, Box, Icon } from 'native-base';
 
-import { Input } from '@components/Input';
+import { Input, PasswordInput } from '@components/Input';
 
 import * as yup from 'yup'
 import { Button } from '@components/Button';
@@ -15,7 +15,6 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AuthNavigatorRoutesProps } from '@routes/auth.routes';
 import { KeyboardAvoidingView, Platform } from 'react-native';
-import { background } from 'native-base/lib/typescript/theme/styled-system';
 
 type FormDataProps = {
 	email: string,
@@ -136,13 +135,15 @@ const UserSignIn = () => {
 						control={control}
 						name="password"
 						render={({ field: { onChange, value } }) => (
-							<Input
-								placeholder="Senha *"
-								secureTextEntry
+							<PasswordInput
 								onChangeText={onChange}
 								value={value}
+								type={2}
+								placeHolderParam={t("senha")}
 								errorMessage={errors.password?.message}
+								h={8}
 							/>
+
 						)}
 					/>
 
@@ -150,12 +151,13 @@ const UserSignIn = () => {
 						control={control}
 						name="confirmPassword"
 						render={({ field: { onChange, value } }) => (
-							<Input
-								placeholder="Confirme a Senha *"
+							<PasswordInput
+								placeholder={t("confirmeASenha")}
 								secureTextEntry
 								onChangeText={onChange}
 								value={value}
 								errorMessage={errors.confirmPassword?.message}
+								h={8}
 							/>
 						)}
 					/>

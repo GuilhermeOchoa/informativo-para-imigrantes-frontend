@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "informativo-para-imigrantes-frontend",
+    "name": "ERI",
     "slug": "informativo-para-imigrantes-frontend",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -17,7 +17,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "jsEngine": "jsc"
+      "jsEngine": "jsc",
+      "bundleIdentifier": "com.pucrsages.eri"
     },
     "android": {
       "adaptiveIcon": {
