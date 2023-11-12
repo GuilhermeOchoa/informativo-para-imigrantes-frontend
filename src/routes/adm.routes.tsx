@@ -4,6 +4,8 @@ import { PendingPrograms } from '@screens/PendingPrograms';
 import { PendingInstitutions } from '@screens/PendingInstitutions';
 import { AcceptProgram } from '@screens/AcceptProgram';
 import { DeclineScreen } from '@screens/DeclineScreen';
+import { AcceptInstitution } from '@screens/AcceptInstitution';
+import { DeclineInstitution } from '@screens/DeclineInstitution';
 
 type AdmRoutes = {
     admin: undefined
@@ -11,6 +13,8 @@ type AdmRoutes = {
     pendingInstitutions: undefined
     acceptProgram: undefined
 	declineScreen: undefined
+    acceptInstitution: undefined
+	declineInstitution: undefined
 }
 
 export type AdmNavigatorRoutesProps = NativeStackNavigationProp<AdmRoutes>;
@@ -39,6 +43,14 @@ export function AdmRoutes() {
 			<Screen
 				name='declineScreen'
 				component={DeclineScreen}
+			/>
+            <Screen
+				name='acceptInstitution'
+				component={AcceptInstitution}
+			/>
+            <Screen
+				name='declineInstitution'
+				component={DeclineInstitution}
 			/>
         </Navigator>
     )

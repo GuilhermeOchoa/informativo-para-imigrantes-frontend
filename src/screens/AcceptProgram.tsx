@@ -1,34 +1,50 @@
 import { VStack, View, Text, Image } from "native-base";
-import { StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import { StyleSheet, ScrollView, TouchableOpacity, Linking, } from "react-native";
 import { Button } from "@components/Button";
 import { useNavigation } from "@react-navigation/native";
-import { InstitutionNavigatorRoutesProps } from '@routes/institution.routes';
+import { AdmNavigatorRoutesProps } from '@routes/adm.routes';
 import { Ionicons } from '@expo/vector-icons';
 import React from "react";
 import Modal from 'react-native-modal';
+import { Loading } from '@components/Loading';
+import { useAuth } from '@hooks/useAuth';
 
 import pucrsmock from '@assets/pucrsmock.png'
 
 export function AcceptProgram() {
 
+    const { user, isLoadingUserStorageData } = useAuth();
 
-    const navigation = useNavigation<InstitutionNavigatorRoutesProps>();
-    function declinedScreen() {
-        navigation.navigate('declineScreen');
+    if (isLoadingUserStorageData) {
+      return <Loading />;
     }
 
+    const userType = user.type;
+
+    const navigation = useNavigation<AdmNavigatorRoutesProps>();
+
+    const handlePress = () => {
+        const url = 'https://www.pucrs.br';
+        Linking.openURL(url);
+    };
+
+    function declineProgram() {
+        navigation.navigate('declineScreen');
+    }
     const [isModalVisible, setIsModalVisible] = React.useState(false);
 
     const handleModal = () => {
         setIsModalVisible(!isModalVisible);
     };
 
-
+    function handleCancel() {
+        navigation.goBack();
+    }
 
     return (
-        <VStack flex={1} pb={6} mt={12} bg="#F8F8F8">
-            <TouchableOpacity>
-                <Ionicons name="chevron-back-outline" size={28} color="black" />
+        <VStack flex={1} pb={6} pt={12} bg="#F8F8F8">
+            <TouchableOpacity onPress={handleCancel}>
+                <Ionicons name="chevron-back-outline" size={28} color="#5E4C5A" style={styles.arrow} />
             </TouchableOpacity>
             <View style={styles.circle}>
                 <Image source={pucrsmock} alt="Image logo" style={styles.logo} resizeMode="contain" />
@@ -39,21 +55,24 @@ export function AcceptProgram() {
 
             <View>
                 <ScrollView nestedScrollEnabled={true} showsVerticalScrollIndicator={true} style={styles.scrollView}>
-
-                    <View pt={4}>
-                        <Text ml={8} style={styles.info}>Instituição: Pontifícia Universidade Católica do Rio Grande do Sul</Text>
-                    </View>
-
                     <View pt={2} style={styles.desc}>
+                        <View>
+                            <Text>
+                                <Text style={styles.info}>
+                                    <Text style={{ fontWeight: 'bold' }}>Instituição:</Text>
+                                </Text>
+                                <Text> Pontifícia Universidade Católica do Rio Grande do Sul</Text>
+                            </Text>
+                        </View>
                         <Text style={styles.info}>Descrição: </Text>
                         <View>
-                            <ScrollView showsVerticalScrollIndicator={true} style={styles.contentContainer}>
+                            <ScrollView nestedScrollEnabled={true} showsVerticalScrollIndicator={true} style={styles.contentContainer}>
                                 <Text pl={1}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam at enim augue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec viverra sem magna, vitae posuere quam ultrices nec. Curabitur scelerisque est eu arcu tincidunt molestie. Donec non efficitur justo, a placerat velit. Cras nibh felis, semper aliquet odio sed, tempus maximus orci. Nunc eu neque eu metus convallis fermentum. In hac habitasse platea dictumst. Donec id orci bibendum, condimentum mi sed, eleifend est. Nulla dictum blandit imperdietLorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam at enim augue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec viverra sem magna, vitae posuere quam ultrices nec. Curabitur scelerisque est eu arcu tincidunt molestie. Donec non efficitur justo, a placerat velit. Cras nibh felis, semper aliquet odio sed, tempus maximus orci. Nunc eu neque eu metus convallis fermentum. In hac habitasse platea dictumst. Donec id orci bibendum, condimentum mi sed, eleifend est. Nulla dictum blandit imperdiet.
                                 </Text>
                             </ScrollView>
                         </View>
 
-                        <View style={styles.infoContainer}>
+                        <View >
                             <View>
                                 <Text style={styles.info}>Tipo de programa:</Text>
                                 <Text>Ensino Superior</Text>
@@ -76,19 +95,14 @@ export function AcceptProgram() {
                             </View>
                             <View>
                                 <Text style={styles.info}>Mais infomacoes:</Text>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={handlePress}>
                                     <Text style={styles.link}>www.pucrs.com.br</Text>
                                 </TouchableOpacity>
                             </View>
-
-                            <Text style={styles.info}>Anexo:</Text>
-
                         </View>
-
                     </View>
-
                     <View style={styles.button}>
-
+                    {userType === 'ADMIN' && (
                         <Button
                             title={"Aprovar programa"}
                             onPress={handleModal}
@@ -97,26 +111,23 @@ export function AcceptProgram() {
                             fontSize={'lg'}
                             color={"white"}
                             marginBottom={1.5}
-                            marginTop={5}
                             alignSelf={'center'}
                             backgroundColor={'#55917F'}
-                            width={218}                       
-
+                            width={225}
                         />
-
-
+                    )}
+                    {userType === 'ADMIN' && (
                         <Button
                             title={"Recusar programa"}
-                            onPress={declinedScreen}
+                            onPress={declineProgram}
                             rounded="full"
                             variant="outline"
                             fontSize={'lg'}
                             alignSelf={'center'}
-                            width={218}
+                            width={225}
                         />
+                    )}
                     </View>
-
-
                 </ScrollView>
             </View>
 
@@ -126,14 +137,11 @@ export function AcceptProgram() {
                     <Text alignSelf={'center'} pb={3} fontSize={15}>Ao aceitar o programa,
                         ele será disponibilizado a todos usuários.
                         Deseja prosseguir?</Text>
-                    <Button title="Aprovar programa" onPress={declinedScreen} rounded="full" variant="solid" alignSelf={'center'} mb={1.5} width={240} fontSize={'lg'} />
+                    <Button title="Aprovar programa" /*onPress={}*/ rounded="full" variant="solid" alignSelf={'center'} mb={1.5} width={240} fontSize={'lg'} />
                     <Button title="Cancelar" onPress={handleModal} rounded="full" variant="outline" alignSelf={'center'} width={240} fontSize={'lg'} />
                 </View>
             </Modal>
-
-
         </VStack>
-
     )
 }
 
@@ -150,13 +158,13 @@ const styles = StyleSheet.create({
         height: 100,
         borderRadius: 50,
         alignSelf: 'center',
-        overflow: "hidden",        
+        overflow: "hidden",
         marginBottom: 20,
     },
     info: {
         fontSize: 16,
         fontWeight: 'bold',
-        paddingTop: 8,
+        paddingTop: 18,
         color: '#5E4C5A',
     },
     infoContainer: {
@@ -184,10 +192,9 @@ const styles = StyleSheet.create({
 
     },
     button: {
-        paddingTop: 50,
         width: 400,
-        height: 400,
-
+        height: 370,
+        marginTop: 190
     },
     link: {
         color: '#0891B2',
@@ -201,4 +208,8 @@ const styles = StyleSheet.create({
         width: 360,
         height: 250,
     },
+    arrow: {
+        marginLeft: 10,
+        marginTop: 10,
+    }
 })
