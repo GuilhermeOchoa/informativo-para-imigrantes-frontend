@@ -1,112 +1,124 @@
-import { VStack, View, Text, Image, Modal } from "native-base";
+import { VStack, View, Text, Image, Modal, Center } from "native-base";
 import { StyleSheet, ScrollView, TouchableOpacity } from "react-native";
-import { Button } from "@components/Button";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import { Ionicons } from '@expo/vector-icons';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getInstitutionByEmail } from "@services/Institution";
+import { processScreenData } from "@utils/dataProcessing";
 
 import pucrsmock from '@assets/pucrsmock.png'
 import { useTranslation } from "react-i18next";
-import { ProgramDTO } from "@dtos/ProgramDTO";
-import { InstitutionDTO } from "@dtos/InstitutionDTO";
+import { TextArea } from "@components/TextArea";
 
 export function DetailScreen() {
 
     const navigation = useNavigation<AppNavigatorRoutesProps>();
-    
+
     const { t, i18n } = useTranslation();
-	const route = useRoute();
-    const data = route.params as ProgramDTO | InstitutionDTO;
+    const route = useRoute();
+    const data = route.params as any;
 
-    console.log("from inside", data)
+    const [dataType, setDataType] = useState<string>("");
+    const [institutionData, setInstitutionData] = useState<any>();
 
+    useEffect(() => {
+        if ("programType" in data) {
+            setDataType("program");
+            setInstitutionData(getInstitutionByEmail(data.institutionEmail));
+            console.log(institutionData)
+        } else {
+            setDataType("institution");
+        }
 
-    function declinedScreen() {
-        navigation.navigate('declinedScreen');
+    }, [dataType])
+
+    function onPressReturn() {
+        navigation.navigate("feed");
     }
-
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const handleModal = () => {
-        setIsModalVisible(!isModalVisible);
-    };
 
     return (
         <VStack flex={1} pb={6} mt={12} bg="#F8F8F8">
             <TouchableOpacity>
-                <Ionicons name="chevron-back-outline" size={28} color="black" />
+                <Ionicons name="chevron-back-outline" size={28} color="black" onPress={onPressReturn}/>
             </TouchableOpacity>
             <View style={styles.circle}>
                 <Image source={pucrsmock} alt="Image logo" style={styles.logo} />
             </View>
             <View>
-                <Text color={"#5E4C5A"} fontSize={23} alignSelf={'center'} fontWeight={'bold'}>Pontifícia Universidade Católica do Rio Grande do Sul</Text>
+                <Text color={"#5E4C5A"} fontSize={23} alignSelf={'center'} fontWeight={'bold'}>{processScreenData("name", dataType, data)}</Text>
             </View>
 
             <View>
                 <ScrollView nestedScrollEnabled={true} showsVerticalScrollIndicator={true} style={styles.scrollView}>
                     <View pt={4}>
-                            <View>
-                                <Text ml={8} style={styles.info}>Contato:</Text>
-                                <Text ml={8}>atendimento@edu.pucrs.br</Text>
-                            </View>
+                        <View>
+                            <Text ml={8} style={styles.info}>{t("Contato")}:</Text>
+                            <Text ml={8}>{processScreenData("email", dataType, data)}</Text>
+                        </View>
+                        {
+                            dataType === "institution" &&
                             <View>
                                 <Text ml={8} style={styles.info}>CNPJ:</Text>
-                                <Text ml={8}>88.630.413/0002-81</Text>
+                                <Text ml={8}>{processScreenData("cnpj", dataType, data)}</Text>
                             </View>
-                            <View>
-                                <Text ml={8} style={styles.info}>Escopo Educacional:</Text>
-                                <Text ml={8}>Ensino superior</Text>
-                            </View>
+                        }
 
-                    </View> 
-
-                    <View pt={2} style={styles.desc}>
-                        <Text style={styles.info}>Descrição: </Text>
                         <View>
-                            <ScrollView showsVerticalScrollIndicator={true} style={styles.contentContainer}>
-                                <Text pl={1}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam at enim augue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec viverra sem magna, vitae posuere quam ultrices nec. Curabitur scelerisque est eu arcu tincidunt molestie. Donec non efficitur justo, a placerat velit. Cras nibh felis, semper aliquet odio sed, tempus maximus orci. Nunc eu neque eu metus convallis fermentum. In hac habitasse platea dictumst. Donec id orci bibendum, condimentum mi sed, eleifend est. Nulla dictum blandit imperdietLorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam at enim augue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec viverra sem magna, vitae posuere quam ultrices nec. Curabitur scelerisque est eu arcu tincidunt molestie. Donec non efficitur justo, a placerat velit. Cras nibh felis, semper aliquet odio sed, tempus maximus orci. Nunc eu neque eu metus convallis fermentum. In hac habitasse platea dictumst. Donec id orci bibendum, condimentum mi sed, eleifend est. Nulla dictum blandit imperdiet.                                
-                                </Text>
-                                
-                            </ScrollView>
-                            
+                            <Text ml={8} style={styles.info}>{t("Escopo educacional")}:</Text>
+                            <Text ml={8}>{t(processScreenData("type", dataType, data))}</Text>
                         </View>
-                        
                     </View>
-                    <View style={styles.button}>
-                        <Button
-                            title={"Aprovar Instituição"}
-                            onPress={handleModal}
-                            rounded="full"
-                            variant="solid"
-                            fontSize={'md'}
-                            color={"white"}
-                            marginBottom={0.5}
-                            alignSelf={'center'}
-                            backgroundColor={'#55917F'}
-                        />
-                        <Button
-                            title={"Recusar Instituição"}
-                            onPress={declinedScreen}
-                            rounded="full"
-                            variant="outline"
-                            fontSize={'md'}
-                            alignSelf={'center'}
-                        />
-                    </View>
+                    {
+                    dataType === "program" &&
+                        <>
+                            <View pt={2} style={styles.desc}>
+                                <Text style={styles.info}>{t("Descrição")}: </Text>
+                                <ScrollView showsVerticalScrollIndicator={true} style={styles.contentContainer}>
+
+                                    <TextArea inputTitle={""} editable={false} isReadOnly scrollEnabled={true} >
+
+                                        {processScreenData("description", dataType, data)}
+                                    </TextArea>
+                                </ScrollView>
+                            </View>
+
+                            <View style={styles.desc}>
+                                <Text style={styles.info}>{t("Local do programa")}: </Text>
+
+                                <Text>
+                                    {processScreenData("location", dataType, data)}
+                                </Text>
+                            </View>
+
+                            <View style={styles.desc}>
+                                <Text style={styles.info}>{t("Período de inscrição")}:</Text>
+
+                                <Text>
+                                    {processScreenData("dateEnrollmentStart", dataType, data)} até {processScreenData("dateEnrollmentEnd", dataType, data)}
+                                </Text>
+                            </View>
+
+                            <View style={styles.desc}>
+                                <Text style={styles.info}>{t("Período do programa")}:</Text>
+
+                                <Text>
+                                    {processScreenData("dateProgramStart", dataType, data)} até {processScreenData("dateProgramEnd", dataType, data)}
+                                </Text>
+                            </View>
+                            <View style={styles.desc}>
+                                <Text style={styles.info}>{t("Idioma")}: </Text>
+
+                                <Text>
+                                    {processScreenData("language", dataType, data)}
+                                </Text>
+                            </View>
+                        </>
+                    }
+
                 </ScrollView>
 
             </View>
-            <Modal isOpen={isModalVisible}>
-                <View style={styles.modalContent}>
-                    <Text fontWeight={'bold'} alignSelf={'center'} pb={2} color={'#5E4C5A'} fontSize={25}>Aprovar Instituição </Text>
-                    <Text alignSelf={'center'} pb={2} fontSize={15}>Ao aceitar essa instituição,
-                        ela estará permitida a solicitar cadastros de programas.
-                        Deseja prosseguir?</Text>
-                    <Button title="Aprovar Instituição" onPress={declinedScreen} rounded="full" variant="solid" alignSelf={'center'} mb={1.5} />
-                    <Button title="Cancelar" onPress={handleModal} rounded="full" variant="outline" alignSelf={'center'} />
-                </View>
-            </Modal>
         </VStack>
     )
 }
@@ -148,16 +160,12 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         backgroundColor: '#f5f5f5',
-        height: 238,
         borderRadius: 6,
-        borderWidth: 0.3,
     },
     desc: {
-        width: 321,
-        height: 571,
+        width: "84%",
         //backgroundColor: "blue",
         alignSelf: 'center',
-        marginBottom: -310,
     },
     button: {
         paddingTop: 50,

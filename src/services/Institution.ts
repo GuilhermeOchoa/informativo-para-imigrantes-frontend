@@ -13,3 +13,7 @@ export function getmmigrant() {
 export function getInstitutionsByStatus(status: String){
     return api.get(`/institutions?=${status}`);
 }
+
+export function getInstitutionByEmail(email: String){
+	return api.get(`/institutions/${email}`);
+}
