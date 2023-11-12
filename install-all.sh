@@ -38,3 +38,5 @@ npx expo install @react-native-community/datetimepicker
 npm install @react-navigation/material-top-tabs
 # Mask
 npm install react-native-mask-input
+# Modal
+npm install react-native-modal
