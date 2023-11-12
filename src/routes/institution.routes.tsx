@@ -4,16 +4,12 @@ import { ProgramDTO } from '@dtos/ProgramDTO';
 import { RegisterProgramForm1 } from '@screens/forms/RegisterProgram/RegisterProgramForm1';
 import { RegisterProgramForm2 } from '@screens/forms/RegisterProgram/RegisterProgramForm2';
 import { RegisterProgramForm3 } from '@screens/forms/RegisterProgram/RegisterProgramForm3';
-import { AcceptProgram } from '@screens/AcceptProgram';
-import { DeclineScreen } from '@screens/DeclineScreen';
 
 type InstitutionRoutes = {
 	myPrograms: undefined
 	registerProgramForm1: routesData;
 	registerProgramForm2: routesData;
 	registerProgramForm3: routesData;
-	acceptProgram: undefined
-	declineScreen: undefined
 }
 
 type routesData = {
@@ -46,14 +42,6 @@ export function InstitutionRoutes() {
 			<Screen
 				name='registerProgramForm3'
 				component={RegisterProgramForm3}
-			/>
-			<Screen
-				name='acceptProgram'
-				component={AcceptProgram}
-			/>
-			<Screen
-				name='declineScreen'
-				component={DeclineScreen}
 			/>
 		</Navigator>
 	)
