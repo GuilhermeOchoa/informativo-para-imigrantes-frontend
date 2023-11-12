@@ -43,7 +43,7 @@
 		"telefone": "Teléfono",
 		"senha": "Contraseña *",
 		"confirmeASenha": "Confirmar Contraseña *",
-		"finalizarCastro": "Finalizar Registro"
-
+		"finalizarCastro": "Finalizar Registro",
+		"Cadastro em avaliação":"Registro para evaluación"
 	}
 }

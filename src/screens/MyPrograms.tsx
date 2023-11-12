@@ -16,6 +16,7 @@ import { InstitutionNavigatorRoutesProps } from "@routes/institution.routes";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "@hooks/useAuth";
 import { ProgramDTO } from "@dtos/ProgramDTO";
+import { Status} from "@dtos/InstitutionDTO";
 import { getAllProgram } from "@services/Program";
 import { AppError } from "@utils/AppError";
 
@@ -23,23 +24,47 @@ import { Card } from "@components/Card";
 import { useState, useEffect } from "react";
 import { Loading } from '@components/Loading';
 import { TouchableOpacity } from "react-native";
+import { getInstituitionByEmail, getInstitutionsByStatus } from "@services/Institution";
 
 export function MyPrograms() {
 	const { t, i18n } = useTranslation();
 	const [isLoading, setIsLoading] = useState(true);
 	const navigation = useNavigation<InstitutionNavigatorRoutesProps>();
 	const [programs, setPrograms] = useState<ProgramDTO[]>([]);
+	const [buttonOpacity, setButtonOpacity] = useState(1);
+	const [disable, setDisable] = useState(false);
 	const { user, isLoadingUserStorageData, signOut } = useAuth();
 	const toast = useToast();
 
 	function handleGoBack() {
 		signOut();
 	}
-
-	const handleRegisterProgramForm = () => {
+const handleRegisterProgramForm = () => {
 		navigation.navigate("registerProgramForm1", { fetchPrograms });
 	};
 
+	 async function fetchInstitution()  {
+		try {
+		  // Verificar o status da instituição antes de permitir o registro do programa
+		  const institutionStatusResponse = await getInstituitionByEmail(user.email);
+			
+		  const institutionStatus = institutionStatusResponse.data?.status;
+	  
+		  if (institutionStatus === Status.APPROVED) {
+	
+			navigation.navigate("registerProgramForm1", { fetchPrograms });
+			setButtonOpacity(1);
+			setDisable(false);
+		  } else {
+			setDisable(true);
+			setButtonOpacity(0);
+		  }
+		} catch (error) {
+		  console.error("Erro ao verificar status da instituição:", error);
+		 
+		}
+	  };
+	  
 	async function fetchPrograms() {
 		try {
 			setIsLoading(true);
@@ -61,6 +86,9 @@ export function MyPrograms() {
 			setIsLoading(false);
 		}
 	}
+	useEffect(() => {
+		fetchInstitution();
+	}, []);
 
 	useEffect(() => {
 		fetchPrograms();
@@ -108,9 +136,14 @@ export function MyPrograms() {
 								alignItems="center"
 								mt={16}
 							>
+								{disable ? 
+								<Text fontFamily="body" fontSize="lg">
+								{t("Cadastro em avaliação")}
+								</Text>
+								:
 								<Text fontFamily="body" fontSize="lg">
 									{t("Nao ha programas disponiveis")}
-								</Text>
+								</Text>}
 							</VStack>
 						)}
 						showsVerticalScrollIndicator={false}
@@ -124,7 +157,9 @@ export function MyPrograms() {
 						shadow={2}
 						size="sm"
 						icon={<Icon color="white" as={<AntDesign name="plus" />} size="sm" />}
-						onPress={handleRegisterProgramForm}
+						onPress={handleRegisterProgramForm }
+						isDisabled={disable}
+						opacity={buttonOpacity}
 					/>
 				</>
 			)}
