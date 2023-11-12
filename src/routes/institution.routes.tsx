@@ -48,11 +48,11 @@ export function InstitutionRoutes() {
 				component={RegisterProgramForm3}
 			/>
 			<Screen
-				name='registerProgramForm3'
+				name='acceptProgram'
 				component={AcceptProgram}
 			/>
 			<Screen
-				name='registerProgramForm3'
+				name='declineScreen'
 				component={DeclineScreen}
 			/>
 		</Navigator>
