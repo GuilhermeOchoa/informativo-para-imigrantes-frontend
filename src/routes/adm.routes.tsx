@@ -2,6 +2,7 @@ import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-na
 import { Admin } from '@screens/Admin';
 import { PendingPrograms } from '@screens/PendingPrograms';
 import { PendingInstitutions } from '@screens/PendingInstitutions';
+import { DetailScreen } from '@screens/DetailScreen';
 import { AcceptProgram } from '@screens/AcceptProgram';
 import { DeclineScreen } from '@screens/DeclineScreen';
 import { AcceptInstitution } from '@screens/AcceptInstitution';
@@ -11,6 +12,7 @@ type AdmRoutes = {
     admin: undefined
     pendingPrograms: undefined
     pendingInstitutions: undefined
+    detailScreen: undefined
     acceptProgram: undefined
 	declineScreen: undefined
     acceptInstitution: undefined
@@ -51,6 +53,10 @@ export function AdmRoutes() {
             <Screen
 				name='declineInstitution'
 				component={DeclineInstitution}
+			/>
+			<Screen
+				name='detailScreen'
+				component={DetailScreen}
 			/>
         </Navigator>
     )

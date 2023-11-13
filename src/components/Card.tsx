@@ -10,9 +10,11 @@ import { InstitutionDTO } from "@dtos/InstitutionDTO";
 import { ActionButton } from "@components/ActionButton";
 import { TagDisplay } from "@components/TagDisplay";
 import { Button } from "./Button";
+import { useNavigation } from "@react-navigation/native";
+import { AppNavigatorRoutesProps } from "@routes/app.routes";
 
 type Props = TouchableOpacityProps & {
-    data: any,
+    data: ProgramDTO | ArticleDTO | InstitutionDTO | any,
     cardType: "program" | "article" | "institution",
     cardContext: "feed" | "articles" | "adminPrograms" | "adminInstitutions" | "myPrograms",
     status?: string,
@@ -27,6 +29,13 @@ type data = {
 
 export function Card({ data, cardType, cardContext, status, ...rest }: Props) {
     const { t, i18n } = useTranslation();
+    
+    const navigation = useNavigation<AppNavigatorRoutesProps>();
+
+    const onPressDetailsButton = () => {
+        console.log("here!")
+        navigation.navigate("detailScreen", {...data, cardType, cardContext});
+    }
 
 	return (
         <>
@@ -84,7 +93,7 @@ export function Card({ data, cardType, cardContext, status, ...rest }: Props) {
                     width={120}
                     rounded={100}
                     variant={"solid"}
-                    onPress={() => { console.log("oi") }}
+                    onPress={onPressDetailsButton}
                     endIcon={
                         <Icon
                             as={MaterialIcons}
