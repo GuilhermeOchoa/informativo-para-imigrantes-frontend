@@ -53,6 +53,7 @@ export function AuthRoutes() {
 				name='login'
 				component={Login}
 			/>
+
 		</Navigator>
 	)
 }

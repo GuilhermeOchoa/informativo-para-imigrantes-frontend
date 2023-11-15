@@ -7,7 +7,7 @@ import { MaterialIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { useAuth } from "@hooks/useAuth";
 import { MenuSelectLanguage } from "@components/MenuSelectLanguage";
 import { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, Resolver, useForm } from "react-hook-form";
 
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -170,7 +170,7 @@ export function ProfileImmigrant() {
 	}
 
 	const { control, handleSubmit, formState: { errors }, setValue } = useForm<FormDataProps>({
-		resolver: yupResolver(profileSchema)
+		resolver: yupResolver(profileSchema) as Resolver<FormDataProps>,
 	});
 
 	useEffect(() => {

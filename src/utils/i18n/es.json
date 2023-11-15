@@ -6,6 +6,10 @@
 		"Informativos": "Informaci�n",
 		"Fonte": "Fuente",
 		"Contato": "Contacto",	
+		"Local do programa": "Local del programa",
+		"Período de inscrição": "Período de inscripción",
+		"Período do programa": "Período del programa",
+		"Idioma": "Idioma",
 		"Titulo" : "T�tulo",
 		"Descricao" : "Descripci�n",
 		"Perfil": "Profil",
@@ -43,7 +47,7 @@
 		"telefone": "Teléfono",
 		"senha": "Contraseña *",
 		"confirmeASenha": "Confirmar Contraseña *",
-		"finalizarCastro": "Finalizar Registro"
-
+		"finalizarCastro": "Finalizar Registro",
+		"Cadastro em avaliação":"Registro para evaluación"
 	}
 }

@@ -30,7 +30,6 @@ export function FeedCategory() {
 	async function fetchPrograms() {
 		try {
 			setIsLoading(true);
-
 			const response = await getProgramByType(opportunity.type);
 
 			setProgram(response.data);

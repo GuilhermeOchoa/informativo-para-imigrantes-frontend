@@ -215,6 +215,14 @@ export function RegisterProgramForm2() {
 							)}
 						/>
 					</Box>
+					<Center mt={6}>
+						<Button
+							title="Proximo"
+							onPress={handleSubmit(onSubmit)}
+							variant="outline"
+							rounded="full"
+						/>
+					</Center>
 
 				</VStack>
 

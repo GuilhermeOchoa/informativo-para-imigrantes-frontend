@@ -6,6 +6,11 @@
 		"Informativos": "Informations",
 		"Fonte": "Source",
 		"Contato": "Contact",
+		"Descrição": "Description",
+		"Local do programa": "Programme local",
+		"Período de inscrição": "Période d'inscription",
+		"Período do programa": "Période du programme",
+		"Idioma": "Langue",
 		"Perfil": "Perfil",
 		"Descricao" : "Description",
 		"Titulo" : "Titre",
@@ -47,6 +52,7 @@
 		"telefone": "Téléphone",
 		"senha": "Mot de passe *",
 		"confirmeASenha": "Confirmer le Mot de passe *",
-		"finalizarCastro": "Terminer l'Inscription"
+		"finalizarCastro": "Terminer l'Inscription",
+		"Cadastro em avaliação": "Inscription à l'évaluation"
 	}
 }

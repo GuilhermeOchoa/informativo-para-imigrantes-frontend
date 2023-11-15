@@ -12,7 +12,7 @@ import {
   import "@utils/i18n/i18n";
   import { useTranslation } from "react-i18next";
   import { AntDesign } from "@expo/vector-icons";
-  import { InstitutionNavigatorRoutesProps } from "@routes/institution.routes";
+  import { AdmNavigatorRoutesProps } from "@routes/adm.routes";
   import { useNavigation } from "@react-navigation/native";
   import { useAuth } from "@hooks/useAuth";
   import { ProgramDTO } from "@dtos/ProgramDTO";
@@ -27,7 +27,7 @@ import { getInstitutionsByStatus } from "@services/Institution";
   export function PendingInstitutions() {
     const { t, i18n } = useTranslation();
     const [isLoading, setIsLoading] = useState(true);
-    const navigation = useNavigation<InstitutionNavigatorRoutesProps>();
+    const navigation = useNavigation<AdmNavigatorRoutesProps>();
     const [institutions, setInstitutions] = useState<ProgramDTO[]>([]);
     const { user, isLoadingUserStorageData } = useAuth();
     const toast = useToast();
