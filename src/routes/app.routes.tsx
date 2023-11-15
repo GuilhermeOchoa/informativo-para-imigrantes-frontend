@@ -13,12 +13,10 @@ import { ProfileImmigrant } from '@screens/ProfileImmigrant';
 import { Articles } from '@screens/Articles';
 import { ArticlesDetals } from '@screens/ArticlesDetails';
 import { DetailScreen } from '@screens/DetailScreen';
-
 import { useTranslation } from 'react-i18next';
 import { OpportunityDTO } from '@dtos/OpportunityDTO';
 import { Admin } from '@screens/Admin';
-import { AcceptPrograms } from '@screens/AcceptPrograms';
-import { DeclinedScreen } from '@screens/DeclinedScreen';
+import { DeclineScreen } from '@screens/DeclineScreen';
 import { ProgramDTO } from '@dtos/ProgramDTO';
 import { InstitutionDTO } from '@dtos/InstitutionDTO';
 
@@ -32,7 +30,7 @@ type AppRoutes = {
 	onboarding: undefined;
 	feedCategory: OpportunityDTO;
 	acceptPrograms: undefined;
-	declinedScreen: undefined;
+	declineScreen: undefined;
 	detailScreen: ProgramDTO | InstitutionDTO;
 }
 
@@ -150,18 +148,17 @@ export function AppRoutes() {
 			/>
 
 			<Screen
-				name='declinedScreen'
-				component={DeclinedScreen}
+				name='declineScreen'
+				component={DeclineScreen}
 				options={{
 					tabBarButton: () => null
 				}}
 
 			/>
 
-
 			<Screen
 				name='contact'
-				component={AcceptPrograms}
+				component={Contact}
 				options={{
 					tabBarIcon: ({ color, focused }) => (
 						<CustomTabIcon name="help-circle-outline" color={color} focused={focused} iconsSize={iconsSize} />
